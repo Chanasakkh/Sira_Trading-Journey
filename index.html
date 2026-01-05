@@ -51,7 +51,7 @@
         }
 
         .container {
-            max-width: 1600px;
+            max-width: 1800px;
             margin: 0 auto;
             padding: 40px 20px;
         }
@@ -226,38 +226,45 @@
             border-color: var(--text-secondary);
         }
 
-        /* Table */
+        /* Table - ปรับปรุงใหม่ */
         .table-container {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             overflow: hidden;
+            overflow-x: auto; /* เพิ่ม Scroll แนวนอน */
         }
 
         .table-header {
             display: grid;
-            grid-template-columns: 50px 85px 60px 75px 75px 75px 65px 85px 75px 75px 1fr 70px 80px 70px 75px;
+            /* แก้ไขความกว้าง Column */
+            /* No | SetID | Date | Plan | Type | Asset | Category | Order | Entry | TP | SL | Strategy | Result | Points | RR | Status */
+            grid-template-columns: 45px 110px 95px 55px 75px 85px 120px 65px 85px 85px 85px 1fr 65px 90px 65px 75px;
+            gap: 12px;
             background: var(--bg-tertiary);
             border-bottom: 1px solid var(--border-color);
             padding: 0 20px;
+            min-width: 1600px; /* บังคับความกว้างขั้นต่ำของตาราง */
         }
 
         .table-header-cell {
-            padding: 18px 8px;
+            padding: 16px 0;
             font-size: 0.65rem;
             font-weight: 600;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             font-family: 'Space Mono', monospace;
         }
 
         .table-body {
             max-height: 600px;
             overflow-y: auto;
+            min-width: 1600px; /* ต้องเท่ากับ header */
         }
 
         .table-body::-webkit-scrollbar {
             width: 6px;
+            height: 6px;
         }
 
         .table-body::-webkit-scrollbar-track {
@@ -270,7 +277,9 @@
 
         .table-row {
             display: grid;
-            grid-template-columns: 50px 85px 60px 75px 75px 75px 65px 85px 75px 75px 1fr 70px 80px 70px 75px;
+            /* ต้องเท่ากับ Header */
+            grid-template-columns: 45px 110px 95px 55px 75px 85px 120px 65px 85px 85px 85px 1fr 65px 90px 65px 75px;
+            gap: 12px;
             border-bottom: 1px solid var(--border-color);
             padding: 0 20px;
             transition: all 0.2s ease;
@@ -311,11 +320,13 @@
         }
 
         .table-cell {
-            padding: 16px 8px;
+            padding: 14px 0;
             font-size: 0.8rem;
             display: flex;
             align-items: center;
             color: var(--text-secondary);
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .cell-no {
@@ -335,7 +346,7 @@
 
         .cell-type {
             display: inline-flex;
-            padding: 3px 8px;
+            padding: 3px 10px;
             font-size: 0.7rem;
             font-weight: 600;
             letter-spacing: 0.5px;
@@ -353,11 +364,14 @@
         }
 
         .cell-category {
-            font-size: 0.65rem;
-            padding: 3px 6px;
+            font-size: 0.7rem;
+            padding: 3px 8px;
             border-radius: 3px;
             background: rgba(168, 85, 247, 0.15);
             color: var(--accent-purple);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .cell-price {
@@ -368,7 +382,28 @@
         .cell-strategy {
             font-size: 0.75rem;
             color: var(--text-muted);
-            line-height: 1.4;
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .cell-setid {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .cell-type-text {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .cell-rr {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
         }
 
         .cell-result {
@@ -709,10 +744,7 @@
 
         /* Responsive */
         @media (max-width: 1400px) {
-            .table-header,
-            .table-row {
-                grid-template-columns: 45px 80px 55px 70px 70px 70px 60px 80px 70px 70px 1fr 65px 75px 65px 70px;
-            }
+            /* เมื่อหน้าจอเล็กลง ตารางจะ Scroll เอา ไม่บีบ Column */
         }
 
         @media (max-width: 768px) {
@@ -727,15 +759,6 @@
 
             .upload-section {
                 align-items: flex-start;
-            }
-
-            .table-container {
-                overflow-x: auto;
-            }
-
-            .table-header,
-            .table-row {
-                min-width: 1300px;
             }
 
             .performance-section {
@@ -788,7 +811,6 @@
             </div>
         </div>
 
-        <!-- Performance Section -->
         <div class="performance-section" id="performanceSection">
             <div class="chart-container">
                 <div class="section-title">Daily Points</div>
@@ -849,6 +871,7 @@
         <div class="table-container">
             <div class="table-header">
                 <div class="table-header-cell">No.</div>
+                <div class="table-header-cell">SetID</div>
                 <div class="table-header-cell">Date</div>
                 <div class="table-header-cell">Plan</div>
                 <div class="table-header-cell">Type</div>
@@ -858,7 +881,7 @@
                 <div class="table-header-cell">Entry</div>
                 <div class="table-header-cell">TP</div>
                 <div class="table-header-cell">SL</div>
-                <div class="table-header-cell">Strategy / Setup</div>
+                <div class="table-header-cell">Strategy</div>
                 <div class="table-header-cell">Result</div>
                 <div class="table-header-cell">Points</div>
                 <div class="table-header-cell">RR</div>
@@ -878,7 +901,6 @@
         </div>
     </div>
 
-    <!-- Modal -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <div class="modal-header">
@@ -1410,23 +1432,23 @@
                 const pointsDisplay = (displayPoints >= 0 ? '+' : '') + displayPoints.toLocaleString();
 
                 const groupBadge = trade.isGrouped ? `<span class="group-badge">${trade.groupSize}</span>` : '';
-                const strategySetup = [trade.strategy, trade.setup].filter(s => s && s !== '-').join(' / ');
 
                 row.innerHTML = `
                     <div class="table-cell cell-no">${trade.no}${groupBadge}</div>
+                    <div class="table-cell cell-setid">${trade.setId || '-'}</div>
                     <div class="table-cell cell-date">${trade.date || ''}</div>
                     <div class="table-cell">${trade.plan || ''}</div>
-                    <div class="table-cell" style="font-size: 0.7rem;">${trade.type || ''}</div>
+                    <div class="table-cell cell-type-text">${trade.type || ''}</div>
                     <div class="table-cell cell-asset">${trade.asset || ''}</div>
                     <div class="table-cell"><span class="cell-category">${trade.category || ''}</span></div>
                     <div class="table-cell"><span class="cell-type ${orderClass}">${trade.order || ''}</span></div>
                     <div class="table-cell cell-price">${trade.entryOrder || '-'}</div>
                     <div class="table-cell cell-price">${trade.tpOrder || '-'}</div>
                     <div class="table-cell cell-price">${trade.slOrder || '-'}</div>
-                    <div class="table-cell cell-strategy">${truncate(strategySetup, 30)}</div>
+                    <div class="table-cell cell-strategy">${truncate(trade.strategy, 25) || '-'}</div>
                     <div class="table-cell"><span class="cell-result ${resultClass}">${trade.result || ''}</span></div>
                     <div class="table-cell cell-points ${pointsClass}">${pointsDisplay}</div>
-                    <div class="table-cell" style="font-size: 0.75rem;">${trade.rr || '-'}</div>
+                    <div class="table-cell cell-rr">${trade.rr || '-'}</div>
                     <div class="table-cell cell-status ${statusClass}">${trade.status || ''}</div>
                 `;
 
