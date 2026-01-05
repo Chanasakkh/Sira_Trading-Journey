@@ -226,7 +226,7 @@
             border-color: var(--text-secondary);
         }
 
-        /* Table - ปรับ Grid Columns ตรงนี้ */
+        /* Table */
         .table-container {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
@@ -236,12 +236,6 @@
 
         .table-header {
             display: grid;
-            /* แก้ Column Width:
-               - Date: 95px -> 115px (ขยาย)
-               - RR: 65px -> 55px (ลด)
-               - SetID: 110px -> 80px (ลด เพราะมักเป็นตัวเลขสั้นๆ)
-               - Strategy: 1fr (จะหดลงเองตามพื้นที่ที่เหลือ)
-            */
             grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 55px 75px;
             gap: 12px;
             background: var(--bg-tertiary);
@@ -281,7 +275,6 @@
 
         .table-row {
             display: grid;
-            /* ต้องตรงกับ Header */
             grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 55px 75px;
             gap: 12px;
             border-bottom: 1px solid var(--border-color);
@@ -403,11 +396,14 @@
             color: var(--text-secondary);
         }
 
+        /* แก้ไขส่วน RR: เปลี่ยนฟอนต์เป็นแบบปกติ เพื่อให้ตัวเลขชิดกัน */
         .cell-rr {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
+            font-family: 'Instrument Sans', sans-serif; /* เปลี่ยนจาก Space Mono */
+            font-weight: 600; /* เพิ่มความหนาให้อ่านง่ายขึ้น */
+            font-size: 0.75rem;
             color: var(--text-secondary);
             white-space: nowrap;
+            letter-spacing: 0; /* มั่นใจว่าไม่มีระยะห่างแปลกๆ */
         }
 
         .cell-result {
