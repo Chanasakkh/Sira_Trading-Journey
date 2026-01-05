@@ -226,7 +226,7 @@
             border-color: var(--text-secondary);
         }
 
-        /* Table - ปรับ Font และ Width */
+        /* Table - ปรับ Grid Columns ตรงนี้ */
         .table-container {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
@@ -236,19 +236,23 @@
 
         .table-header {
             display: grid;
-            /* ปรับ width ให้พอดีขึ้น (เพิ่ม Category เป็น 130px) */
-            /* No | SetID | Date | Plan | Type | Asset | Category | Order | Entry | TP | SL | Strategy | Result | Points | RR | Status */
-            grid-template-columns: 45px 110px 95px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 65px 75px;
+            /* แก้ Column Width:
+               - Date: 95px -> 115px (ขยาย)
+               - RR: 65px -> 55px (ลด)
+               - SetID: 110px -> 80px (ลด เพราะมักเป็นตัวเลขสั้นๆ)
+               - Strategy: 1fr (จะหดลงเองตามพื้นที่ที่เหลือ)
+            */
+            grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 55px 75px;
             gap: 12px;
             background: var(--bg-tertiary);
             border-bottom: 1px solid var(--border-color);
             padding: 0 20px;
-            min-width: 1650px; /* เพิ่ม min-width นิดหน่อยเพื่อรองรับการขยาย column */
+            min-width: 1650px;
         }
 
         .table-header-cell {
             padding: 16px 0;
-            font-size: 0.6rem; /* ลด Font Header ลงนิดนึง */
+            font-size: 0.6rem;
             font-weight: 600;
             color: var(--text-muted);
             text-transform: uppercase;
@@ -259,7 +263,7 @@
         .table-body {
             max-height: 600px;
             overflow-y: auto;
-            min-width: 1650px; /* ต้องเท่ากับ header */
+            min-width: 1650px;
         }
 
         .table-body::-webkit-scrollbar {
@@ -277,8 +281,8 @@
 
         .table-row {
             display: grid;
-            /* ต้องเท่ากับ Header */
-            grid-template-columns: 45px 110px 95px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 65px 75px;
+            /* ต้องตรงกับ Header */
+            grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 55px 75px;
             gap: 12px;
             border-bottom: 1px solid var(--border-color);
             padding: 0 20px;
@@ -320,8 +324,8 @@
         }
 
         .table-cell {
-            padding: 12px 0; /* ลด padding บนล่างเล็กน้อย */
-            font-size: 0.75rem; /* ลด Font Size ของทั้งตารางลงจาก 0.8rem */
+            padding: 12px 0;
+            font-size: 0.75rem;
             display: flex;
             align-items: center;
             color: var(--text-secondary);
@@ -336,7 +340,7 @@
 
         .cell-date {
             font-family: 'Space Mono', monospace;
-            font-size: 0.7rem; /* ลด Font วันที่ */
+            font-size: 0.7rem;
         }
 
         .cell-asset {
@@ -347,7 +351,7 @@
         .cell-type {
             display: inline-flex;
             padding: 3px 8px;
-            font-size: 0.65rem; /* ลด Font ใน Badge */
+            font-size: 0.65rem;
             font-weight: 600;
             letter-spacing: 0.5px;
             border-radius: 3px;
@@ -364,7 +368,7 @@
         }
 
         .cell-category {
-            font-size: 0.65rem; /* ลด Font Category เพื่อให้ข้อความยาวๆ ไม่ล้น */
+            font-size: 0.65rem;
             padding: 3px 8px;
             border-radius: 3px;
             background: rgba(168, 85, 247, 0.15);
@@ -376,7 +380,7 @@
 
         .cell-price {
             font-family: 'Space Mono', monospace;
-            font-size: 0.75rem; /* ปรับ Font ราคาให้พอดี */
+            font-size: 0.75rem;
         }
 
         .cell-strategy {
@@ -408,7 +412,7 @@
 
         .cell-result {
             font-weight: 600;
-            font-size: 0.65rem; /* ลด Font Result */
+            font-size: 0.65rem;
             padding: 3px 8px;
             border-radius: 3px;
         }
@@ -1029,6 +1033,12 @@
                 const row = data[i];
                 if (!row || !row[0]) continue;
 
+                // RR Handling: Remove spaces (e.g., "1 : 2" -> "1:2")
+                let rrValue = row[15] || '';
+                if (rrValue) {
+                    rrValue = rrValue.toString().replace(/\s/g, '');
+                }
+
                 const trade = {
                     no: row[0] || '',
                     setId: row[1] || '',
@@ -1045,7 +1055,7 @@
                     setup: row[12] || '',
                     result: row[13] || '',
                     points: parseFloat(row[14]) || 0,
-                    rr: row[15] || '',
+                    rr: rrValue,
                     notePlan: row[16] || '',
                     status: row[17] || ''
                 };
