@@ -19,6 +19,8 @@
             --accent-green: #22c55e;
             --accent-red: #ef4444;
             --accent-gold: #fbbf24;
+            --accent-blue: #3b82f6;
+            --accent-purple: #a855f7;
         }
 
         * {
@@ -50,7 +52,7 @@
         }
 
         .container {
-            max-width: 1600px;
+            max-width: 1800px;
             margin: 0 auto;
             padding: 40px 20px;
         }
@@ -119,51 +121,10 @@
             font-family: 'Space Mono', monospace;
         }
 
-        .excel-url-input {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 14px 20px;
-            font-size: 0.875rem;
-            width: 350px;
-            font-family: 'Instrument Sans', sans-serif;
-            transition: border-color 0.2s;
-        }
-
-        .excel-url-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .excel-url-input:focus {
-            outline: none;
-            border-color: var(--text-secondary);
-        }
-
-        .divider-text {
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            font-family: 'Space Mono', monospace;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-        }
-
-        .btn-secondary:hover {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-        }
-
-        .file-input {
-            display: none;
-        }
-
         /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 1px;
             background: var(--border-color);
             margin-bottom: 60px;
@@ -275,15 +236,15 @@
 
         .table-header {
             display: grid;
-            grid-template-columns: 60px 100px 80px 80px 80px 100px 100px 80px 80px 80px 1fr 80px 100px;
+            grid-template-columns: 50px 80px 70px 80px 70px 80px 70px 90px 70px 70px 1fr 70px 70px 60px 80px;
             background: var(--bg-tertiary);
             border-bottom: 1px solid var(--border-color);
             padding: 0 20px;
         }
 
         .table-header-cell {
-            padding: 18px 12px;
-            font-size: 0.7rem;
+            padding: 18px 8px;
+            font-size: 0.65rem;
             font-weight: 600;
             color: var(--text-muted);
             text-transform: uppercase;
@@ -310,12 +271,13 @@
 
         .table-row {
             display: grid;
-            grid-template-columns: 60px 100px 80px 80px 80px 100px 100px 80px 80px 80px 1fr 80px 100px;
+            grid-template-columns: 50px 80px 70px 80px 70px 80px 70px 90px 70px 70px 1fr 70px 70px 60px 80px;
             border-bottom: 1px solid var(--border-color);
             padding: 0 20px;
             transition: all 0.2s ease;
             opacity: 0;
             transform: translateX(-20px);
+            cursor: pointer;
         }
 
         .table-row.loaded {
@@ -327,9 +289,32 @@
             background: var(--bg-tertiary);
         }
 
+        /* Grouped rows styling */
+        .table-row.grouped {
+            background: rgba(59, 130, 246, 0.05);
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        .table-row.grouped:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .group-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--accent-blue);
+            color: white;
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
         .table-cell {
-            padding: 20px 12px;
-            font-size: 0.875rem;
+            padding: 16px 8px;
+            font-size: 0.8rem;
             display: flex;
             align-items: center;
             color: var(--text-secondary);
@@ -342,7 +327,7 @@
 
         .cell-date {
             font-family: 'Space Mono', monospace;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
 
         .cell-asset {
@@ -352,10 +337,11 @@
 
         .cell-type {
             display: inline-flex;
-            padding: 4px 12px;
-            font-size: 0.75rem;
+            padding: 3px 8px;
+            font-size: 0.7rem;
             font-weight: 600;
             letter-spacing: 0.5px;
+            border-radius: 3px;
         }
 
         .cell-type.buy {
@@ -368,26 +354,35 @@
             color: var(--accent-red);
         }
 
+        .cell-category {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 3px;
+            background: rgba(168, 85, 247, 0.15);
+            color: var(--accent-purple);
+        }
+
         .cell-price {
             font-family: 'Space Mono', monospace;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
         .cell-strategy {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
             line-height: 1.4;
         }
 
         .cell-result {
             font-weight: 600;
-            font-size: 0.75rem;
-            padding: 4px 10px;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 3px;
         }
 
+        .cell-result.tp,
         .cell-result.tp1,
-        .cell-result.tp2,
-        .cell-result.tp {
+        .cell-result.tp2 {
             background: rgba(34, 197, 94, 0.15);
             color: var(--accent-green);
         }
@@ -397,7 +392,8 @@
             color: var(--accent-red);
         }
 
-        .cell-result.none {
+        .cell-result.none,
+        .cell-result.bit {
             background: rgba(251, 191, 36, 0.15);
             color: var(--accent-gold);
         }
@@ -417,7 +413,7 @@
 
         .cell-status {
             font-weight: 700;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             letter-spacing: 0.5px;
         }
 
@@ -427,6 +423,16 @@
 
         .cell-status.lose {
             color: var(--accent-red);
+        }
+
+        .cell-status.draw {
+            color: var(--accent-gold);
+        }
+
+        .cell-status.none,
+        .cell-status.cancel,
+        .cell-status.hold {
+            color: var(--text-muted);
         }
 
         /* Empty State */
@@ -493,7 +499,7 @@
         .modal {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
-            max-width: 700px;
+            max-width: 900px;
             width: 90%;
             max-height: 85vh;
             overflow-y: auto;
@@ -538,7 +544,7 @@
 
         .detail-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
 
@@ -574,51 +580,65 @@
             margin-top: 8px;
         }
 
-        /* Responsive */
-        @media (max-width: 1200px) {
-            .table-header,
-            .table-row {
-                grid-template-columns: 50px 90px 70px 70px 70px 90px 90px 70px 70px 70px 1fr 70px 80px;
-            }
+        /* Group entries in modal */
+        .group-entries {
+            margin-top: 24px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 24px;
         }
 
-        @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        .group-entries-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-            .header {
-                flex-direction: column;
-                gap: 30px;
-            }
+        .group-entry-item {
+            background: var(--bg-tertiary);
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--accent-blue);
+        }
 
-            .upload-section {
-                align-items: flex-start;
-            }
+        .group-entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
 
-            .table-container {
-                overflow-x: auto;
-            }
+        .group-entry-round {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+        }
 
-            .table-header,
-            .table-row {
-                min-width: 1200px;
-            }
+        .group-entry-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
 
-            .performance-section {
-                grid-template-columns: 1fr;
-            }
+        .group-entry-grid .detail-item {
+            gap: 4px;
+        }
 
-            .chart-container,
-            .extended-stats {
-                min-width: 100%;
-            }
+        .group-entry-grid .detail-label {
+            font-size: 0.65rem;
+        }
+
+        .group-entry-grid .detail-value {
+            font-size: 0.9rem;
         }
 
         /* Performance Section */
         .performance-section {
             display: grid;
-            grid-template-columns: 1fr 1fr 280px;
+            grid-template-columns: 1fr 1fr 300px;
             gap: 1px;
             background: var(--border-color);
             margin-bottom: 40px;
@@ -659,7 +679,7 @@
         .stats-list {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 14px;
         }
 
         .stats-row {
@@ -669,13 +689,13 @@
         }
 
         .stats-label {
-            font-size: 0.875rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
         }
 
         .stats-value {
             font-family: 'Space Mono', monospace;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: var(--text-primary);
         }
@@ -687,6 +707,46 @@
         .stats-value.negative {
             color: var(--accent-red);
         }
+
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .table-header,
+            .table-row {
+                grid-template-columns: 45px 75px 65px 75px 65px 75px 65px 85px 65px 65px 1fr 65px 65px 55px 75px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .upload-section {
+                align-items: flex-start;
+            }
+
+            .table-container {
+                overflow-x: auto;
+            }
+
+            .table-header,
+            .table-row {
+                min-width: 1400px;
+            }
+
+            .performance-section {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
     </style>
 </head>
 <body>
@@ -694,7 +754,7 @@
         <header class="header">
             <div class="logo-section">
                 <h1>TRADE<span>JOURNEY</span></h1>
-                <p>Trading Performance Tracker</p>
+                <p>Trading Performance Tracker v2.0</p>
             </div>
             <div class="upload-section">
                 <input type="file" id="fileInput" class="file-input" accept=".xlsx,.xls,.csv">
@@ -713,6 +773,7 @@
             <div class="stat-card">
                 <span class="stat-label">Win Rate</span>
                 <span class="stat-value positive" id="winRate">0%</span>
+                <span class="stat-sub" id="winRateSub">0W / 0L / 0D</span>
             </div>
             <div class="stat-card">
                 <span class="stat-label">Total Points</span>
@@ -721,6 +782,11 @@
             <div class="stat-card">
                 <span class="stat-label">Best Trade</span>
                 <span class="stat-value positive" id="bestTrade">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-label">Grouped Sets</span>
+                <span class="stat-value" id="groupedSets">0</span>
+                <span class="stat-sub" id="groupedSetsSub">Multi-entry trades</span>
             </div>
         </div>
 
@@ -742,11 +808,11 @@
                 <div class="section-title">Statistics</div>
                 <div class="stats-list">
                     <div class="stats-row">
-                        <span class="stats-label">Max Won In A Row:</span>
+                        <span class="stats-label">Max Win Streak:</span>
                         <span class="stats-value" id="maxWinStreak">0</span>
                     </div>
                     <div class="stats-row">
-                        <span class="stats-label">Max Lost In A Row:</span>
+                        <span class="stats-label">Max Lose Streak:</span>
                         <span class="stats-value" id="maxLoseStreak">0</span>
                     </div>
                     <div class="stats-row">
@@ -782,8 +848,9 @@
                 <button class="filter-btn" data-filter="none" onclick="filterTrades('none', this)">None</button>
                 <button class="filter-btn" data-filter="buy" onclick="filterTrades('buy', this)">Buy</button>
                 <button class="filter-btn" data-filter="sell" onclick="filterTrades('sell', this)">Sell</button>
+                <button class="filter-btn" data-filter="grouped" onclick="filterTrades('grouped', this)">Grouped</button>
             </div>
-            <input type="text" class="search-box" placeholder="Search by asset or strategy..." id="searchBox" oninput="searchTrades(this.value)">
+            <input type="text" class="search-box" placeholder="Search asset, strategy, setup..." id="searchBox" oninput="searchTrades(this.value)">
         </div>
 
         <div class="table-container">
@@ -791,16 +858,18 @@
                 <div class="table-header-cell">No.</div>
                 <div class="table-header-cell">Date</div>
                 <div class="table-header-cell">Plan</div>
-                <div class="table-header-cell">Asset</div>
                 <div class="table-header-cell">Type</div>
-                <div class="table-header-cell">Entry Start</div>
-                <div class="table-header-cell">Entry End</div>
-                <div class="table-header-cell">TP1</div>
-                <div class="table-header-cell">TP2</div>
+                <div class="table-header-cell">Asset</div>
+                <div class="table-header-cell">Category</div>
+                <div class="table-header-cell">Order</div>
+                <div class="table-header-cell">Entry</div>
+                <div class="table-header-cell">TP</div>
                 <div class="table-header-cell">SL</div>
-                <div class="table-header-cell">Strategy</div>
+                <div class="table-header-cell">Strategy / Setup</div>
                 <div class="table-header-cell">Result</div>
                 <div class="table-header-cell">Points</div>
+                <div class="table-header-cell">RR</div>
+                <div class="table-header-cell">Status</div>
             </div>
             <div class="table-body" id="tableBody">
                 <div class="empty-state" id="emptyState">
@@ -830,10 +899,10 @@
     <script>
         let tradesData = [];
         let filteredData = [];
+        let groupedTrades = {}; // Store grouped trades by SetID base
 
         // Wait for DOM to be ready
         document.addEventListener('DOMContentLoaded', function() {
-            // File upload handler
             document.getElementById('fileInput').addEventListener('change', function(e) {
                 const file = e.target.files[0];
                 if (!file) return;
@@ -863,49 +932,63 @@
                 reader.readAsArrayBuffer(file);
             });
 
-            // Close modal on overlay click
             document.getElementById('modalOverlay').addEventListener('click', function(e) {
                 if (e.target === this) closeModal();
             });
 
-            // Keyboard shortcut
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') closeModal();
             });
         });
 
-        // Current filter state
         let currentFilter = 'all';
 
-        // Filter function - called by onclick
         function filterTrades(filter, btn) {
             currentFilter = filter;
-            
-            // Update active button
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
-            // Apply filter
             applyFilters(filter, document.getElementById('searchBox').value);
         }
 
-        // Search function - called by oninput
         function searchTrades(searchValue) {
             applyFilters(currentFilter, searchValue);
+        }
+
+        // Extract SetID base (remove last -XX part)
+        function getSetIdBase(setId) {
+            if (!setId) return null;
+            const str = setId.toString();
+            // Pattern: DDMMYYYY-PP-RR -> DDMMYYYY-PP
+            const lastDash = str.lastIndexOf('-');
+            if (lastDash > 0) {
+                return str.substring(0, lastDash);
+            }
+            return str;
+        }
+
+        // Get round number from SetID
+        function getRoundFromSetId(setId) {
+            if (!setId) return 1;
+            const str = setId.toString();
+            const lastDash = str.lastIndexOf('-');
+            if (lastDash > 0 && lastDash < str.length - 1) {
+                return parseInt(str.substring(lastDash + 1)) || 1;
+            }
+            return 1;
         }
 
         function processData(data) {
             // Find header row
             let headerIndex = 0;
             for (let i = 0; i < data.length; i++) {
-                if (data[i] && data[i].includes('No.')) {
+                if (data[i] && (data[i].includes('No.') || data[i].includes('SetID'))) {
                     headerIndex = i;
                     break;
                 }
             }
 
-            const headers = data[headerIndex];
             tradesData = [];
+            groupedTrades = {};
 
             for (let i = headerIndex + 1; i < data.length; i++) {
                 const row = data[i];
@@ -913,25 +996,47 @@
 
                 const trade = {
                     no: row[0] || '',
-                    date: formatDate(row[1]),
-                    plan: row[2] || '',
-                    asset: row[3] || '',
-                    type: row[4] || '',
-                    entryStart: row[5] || '',
-                    entryEnd: row[6] || '',
-                    tp1: row[7] || '',
-                    tp2: row[8] || '',
-                    sl: row[9] || '',
-                    strategy: row[10] || '',
-                    result: row[11] || '',
-                    points: row[12] || 0,
-                    setupImage: row[13] || '',
-                    notePlan: row[14] || '',
-                    status: row[15] || ''
+                    setId: row[1] || '',
+                    date: formatDate(row[2]),
+                    plan: row[3] || '',
+                    type: row[4] || '',           // Normal, Adding Position, Scalping, Radar
+                    asset: row[5] || '',
+                    category: row[6] || '',       // Commodities, Forex, Crypto
+                    order: row[7] || '',          // BUY, SELL
+                    entryOrder: row[8] || '',
+                    tpOrder: row[9] || '',
+                    slOrder: row[10] || '',
+                    strategy: row[11] || '',
+                    setup: row[12] || '',
+                    result: row[13] || '',        // TP, SL, NONE, BIT, TP1, TP2
+                    points: row[14] || 0,
+                    rr: row[15] || '',
+                    notePlan: row[16] || '',
+                    status: row[17] || ''         // WIN, LOSE, DRAW, NONE, CANCEL, HOLD
                 };
 
+                // Get SetID base for grouping
+                const setIdBase = getSetIdBase(trade.setId);
+                trade.setIdBase = setIdBase;
+                trade.round = getRoundFromSetId(trade.setId);
+
                 tradesData.push(trade);
+
+                // Build grouped trades map
+                if (setIdBase) {
+                    if (!groupedTrades[setIdBase]) {
+                        groupedTrades[setIdBase] = [];
+                    }
+                    groupedTrades[setIdBase].push(trade);
+                }
             }
+
+            // Mark trades that are part of a group (more than 1 entry)
+            tradesData.forEach(trade => {
+                const group = groupedTrades[trade.setIdBase];
+                trade.isGrouped = group && group.length > 1;
+                trade.groupSize = group ? group.length : 1;
+            });
 
             filteredData = [...tradesData];
             updateStats();
@@ -946,7 +1051,6 @@
             if (!excelDate) return '';
             if (typeof excelDate === 'string') return excelDate;
             
-            // Excel date serial number conversion
             const date = new Date((excelDate - 25569) * 86400 * 1000);
             return date.toLocaleDateString('en-GB', { 
                 day: '2-digit', 
@@ -957,27 +1061,43 @@
 
         function updateStats() {
             const total = tradesData.length;
-            const wins = tradesData.filter(t => t.status && t.status.toString().toUpperCase() === 'WIN').length;
-            const winRate = total > 0 ? ((wins / total) * 100).toFixed(1) : 0;
+            
+            // Win Rate: WIN / (WIN + LOSE + DRAW)
+            const validStatuses = ['WIN', 'LOSE', 'DRAW'];
+            const validTrades = tradesData.filter(t => {
+                const status = (t.status || '').toString().toUpperCase();
+                return validStatuses.includes(status);
+            });
+            
+            const wins = tradesData.filter(t => (t.status || '').toString().toUpperCase() === 'WIN').length;
+            const loses = tradesData.filter(t => (t.status || '').toString().toUpperCase() === 'LOSE').length;
+            const draws = tradesData.filter(t => (t.status || '').toString().toUpperCase() === 'DRAW').length;
+            
+            const winRate = validTrades.length > 0 ? ((wins / validTrades.length) * 100).toFixed(1) : 0;
+            
             const totalPoints = tradesData.reduce((sum, t) => sum + (parseFloat(t.points) || 0), 0);
             const points = tradesData.map(t => parseFloat(t.points) || 0);
             const bestTrade = points.length > 0 ? Math.max(...points) : 0;
 
+            // Count grouped sets (SetID bases with more than 1 entry)
+            const groupedSetCount = Object.values(groupedTrades).filter(g => g.length > 1).length;
+
             document.getElementById('totalTrades').textContent = total;
             document.getElementById('winRate').textContent = winRate + '%';
+            document.getElementById('winRateSub').textContent = `${wins}W / ${loses}L / ${draws}D`;
             
             const totalPointsEl = document.getElementById('totalPoints');
             totalPointsEl.textContent = totalPoints >= 0 ? '+' + totalPoints.toFixed(0) : totalPoints.toFixed(0);
             totalPointsEl.className = 'stat-value ' + (totalPoints >= 0 ? 'positive' : 'negative');
 
             document.getElementById('bestTrade').textContent = '+' + bestTrade.toFixed(0);
+            document.getElementById('groupedSets').textContent = groupedSetCount;
         }
 
         function updateExtendedStats() {
             const points = tradesData.map(t => parseFloat(t.points) || 0);
             const statuses = tradesData.map(t => (t.status || '').toString().toUpperCase());
             
-            // Calculate streaks
             let maxWinStreak = 0, maxLoseStreak = 0;
             let currentWinStreak = 0, currentLoseStreak = 0;
             
@@ -996,7 +1116,6 @@
                 }
             });
 
-            // Calculate profit/loss stats
             const profits = points.filter(p => p > 0);
             const losses = points.filter(p => p < 0);
             
@@ -1009,7 +1128,6 @@
             const totalLoss = Math.abs(losses.reduce((a, b) => a + b, 0));
             const profitFactor = totalLoss > 0 ? (totalProfit / totalLoss).toFixed(2) : totalProfit > 0 ? '∞' : '0';
 
-            // Update DOM
             document.getElementById('maxWinStreak').textContent = maxWinStreak;
             document.getElementById('maxLoseStreak').textContent = maxLoseStreak;
             document.getElementById('biggestProfit').textContent = '+' + biggestProfit.toFixed(0);
@@ -1023,7 +1141,6 @@
         let equityChart = null;
 
         function renderCharts() {
-            // Group points by date
             const dailyPoints = {};
             tradesData.forEach(trade => {
                 const date = trade.date || 'Unknown';
@@ -1035,7 +1152,6 @@
                 dailyPoints[date] += points;
             });
 
-            // Convert to sorted array
             const dates = Object.keys(dailyPoints).sort((a, b) => {
                 const parseDate = (d) => {
                     const parts = d.split('/');
@@ -1059,10 +1175,7 @@
                 cumulativeData.push(cumulative);
             });
 
-            // Render Daily Chart
             renderDailyChart(labels, dailyData);
-            
-            // Render Equity Chart
             renderEquityChart(labels, cumulativeData);
         }
 
@@ -1074,7 +1187,6 @@
                 dailyChart.destroy();
             }
 
-            // Create colors based on positive/negative
             const barColors = data.map(val => val >= 0 ? 'rgba(34, 197, 94, 0.8)' : 'rgba(239, 68, 68, 0.8)');
 
             dailyChart = new Chart(ctx, {
@@ -1096,18 +1208,12 @@
                         mode: 'index'
                     },
                     plugins: {
-                        legend: {
-                            display: false
-                        },
+                        legend: { display: false },
                         tooltip: {
                             backgroundColor: 'rgba(26, 26, 26, 0.95)',
                             titleColor: '#a0a0a0',
                             bodyColor: '#ffffff',
-                            bodyFont: {
-                                family: 'Space Mono',
-                                size: 14,
-                                weight: 'bold'
-                            },
+                            bodyFont: { family: 'Space Mono', size: 14, weight: 'bold' },
                             padding: 12,
                             displayColors: false,
                             callbacks: {
@@ -1121,37 +1227,13 @@
                     scales: {
                         x: {
                             display: true,
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.05)',
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#666666',
-                                font: {
-                                    family: 'Space Mono',
-                                    size: 10
-                                },
-                                maxRotation: 45,
-                                minRotation: 45,
-                                maxTicksLimit: 10
-                            }
+                            grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
+                            ticks: { color: '#666666', font: { family: 'Space Mono', size: 10 }, maxRotation: 45, minRotation: 45, maxTicksLimit: 10 }
                         },
                         y: {
                             display: true,
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.05)',
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#666666',
-                                font: {
-                                    family: 'Space Mono',
-                                    size: 10
-                                },
-                                callback: function(value) {
-                                    return (value >= 0 ? '+' : '') + value;
-                                }
-                            }
+                            grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
+                            ticks: { color: '#666666', font: { family: 'Space Mono', size: 10 }, callback: function(value) { return (value >= 0 ? '+' : '') + value; } }
                         }
                     }
                 }
@@ -1166,7 +1248,6 @@
                 equityChart.destroy();
             }
 
-            // Add starting point
             const equityLabels = ['Start', ...labels];
             const equityData = [0, ...data];
 
@@ -1189,32 +1270,20 @@
                         pointRadius: 3,
                         pointBackgroundColor: '#22c55e',
                         pointBorderColor: '#22c55e',
-                        pointHoverRadius: 6,
-                        pointHoverBackgroundColor: '#22c55e',
-                        pointHoverBorderColor: '#fff',
-                        pointHoverBorderWidth: 2
+                        pointHoverRadius: 6
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    interaction: {
-                        intersect: false,
-                        mode: 'index'
-                    },
+                    interaction: { intersect: false, mode: 'index' },
                     plugins: {
-                        legend: {
-                            display: false
-                        },
+                        legend: { display: false },
                         tooltip: {
                             backgroundColor: 'rgba(26, 26, 26, 0.95)',
                             titleColor: '#a0a0a0',
                             bodyColor: '#ffffff',
-                            bodyFont: {
-                                family: 'Space Mono',
-                                size: 14,
-                                weight: 'bold'
-                            },
+                            bodyFont: { family: 'Space Mono', size: 14, weight: 'bold' },
                             padding: 12,
                             displayColors: false,
                             callbacks: {
@@ -1228,44 +1297,19 @@
                     scales: {
                         x: {
                             display: true,
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.05)',
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#666666',
-                                font: {
-                                    family: 'Space Mono',
-                                    size: 10
-                                },
-                                maxRotation: 45,
-                                minRotation: 45,
-                                maxTicksLimit: 10
-                            }
+                            grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
+                            ticks: { color: '#666666', font: { family: 'Space Mono', size: 10 }, maxRotation: 45, minRotation: 45, maxTicksLimit: 10 }
                         },
                         y: {
                             display: true,
-                            grid: {
-                                color: 'rgba(255, 255, 255, 0.05)',
-                                drawBorder: false
-                            },
-                            ticks: {
-                                color: '#666666',
-                                font: {
-                                    family: 'Space Mono',
-                                    size: 10
-                                },
-                                callback: function(value) {
-                                    return (value >= 0 ? '+' : '') + value;
-                                }
-                            }
+                            grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
+                            ticks: { color: '#666666', font: { family: 'Space Mono', size: 10 }, callback: function(value) { return (value >= 0 ? '+' : '') + value; } }
                         }
                     }
                 }
             });
         }
 
-        // Store empty state HTML
         const emptyStateHTML = `
             <div class="empty-state" id="emptyState">
                 <div class="empty-icon">
@@ -1289,39 +1333,62 @@
 
             tbody.innerHTML = '';
 
+            // Track which SetID bases we've already shown (for collapsed view)
+            const shownSetIdBases = new Set();
+
             filteredData.forEach((trade, index) => {
+                // For grouped trades, only show the first one (collapsed)
+                if (trade.isGrouped) {
+                    if (shownSetIdBases.has(trade.setIdBase)) {
+                        return; // Skip subsequent entries in the same group
+                    }
+                    shownSetIdBases.add(trade.setIdBase);
+                }
+
                 const row = document.createElement('div');
-                row.className = 'table-row';
+                row.className = 'table-row' + (trade.isGrouped ? ' grouped' : '');
                 row.onclick = () => openModal(trade);
 
-                const type = (trade.type || '').toString().toUpperCase();
+                const order = (trade.order || '').toString().toUpperCase();
                 const status = (trade.status || '').toString().toUpperCase();
-                const typeClass = type === 'BUY' ? 'buy' : 'sell';
+                const orderClass = order === 'BUY' ? 'buy' : 'sell';
                 const resultClass = getResultClass(trade.result);
-                const statusClass = status === 'WIN' ? 'win' : (status === 'LOSE' ? 'lose' : '');
+                const statusClass = getStatusClass(status);
                 const pointsValue = parseFloat(trade.points) || 0;
-                const pointsClass = pointsValue >= 0 ? 'positive' : 'negative';
-                const pointsDisplay = pointsValue >= 0 ? '+' + trade.points : trade.points;
+                
+                // For grouped trades, sum all points in the group
+                let displayPoints = pointsValue;
+                if (trade.isGrouped) {
+                    const groupTrades = groupedTrades[trade.setIdBase];
+                    displayPoints = groupTrades.reduce((sum, t) => sum + (parseFloat(t.points) || 0), 0);
+                }
+                
+                const pointsClass = displayPoints >= 0 ? 'positive' : 'negative';
+                const pointsDisplay = displayPoints >= 0 ? '+' + displayPoints.toFixed(0) : displayPoints.toFixed(0);
+
+                const groupBadge = trade.isGrouped ? `<span class="group-badge">${trade.groupSize} entries</span>` : '';
+                const strategySetup = [trade.strategy, trade.setup].filter(Boolean).join(' / ');
 
                 row.innerHTML = `
-                    <div class="table-cell cell-no">${trade.no || ''}</div>
+                    <div class="table-cell cell-no">${trade.no}${groupBadge}</div>
                     <div class="table-cell cell-date">${trade.date || ''}</div>
                     <div class="table-cell">${trade.plan || ''}</div>
+                    <div class="table-cell" style="font-size: 0.7rem;">${trade.type || ''}</div>
                     <div class="table-cell cell-asset">${trade.asset || ''}</div>
-                    <div class="table-cell"><span class="cell-type ${typeClass}">${trade.type || ''}</span></div>
-                    <div class="table-cell cell-price">${trade.entryStart || ''}</div>
-                    <div class="table-cell cell-price">${trade.entryEnd || ''}</div>
-                    <div class="table-cell cell-price">${trade.tp1 || ''}</div>
-                    <div class="table-cell cell-price">${trade.tp2 || ''}</div>
-                    <div class="table-cell cell-price">${trade.sl || ''}</div>
-                    <div class="table-cell cell-strategy">${truncate(trade.strategy, 40)}</div>
+                    <div class="table-cell"><span class="cell-category">${trade.category || ''}</span></div>
+                    <div class="table-cell"><span class="cell-type ${orderClass}">${trade.order || ''}</span></div>
+                    <div class="table-cell cell-price">${trade.entryOrder || ''}</div>
+                    <div class="table-cell cell-price">${trade.tpOrder || ''}</div>
+                    <div class="table-cell cell-price">${trade.slOrder || ''}</div>
+                    <div class="table-cell cell-strategy">${truncate(strategySetup, 35)}</div>
                     <div class="table-cell"><span class="cell-result ${resultClass}">${trade.result || ''}</span></div>
                     <div class="table-cell cell-points ${pointsClass}">${pointsDisplay}</div>
+                    <div class="table-cell" style="font-size: 0.75rem;">${trade.rr || ''}</div>
+                    <div class="table-cell cell-status ${statusClass}">${trade.status || ''}</div>
                 `;
 
                 tbody.appendChild(row);
 
-                // Animate rows
                 setTimeout(() => {
                     row.classList.add('loaded');
                 }, index * 30);
@@ -1331,12 +1398,19 @@
         function getResultClass(result) {
             if (!result) return '';
             const r = result.toString().toUpperCase();
-            if (r.includes('TP1')) return 'tp1';
-            if (r.includes('TP2')) return 'tp2';
-            if (r === 'TP') return 'tp';
+            if (r === 'TP' || r === 'TP1' || r === 'TP2') return 'tp';
             if (r === 'SL') return 'sl';
-            if (r === 'NONE') return 'none';
+            if (r === 'NONE' || r === 'BIT') return 'none';
             return '';
+        }
+
+        function getStatusClass(status) {
+            if (!status) return '';
+            const s = status.toString().toUpperCase();
+            if (s === 'WIN') return 'win';
+            if (s === 'LOSE') return 'lose';
+            if (s === 'DRAW') return 'draw';
+            return 'none';
         }
 
         function truncate(str, len) {
@@ -1348,7 +1422,71 @@
             const modal = document.getElementById('modalOverlay');
             const body = document.getElementById('modalBody');
 
-            const statusClass = trade.status.toString().toUpperCase() === 'WIN' ? 'positive' : 'negative';
+            const statusClass = (trade.status || '').toString().toUpperCase() === 'WIN' ? 'positive' : 
+                               (trade.status || '').toString().toUpperCase() === 'LOSE' ? 'negative' : '';
+
+            // Get all trades in the group if this is a grouped trade
+            let groupEntriesHTML = '';
+            if (trade.isGrouped) {
+                const groupTrades = groupedTrades[trade.setIdBase];
+                const totalGroupPoints = groupTrades.reduce((sum, t) => sum + (parseFloat(t.points) || 0), 0);
+                
+                groupEntriesHTML = `
+                    <div class="group-entries">
+                        <div class="group-entries-title">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+                                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                            </svg>
+                            ${groupTrades.length} Entries in this Set (Total: ${totalGroupPoints >= 0 ? '+' : ''}${totalGroupPoints.toFixed(0)} points)
+                        </div>
+                        ${groupTrades.map(t => `
+                            <div class="group-entry-item">
+                                <div class="group-entry-header">
+                                    <span class="group-entry-round">Round ${t.round}</span>
+                                    <span class="cell-status ${getStatusClass((t.status || '').toString().toUpperCase())}">${t.status}</span>
+                                </div>
+                                <div class="group-entry-grid">
+                                    <div class="detail-item">
+                                        <span class="detail-label">SetID</span>
+                                        <span class="detail-value">${t.setId}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Entry</span>
+                                        <span class="detail-value">${t.entryOrder}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">TP</span>
+                                        <span class="detail-value">${t.tpOrder}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">SL</span>
+                                        <span class="detail-value">${t.slOrder}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Result</span>
+                                        <span class="detail-value">${t.result}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Points</span>
+                                        <span class="detail-value ${parseFloat(t.points) >= 0 ? 'positive' : 'negative'}" style="color: ${parseFloat(t.points) >= 0 ? 'var(--accent-green)' : 'var(--accent-red)'}">
+                                            ${parseFloat(t.points) >= 0 ? '+' : ''}${t.points}
+                                        </span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">RR</span>
+                                        <span class="detail-value">${t.rr || '-'}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Setup</span>
+                                        <span class="detail-value">${t.setup || '-'}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
 
             body.innerHTML = `
                 <div class="detail-grid">
@@ -1357,36 +1495,56 @@
                         <span class="detail-value">#${trade.no}</span>
                     </div>
                     <div class="detail-item">
+                        <span class="detail-label">SetID</span>
+                        <span class="detail-value">${trade.setId}</span>
+                    </div>
+                    <div class="detail-item">
                         <span class="detail-label">Date</span>
                         <span class="detail-value">${trade.date}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Asset</span>
-                        <span class="detail-value">${trade.asset}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Type</span>
-                        <span class="detail-value">${trade.type}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Entry Range</span>
-                        <span class="detail-value">${trade.entryStart} - ${trade.entryEnd}</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Plan</span>
                         <span class="detail-value">${trade.plan}</span>
                     </div>
                     <div class="detail-item">
-                        <span class="detail-label">TP1</span>
-                        <span class="detail-value">${trade.tp1}</span>
+                        <span class="detail-label">Type</span>
+                        <span class="detail-value">${trade.type}</span>
                     </div>
                     <div class="detail-item">
-                        <span class="detail-label">TP2</span>
-                        <span class="detail-value">${trade.tp2}</span>
+                        <span class="detail-label">Asset</span>
+                        <span class="detail-value">${trade.asset}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Category</span>
+                        <span class="detail-value">${trade.category}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Order</span>
+                        <span class="detail-value">${trade.order}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Entry</span>
+                        <span class="detail-value">${trade.entryOrder}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Take Profit</span>
+                        <span class="detail-value">${trade.tpOrder}</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Stop Loss</span>
-                        <span class="detail-value">${trade.sl}</span>
+                        <span class="detail-value">${trade.slOrder}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">RR</span>
+                        <span class="detail-value">${trade.rr || '-'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Strategy</span>
+                        <span class="detail-value">${trade.strategy || '-'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Setup</span>
+                        <span class="detail-value">${trade.setup || '-'}</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Result</span>
@@ -1401,14 +1559,11 @@
                         <span class="detail-value ${statusClass}">${trade.status}</span>
                     </div>
                     <div class="detail-item full">
-                        <span class="detail-label">Strategy</span>
-                        <span class="detail-value">${trade.strategy || '-'}</span>
-                    </div>
-                    <div class="detail-item full">
                         <span class="detail-label">Note / Plan</span>
                         <div class="detail-note">${trade.notePlan || 'No notes'}</div>
                     </div>
                 </div>
+                ${groupEntriesHTML}
             `;
 
             modal.classList.add('active');
@@ -1424,7 +1579,7 @@
                 let matchSearch = true;
 
                 const status = (trade.status || '').toString().toUpperCase();
-                const type = (trade.type || '').toString().toUpperCase();
+                const order = (trade.order || '').toString().toUpperCase();
 
                 if (filter === 'win') {
                     matchFilter = status === 'WIN';
@@ -1433,17 +1588,23 @@
                 } else if (filter === 'draw') {
                     matchFilter = status === 'DRAW';
                 } else if (filter === 'none') {
-                    matchFilter = status === 'NONE';
+                    matchFilter = status === 'NONE' || status === 'CANCEL' || status === 'HOLD';
                 } else if (filter === 'buy') {
-                    matchFilter = type === 'BUY';
+                    matchFilter = order === 'BUY';
                 } else if (filter === 'sell') {
-                    matchFilter = type === 'SELL';
+                    matchFilter = order === 'SELL';
+                } else if (filter === 'grouped') {
+                    matchFilter = trade.isGrouped;
                 }
 
                 if (search) {
                     const searchLower = search.toLowerCase();
-                    matchSearch = (trade.asset && trade.asset.toString().toLowerCase().includes(searchLower)) ||
-                                 (trade.strategy && trade.strategy.toString().toLowerCase().includes(searchLower));
+                    matchSearch = 
+                        (trade.asset && trade.asset.toString().toLowerCase().includes(searchLower)) ||
+                        (trade.strategy && trade.strategy.toString().toLowerCase().includes(searchLower)) ||
+                        (trade.setup && trade.setup.toString().toLowerCase().includes(searchLower)) ||
+                        (trade.type && trade.type.toString().toLowerCase().includes(searchLower)) ||
+                        (trade.category && trade.category.toString().toLowerCase().includes(searchLower));
                 }
 
                 return matchFilter && matchSearch;
