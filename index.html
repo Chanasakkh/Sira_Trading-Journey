@@ -37,7 +37,6 @@
             line-height: 1.6;
         }
 
-        /* Noise texture overlay */
         body::before {
             content: '';
             position: fixed;
@@ -52,7 +51,7 @@
         }
 
         .container {
-            max-width: 1800px;
+            max-width: 1600px;
             margin: 0 auto;
             padding: 40px 20px;
         }
@@ -236,7 +235,7 @@
 
         .table-header {
             display: grid;
-            grid-template-columns: 50px 80px 70px 80px 70px 80px 70px 90px 70px 70px 1fr 70px 70px 60px 80px;
+            grid-template-columns: 50px 85px 60px 75px 75px 75px 65px 85px 75px 75px 1fr 70px 80px 70px 75px;
             background: var(--bg-tertiary);
             border-bottom: 1px solid var(--border-color);
             padding: 0 20px;
@@ -271,7 +270,7 @@
 
         .table-row {
             display: grid;
-            grid-template-columns: 50px 80px 70px 80px 70px 80px 70px 90px 70px 70px 1fr 70px 70px 60px 80px;
+            grid-template-columns: 50px 85px 60px 75px 75px 75px 65px 85px 75px 75px 1fr 70px 80px 70px 75px;
             border-bottom: 1px solid var(--border-color);
             padding: 0 20px;
             transition: all 0.2s ease;
@@ -289,7 +288,6 @@
             background: var(--bg-tertiary);
         }
 
-        /* Grouped rows styling */
         .table-row.grouped {
             background: rgba(59, 130, 246, 0.05);
             border-left: 3px solid var(--accent-blue);
@@ -305,11 +303,11 @@
             gap: 4px;
             background: var(--accent-blue);
             color: white;
-            font-size: 0.65rem;
-            padding: 2px 6px;
+            font-size: 0.6rem;
+            padding: 2px 5px;
             border-radius: 3px;
             font-weight: 600;
-            margin-left: 6px;
+            margin-left: 4px;
         }
 
         .table-cell {
@@ -355,8 +353,8 @@
         }
 
         .cell-category {
-            font-size: 0.7rem;
-            padding: 3px 8px;
+            font-size: 0.65rem;
+            padding: 3px 6px;
             border-radius: 3px;
             background: rgba(168, 85, 247, 0.15);
             color: var(--accent-purple);
@@ -499,7 +497,7 @@
         .modal {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
-            max-width: 900px;
+            max-width: 800px;
             width: 90%;
             max-height: 85vh;
             overflow-y: auto;
@@ -578,6 +576,7 @@
             line-height: 1.6;
             color: var(--text-secondary);
             margin-top: 8px;
+            white-space: pre-wrap;
         }
 
         /* Group entries in modal */
@@ -638,7 +637,7 @@
         /* Performance Section */
         .performance-section {
             display: grid;
-            grid-template-columns: 1fr 1fr 300px;
+            grid-template-columns: 1fr 1fr 280px;
             gap: 1px;
             background: var(--border-color);
             margin-bottom: 40px;
@@ -712,7 +711,7 @@
         @media (max-width: 1400px) {
             .table-header,
             .table-row {
-                grid-template-columns: 45px 75px 65px 75px 65px 75px 65px 85px 65px 65px 1fr 65px 65px 55px 75px;
+                grid-template-columns: 45px 80px 55px 70px 70px 70px 60px 80px 70px 70px 1fr 65px 75px 65px 70px;
             }
         }
 
@@ -736,7 +735,7 @@
 
             .table-header,
             .table-row {
-                min-width: 1400px;
+                min-width: 1300px;
             }
 
             .performance-section {
@@ -754,7 +753,7 @@
         <header class="header">
             <div class="logo-section">
                 <h1>TRADE<span>JOURNEY</span></h1>
-                <p>Trading Performance Tracker v2.0</p>
+                <p>Trading Performance Tracker</p>
             </div>
             <div class="upload-section">
                 <input type="file" id="fileInput" class="file-input" accept=".xlsx,.xls,.csv">
@@ -784,9 +783,8 @@
                 <span class="stat-value positive" id="bestTrade">0</span>
             </div>
             <div class="stat-card">
-                <span class="stat-label">Grouped Sets</span>
-                <span class="stat-value" id="groupedSets">0</span>
-                <span class="stat-sub" id="groupedSetsSub">Multi-entry trades</span>
+                <span class="stat-label">Worst Trade</span>
+                <span class="stat-value negative" id="worstTrade">0</span>
             </div>
         </div>
 
@@ -808,32 +806,28 @@
                 <div class="section-title">Statistics</div>
                 <div class="stats-list">
                     <div class="stats-row">
-                        <span class="stats-label">Max Win Streak:</span>
+                        <span class="stats-label">Win Streak:</span>
                         <span class="stats-value" id="maxWinStreak">0</span>
                     </div>
                     <div class="stats-row">
-                        <span class="stats-label">Max Lose Streak:</span>
+                        <span class="stats-label">Lose Streak:</span>
                         <span class="stats-value" id="maxLoseStreak">0</span>
                     </div>
                     <div class="stats-row">
-                        <span class="stats-label">Biggest Profit:</span>
-                        <span class="stats-value positive" id="biggestProfit">0</span>
-                    </div>
-                    <div class="stats-row">
-                        <span class="stats-label">Biggest Loss:</span>
-                        <span class="stats-value negative" id="biggestLoss">0</span>
-                    </div>
-                    <div class="stats-row">
-                        <span class="stats-label">Average Win:</span>
+                        <span class="stats-label">Avg Win:</span>
                         <span class="stats-value positive" id="avgWin">0</span>
                     </div>
                     <div class="stats-row">
-                        <span class="stats-label">Average Loss:</span>
+                        <span class="stats-label">Avg Loss:</span>
                         <span class="stats-value negative" id="avgLoss">0</span>
                     </div>
                     <div class="stats-row">
                         <span class="stats-label">Profit Factor:</span>
                         <span class="stats-value" id="profitFactor">0</span>
+                    </div>
+                    <div class="stats-row">
+                        <span class="stats-label">Expectancy:</span>
+                        <span class="stats-value" id="expectancy">0</span>
                     </div>
                 </div>
             </div>
@@ -845,10 +839,9 @@
                 <button class="filter-btn" data-filter="win" onclick="filterTrades('win', this)">Win</button>
                 <button class="filter-btn" data-filter="lose" onclick="filterTrades('lose', this)">Lose</button>
                 <button class="filter-btn" data-filter="draw" onclick="filterTrades('draw', this)">Draw</button>
-                <button class="filter-btn" data-filter="none" onclick="filterTrades('none', this)">None</button>
+                <button class="filter-btn" data-filter="other" onclick="filterTrades('other', this)">Other</button>
                 <button class="filter-btn" data-filter="buy" onclick="filterTrades('buy', this)">Buy</button>
                 <button class="filter-btn" data-filter="sell" onclick="filterTrades('sell', this)">Sell</button>
-                <button class="filter-btn" data-filter="grouped" onclick="filterTrades('grouped', this)">Grouped</button>
             </div>
             <input type="text" class="search-box" placeholder="Search asset, strategy, setup..." id="searchBox" oninput="searchTrades(this.value)">
         </div>
@@ -899,9 +892,8 @@
     <script>
         let tradesData = [];
         let filteredData = [];
-        let groupedTrades = {}; // Store grouped trades by SetID base
+        let groupedTrades = {};
 
-        // Wait for DOM to be ready
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('fileInput').addEventListener('change', function(e) {
                 const file = e.target.files[0];
@@ -954,11 +946,10 @@
             applyFilters(currentFilter, searchValue);
         }
 
-        // Extract SetID base (remove last -XX part)
+        // SetID helper functions
         function getSetIdBase(setId) {
             if (!setId) return null;
             const str = setId.toString();
-            // Pattern: DDMMYYYY-PP-RR -> DDMMYYYY-PP
             const lastDash = str.lastIndexOf('-');
             if (lastDash > 0) {
                 return str.substring(0, lastDash);
@@ -966,7 +957,6 @@
             return str;
         }
 
-        // Get round number from SetID
         function getRoundFromSetId(setId) {
             if (!setId) return 1;
             const str = setId.toString();
@@ -990,6 +980,28 @@
             tradesData = [];
             groupedTrades = {};
 
+            /*
+             * Column mapping (18 columns - Index 0-17):
+             * 0: No.
+             * 1: SetID
+             * 2: Date
+             * 3: Plan
+             * 4: Type
+             * 5: Asset
+             * 6: Category
+             * 7: Order
+             * 8: Entry_Order
+             * 9: TP_Order
+             * 10: SL_Order
+             * 11: Strategy
+             * 12: Setup
+             * 13: Result
+             * 14: Point
+             * 15: RR
+             * 16: Note_Plan
+             * 17: Status
+             */
+
             for (let i = headerIndex + 1; i < data.length; i++) {
                 const row = data[i];
                 if (!row || !row[0]) continue;
@@ -999,30 +1011,29 @@
                     setId: row[1] || '',
                     date: formatDate(row[2]),
                     plan: row[3] || '',
-                    type: row[4] || '',           // Normal, Adding Position, Scalping, Radar
+                    type: row[4] || '',
                     asset: row[5] || '',
-                    category: row[6] || '',       // Commodities, Forex, Crypto
-                    order: row[7] || '',          // BUY, SELL
+                    category: row[6] || '',
+                    order: row[7] || '',
                     entryOrder: row[8] || '',
                     tpOrder: row[9] || '',
                     slOrder: row[10] || '',
                     strategy: row[11] || '',
                     setup: row[12] || '',
-                    result: row[13] || '',        // TP, SL, NONE, BIT, TP1, TP2
-                    points: row[14] || 0,
+                    result: row[13] || '',
+                    points: parseFloat(row[14]) || 0,
                     rr: row[15] || '',
                     notePlan: row[16] || '',
-                    status: row[17] || ''         // WIN, LOSE, DRAW, NONE, CANCEL, HOLD
+                    status: row[17] || ''
                 };
 
-                // Get SetID base for grouping
+                // SetID grouping
                 const setIdBase = getSetIdBase(trade.setId);
                 trade.setIdBase = setIdBase;
                 trade.round = getRoundFromSetId(trade.setId);
 
                 tradesData.push(trade);
 
-                // Build grouped trades map
                 if (setIdBase) {
                     if (!groupedTrades[setIdBase]) {
                         groupedTrades[setIdBase] = [];
@@ -1031,7 +1042,7 @@
                 }
             }
 
-            // Mark trades that are part of a group (more than 1 entry)
+            // Mark grouped trades
             tradesData.forEach(trade => {
                 const group = groupedTrades[trade.setIdBase];
                 trade.isGrouped = group && group.length > 1;
@@ -1062,42 +1073,40 @@
         function updateStats() {
             const total = tradesData.length;
             
-            // Win Rate: WIN / (WIN + LOSE + DRAW)
-            const validStatuses = ['WIN', 'LOSE', 'DRAW'];
-            const validTrades = tradesData.filter(t => {
-                const status = (t.status || '').toString().toUpperCase();
-                return validStatuses.includes(status);
-            });
-            
+            // Win Rate: WIN / (WIN + LOSE + DRAW) - case insensitive
             const wins = tradesData.filter(t => (t.status || '').toString().toUpperCase() === 'WIN').length;
             const loses = tradesData.filter(t => (t.status || '').toString().toUpperCase() === 'LOSE').length;
             const draws = tradesData.filter(t => (t.status || '').toString().toUpperCase() === 'DRAW').length;
             
-            const winRate = validTrades.length > 0 ? ((wins / validTrades.length) * 100).toFixed(1) : 0;
+            const validTotal = wins + loses + draws;
+            const winRate = validTotal > 0 ? ((wins / validTotal) * 100).toFixed(1) : 0;
             
-            const totalPoints = tradesData.reduce((sum, t) => sum + (parseFloat(t.points) || 0), 0);
-            const points = tradesData.map(t => parseFloat(t.points) || 0);
-            const bestTrade = points.length > 0 ? Math.max(...points) : 0;
-
-            // Count grouped sets (SetID bases with more than 1 entry)
-            const groupedSetCount = Object.values(groupedTrades).filter(g => g.length > 1).length;
+            const totalPoints = tradesData.reduce((sum, t) => sum + (t.points || 0), 0);
+            const nonZeroPoints = tradesData.map(t => t.points || 0).filter(p => p !== 0);
+            const bestTrade = nonZeroPoints.length > 0 ? Math.max(...nonZeroPoints) : 0;
+            const worstTrade = nonZeroPoints.length > 0 ? Math.min(...nonZeroPoints) : 0;
 
             document.getElementById('totalTrades').textContent = total;
-            document.getElementById('winRate').textContent = winRate + '%';
+            
+            const winRateEl = document.getElementById('winRate');
+            winRateEl.textContent = winRate + '%';
+            winRateEl.className = 'stat-value ' + (parseFloat(winRate) >= 50 ? 'positive' : 'negative');
+            
             document.getElementById('winRateSub').textContent = `${wins}W / ${loses}L / ${draws}D`;
             
             const totalPointsEl = document.getElementById('totalPoints');
-            totalPointsEl.textContent = totalPoints >= 0 ? '+' + totalPoints.toFixed(0) : totalPoints.toFixed(0);
+            totalPointsEl.textContent = (totalPoints >= 0 ? '+' : '') + totalPoints.toLocaleString();
             totalPointsEl.className = 'stat-value ' + (totalPoints >= 0 ? 'positive' : 'negative');
 
-            document.getElementById('bestTrade').textContent = '+' + bestTrade.toFixed(0);
-            document.getElementById('groupedSets').textContent = groupedSetCount;
+            document.getElementById('bestTrade').textContent = '+' + bestTrade.toLocaleString();
+            document.getElementById('worstTrade').textContent = worstTrade.toLocaleString();
         }
 
         function updateExtendedStats() {
-            const points = tradesData.map(t => parseFloat(t.points) || 0);
             const statuses = tradesData.map(t => (t.status || '').toString().toUpperCase());
+            const points = tradesData.map(t => t.points || 0);
             
+            // Calculate streaks
             let maxWinStreak = 0, maxLoseStreak = 0;
             let currentWinStreak = 0, currentLoseStreak = 0;
             
@@ -1119,8 +1128,6 @@
             const profits = points.filter(p => p > 0);
             const losses = points.filter(p => p < 0);
             
-            const biggestProfit = profits.length > 0 ? Math.max(...profits) : 0;
-            const biggestLoss = losses.length > 0 ? Math.min(...losses) : 0;
             const avgWin = profits.length > 0 ? profits.reduce((a, b) => a + b, 0) / profits.length : 0;
             const avgLoss = losses.length > 0 ? losses.reduce((a, b) => a + b, 0) / losses.length : 0;
             
@@ -1128,13 +1135,26 @@
             const totalLoss = Math.abs(losses.reduce((a, b) => a + b, 0));
             const profitFactor = totalLoss > 0 ? (totalProfit / totalLoss).toFixed(2) : totalProfit > 0 ? '∞' : '0';
 
+            // Expectancy = (Win% × Avg Win) + (Loss% × Avg Loss)
+            const winCount = profits.length;
+            const lossCount = losses.length;
+            const totalTrades = winCount + lossCount;
+            let expectancy = 0;
+            if (totalTrades > 0) {
+                const winPct = winCount / totalTrades;
+                const lossPct = lossCount / totalTrades;
+                expectancy = (winPct * avgWin) + (lossPct * avgLoss);
+            }
+
             document.getElementById('maxWinStreak').textContent = maxWinStreak;
             document.getElementById('maxLoseStreak').textContent = maxLoseStreak;
-            document.getElementById('biggestProfit').textContent = '+' + biggestProfit.toFixed(0);
-            document.getElementById('biggestLoss').textContent = biggestLoss.toFixed(0);
-            document.getElementById('avgWin').textContent = '+' + avgWin.toFixed(0);
-            document.getElementById('avgLoss').textContent = avgLoss.toFixed(0);
+            document.getElementById('avgWin').textContent = '+' + Math.round(avgWin).toLocaleString();
+            document.getElementById('avgLoss').textContent = Math.round(avgLoss).toLocaleString();
             document.getElementById('profitFactor').textContent = profitFactor;
+            
+            const expectancyEl = document.getElementById('expectancy');
+            expectancyEl.textContent = (expectancy >= 0 ? '+' : '') + Math.round(expectancy).toLocaleString();
+            expectancyEl.className = 'stats-value ' + (expectancy >= 0 ? 'positive' : 'negative');
         }
 
         let dailyChart = null;
@@ -1144,7 +1164,7 @@
             const dailyPoints = {};
             tradesData.forEach(trade => {
                 const date = trade.date || 'Unknown';
-                const points = parseFloat(trade.points) || 0;
+                const points = trade.points || 0;
                 
                 if (!dailyPoints[date]) {
                     dailyPoints[date] = 0;
@@ -1152,6 +1172,7 @@
                 dailyPoints[date] += points;
             });
 
+            // Sort dates
             const dates = Object.keys(dailyPoints).sort((a, b) => {
                 const parseDate = (d) => {
                     const parts = d.split('/');
@@ -1163,15 +1184,21 @@
                 return parseDate(a) - parseDate(b);
             });
 
-            const labels = [];
-            const dailyData = [];
+            // Format labels to show only day/month
+            const labels = dates.map(date => {
+                const parts = date.split('/');
+                if (parts.length === 3) {
+                    return parts[0] + '/' + parts[1];
+                }
+                return date;
+            });
+
+            const dailyData = dates.map(date => dailyPoints[date]);
+            
             const cumulativeData = [];
             let cumulative = 0;
-
-            dates.forEach(date => {
-                labels.push(date);
-                dailyData.push(dailyPoints[date]);
-                cumulative += dailyPoints[date];
+            dailyData.forEach(points => {
+                cumulative += points;
                 cumulativeData.push(cumulative);
             });
 
@@ -1183,9 +1210,7 @@
             const ctx = document.getElementById('dailyChart');
             if (!ctx) return;
 
-            if (dailyChart) {
-                dailyChart.destroy();
-            }
+            if (dailyChart) dailyChart.destroy();
 
             const barColors = data.map(val => val >= 0 ? 'rgba(34, 197, 94, 0.8)' : 'rgba(239, 68, 68, 0.8)');
 
@@ -1203,10 +1228,7 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    interaction: {
-                        intersect: false,
-                        mode: 'index'
-                    },
+                    interaction: { intersect: false, mode: 'index' },
                     plugins: {
                         legend: { display: false },
                         tooltip: {
@@ -1219,7 +1241,7 @@
                             callbacks: {
                                 label: function(context) {
                                     const value = context.parsed.y;
-                                    return (value >= 0 ? '+' : '') + value.toFixed(0) + ' points';
+                                    return (value >= 0 ? '+' : '') + value.toLocaleString() + ' pts';
                                 }
                             }
                         }
@@ -1228,12 +1250,21 @@
                         x: {
                             display: true,
                             grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
-                            ticks: { color: '#666666', font: { family: 'Space Mono', size: 10 }, maxRotation: 45, minRotation: 45, maxTicksLimit: 10 }
+                            ticks: { color: '#666666', font: { family: 'Space Mono', size: 9 }, maxRotation: 45, minRotation: 45 }
                         },
                         y: {
                             display: true,
                             grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
-                            ticks: { color: '#666666', font: { family: 'Space Mono', size: 10 }, callback: function(value) { return (value >= 0 ? '+' : '') + value; } }
+                            ticks: { 
+                                color: '#666666', 
+                                font: { family: 'Space Mono', size: 10 }, 
+                                callback: function(value) { 
+                                    if (Math.abs(value) >= 1000) {
+                                        return (value >= 0 ? '+' : '') + (value / 1000).toFixed(0) + 'k';
+                                    }
+                                    return (value >= 0 ? '+' : '') + value;
+                                }
+                            }
                         }
                     }
                 }
@@ -1244,17 +1275,23 @@
             const ctx = document.getElementById('equityChart');
             if (!ctx) return;
 
-            if (equityChart) {
-                equityChart.destroy();
-            }
+            if (equityChart) equityChart.destroy();
 
             const equityLabels = ['Start', ...labels];
             const equityData = [0, ...data];
 
             const chartCtx = ctx.getContext('2d');
+            const lastValue = equityData[equityData.length - 1] || 0;
+            const lineColor = lastValue >= 0 ? '#22c55e' : '#ef4444';
+            
             const gradient = chartCtx.createLinearGradient(0, 0, 0, 200);
-            gradient.addColorStop(0, 'rgba(34, 197, 94, 0.3)');
-            gradient.addColorStop(1, 'rgba(34, 197, 94, 0)');
+            if (lastValue >= 0) {
+                gradient.addColorStop(0, 'rgba(34, 197, 94, 0.3)');
+                gradient.addColorStop(1, 'rgba(34, 197, 94, 0)');
+            } else {
+                gradient.addColorStop(0, 'rgba(239, 68, 68, 0.3)');
+                gradient.addColorStop(1, 'rgba(239, 68, 68, 0)');
+            }
 
             equityChart = new Chart(ctx, {
                 type: 'line',
@@ -1262,14 +1299,14 @@
                     labels: equityLabels,
                     datasets: [{
                         data: equityData,
-                        borderColor: '#22c55e',
+                        borderColor: lineColor,
                         borderWidth: 2,
                         backgroundColor: gradient,
                         fill: true,
                         tension: 0.4,
                         pointRadius: 3,
-                        pointBackgroundColor: '#22c55e',
-                        pointBorderColor: '#22c55e',
+                        pointBackgroundColor: lineColor,
+                        pointBorderColor: lineColor,
                         pointHoverRadius: 6
                     }]
                 },
@@ -1289,7 +1326,7 @@
                             callbacks: {
                                 label: function(context) {
                                     const value = context.parsed.y;
-                                    return (value >= 0 ? '+' : '') + value.toFixed(0) + ' points';
+                                    return (value >= 0 ? '+' : '') + value.toLocaleString() + ' pts';
                                 }
                             }
                         }
@@ -1298,12 +1335,21 @@
                         x: {
                             display: true,
                             grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
-                            ticks: { color: '#666666', font: { family: 'Space Mono', size: 10 }, maxRotation: 45, minRotation: 45, maxTicksLimit: 10 }
+                            ticks: { color: '#666666', font: { family: 'Space Mono', size: 9 }, maxRotation: 45, minRotation: 45 }
                         },
                         y: {
                             display: true,
                             grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
-                            ticks: { color: '#666666', font: { family: 'Space Mono', size: 10 }, callback: function(value) { return (value >= 0 ? '+' : '') + value; } }
+                            ticks: { 
+                                color: '#666666', 
+                                font: { family: 'Space Mono', size: 10 }, 
+                                callback: function(value) { 
+                                    if (Math.abs(value) >= 1000) {
+                                        return (value >= 0 ? '+' : '') + (value / 1000).toFixed(0) + 'k';
+                                    }
+                                    return (value >= 0 ? '+' : '') + value;
+                                }
+                            }
                         }
                     }
                 }
@@ -1332,15 +1378,13 @@
             }
 
             tbody.innerHTML = '';
-
-            // Track which SetID bases we've already shown (for collapsed view)
             const shownSetIdBases = new Set();
 
             filteredData.forEach((trade, index) => {
-                // For grouped trades, only show the first one (collapsed)
+                // For grouped trades, only show the first one (collapsed view)
                 if (trade.isGrouped) {
                     if (shownSetIdBases.has(trade.setIdBase)) {
-                        return; // Skip subsequent entries in the same group
+                        return;
                     }
                     shownSetIdBases.add(trade.setIdBase);
                 }
@@ -1354,20 +1398,19 @@
                 const orderClass = order === 'BUY' ? 'buy' : 'sell';
                 const resultClass = getResultClass(trade.result);
                 const statusClass = getStatusClass(status);
-                const pointsValue = parseFloat(trade.points) || 0;
                 
-                // For grouped trades, sum all points in the group
-                let displayPoints = pointsValue;
+                // For grouped trades, sum all points
+                let displayPoints = trade.points;
                 if (trade.isGrouped) {
                     const groupTrades = groupedTrades[trade.setIdBase];
-                    displayPoints = groupTrades.reduce((sum, t) => sum + (parseFloat(t.points) || 0), 0);
+                    displayPoints = groupTrades.reduce((sum, t) => sum + (t.points || 0), 0);
                 }
                 
                 const pointsClass = displayPoints >= 0 ? 'positive' : 'negative';
-                const pointsDisplay = displayPoints >= 0 ? '+' + displayPoints.toFixed(0) : displayPoints.toFixed(0);
+                const pointsDisplay = (displayPoints >= 0 ? '+' : '') + displayPoints.toLocaleString();
 
-                const groupBadge = trade.isGrouped ? `<span class="group-badge">${trade.groupSize} entries</span>` : '';
-                const strategySetup = [trade.strategy, trade.setup].filter(Boolean).join(' / ');
+                const groupBadge = trade.isGrouped ? `<span class="group-badge">${trade.groupSize}</span>` : '';
+                const strategySetup = [trade.strategy, trade.setup].filter(s => s && s !== '-').join(' / ');
 
                 row.innerHTML = `
                     <div class="table-cell cell-no">${trade.no}${groupBadge}</div>
@@ -1377,21 +1420,19 @@
                     <div class="table-cell cell-asset">${trade.asset || ''}</div>
                     <div class="table-cell"><span class="cell-category">${trade.category || ''}</span></div>
                     <div class="table-cell"><span class="cell-type ${orderClass}">${trade.order || ''}</span></div>
-                    <div class="table-cell cell-price">${trade.entryOrder || ''}</div>
-                    <div class="table-cell cell-price">${trade.tpOrder || ''}</div>
-                    <div class="table-cell cell-price">${trade.slOrder || ''}</div>
-                    <div class="table-cell cell-strategy">${truncate(strategySetup, 35)}</div>
+                    <div class="table-cell cell-price">${trade.entryOrder || '-'}</div>
+                    <div class="table-cell cell-price">${trade.tpOrder || '-'}</div>
+                    <div class="table-cell cell-price">${trade.slOrder || '-'}</div>
+                    <div class="table-cell cell-strategy">${truncate(strategySetup, 30)}</div>
                     <div class="table-cell"><span class="cell-result ${resultClass}">${trade.result || ''}</span></div>
                     <div class="table-cell cell-points ${pointsClass}">${pointsDisplay}</div>
-                    <div class="table-cell" style="font-size: 0.75rem;">${trade.rr || ''}</div>
+                    <div class="table-cell" style="font-size: 0.75rem;">${trade.rr || '-'}</div>
                     <div class="table-cell cell-status ${statusClass}">${trade.status || ''}</div>
                 `;
 
                 tbody.appendChild(row);
 
-                setTimeout(() => {
-                    row.classList.add('loaded');
-                }, index * 30);
+                setTimeout(() => row.classList.add('loaded'), index * 15);
             });
         }
 
@@ -1414,7 +1455,7 @@
         }
 
         function truncate(str, len) {
-            if (!str) return '';
+            if (!str) return '-';
             return str.length > len ? str.substring(0, len) + '...' : str;
         }
 
@@ -1422,14 +1463,14 @@
             const modal = document.getElementById('modalOverlay');
             const body = document.getElementById('modalBody');
 
-            const statusClass = (trade.status || '').toString().toUpperCase() === 'WIN' ? 'positive' : 
-                               (trade.status || '').toString().toUpperCase() === 'LOSE' ? 'negative' : '';
+            const statusUpper = (trade.status || '').toString().toUpperCase();
+            const statusClass = statusUpper === 'WIN' ? 'positive' : statusUpper === 'LOSE' ? 'negative' : '';
 
-            // Get all trades in the group if this is a grouped trade
+            // Group entries section
             let groupEntriesHTML = '';
             if (trade.isGrouped) {
                 const groupTrades = groupedTrades[trade.setIdBase];
-                const totalGroupPoints = groupTrades.reduce((sum, t) => sum + (parseFloat(t.points) || 0), 0);
+                const totalGroupPoints = groupTrades.reduce((sum, t) => sum + (t.points || 0), 0);
                 
                 groupEntriesHTML = `
                     <div class="group-entries">
@@ -1438,44 +1479,44 @@
                                 <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
                                 <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
                             </svg>
-                            ${groupTrades.length} Entries in this Set (Total: ${totalGroupPoints >= 0 ? '+' : ''}${totalGroupPoints.toFixed(0)} points)
+                            ${groupTrades.length} Entries (Total: ${totalGroupPoints >= 0 ? '+' : ''}${totalGroupPoints.toLocaleString()} pts)
                         </div>
                         ${groupTrades.map(t => `
                             <div class="group-entry-item">
                                 <div class="group-entry-header">
-                                    <span class="group-entry-round">Round ${t.round}</span>
+                                    <span class="group-entry-round">Round ${t.round} - ${t.setId}</span>
                                     <span class="cell-status ${getStatusClass((t.status || '').toString().toUpperCase())}">${t.status}</span>
                                 </div>
                                 <div class="group-entry-grid">
                                     <div class="detail-item">
-                                        <span class="detail-label">SetID</span>
-                                        <span class="detail-value">${t.setId}</span>
-                                    </div>
-                                    <div class="detail-item">
                                         <span class="detail-label">Entry</span>
-                                        <span class="detail-value">${t.entryOrder}</span>
+                                        <span class="detail-value">${t.entryOrder || '-'}</span>
                                     </div>
                                     <div class="detail-item">
                                         <span class="detail-label">TP</span>
-                                        <span class="detail-value">${t.tpOrder}</span>
+                                        <span class="detail-value">${t.tpOrder || '-'}</span>
                                     </div>
                                     <div class="detail-item">
                                         <span class="detail-label">SL</span>
-                                        <span class="detail-value">${t.slOrder}</span>
+                                        <span class="detail-value">${t.slOrder || '-'}</span>
                                     </div>
                                     <div class="detail-item">
                                         <span class="detail-label">Result</span>
-                                        <span class="detail-value">${t.result}</span>
+                                        <span class="detail-value">${t.result || '-'}</span>
                                     </div>
                                     <div class="detail-item">
                                         <span class="detail-label">Points</span>
-                                        <span class="detail-value ${parseFloat(t.points) >= 0 ? 'positive' : 'negative'}" style="color: ${parseFloat(t.points) >= 0 ? 'var(--accent-green)' : 'var(--accent-red)'}">
-                                            ${parseFloat(t.points) >= 0 ? '+' : ''}${t.points}
+                                        <span class="detail-value" style="color: ${t.points >= 0 ? 'var(--accent-green)' : 'var(--accent-red)'}">
+                                            ${t.points >= 0 ? '+' : ''}${t.points.toLocaleString()}
                                         </span>
                                     </div>
                                     <div class="detail-item">
                                         <span class="detail-label">RR</span>
                                         <span class="detail-value">${t.rr || '-'}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Strategy</span>
+                                        <span class="detail-value">${t.strategy || '-'}</span>
                                     </div>
                                     <div class="detail-item">
                                         <span class="detail-label">Setup</span>
@@ -1496,7 +1537,7 @@
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">SetID</span>
-                        <span class="detail-value">${trade.setId}</span>
+                        <span class="detail-value">${trade.setId || '-'}</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Date</span>
@@ -1524,15 +1565,15 @@
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Entry</span>
-                        <span class="detail-value">${trade.entryOrder}</span>
+                        <span class="detail-value">${trade.entryOrder || '-'}</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Take Profit</span>
-                        <span class="detail-value">${trade.tpOrder}</span>
+                        <span class="detail-value">${trade.tpOrder || '-'}</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Stop Loss</span>
-                        <span class="detail-value">${trade.slOrder}</span>
+                        <span class="detail-value">${trade.slOrder || '-'}</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">RR</span>
@@ -1552,7 +1593,7 @@
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Points</span>
-                        <span class="detail-value ${statusClass}">${trade.points}</span>
+                        <span class="detail-value ${statusClass}">${trade.points >= 0 ? '+' : ''}${trade.points.toLocaleString()}</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Status</span>
@@ -1587,14 +1628,12 @@
                     matchFilter = status === 'LOSE';
                 } else if (filter === 'draw') {
                     matchFilter = status === 'DRAW';
-                } else if (filter === 'none') {
-                    matchFilter = status === 'NONE' || status === 'CANCEL' || status === 'HOLD';
+                } else if (filter === 'other') {
+                    matchFilter = status === 'NONE' || status === 'CANCEL' || status === 'HOLD' || status === '';
                 } else if (filter === 'buy') {
                     matchFilter = order === 'BUY';
                 } else if (filter === 'sell') {
                     matchFilter = order === 'SELL';
-                } else if (filter === 'grouped') {
-                    matchFilter = trade.isGrouped;
                 }
 
                 if (search) {
