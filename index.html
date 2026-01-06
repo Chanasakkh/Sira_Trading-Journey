@@ -77,7 +77,7 @@
         .stats-value.positive { color: var(--accent-green); }
         .stats-value.negative { color: var(--accent-red); }
 
-        /* Calendar Section (New & Improved) */
+        /* Calendar Section */
         .calendar-section { background: var(--bg-secondary); border: 1px solid var(--border-color); margin-bottom: 40px; opacity: 0; transform: translateY(20px); transition: all 0.6s ease; display: grid; grid-template-columns: 1fr 300px; }
         .calendar-section.loaded { opacity: 1; transform: translateY(0); }
         
@@ -118,7 +118,7 @@
         .month-stat-value { font-size: 1.5rem; font-weight: 700; font-family: 'Space Mono', monospace; }
         .month-stat-sub { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; display: flex; justify-content: space-between; }
 
-        /* Filters & Table (Same as before) */
+        /* Filters & Table */
         .filters-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 20px; }
         .filter-group { display: flex; gap: 8px; flex-wrap: wrap; }
         .filter-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); padding: 10px 20px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s ease; font-family: 'Instrument Sans', sans-serif; }
@@ -149,7 +149,10 @@
         .cell-strategy { font-size: 0.7rem; color: var(--text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .cell-setid { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--text-muted); }
         .cell-type-text { font-size: 0.7rem; color: var(--text-secondary); }
+        
+        /* RR Font Fixed */
         .cell-rr { font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 0.75rem; color: var(--text-secondary); white-space: nowrap; letter-spacing: 0; }
+        
         .cell-result { font-weight: 600; font-size: 0.65rem; padding: 3px 8px; border-radius: 3px; }
         .cell-result.tp, .cell-result.tp1, .cell-result.tp2 { background: rgba(34, 197, 94, 0.15); color: var(--accent-green); }
         .cell-result.sl { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
@@ -710,7 +713,7 @@
             grid.appendChild(cell);
         }
 
-function renderMonthlyStats(year, month) {
+        function renderMonthlyStats(year, month) {
             const monthKey = `${year}-${(month + 1).toString().padStart(2, '0')}`;
             const monthTrades = tradesByMonth[monthKey] || [];
 
@@ -721,7 +724,7 @@ function renderMonthlyStats(year, month) {
             let losses = 0;
             let draws = 0; 
 
-            // ตัวแปรผลรวม Points เฉพาะ Status ที่กำหนด
+            // ตัวแปรผลรวม Points เฉพาะ Status ที่กำหนด (Strict Mode)
             let sumWinPoints = 0;
             let sumLosePoints = 0;
 
@@ -730,20 +733,19 @@ function renderMonthlyStats(year, month) {
 
             monthTrades.forEach(t => {
                 const p = t.points || 0;
-                totalPoints += p; // ยอดรวมทั้งเดือน (Monthly PnL) ยังคงนับทุกไม้ตามจริง
+                totalPoints += p; // Monthly PnL รวมทุกอย่าง
 
                 const status = (t.status || '').toUpperCase();
                 
                 if (status === 'WIN') {
                     wins++;
-                    sumWinPoints += p; // เอามาบวกเฉพาะเมื่อ Status เป็น WIN จริงๆ
+                    sumWinPoints += p;
                 } else if (status === 'LOSE') {
                     losses++;
-                    sumLosePoints += p; // เอามาบวกเฉพาะเมื่อ Status เป็น LOSE จริงๆ
+                    sumLosePoints += p;
                 } else if (status === 'DRAW') {
                     draws++;
                 }
-                // สถานะอื่น (NONE, HOLD, CANCEL) จะถูกข้ามไป ไม่เอามาคิด Avg
 
                 // RR Calculation
                 if (t.rr && t.rr.includes(':')) {
@@ -789,13 +791,13 @@ function renderMonthlyStats(year, month) {
             document.getElementById('monthAvgLoss').textContent = avgLoss.toLocaleString();
         }
 
-        // ... (Existing updateStats, updateExtendedStats, renderCharts, renderTable functions remain same) ...
         function updateStats() {
             const total = tradesData.length;
             const wins = tradesData.filter(t => (t.status || '').toString().toUpperCase() === 'WIN').length;
             const loses = tradesData.filter(t => (t.status || '').toString().toUpperCase() === 'LOSE').length;
             const draws = tradesData.filter(t => (t.status || '').toString().toUpperCase() === 'DRAW').length;
             
+            // Win Rate สูตร Conservative: Win / (Win + Lose + Draw)
             const validTotal = wins + loses + draws;
             const winRate = validTotal > 0 ? ((wins / validTotal) * 100).toFixed(1) : 0;
             
@@ -820,38 +822,70 @@ function renderMonthlyStats(year, month) {
         }
 
         function updateExtendedStats() {
-            const statuses = tradesData.map(t => (t.status || '').toString().toUpperCase());
-            const points = tradesData.map(t => t.points || 0);
+            const sourceData = filteredData.length > 0 ? filteredData : tradesData; 
+
             let maxWinStreak = 0, maxLoseStreak = 0;
             let currentWinStreak = 0, currentLoseStreak = 0;
-            statuses.forEach(status => {
+            
+            // ตัวแปรสำหรับคำนวณ Avg Win/Loss แบบ Strict (Status Only)
+            let sumWinPoints = 0;
+            let countWin = 0;
+            let sumLosePoints = 0;
+            let countLose = 0;
+            
+            let totalProfit = 0;
+            let totalLoss = 0;
+
+            sourceData.forEach(t => {
+                const status = (t.status || '').toString().toUpperCase();
+                const p = t.points || 0;
+
                 if (status === 'WIN') {
-                    currentWinStreak++; currentLoseStreak = 0; maxWinStreak = Math.max(maxWinStreak, currentWinStreak);
+                    currentWinStreak++; 
+                    currentLoseStreak = 0; 
+                    maxWinStreak = Math.max(maxWinStreak, currentWinStreak);
+                    
+                    sumWinPoints += p;
+                    countWin++;
+                    
+                    totalProfit += p; 
                 } else if (status === 'LOSE') {
-                    currentLoseStreak++; currentWinStreak = 0; maxLoseStreak = Math.max(maxLoseStreak, currentLoseStreak);
-                } else { currentWinStreak = 0; currentLoseStreak = 0; }
+                    currentLoseStreak++; 
+                    currentWinStreak = 0; 
+                    maxLoseStreak = Math.max(maxLoseStreak, currentLoseStreak);
+                    
+                    sumLosePoints += p;
+                    countLose++;
+                    
+                    totalLoss += Math.abs(p);
+                } else { 
+                    currentWinStreak = 0; 
+                    currentLoseStreak = 0; 
+                    if (p > 0) totalProfit += p;
+                    if (p < 0) totalLoss += Math.abs(p);
+                }
             });
-            const profits = points.filter(p => p > 0);
-            const losses = points.filter(p => p < 0);
-            const avgWin = profits.length > 0 ? profits.reduce((a, b) => a + b, 0) / profits.length : 0;
-            const avgLoss = losses.length > 0 ? losses.reduce((a, b) => a + b, 0) / losses.length : 0;
-            const totalProfit = profits.reduce((a, b) => a + b, 0);
-            const totalLoss = Math.abs(losses.reduce((a, b) => a + b, 0));
+
+            // คำนวณค่าเฉลี่ย
+            const avgWin = countWin > 0 ? Math.round(sumWinPoints / countWin) : 0;
+            const avgLoss = countLose > 0 ? Math.round(sumLosePoints / countLose) : 0;
+            
             const profitFactor = totalLoss > 0 ? (totalProfit / totalLoss).toFixed(2) : totalProfit > 0 ? '∞' : '0';
-            const winCount = profits.length;
-            const lossCount = losses.length;
-            const totalTrades = winCount + lossCount;
+
+            const totalWinLose = countWin + countLose;
             let expectancy = 0;
-            if (totalTrades > 0) {
-                const winPct = winCount / totalTrades;
-                const lossPct = lossCount / totalTrades;
+            if (totalWinLose > 0) {
+                const winPct = countWin / totalWinLose;
+                const lossPct = countLose / totalWinLose;
                 expectancy = (winPct * avgWin) + (lossPct * avgLoss);
             }
+
             document.getElementById('maxWinStreak').textContent = maxWinStreak;
             document.getElementById('maxLoseStreak').textContent = maxLoseStreak;
-            document.getElementById('avgWin').textContent = '+' + Math.round(avgWin).toLocaleString();
-            document.getElementById('avgLoss').textContent = Math.round(avgLoss).toLocaleString();
+            document.getElementById('avgWin').textContent = '+' + avgWin.toLocaleString();
+            document.getElementById('avgLoss').textContent = avgLoss.toLocaleString();
             document.getElementById('profitFactor').textContent = profitFactor;
+            
             const expectancyEl = document.getElementById('expectancy');
             expectancyEl.textContent = (expectancy >= 0 ? '+' : '') + Math.round(expectancy).toLocaleString();
             expectancyEl.className = 'stats-value ' + (expectancy >= 0 ? 'positive' : 'negative');
@@ -865,29 +899,41 @@ function renderMonthlyStats(year, month) {
             tradesData.forEach(trade => {
                 const date = trade.date || 'Unknown';
                 const points = trade.points || 0;
-                if (!dailyPoints[date]) dailyPoints[date] = 0;
+                
+                if (!dailyPoints[date]) {
+                    dailyPoints[date] = 0;
+                }
                 dailyPoints[date] += points;
             });
+
             const dates = Object.keys(dailyPoints).sort((a, b) => {
                 const parseDate = (d) => {
                     const parts = d.split('/');
-                    if (parts.length === 3) return new Date(parts[2], parts[1] - 1, parts[0]);
+                    if (parts.length === 3) {
+                        return new Date(parts[2], parts[1] - 1, parts[0]);
+                    }
                     return new Date(d);
                 };
                 return parseDate(a) - parseDate(b);
             });
+
             const labels = dates.map(date => {
                 const parts = date.split('/');
-                if (parts.length === 3) return parts[0] + '/' + parts[1];
+                if (parts.length === 3) {
+                    return parts[0] + '/' + parts[1];
+                }
                 return date;
             });
+
             const dailyData = dates.map(date => dailyPoints[date]);
+            
             const cumulativeData = [];
             let cumulative = 0;
             dailyData.forEach(points => {
                 cumulative += points;
                 cumulativeData.push(cumulative);
             });
+
             renderDailyChart(labels, dailyData);
             renderEquityChart(labels, cumulativeData);
         }
@@ -895,15 +941,64 @@ function renderMonthlyStats(year, month) {
         function renderDailyChart(labels, data) {
             const ctx = document.getElementById('dailyChart');
             if (!ctx) return;
+
             if (dailyChart) dailyChart.destroy();
+
             const barColors = data.map(val => val >= 0 ? 'rgba(34, 197, 94, 0.8)' : 'rgba(239, 68, 68, 0.8)');
+
             dailyChart = new Chart(ctx, {
                 type: 'bar',
-                data: { labels: labels, datasets: [{ data: data, backgroundColor: barColors, borderRadius: 4, borderSkipped: false }] },
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: barColors,
+                        borderRadius: 4,
+                        borderSkipped: false
+                    }]
+                },
                 options: {
-                    responsive: true, maintainAspectRatio: false, interaction: { intersect: false, mode: 'index' },
-                    plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(26, 26, 26, 0.95)', titleColor: '#a0a0a0', bodyColor: '#ffffff', bodyFont: { family: 'Space Mono', size: 14, weight: 'bold' }, padding: 12, displayColors: false, callbacks: { label: function(context) { const value = context.parsed.y; return (value >= 0 ? '+' : '') + value.toLocaleString() + ' pts'; } } } },
-                    scales: { x: { display: true, grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false }, ticks: { color: '#666666', font: { family: 'Space Mono', size: 9 }, maxRotation: 45, minRotation: 45 } }, y: { display: true, grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false }, ticks: { color: '#666666', font: { family: 'Space Mono', size: 10 }, callback: function(value) { if (Math.abs(value) >= 1000) return (value >= 0 ? '+' : '') + (value / 1000).toFixed(0) + 'k'; return (value >= 0 ? '+' : '') + value; } } } }
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { intersect: false, mode: 'index' },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(26, 26, 26, 0.95)',
+                            titleColor: '#a0a0a0',
+                            bodyColor: '#ffffff',
+                            bodyFont: { family: 'Space Mono', size: 14, weight: 'bold' },
+                            padding: 12,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.parsed.y;
+                                    return (value >= 0 ? '+' : '') + value.toLocaleString() + ' pts';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
+                            ticks: { color: '#666666', font: { family: 'Space Mono', size: 9 }, maxRotation: 45, minRotation: 45 }
+                        },
+                        y: {
+                            display: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
+                            ticks: { 
+                                color: '#666666', 
+                                font: { family: 'Space Mono', size: 10 }, 
+                                callback: function(value) { 
+                                    if (Math.abs(value) >= 1000) {
+                                        return (value >= 0 ? '+' : '') + (value / 1000).toFixed(0) + 'k';
+                                    }
+                                    return (value >= 0 ? '+' : '') + value;
+                                }
+                            }
+                        }
+                    }
                 }
             });
         }
@@ -911,22 +1006,84 @@ function renderMonthlyStats(year, month) {
         function renderEquityChart(labels, data) {
             const ctx = document.getElementById('equityChart');
             if (!ctx) return;
+
             if (equityChart) equityChart.destroy();
+
             const equityLabels = ['Start', ...labels];
             const equityData = [0, ...data];
+
             const chartCtx = ctx.getContext('2d');
             const lastValue = equityData[equityData.length - 1] || 0;
             const lineColor = lastValue >= 0 ? '#22c55e' : '#ef4444';
+            
             const gradient = chartCtx.createLinearGradient(0, 0, 0, 200);
-            if (lastValue >= 0) { gradient.addColorStop(0, 'rgba(34, 197, 94, 0.3)'); gradient.addColorStop(1, 'rgba(34, 197, 94, 0)'); }
-            else { gradient.addColorStop(0, 'rgba(239, 68, 68, 0.3)'); gradient.addColorStop(1, 'rgba(239, 68, 68, 0)'); }
+            if (lastValue >= 0) {
+                gradient.addColorStop(0, 'rgba(34, 197, 94, 0.3)');
+                gradient.addColorStop(1, 'rgba(34, 197, 94, 0)');
+            } else {
+                gradient.addColorStop(0, 'rgba(239, 68, 68, 0.3)');
+                gradient.addColorStop(1, 'rgba(239, 68, 68, 0)');
+            }
+
             equityChart = new Chart(ctx, {
                 type: 'line',
-                data: { labels: equityLabels, datasets: [{ data: equityData, borderColor: lineColor, borderWidth: 2, backgroundColor: gradient, fill: true, tension: 0.4, pointRadius: 3, pointBackgroundColor: lineColor, pointBorderColor: lineColor, pointHoverRadius: 6 }] },
+                data: {
+                    labels: equityLabels,
+                    datasets: [{
+                        data: equityData,
+                        borderColor: lineColor,
+                        borderWidth: 2,
+                        backgroundColor: gradient,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 3,
+                        pointBackgroundColor: lineColor,
+                        pointBorderColor: lineColor,
+                        pointHoverRadius: 6
+                    }]
+                },
                 options: {
-                    responsive: true, maintainAspectRatio: false, interaction: { intersect: false, mode: 'index' },
-                    plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(26, 26, 26, 0.95)', titleColor: '#a0a0a0', bodyColor: '#ffffff', bodyFont: { family: 'Space Mono', size: 14, weight: 'bold' }, padding: 12, displayColors: false, callbacks: { label: function(context) { const value = context.parsed.y; return (value >= 0 ? '+' : '') + value.toLocaleString() + ' pts'; } } } },
-                    scales: { x: { display: true, grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false }, ticks: { color: '#666666', font: { family: 'Space Mono', size: 9 }, maxRotation: 45, minRotation: 45 } }, y: { display: true, grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false }, ticks: { color: '#666666', font: { family: 'Space Mono', size: 10 }, callback: function(value) { if (Math.abs(value) >= 1000) return (value >= 0 ? '+' : '') + (value / 1000).toFixed(0) + 'k'; return (value >= 0 ? '+' : '') + value; } } } }
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { intersect: false, mode: 'index' },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(26, 26, 26, 0.95)',
+                            titleColor: '#a0a0a0',
+                            bodyColor: '#ffffff',
+                            bodyFont: { family: 'Space Mono', size: 14, weight: 'bold' },
+                            padding: 12,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.parsed.y;
+                                    return (value >= 0 ? '+' : '') + value.toLocaleString() + ' pts';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
+                            ticks: { color: '#666666', font: { family: 'Space Mono', size: 9 }, maxRotation: 45, minRotation: 45 }
+                        },
+                        y: {
+                            display: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
+                            ticks: { 
+                                color: '#666666', 
+                                font: { family: 'Space Mono', size: 10 }, 
+                                callback: function(value) { 
+                                    if (Math.abs(value) >= 1000) {
+                                        return (value >= 0 ? '+' : '') + (value / 1000).toFixed(0) + 'k';
+                                    }
+                                    return (value >= 0 ? '+' : '') + value;
+                                }
+                            }
+                        }
+                    }
                 }
             });
         }
@@ -946,30 +1103,44 @@ function renderMonthlyStats(year, month) {
         function renderTable() {
             const tbody = document.getElementById('tableBody');
             if (!tbody) return;
-            if (filteredData.length === 0) { tbody.innerHTML = emptyStateHTML; return; }
+
+            if (filteredData.length === 0) {
+                tbody.innerHTML = emptyStateHTML;
+                return;
+            }
+
             tbody.innerHTML = '';
             const shownSetIdBases = new Set();
+
             filteredData.forEach((trade, index) => {
                 if (trade.isGrouped) {
-                    if (shownSetIdBases.has(trade.setIdBase)) return;
+                    if (shownSetIdBases.has(trade.setIdBase)) {
+                        return;
+                    }
                     shownSetIdBases.add(trade.setIdBase);
                 }
+
                 const row = document.createElement('div');
                 row.className = 'table-row' + (trade.isGrouped ? ' grouped' : '');
                 row.onclick = () => openModal(trade);
+
                 const order = (trade.order || '').toString().toUpperCase();
                 const status = (trade.status || '').toString().toUpperCase();
                 const orderClass = order === 'BUY' ? 'buy' : 'sell';
                 const resultClass = getResultClass(trade.result);
                 const statusClass = getStatusClass(status);
+                
                 let displayPoints = trade.points;
                 if (trade.isGrouped) {
                     const groupTrades = groupedTrades[trade.setIdBase];
                     displayPoints = groupTrades.reduce((sum, t) => sum + (t.points || 0), 0);
                 }
+                
                 const pointsClass = displayPoints >= 0 ? 'positive' : 'negative';
                 const pointsDisplay = (displayPoints >= 0 ? '+' : '') + displayPoints.toLocaleString();
+
                 const groupBadge = trade.isGrouped ? `<span class="group-badge">${trade.groupSize}</span>` : '';
+
                 row.innerHTML = `
                     <div class="table-cell cell-no">${trade.no}${groupBadge}</div>
                     <div class="table-cell cell-setid">${trade.setId || '-'}</div>
@@ -988,7 +1159,9 @@ function renderMonthlyStats(year, month) {
                     <div class="table-cell cell-rr">${trade.rr || '-'}</div>
                     <div class="table-cell cell-status ${statusClass}">${trade.status || ''}</div>
                 `;
+
                 tbody.appendChild(row);
+
                 setTimeout(() => row.classList.add('loaded'), index * 15);
             });
         }
@@ -1001,6 +1174,7 @@ function renderMonthlyStats(year, month) {
             if (r === 'NONE' || r === 'BIT') return 'none';
             return '';
         }
+
         function getStatusClass(status) {
             if (!status) return '';
             const s = status.toString().toUpperCase();
@@ -1009,16 +1183,24 @@ function renderMonthlyStats(year, month) {
             if (s === 'DRAW') return 'draw';
             return 'none';
         }
-        function truncate(str, len) { if (!str) return '-'; return str.length > len ? str.substring(0, len) + '...' : str; }
+
+        function truncate(str, len) {
+            if (!str) return '-';
+            return str.length > len ? str.substring(0, len) + '...' : str;
+        }
+
         function openModal(trade) {
             const modal = document.getElementById('modalOverlay');
             const body = document.getElementById('modalBody');
+
             const statusUpper = (trade.status || '').toString().toUpperCase();
             const statusClass = statusUpper === 'WIN' ? 'positive' : statusUpper === 'LOSE' ? 'negative' : '';
+
             let groupEntriesHTML = '';
             if (trade.isGrouped) {
                 const groupTrades = groupedTrades[trade.setIdBase];
                 const totalGroupPoints = groupTrades.reduce((sum, t) => sum + (t.points || 0), 0);
+                
                 groupEntriesHTML = `
                     <div class="group-entries">
                         <div class="group-entries-title">
@@ -1035,68 +1217,167 @@ function renderMonthlyStats(year, month) {
                                     <span class="cell-status ${getStatusClass((t.status || '').toString().toUpperCase())}">${t.status}</span>
                                 </div>
                                 <div class="group-entry-grid">
-                                    <div class="detail-item"><span class="detail-label">Entry</span><span class="detail-value">${t.entryOrder || '-'}</span></div>
-                                    <div class="detail-item"><span class="detail-label">TP</span><span class="detail-value">${t.tpOrder || '-'}</span></div>
-                                    <div class="detail-item"><span class="detail-label">SL</span><span class="detail-value">${t.slOrder || '-'}</span></div>
-                                    <div class="detail-item"><span class="detail-label">Result</span><span class="detail-value">${t.result || '-'}</span></div>
-                                    <div class="detail-item"><span class="detail-label">Points</span><span class="detail-value" style="color: ${t.points >= 0 ? 'var(--accent-green)' : 'var(--accent-red)'}">${t.points >= 0 ? '+' : ''}${t.points.toLocaleString()}</span></div>
-                                    <div class="detail-item"><span class="detail-label">RR</span><span class="detail-value">${t.rr || '-'}</span></div>
-                                    <div class="detail-item"><span class="detail-label">Strategy</span><span class="detail-value">${t.strategy || '-'}</span></div>
-                                    <div class="detail-item"><span class="detail-label">Setup</span><span class="detail-value">${t.setup || '-'}</span></div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Entry</span>
+                                        <span class="detail-value">${t.entryOrder || '-'}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">TP</span>
+                                        <span class="detail-value">${t.tpOrder || '-'}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">SL</span>
+                                        <span class="detail-value">${t.slOrder || '-'}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Result</span>
+                                        <span class="detail-value">${t.result || '-'}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Points</span>
+                                        <span class="detail-value" style="color: ${t.points >= 0 ? 'var(--accent-green)' : 'var(--accent-red)'}">
+                                            ${t.points >= 0 ? '+' : ''}${t.points.toLocaleString()}
+                                        </span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">RR</span>
+                                        <span class="detail-value">${t.rr || '-'}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Strategy</span>
+                                        <span class="detail-value">${t.strategy || '-'}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Setup</span>
+                                        <span class="detail-value">${t.setup || '-'}</span>
+                                    </div>
                                 </div>
                             </div>
                         `).join('')}
                     </div>
                 `;
             }
+
             body.innerHTML = `
                 <div class="detail-grid">
-                    <div class="detail-item"><span class="detail-label">Trade No.</span><span class="detail-value">#${trade.no}</span></div>
-                    <div class="detail-item"><span class="detail-label">SetID</span><span class="detail-value">${trade.setId || '-'}</span></div>
-                    <div class="detail-item"><span class="detail-label">Date</span><span class="detail-value">${trade.date}</span></div>
-                    <div class="detail-item"><span class="detail-label">Plan</span><span class="detail-value">${trade.plan}</span></div>
-                    <div class="detail-item"><span class="detail-label">Type</span><span class="detail-value">${trade.type}</span></div>
-                    <div class="detail-item"><span class="detail-label">Asset</span><span class="detail-value">${trade.asset}</span></div>
-                    <div class="detail-item"><span class="detail-label">Category</span><span class="detail-value">${trade.category}</span></div>
-                    <div class="detail-item"><span class="detail-label">Order</span><span class="detail-value">${trade.order}</span></div>
-                    <div class="detail-item"><span class="detail-label">Entry</span><span class="detail-value">${trade.entryOrder || '-'}</span></div>
-                    <div class="detail-item"><span class="detail-label">Take Profit</span><span class="detail-value">${trade.tpOrder || '-'}</span></div>
-                    <div class="detail-item"><span class="detail-label">Stop Loss</span><span class="detail-value">${trade.slOrder || '-'}</span></div>
-                    <div class="detail-item"><span class="detail-label">RR</span><span class="detail-value">${trade.rr || '-'}</span></div>
-                    <div class="detail-item"><span class="detail-label">Strategy</span><span class="detail-value">${trade.strategy || '-'}</span></div>
-                    <div class="detail-item"><span class="detail-label">Setup</span><span class="detail-value">${trade.setup || '-'}</span></div>
-                    <div class="detail-item"><span class="detail-label">Result</span><span class="detail-value">${trade.result}</span></div>
-                    <div class="detail-item"><span class="detail-label">Points</span><span class="detail-value ${statusClass}">${trade.points >= 0 ? '+' : ''}${trade.points.toLocaleString()}</span></div>
-                    <div class="detail-item"><span class="detail-label">Status</span><span class="detail-value ${statusClass}">${trade.status}</span></div>
-                    <div class="detail-item full"><span class="detail-label">Note / Plan</span><div class="detail-note">${trade.notePlan || 'No notes'}</div></div>
+                    <div class="detail-item">
+                        <span class="detail-label">Trade No.</span>
+                        <span class="detail-value">#${trade.no}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">SetID</span>
+                        <span class="detail-value">${trade.setId || '-'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Date</span>
+                        <span class="detail-value">${trade.date}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Plan</span>
+                        <span class="detail-value">${trade.plan}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Type</span>
+                        <span class="detail-value">${trade.type}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Asset</span>
+                        <span class="detail-value">${trade.asset}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Category</span>
+                        <span class="detail-value">${trade.category}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Order</span>
+                        <span class="detail-value">${trade.order}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Entry</span>
+                        <span class="detail-value">${trade.entryOrder || '-'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Take Profit</span>
+                        <span class="detail-value">${trade.tpOrder || '-'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Stop Loss</span>
+                        <span class="detail-value">${trade.slOrder || '-'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">RR</span>
+                        <span class="detail-value">${trade.rr || '-'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Strategy</span>
+                        <span class="detail-value">${trade.strategy || '-'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Setup</span>
+                        <span class="detail-value">${trade.setup || '-'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Result</span>
+                        <span class="detail-value">${trade.result}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Points</span>
+                        <span class="detail-value ${statusClass}">${trade.points >= 0 ? '+' : ''}${trade.points.toLocaleString()}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Status</span>
+                        <span class="detail-value ${statusClass}">${trade.status}</span>
+                    </div>
+                    <div class="detail-item full">
+                        <span class="detail-label">Note / Plan</span>
+                        <div class="detail-note">${trade.notePlan || 'No notes'}</div>
+                    </div>
                 </div>
                 ${groupEntriesHTML}
             `;
+
             modal.classList.add('active');
         }
-        function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+        }
+
         function applyFilters(filter, search) {
             filteredData = tradesData.filter(trade => {
                 let matchFilter = true;
                 let matchSearch = true;
+
                 const status = (trade.status || '').toString().toUpperCase();
                 const order = (trade.order || '').toString().toUpperCase();
-                if (filter === 'win') matchFilter = status === 'WIN';
-                else if (filter === 'lose') matchFilter = status === 'LOSE';
-                else if (filter === 'draw') matchFilter = status === 'DRAW';
-                else if (filter === 'other') matchFilter = status === 'NONE' || status === 'CANCEL' || status === 'HOLD' || status === '';
-                else if (filter === 'buy') matchFilter = order === 'BUY';
-                else if (filter === 'sell') matchFilter = order === 'SELL';
+
+                if (filter === 'win') {
+                    matchFilter = status === 'WIN';
+                } else if (filter === 'lose') {
+                    matchFilter = status === 'LOSE';
+                } else if (filter === 'draw') {
+                    matchFilter = status === 'DRAW';
+                } else if (filter === 'other') {
+                    matchFilter = status === 'NONE' || status === 'CANCEL' || status === 'HOLD' || status === '';
+                } else if (filter === 'buy') {
+                    matchFilter = order === 'BUY';
+                } else if (filter === 'sell') {
+                    matchFilter = order === 'SELL';
+                }
+
                 if (search) {
                     const searchLower = search.toLowerCase();
-                    matchSearch = (trade.asset && trade.asset.toString().toLowerCase().includes(searchLower)) ||
+                    matchSearch = 
+                        (trade.asset && trade.asset.toString().toLowerCase().includes(searchLower)) ||
                         (trade.strategy && trade.strategy.toString().toLowerCase().includes(searchLower)) ||
                         (trade.setup && trade.setup.toString().toLowerCase().includes(searchLower)) ||
                         (trade.type && trade.type.toString().toLowerCase().includes(searchLower)) ||
                         (trade.category && trade.category.toString().toLowerCase().includes(searchLower));
                 }
+
                 return matchFilter && matchSearch;
             });
+
             renderTable();
         }
     </script>
