@@ -715,29 +715,37 @@ function renderMonthlyStats(year, month) {
             const monthTrades = tradesByMonth[monthKey] || [];
 
             let totalPoints = 0;
+            
+            // ตัวแปรนับจำนวน
             let wins = 0;
             let losses = 0;
-            let draws = 0; // เพิ่มตัวแปรนับ Draw
-            let winPoints = 0;
-            let lossPoints = 0;
+            let draws = 0; 
+
+            // ตัวแปรผลรวม Points เฉพาะ Status ที่กำหนด
+            let sumWinPoints = 0;
+            let sumLosePoints = 0;
+
             let rrSum = 0;
             let rrCount = 0;
 
             monthTrades.forEach(t => {
-                totalPoints += (t.points || 0);
+                const p = t.points || 0;
+                totalPoints += p; // ยอดรวมทั้งเดือน (Monthly PnL) ยังคงนับทุกไม้ตามจริง
+
                 const status = (t.status || '').toUpperCase();
                 
                 if (status === 'WIN') {
                     wins++;
-                    winPoints += (t.points || 0);
+                    sumWinPoints += p; // เอามาบวกเฉพาะเมื่อ Status เป็น WIN จริงๆ
                 } else if (status === 'LOSE') {
                     losses++;
-                    lossPoints += (t.points || 0);
-                } else if (status === 'DRAW') { // นับ Draw ด้วย
+                    sumLosePoints += p; // เอามาบวกเฉพาะเมื่อ Status เป็น LOSE จริงๆ
+                } else if (status === 'DRAW') {
                     draws++;
                 }
+                // สถานะอื่น (NONE, HOLD, CANCEL) จะถูกข้ามไป ไม่เอามาคิด Avg
 
-                // Parse RR
+                // RR Calculation
                 if (t.rr && t.rr.includes(':')) {
                     const parts = t.rr.split(':');
                     if (parts.length === 2) {
@@ -751,13 +759,17 @@ function renderMonthlyStats(year, month) {
                 }
             });
 
-            // แก้สูตรตรงนี้ครับ: ให้นับ wins + losses + draws
+            // คำนวณ
             const totalTrades = wins + losses + draws; 
-            
             const winRate = totalTrades > 0 ? ((wins / totalTrades) * 100).toFixed(1) : 0;
+            
             const avgRR = rrCount > 0 ? (rrSum / rrCount).toFixed(2) : '0.00';
-            const avgWin = wins > 0 ? Math.round(winPoints / wins) : 0;
-            const avgLoss = losses > 0 ? Math.round(lossPoints / losses) : 0;
+            
+            // Avg Win: คิดจาก (Points ของไม้ WIN) / (จำนวนไม้ WIN)
+            const avgWin = wins > 0 ? Math.round(sumWinPoints / wins) : 0;
+            
+            // Avg Loss: คิดจาก (Points ของไม้ LOSE) / (จำนวนไม้ LOSE)
+            const avgLoss = losses > 0 ? Math.round(sumLosePoints / losses) : 0;
 
             // Update DOM
             const monthTotalEl = document.getElementById('monthTotalPoints');
@@ -769,10 +781,8 @@ function renderMonthlyStats(year, month) {
             document.getElementById('monthWinRate').textContent = winRate + '%';
             document.getElementById('monthWinRate').className = 'month-stat-value ' + (parseFloat(winRate) >= 50 ? 'positive' : 'negative');
             
-            // เพิ่มการแสดงผล Draw ใน Sidebar ด้วยก็ได้ครับ (Optional)
             document.getElementById('monthWins').textContent = wins + 'W';
             document.getElementById('monthLosses').textContent = losses + 'L';
-            // document.getElementById('monthDraws').textContent = draws + 'D'; // ถ้าอยากโชว์ Draw ให้เพิ่ม Element รองรับ
 
             document.getElementById('monthAvgRR').textContent = '1:' + avgRR;
             document.getElementById('monthAvgWin').textContent = '+' + avgWin.toLocaleString();
