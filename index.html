@@ -710,13 +710,14 @@
             grid.appendChild(cell);
         }
 
-        function renderMonthlyStats(year, month) {
+function renderMonthlyStats(year, month) {
             const monthKey = `${year}-${(month + 1).toString().padStart(2, '0')}`;
             const monthTrades = tradesByMonth[monthKey] || [];
 
             let totalPoints = 0;
             let wins = 0;
             let losses = 0;
+            let draws = 0; // เพิ่มตัวแปรนับ Draw
             let winPoints = 0;
             let lossPoints = 0;
             let rrSum = 0;
@@ -725,15 +726,18 @@
             monthTrades.forEach(t => {
                 totalPoints += (t.points || 0);
                 const status = (t.status || '').toUpperCase();
+                
                 if (status === 'WIN') {
                     wins++;
                     winPoints += (t.points || 0);
                 } else if (status === 'LOSE') {
                     losses++;
                     lossPoints += (t.points || 0);
+                } else if (status === 'DRAW') { // นับ Draw ด้วย
+                    draws++;
                 }
 
-                // Parse RR (e.g., "1:2.5" -> 2.5)
+                // Parse RR
                 if (t.rr && t.rr.includes(':')) {
                     const parts = t.rr.split(':');
                     if (parts.length === 2) {
@@ -747,7 +751,9 @@
                 }
             });
 
-            const totalTrades = wins + losses; // Exclude draw/cancel for basic winrate
+            // แก้สูตรตรงนี้ครับ: ให้นับ wins + losses + draws
+            const totalTrades = wins + losses + draws; 
+            
             const winRate = totalTrades > 0 ? ((wins / totalTrades) * 100).toFixed(1) : 0;
             const avgRR = rrCount > 0 ? (rrSum / rrCount).toFixed(2) : '0.00';
             const avgWin = wins > 0 ? Math.round(winPoints / wins) : 0;
@@ -763,8 +769,10 @@
             document.getElementById('monthWinRate').textContent = winRate + '%';
             document.getElementById('monthWinRate').className = 'month-stat-value ' + (parseFloat(winRate) >= 50 ? 'positive' : 'negative');
             
+            // เพิ่มการแสดงผล Draw ใน Sidebar ด้วยก็ได้ครับ (Optional)
             document.getElementById('monthWins').textContent = wins + 'W';
             document.getElementById('monthLosses').textContent = losses + 'L';
+            // document.getElementById('monthDraws').textContent = draws + 'D'; // ถ้าอยากโชว์ Draw ให้เพิ่ม Element รองรับ
 
             document.getElementById('monthAvgRR').textContent = '1:' + avgRR;
             document.getElementById('monthAvgWin').textContent = '+' + avgWin.toLocaleString();
