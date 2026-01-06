@@ -173,501 +173,118 @@
             color: var(--text-secondary);
         }
 
-        /* Filters */
-        .filters-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .filter-group {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            padding: 10px 20px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: 'Instrument Sans', sans-serif;
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            border-color: var(--text-primary);
-        }
-
-        .search-box {
+        /* Calendar Section */
+        .calendar-section {
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 12px 20px;
-            font-size: 0.875rem;
-            width: 280px;
-            font-family: 'Instrument Sans', sans-serif;
-        }
-
-        .search-box::placeholder {
-            color: var(--text-muted);
-        }
-
-        .search-box:focus {
-            outline: none;
-            border-color: var(--text-secondary);
-        }
-
-        /* Table */
-        .table-container {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            overflow-x: auto;
-        }
-
-        .table-header {
-            display: grid;
-            grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 55px 75px;
-            gap: 12px;
-            background: var(--bg-tertiary);
-            border-bottom: 1px solid var(--border-color);
-            padding: 0 20px;
-            min-width: 1650px;
-        }
-
-        .table-header-cell {
-            padding: 16px 0;
-            font-size: 0.6rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-family: 'Space Mono', monospace;
-        }
-
-        .table-body {
-            max-height: 600px;
-            overflow-y: auto;
-            min-width: 1650px;
-        }
-
-        .table-body::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-
-        .table-body::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-        }
-
-        .table-body::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-        }
-
-        .table-row {
-            display: grid;
-            grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 55px 75px;
-            gap: 12px;
-            border-bottom: 1px solid var(--border-color);
-            padding: 0 20px;
-            transition: all 0.2s ease;
+            padding: 24px;
+            margin-bottom: 40px;
             opacity: 0;
-            transform: translateX(-20px);
-            cursor: pointer;
-        }
-
-        .table-row.loaded {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .table-row:hover {
-            background: var(--bg-tertiary);
-        }
-
-        .table-row.grouped {
-            background: rgba(59, 130, 246, 0.05);
-            border-left: 3px solid var(--accent-blue);
-        }
-
-        .table-row.grouped:hover {
-            background: rgba(59, 130, 246, 0.1);
-        }
-
-        .group-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background: var(--accent-blue);
-            color: white;
-            font-size: 0.6rem;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-weight: 600;
-            margin-left: 4px;
-        }
-
-        .table-cell {
-            padding: 12px 0;
-            font-size: 0.75rem;
-            display: flex;
-            align-items: center;
-            color: var(--text-secondary);
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .cell-no {
-            font-family: 'Space Mono', monospace;
-            color: var(--text-muted);
-        }
-
-        .cell-date {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-        }
-
-        .cell-asset {
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .cell-type {
-            display: inline-flex;
-            padding: 3px 8px;
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            border-radius: 3px;
-        }
-
-        .cell-type.buy {
-            background: rgba(34, 197, 94, 0.15);
-            color: var(--accent-green);
-        }
-
-        .cell-type.sell {
-            background: rgba(239, 68, 68, 0.15);
-            color: var(--accent-red);
-        }
-
-        .cell-category {
-            font-size: 0.65rem;
-            padding: 3px 8px;
-            border-radius: 3px;
-            background: rgba(168, 85, 247, 0.15);
-            color: var(--accent-purple);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .cell-price {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
-        }
-
-        .cell-strategy {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            line-height: 1.3;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .cell-setid {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-        }
-
-        .cell-type-text {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-        }
-
-        /* แก้ไขส่วน RR: เปลี่ยนฟอนต์เป็นแบบปกติ เพื่อให้ตัวเลขชิดกัน */
-        .cell-rr {
-            font-family: 'Instrument Sans', sans-serif; /* เปลี่ยนจาก Space Mono */
-            font-weight: 600; /* เพิ่มความหนาให้อ่านง่ายขึ้น */
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            white-space: nowrap;
-            letter-spacing: 0; /* มั่นใจว่าไม่มีระยะห่างแปลกๆ */
-        }
-
-        .cell-result {
-            font-weight: 600;
-            font-size: 0.65rem;
-            padding: 3px 8px;
-            border-radius: 3px;
-        }
-
-        .cell-result.tp,
-        .cell-result.tp1,
-        .cell-result.tp2 {
-            background: rgba(34, 197, 94, 0.15);
-            color: var(--accent-green);
-        }
-
-        .cell-result.sl {
-            background: rgba(239, 68, 68, 0.15);
-            color: var(--accent-red);
-        }
-
-        .cell-result.none,
-        .cell-result.bit {
-            background: rgba(251, 191, 36, 0.15);
-            color: var(--accent-gold);
-        }
-
-        .cell-points {
-            font-family: 'Space Mono', monospace;
-            font-weight: 600;
-            font-size: 0.75rem;
-        }
-
-        .cell-points.positive {
-            color: var(--accent-green);
-        }
-
-        .cell-points.negative {
-            color: var(--accent-red);
-        }
-
-        .cell-status {
-            font-weight: 700;
-            font-size: 0.65rem;
-            letter-spacing: 0.5px;
-        }
-
-        .cell-status.win {
-            color: var(--accent-green);
-        }
-
-        .cell-status.lose {
-            color: var(--accent-red);
-        }
-
-        .cell-status.draw {
-            color: var(--accent-gold);
-        }
-
-        .cell-status.none,
-        .cell-status.cancel,
-        .cell-status.hold {
-            color: var(--text-muted);
-        }
-
-        /* Empty State */
-        .empty-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 100px 40px;
-            text-align: center;
-        }
-
-        .empty-icon {
-            width: 80px;
-            height: 80px;
-            border: 2px dashed var(--border-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-        }
-
-        .empty-icon svg {
-            width: 32px;
-            height: 32px;
-            stroke: var(--text-muted);
-        }
-
-        .empty-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .empty-desc {
-            color: var(--text-muted);
-            font-size: 0.875rem;
-            max-width: 400px;
-        }
-
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            max-width: 800px;
-            width: 90%;
-            max-height: 85vh;
-            overflow-y: auto;
             transform: translateY(20px);
-            transition: all 0.3s ease;
+            transition: all 0.6s ease;
         }
 
-        .modal-overlay.active .modal {
+        .calendar-section.loaded {
+            opacity: 1;
             transform: translateY(0);
         }
 
-        .modal-header {
+        .calendar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 24px 32px;
-            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 24px;
         }
 
-        .modal-title {
+        .calendar-title {
             font-family: 'Space Mono', monospace;
             font-size: 1.25rem;
             font-weight: 700;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 1.5rem;
-            transition: color 0.2s;
-        }
-
-        .modal-close:hover {
-            color: var(--text-primary);
-        }
-
-        .modal-body {
-            padding: 32px;
-        }
-
-        .detail-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .detail-item {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .detail-item.full {
-            grid-column: 1 / -1;
-        }
-
-        .detail-label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: 'Space Mono', monospace;
         }
 
-        .detail-value {
-            font-size: 1rem;
-            color: var(--text-primary);
-        }
-
-        .detail-note {
-            background: var(--bg-tertiary);
-            padding: 16px;
-            font-size: 0.875rem;
-            line-height: 1.6;
-            color: var(--text-secondary);
-            margin-top: 8px;
-            white-space: pre-wrap;
-        }
-
-        /* Group entries in modal */
-        .group-entries {
-            margin-top: 24px;
-            border-top: 1px solid var(--border-color);
-            padding-top: 24px;
-        }
-
-        .group-entries-title {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--accent-blue);
-            margin-bottom: 16px;
+        .calendar-nav {
             display: flex;
-            align-items: center;
             gap: 8px;
         }
 
-        .group-entry-item {
-            background: var(--bg-tertiary);
-            padding: 16px;
-            margin-bottom: 12px;
-            border-left: 3px solid var(--accent-blue);
-        }
-
-        .group-entry-header {
+        .calendar-nav-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            width: 32px;
+            height: 32px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .group-entry-round {
+        .calendar-nav-btn:hover {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: var(--border-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .calendar-day-header {
+            background: var(--bg-tertiary);
+            padding: 12px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+        }
+
+        .calendar-day {
+            background: var(--bg-secondary);
+            min-height: 100px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: background 0.2s;
+        }
+
+        .calendar-day:hover {
+            background: var(--bg-tertiary);
+        }
+
+        .calendar-day.empty {
+            background: rgba(17, 17, 17, 0.5);
+            pointer-events: none;
+        }
+
+        .day-number {
             font-family: 'Space Mono', monospace;
             font-size: 0.8rem;
-            color: var(--accent-blue);
+            color: var(--text-muted);
         }
 
-        .group-entry-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-        }
-
-        .group-entry-grid .detail-item {
-            gap: 4px;
-        }
-
-        .group-entry-grid .detail-label {
-            font-size: 0.65rem;
-        }
-
-        .group-entry-grid .detail-value {
+        .day-profit {
+            text-align: right;
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
             font-size: 0.9rem;
+        }
+
+        .day-profit.positive { color: var(--accent-green); }
+        .day-profit.negative { color: var(--accent-red); }
+        .day-profit.neutral { color: var(--text-muted); }
+
+        .day-trades-count {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            text-align: right;
+            margin-top: 4px;
         }
 
         /* Performance Section */
@@ -735,40 +352,341 @@
             color: var(--text-primary);
         }
 
-        .stats-value.positive {
-            color: var(--accent-green);
+        .stats-value.positive { color: var(--accent-green); }
+        .stats-value.negative { color: var(--accent-red); }
+
+        /* Filters */
+        .filters-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
-        .stats-value.negative {
-            color: var(--accent-red);
+        .filter-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
-        /* Responsive */
-        @media (max-width: 1400px) {
-            /* เมื่อหน้าจอเล็กลง ตารางจะ Scroll เอา ไม่บีบ Column */
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 10px 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Instrument Sans', sans-serif;
         }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            border-color: var(--text-primary);
+        }
+
+        .search-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 12px 20px;
+            font-size: 0.875rem;
+            width: 280px;
+            font-family: 'Instrument Sans', sans-serif;
+        }
+
+        .search-box::placeholder { color: var(--text-muted); }
+        .search-box:focus { outline: none; border-color: var(--text-secondary); }
+
+        /* Table */
+        .table-container {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            overflow-x: auto;
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 55px 75px;
+            gap: 12px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 20px;
+            min-width: 1650px;
+        }
+
+        .table-header-cell {
+            padding: 16px 0;
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .table-body {
+            max-height: 600px;
+            overflow-y: auto;
+            min-width: 1650px;
+        }
+
+        .table-body::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .table-body::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        .table-body::-webkit-scrollbar-thumb { background: var(--border-color); }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 55px 75px;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 20px;
+            transition: all 0.2s ease;
+            opacity: 0;
+            transform: translateX(-20px);
+            cursor: pointer;
+        }
+
+        .table-row.loaded {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .table-row:hover { background: var(--bg-tertiary); }
+
+        .table-row.grouped {
+            background: rgba(59, 130, 246, 0.05);
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        .table-row.grouped:hover { background: rgba(59, 130, 246, 0.1); }
+
+        .group-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--accent-blue);
+            color: white;
+            font-size: 0.6rem;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 600;
+            margin-left: 4px;
+        }
+
+        .table-cell {
+            padding: 12px 0;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            color: var(--text-secondary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cell-no { font-family: 'Space Mono', monospace; color: var(--text-muted); }
+        .cell-date { font-family: 'Space Mono', monospace; font-size: 0.7rem; }
+        .cell-asset { font-weight: 600; color: var(--text-primary); }
+        
+        .cell-type {
+            display: inline-flex;
+            padding: 3px 8px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-radius: 3px;
+        }
+        .cell-type.buy { background: rgba(34, 197, 94, 0.15); color: var(--accent-green); }
+        .cell-type.sell { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
+
+        .cell-category {
+            font-size: 0.65rem;
+            padding: 3px 8px;
+            border-radius: 3px;
+            background: rgba(168, 85, 247, 0.15);
+            color: var(--accent-purple);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cell-price { font-family: 'Space Mono', monospace; font-size: 0.75rem; }
+        .cell-strategy {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            line-height: 1.3;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .cell-setid { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--text-muted); }
+        .cell-type-text { font-size: 0.7rem; color: var(--text-secondary); }
+        
+        /* RR Font fix */
+        .cell-rr {
+            font-family: 'Instrument Sans', sans-serif;
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            letter-spacing: 0;
+        }
+
+        .cell-result {
+            font-weight: 600;
+            font-size: 0.65rem;
+            padding: 3px 8px;
+            border-radius: 3px;
+        }
+        .cell-result.tp, .cell-result.tp1, .cell-result.tp2 { background: rgba(34, 197, 94, 0.15); color: var(--accent-green); }
+        .cell-result.sl { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
+        .cell-result.none, .cell-result.bit { background: rgba(251, 191, 36, 0.15); color: var(--accent-gold); }
+
+        .cell-points { font-family: 'Space Mono', monospace; font-weight: 600; font-size: 0.75rem; }
+        .cell-points.positive { color: var(--accent-green); }
+        .cell-points.negative { color: var(--accent-red); }
+
+        .cell-status { font-weight: 700; font-size: 0.65rem; letter-spacing: 0.5px; }
+        .cell-status.win { color: var(--accent-green); }
+        .cell-status.lose { color: var(--accent-red); }
+        .cell-status.draw { color: var(--accent-gold); }
+        .cell-status.none, .cell-status.cancel, .cell-status.hold { color: var(--text-muted); }
+
+        /* Empty State */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 40px;
+            text-align: center;
+        }
+        .empty-icon {
+            width: 80px;
+            height: 80px;
+            border: 2px dashed var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+        .empty-icon svg { width: 32px; height: 32px; stroke: var(--text-muted); }
+        .empty-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 8px; }
+        .empty-desc { color: var(--text-muted); font-size: 0.875rem; max-width: 400px; }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            max-width: 800px;
+            width: 90%;
+            max-height: 85vh;
+            overflow-y: auto;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active .modal { transform: translateY(0); }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 32px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .modal-title { font-family: 'Space Mono', monospace; font-size: 1.25rem; font-weight: 700; }
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: color 0.2s;
+        }
+        .modal-close:hover { color: var(--text-primary); }
+        .modal-body { padding: 32px; }
+
+        .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .detail-item { display: flex; flex-direction: column; gap: 6px; }
+        .detail-item.full { grid-column: 1 / -1; }
+        .detail-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Space Mono', monospace;
+        }
+        .detail-value { font-size: 1rem; color: var(--text-primary); }
+        .detail-note {
+            background: var(--bg-tertiary);
+            padding: 16px;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            white-space: pre-wrap;
+        }
+
+        /* Group entries in modal */
+        .group-entries {
+            margin-top: 24px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 24px;
+        }
+        .group-entries-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .group-entry-item {
+            background: var(--bg-tertiary);
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 3px solid var(--accent-blue);
+        }
+        .group-entry-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .group-entry-round { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--accent-blue); }
+        .group-entry-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .group-entry-grid .detail-item { gap: 4px; }
+        .group-entry-grid .detail-label { font-size: 0.65rem; }
+        .group-entry-grid .detail-value { font-size: 0.9rem; }
 
         @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .header {
-                flex-direction: column;
-                gap: 30px;
-            }
-
-            .upload-section {
-                align-items: flex-start;
-            }
-
-            .performance-section {
-                grid-template-columns: 1fr;
-            }
-
-            .detail-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .header { flex-direction: column; gap: 30px; }
+            .performance-section { grid-template-columns: 1fr; }
+            .detail-grid { grid-template-columns: repeat(2, 1fr); }
+            .calendar-day { min-height: 80px; padding: 8px; }
+            .day-profit { font-size: 0.75rem; }
         }
     </style>
 </head>
@@ -856,6 +774,35 @@
             </div>
         </div>
 
+        <div class="calendar-section" id="calendarSection">
+            <div class="calendar-header">
+                <div class="calendar-title" id="calendarTitle">January 2024</div>
+                <div class="calendar-nav">
+                    <button class="calendar-nav-btn" onclick="changeMonth(-1)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M15 18l-6-6 6-6"/>
+                        </svg>
+                    </button>
+                    <button class="calendar-nav-btn" onclick="changeMonth(1)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18l6-6-6-6"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="calendar-grid">
+                <div class="calendar-day-header">Sun</div>
+                <div class="calendar-day-header">Mon</div>
+                <div class="calendar-day-header">Tue</div>
+                <div class="calendar-day-header">Wed</div>
+                <div class="calendar-day-header">Thu</div>
+                <div class="calendar-day-header">Fri</div>
+                <div class="calendar-day-header">Sat</div>
+            </div>
+            <div class="calendar-grid" id="calendarGrid">
+                </div>
+        </div>
+
         <div class="filters-section">
             <div class="filter-group">
                 <button class="filter-btn active" data-filter="all" onclick="filterTrades('all', this)">All</button>
@@ -916,6 +863,8 @@
         let tradesData = [];
         let filteredData = [];
         let groupedTrades = {};
+        let currentCalendarDate = new Date();
+        let dailyProfitData = {};
 
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('fileInput').addEventListener('change', function(e) {
@@ -954,6 +903,8 @@
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') closeModal();
             });
+            
+            renderCalendar();
         });
 
         let currentFilter = 'all';
@@ -969,7 +920,6 @@
             applyFilters(currentFilter, searchValue);
         }
 
-        // SetID helper functions
         function getSetIdBase(setId) {
             if (!setId) return null;
             const str = setId.toString();
@@ -991,7 +941,6 @@
         }
 
         function processData(data) {
-            // Find header row
             let headerIndex = 0;
             for (let i = 0; i < data.length; i++) {
                 if (data[i] && (data[i].includes('No.') || data[i].includes('SetID'))) {
@@ -1002,34 +951,12 @@
 
             tradesData = [];
             groupedTrades = {};
-
-            /*
-             * Column mapping (18 columns - Index 0-17):
-             * 0: No.
-             * 1: SetID
-             * 2: Date
-             * 3: Plan
-             * 4: Type
-             * 5: Asset
-             * 6: Category
-             * 7: Order
-             * 8: Entry_Order
-             * 9: TP_Order
-             * 10: SL_Order
-             * 11: Strategy
-             * 12: Setup
-             * 13: Result
-             * 14: Point
-             * 15: RR
-             * 16: Note_Plan
-             * 17: Status
-             */
+            dailyProfitData = {};
 
             for (let i = headerIndex + 1; i < data.length; i++) {
                 const row = data[i];
                 if (!row || !row[0]) continue;
 
-                // RR Handling: Remove spaces (e.g., "1 : 2" -> "1:2")
                 let rrValue = row[15] || '';
                 if (rrValue) {
                     rrValue = rrValue.toString().replace(/\s/g, '');
@@ -1056,7 +983,6 @@
                     status: row[17] || ''
                 };
 
-                // SetID grouping
                 const setIdBase = getSetIdBase(trade.setId);
                 trade.setIdBase = setIdBase;
                 trade.round = getRoundFromSetId(trade.setId);
@@ -1069,9 +995,26 @@
                     }
                     groupedTrades[setIdBase].push(trade);
                 }
+
+                // Aggregate daily profit
+                if (trade.date) {
+                    if (!dailyProfitData[trade.date]) {
+                        dailyProfitData[trade.date] = { points: 0, count: 0 };
+                    }
+                    dailyProfitData[trade.date].points += trade.points;
+                    dailyProfitData[trade.date].count += 1;
+                }
             }
 
-            // Mark grouped trades
+            // Set current calendar date to the last trade date
+            if (tradesData.length > 0) {
+                const lastTradeDate = tradesData[tradesData.length - 1].date;
+                const parts = lastTradeDate.split('/');
+                if (parts.length === 3) {
+                    currentCalendarDate = new Date(parts[2], parts[1] - 1, parts[0]);
+                }
+            }
+
             tradesData.forEach(trade => {
                 const group = groupedTrades[trade.setIdBase];
                 trade.isGrouped = group && group.length > 1;
@@ -1083,26 +1026,83 @@
             updateExtendedStats();
             renderCharts();
             renderTable();
+            renderCalendar();
+            
             document.getElementById('statsGrid').classList.add('loaded');
             document.getElementById('performanceSection').classList.add('loaded');
+            document.getElementById('calendarSection').classList.add('loaded');
         }
 
         function formatDate(excelDate) {
             if (!excelDate) return '';
             if (typeof excelDate === 'string') return excelDate;
-            
             const date = new Date((excelDate - 25569) * 86400 * 1000);
-            return date.toLocaleDateString('en-GB', { 
-                day: '2-digit', 
-                month: '2-digit', 
-                year: 'numeric' 
-            });
+            return date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
         }
 
+        // --- Calendar Functions ---
+        function changeMonth(offset) {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + offset);
+            renderCalendar();
+        }
+
+        function renderCalendar() {
+            const year = currentCalendarDate.getFullYear();
+            const month = currentCalendarDate.getMonth();
+            
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startDayOfWeek = firstDay.getDay(); // 0 = Sunday
+
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            document.getElementById('calendarTitle').textContent = `${monthNames[month]} ${year}`;
+
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+
+            // Empty cells for previous month
+            for (let i = 0; i < startDayOfWeek; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'calendar-day empty';
+                grid.appendChild(cell);
+            }
+
+            // Days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const cell = document.createElement('div');
+                cell.className = 'calendar-day';
+                
+                // Format date to match data (DD/MM/YYYY)
+                const dateStr = `${day.toString().padStart(2, '0')}/${(month + 1).toString().padStart(2, '0')}/${year}`;
+                
+                const dayData = dailyProfitData[dateStr];
+                let profitHTML = '';
+                
+                if (dayData) {
+                    const profitClass = dayData.points > 0 ? 'positive' : (dayData.points < 0 ? 'negative' : 'neutral');
+                    const profitSign = dayData.points > 0 ? '+' : '';
+                    profitHTML = `
+                        <div>
+                            <div class="day-profit ${profitClass}">${profitSign}${dayData.points.toLocaleString()}</div>
+                            <div class="day-trades-count">${dayData.count} Trades</div>
+                        </div>
+                    `;
+                } else {
+                    profitHTML = `<div class="day-profit neutral">-</div>`;
+                }
+
+                cell.innerHTML = `
+                    <div class="day-number">${day}</div>
+                    ${profitHTML}
+                `;
+                grid.appendChild(cell);
+            }
+        }
+
+        // ... (Existing updateStats, updateExtendedStats, renderCharts, renderTable functions remain same) ...
         function updateStats() {
             const total = tradesData.length;
-            
-            // Win Rate: WIN / (WIN + LOSE + DRAW) - case insensitive
             const wins = tradesData.filter(t => (t.status || '').toString().toUpperCase() === 'WIN').length;
             const loses = tradesData.filter(t => (t.status || '').toString().toUpperCase() === 'LOSE').length;
             const draws = tradesData.filter(t => (t.status || '').toString().toUpperCase() === 'DRAW').length;
@@ -1120,7 +1120,6 @@
             const winRateEl = document.getElementById('winRate');
             winRateEl.textContent = winRate + '%';
             winRateEl.className = 'stat-value ' + (parseFloat(winRate) >= 50 ? 'positive' : 'negative');
-            
             document.getElementById('winRateSub').textContent = `${wins}W / ${loses}L / ${draws}D`;
             
             const totalPointsEl = document.getElementById('totalPoints');
@@ -1134,37 +1133,22 @@
         function updateExtendedStats() {
             const statuses = tradesData.map(t => (t.status || '').toString().toUpperCase());
             const points = tradesData.map(t => t.points || 0);
-            
-            // Calculate streaks
             let maxWinStreak = 0, maxLoseStreak = 0;
             let currentWinStreak = 0, currentLoseStreak = 0;
-            
             statuses.forEach(status => {
                 if (status === 'WIN') {
-                    currentWinStreak++;
-                    currentLoseStreak = 0;
-                    maxWinStreak = Math.max(maxWinStreak, currentWinStreak);
+                    currentWinStreak++; currentLoseStreak = 0; maxWinStreak = Math.max(maxWinStreak, currentWinStreak);
                 } else if (status === 'LOSE') {
-                    currentLoseStreak++;
-                    currentWinStreak = 0;
-                    maxLoseStreak = Math.max(maxLoseStreak, currentLoseStreak);
-                } else {
-                    currentWinStreak = 0;
-                    currentLoseStreak = 0;
-                }
+                    currentLoseStreak++; currentWinStreak = 0; maxLoseStreak = Math.max(maxLoseStreak, currentLoseStreak);
+                } else { currentWinStreak = 0; currentLoseStreak = 0; }
             });
-
             const profits = points.filter(p => p > 0);
             const losses = points.filter(p => p < 0);
-            
             const avgWin = profits.length > 0 ? profits.reduce((a, b) => a + b, 0) / profits.length : 0;
             const avgLoss = losses.length > 0 ? losses.reduce((a, b) => a + b, 0) / losses.length : 0;
-            
             const totalProfit = profits.reduce((a, b) => a + b, 0);
             const totalLoss = Math.abs(losses.reduce((a, b) => a + b, 0));
             const profitFactor = totalLoss > 0 ? (totalProfit / totalLoss).toFixed(2) : totalProfit > 0 ? '∞' : '0';
-
-            // Expectancy = (Win% × Avg Win) + (Loss% × Avg Loss)
             const winCount = profits.length;
             const lossCount = losses.length;
             const totalTrades = winCount + lossCount;
@@ -1174,13 +1158,11 @@
                 const lossPct = lossCount / totalTrades;
                 expectancy = (winPct * avgWin) + (lossPct * avgLoss);
             }
-
             document.getElementById('maxWinStreak').textContent = maxWinStreak;
             document.getElementById('maxLoseStreak').textContent = maxLoseStreak;
             document.getElementById('avgWin').textContent = '+' + Math.round(avgWin).toLocaleString();
             document.getElementById('avgLoss').textContent = Math.round(avgLoss).toLocaleString();
             document.getElementById('profitFactor').textContent = profitFactor;
-            
             const expectancyEl = document.getElementById('expectancy');
             expectancyEl.textContent = (expectancy >= 0 ? '+' : '') + Math.round(expectancy).toLocaleString();
             expectancyEl.className = 'stats-value ' + (expectancy >= 0 ? 'positive' : 'negative');
@@ -1194,43 +1176,29 @@
             tradesData.forEach(trade => {
                 const date = trade.date || 'Unknown';
                 const points = trade.points || 0;
-                
-                if (!dailyPoints[date]) {
-                    dailyPoints[date] = 0;
-                }
+                if (!dailyPoints[date]) dailyPoints[date] = 0;
                 dailyPoints[date] += points;
             });
-
-            // Sort dates
             const dates = Object.keys(dailyPoints).sort((a, b) => {
                 const parseDate = (d) => {
                     const parts = d.split('/');
-                    if (parts.length === 3) {
-                        return new Date(parts[2], parts[1] - 1, parts[0]);
-                    }
+                    if (parts.length === 3) return new Date(parts[2], parts[1] - 1, parts[0]);
                     return new Date(d);
                 };
                 return parseDate(a) - parseDate(b);
             });
-
-            // Format labels to show only day/month
             const labels = dates.map(date => {
                 const parts = date.split('/');
-                if (parts.length === 3) {
-                    return parts[0] + '/' + parts[1];
-                }
+                if (parts.length === 3) return parts[0] + '/' + parts[1];
                 return date;
             });
-
             const dailyData = dates.map(date => dailyPoints[date]);
-            
             const cumulativeData = [];
             let cumulative = 0;
             dailyData.forEach(points => {
                 cumulative += points;
                 cumulativeData.push(cumulative);
             });
-
             renderDailyChart(labels, dailyData);
             renderEquityChart(labels, cumulativeData);
         }
@@ -1238,64 +1206,15 @@
         function renderDailyChart(labels, data) {
             const ctx = document.getElementById('dailyChart');
             if (!ctx) return;
-
             if (dailyChart) dailyChart.destroy();
-
             const barColors = data.map(val => val >= 0 ? 'rgba(34, 197, 94, 0.8)' : 'rgba(239, 68, 68, 0.8)');
-
             dailyChart = new Chart(ctx, {
                 type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: data,
-                        backgroundColor: barColors,
-                        borderRadius: 4,
-                        borderSkipped: false
-                    }]
-                },
+                data: { labels: labels, datasets: [{ data: data, backgroundColor: barColors, borderRadius: 4, borderSkipped: false }] },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: { intersect: false, mode: 'index' },
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: 'rgba(26, 26, 26, 0.95)',
-                            titleColor: '#a0a0a0',
-                            bodyColor: '#ffffff',
-                            bodyFont: { family: 'Space Mono', size: 14, weight: 'bold' },
-                            padding: 12,
-                            displayColors: false,
-                            callbacks: {
-                                label: function(context) {
-                                    const value = context.parsed.y;
-                                    return (value >= 0 ? '+' : '') + value.toLocaleString() + ' pts';
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            display: true,
-                            grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
-                            ticks: { color: '#666666', font: { family: 'Space Mono', size: 9 }, maxRotation: 45, minRotation: 45 }
-                        },
-                        y: {
-                            display: true,
-                            grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
-                            ticks: { 
-                                color: '#666666', 
-                                font: { family: 'Space Mono', size: 10 }, 
-                                callback: function(value) { 
-                                    if (Math.abs(value) >= 1000) {
-                                        return (value >= 0 ? '+' : '') + (value / 1000).toFixed(0) + 'k';
-                                    }
-                                    return (value >= 0 ? '+' : '') + value;
-                                }
-                            }
-                        }
-                    }
+                    responsive: true, maintainAspectRatio: false, interaction: { intersect: false, mode: 'index' },
+                    plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(26, 26, 26, 0.95)', titleColor: '#a0a0a0', bodyColor: '#ffffff', bodyFont: { family: 'Space Mono', size: 14, weight: 'bold' }, padding: 12, displayColors: false, callbacks: { label: function(context) { const value = context.parsed.y; return (value >= 0 ? '+' : '') + value.toLocaleString() + ' pts'; } } } },
+                    scales: { x: { display: true, grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false }, ticks: { color: '#666666', font: { family: 'Space Mono', size: 9 }, maxRotation: 45, minRotation: 45 } }, y: { display: true, grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false }, ticks: { color: '#666666', font: { family: 'Space Mono', size: 10 }, callback: function(value) { if (Math.abs(value) >= 1000) return (value >= 0 ? '+' : '') + (value / 1000).toFixed(0) + 'k'; return (value >= 0 ? '+' : '') + value; } } } }
                 }
             });
         }
@@ -1303,84 +1222,22 @@
         function renderEquityChart(labels, data) {
             const ctx = document.getElementById('equityChart');
             if (!ctx) return;
-
             if (equityChart) equityChart.destroy();
-
             const equityLabels = ['Start', ...labels];
             const equityData = [0, ...data];
-
             const chartCtx = ctx.getContext('2d');
             const lastValue = equityData[equityData.length - 1] || 0;
             const lineColor = lastValue >= 0 ? '#22c55e' : '#ef4444';
-            
             const gradient = chartCtx.createLinearGradient(0, 0, 0, 200);
-            if (lastValue >= 0) {
-                gradient.addColorStop(0, 'rgba(34, 197, 94, 0.3)');
-                gradient.addColorStop(1, 'rgba(34, 197, 94, 0)');
-            } else {
-                gradient.addColorStop(0, 'rgba(239, 68, 68, 0.3)');
-                gradient.addColorStop(1, 'rgba(239, 68, 68, 0)');
-            }
-
+            if (lastValue >= 0) { gradient.addColorStop(0, 'rgba(34, 197, 94, 0.3)'); gradient.addColorStop(1, 'rgba(34, 197, 94, 0)'); }
+            else { gradient.addColorStop(0, 'rgba(239, 68, 68, 0.3)'); gradient.addColorStop(1, 'rgba(239, 68, 68, 0)'); }
             equityChart = new Chart(ctx, {
                 type: 'line',
-                data: {
-                    labels: equityLabels,
-                    datasets: [{
-                        data: equityData,
-                        borderColor: lineColor,
-                        borderWidth: 2,
-                        backgroundColor: gradient,
-                        fill: true,
-                        tension: 0.4,
-                        pointRadius: 3,
-                        pointBackgroundColor: lineColor,
-                        pointBorderColor: lineColor,
-                        pointHoverRadius: 6
-                    }]
-                },
+                data: { labels: equityLabels, datasets: [{ data: equityData, borderColor: lineColor, borderWidth: 2, backgroundColor: gradient, fill: true, tension: 0.4, pointRadius: 3, pointBackgroundColor: lineColor, pointBorderColor: lineColor, pointHoverRadius: 6 }] },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: { intersect: false, mode: 'index' },
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: 'rgba(26, 26, 26, 0.95)',
-                            titleColor: '#a0a0a0',
-                            bodyColor: '#ffffff',
-                            bodyFont: { family: 'Space Mono', size: 14, weight: 'bold' },
-                            padding: 12,
-                            displayColors: false,
-                            callbacks: {
-                                label: function(context) {
-                                    const value = context.parsed.y;
-                                    return (value >= 0 ? '+' : '') + value.toLocaleString() + ' pts';
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            display: true,
-                            grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
-                            ticks: { color: '#666666', font: { family: 'Space Mono', size: 9 }, maxRotation: 45, minRotation: 45 }
-                        },
-                        y: {
-                            display: true,
-                            grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false },
-                            ticks: { 
-                                color: '#666666', 
-                                font: { family: 'Space Mono', size: 10 }, 
-                                callback: function(value) { 
-                                    if (Math.abs(value) >= 1000) {
-                                        return (value >= 0 ? '+' : '') + (value / 1000).toFixed(0) + 'k';
-                                    }
-                                    return (value >= 0 ? '+' : '') + value;
-                                }
-                            }
-                        }
-                    }
+                    responsive: true, maintainAspectRatio: false, interaction: { intersect: false, mode: 'index' },
+                    plugins: { legend: { display: false }, tooltip: { backgroundColor: 'rgba(26, 26, 26, 0.95)', titleColor: '#a0a0a0', bodyColor: '#ffffff', bodyFont: { family: 'Space Mono', size: 14, weight: 'bold' }, padding: 12, displayColors: false, callbacks: { label: function(context) { const value = context.parsed.y; return (value >= 0 ? '+' : '') + value.toLocaleString() + ' pts'; } } } },
+                    scales: { x: { display: true, grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false }, ticks: { color: '#666666', font: { family: 'Space Mono', size: 9 }, maxRotation: 45, minRotation: 45 } }, y: { display: true, grid: { color: 'rgba(255, 255, 255, 0.05)', drawBorder: false }, ticks: { color: '#666666', font: { family: 'Space Mono', size: 10 }, callback: function(value) { if (Math.abs(value) >= 1000) return (value >= 0 ? '+' : '') + (value / 1000).toFixed(0) + 'k'; return (value >= 0 ? '+' : '') + value; } } } }
                 }
             });
         }
@@ -1400,46 +1257,30 @@
         function renderTable() {
             const tbody = document.getElementById('tableBody');
             if (!tbody) return;
-
-            if (filteredData.length === 0) {
-                tbody.innerHTML = emptyStateHTML;
-                return;
-            }
-
+            if (filteredData.length === 0) { tbody.innerHTML = emptyStateHTML; return; }
             tbody.innerHTML = '';
             const shownSetIdBases = new Set();
-
             filteredData.forEach((trade, index) => {
-                // For grouped trades, only show the first one (collapsed view)
                 if (trade.isGrouped) {
-                    if (shownSetIdBases.has(trade.setIdBase)) {
-                        return;
-                    }
+                    if (shownSetIdBases.has(trade.setIdBase)) return;
                     shownSetIdBases.add(trade.setIdBase);
                 }
-
                 const row = document.createElement('div');
                 row.className = 'table-row' + (trade.isGrouped ? ' grouped' : '');
                 row.onclick = () => openModal(trade);
-
                 const order = (trade.order || '').toString().toUpperCase();
                 const status = (trade.status || '').toString().toUpperCase();
                 const orderClass = order === 'BUY' ? 'buy' : 'sell';
                 const resultClass = getResultClass(trade.result);
                 const statusClass = getStatusClass(status);
-                
-                // For grouped trades, sum all points
                 let displayPoints = trade.points;
                 if (trade.isGrouped) {
                     const groupTrades = groupedTrades[trade.setIdBase];
                     displayPoints = groupTrades.reduce((sum, t) => sum + (t.points || 0), 0);
                 }
-                
                 const pointsClass = displayPoints >= 0 ? 'positive' : 'negative';
                 const pointsDisplay = (displayPoints >= 0 ? '+' : '') + displayPoints.toLocaleString();
-
                 const groupBadge = trade.isGrouped ? `<span class="group-badge">${trade.groupSize}</span>` : '';
-
                 row.innerHTML = `
                     <div class="table-cell cell-no">${trade.no}${groupBadge}</div>
                     <div class="table-cell cell-setid">${trade.setId || '-'}</div>
@@ -1458,9 +1299,7 @@
                     <div class="table-cell cell-rr">${trade.rr || '-'}</div>
                     <div class="table-cell cell-status ${statusClass}">${trade.status || ''}</div>
                 `;
-
                 tbody.appendChild(row);
-
                 setTimeout(() => row.classList.add('loaded'), index * 15);
             });
         }
@@ -1473,7 +1312,6 @@
             if (r === 'NONE' || r === 'BIT') return 'none';
             return '';
         }
-
         function getStatusClass(status) {
             if (!status) return '';
             const s = status.toString().toUpperCase();
@@ -1482,25 +1320,16 @@
             if (s === 'DRAW') return 'draw';
             return 'none';
         }
-
-        function truncate(str, len) {
-            if (!str) return '-';
-            return str.length > len ? str.substring(0, len) + '...' : str;
-        }
-
+        function truncate(str, len) { if (!str) return '-'; return str.length > len ? str.substring(0, len) + '...' : str; }
         function openModal(trade) {
             const modal = document.getElementById('modalOverlay');
             const body = document.getElementById('modalBody');
-
             const statusUpper = (trade.status || '').toString().toUpperCase();
             const statusClass = statusUpper === 'WIN' ? 'positive' : statusUpper === 'LOSE' ? 'negative' : '';
-
-            // Group entries section
             let groupEntriesHTML = '';
             if (trade.isGrouped) {
                 const groupTrades = groupedTrades[trade.setIdBase];
                 const totalGroupPoints = groupTrades.reduce((sum, t) => sum + (t.points || 0), 0);
-                
                 groupEntriesHTML = `
                     <div class="group-entries">
                         <div class="group-entries-title">
@@ -1517,167 +1346,68 @@
                                     <span class="cell-status ${getStatusClass((t.status || '').toString().toUpperCase())}">${t.status}</span>
                                 </div>
                                 <div class="group-entry-grid">
-                                    <div class="detail-item">
-                                        <span class="detail-label">Entry</span>
-                                        <span class="detail-value">${t.entryOrder || '-'}</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">TP</span>
-                                        <span class="detail-value">${t.tpOrder || '-'}</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">SL</span>
-                                        <span class="detail-value">${t.slOrder || '-'}</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">Result</span>
-                                        <span class="detail-value">${t.result || '-'}</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">Points</span>
-                                        <span class="detail-value" style="color: ${t.points >= 0 ? 'var(--accent-green)' : 'var(--accent-red)'}">
-                                            ${t.points >= 0 ? '+' : ''}${t.points.toLocaleString()}
-                                        </span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">RR</span>
-                                        <span class="detail-value">${t.rr || '-'}</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">Strategy</span>
-                                        <span class="detail-value">${t.strategy || '-'}</span>
-                                    </div>
-                                    <div class="detail-item">
-                                        <span class="detail-label">Setup</span>
-                                        <span class="detail-value">${t.setup || '-'}</span>
-                                    </div>
+                                    <div class="detail-item"><span class="detail-label">Entry</span><span class="detail-value">${t.entryOrder || '-'}</span></div>
+                                    <div class="detail-item"><span class="detail-label">TP</span><span class="detail-value">${t.tpOrder || '-'}</span></div>
+                                    <div class="detail-item"><span class="detail-label">SL</span><span class="detail-value">${t.slOrder || '-'}</span></div>
+                                    <div class="detail-item"><span class="detail-label">Result</span><span class="detail-value">${t.result || '-'}</span></div>
+                                    <div class="detail-item"><span class="detail-label">Points</span><span class="detail-value" style="color: ${t.points >= 0 ? 'var(--accent-green)' : 'var(--accent-red)'}">${t.points >= 0 ? '+' : ''}${t.points.toLocaleString()}</span></div>
+                                    <div class="detail-item"><span class="detail-label">RR</span><span class="detail-value">${t.rr || '-'}</span></div>
+                                    <div class="detail-item"><span class="detail-label">Strategy</span><span class="detail-value">${t.strategy || '-'}</span></div>
+                                    <div class="detail-item"><span class="detail-label">Setup</span><span class="detail-value">${t.setup || '-'}</span></div>
                                 </div>
                             </div>
                         `).join('')}
                     </div>
                 `;
             }
-
             body.innerHTML = `
                 <div class="detail-grid">
-                    <div class="detail-item">
-                        <span class="detail-label">Trade No.</span>
-                        <span class="detail-value">#${trade.no}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">SetID</span>
-                        <span class="detail-value">${trade.setId || '-'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Date</span>
-                        <span class="detail-value">${trade.date}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Plan</span>
-                        <span class="detail-value">${trade.plan}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Type</span>
-                        <span class="detail-value">${trade.type}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Asset</span>
-                        <span class="detail-value">${trade.asset}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Category</span>
-                        <span class="detail-value">${trade.category}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Order</span>
-                        <span class="detail-value">${trade.order}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Entry</span>
-                        <span class="detail-value">${trade.entryOrder || '-'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Take Profit</span>
-                        <span class="detail-value">${trade.tpOrder || '-'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Stop Loss</span>
-                        <span class="detail-value">${trade.slOrder || '-'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">RR</span>
-                        <span class="detail-value">${trade.rr || '-'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Strategy</span>
-                        <span class="detail-value">${trade.strategy || '-'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Setup</span>
-                        <span class="detail-value">${trade.setup || '-'}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Result</span>
-                        <span class="detail-value">${trade.result}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Points</span>
-                        <span class="detail-value ${statusClass}">${trade.points >= 0 ? '+' : ''}${trade.points.toLocaleString()}</span>
-                    </div>
-                    <div class="detail-item">
-                        <span class="detail-label">Status</span>
-                        <span class="detail-value ${statusClass}">${trade.status}</span>
-                    </div>
-                    <div class="detail-item full">
-                        <span class="detail-label">Note / Plan</span>
-                        <div class="detail-note">${trade.notePlan || 'No notes'}</div>
-                    </div>
+                    <div class="detail-item"><span class="detail-label">Trade No.</span><span class="detail-value">#${trade.no}</span></div>
+                    <div class="detail-item"><span class="detail-label">SetID</span><span class="detail-value">${trade.setId || '-'}</span></div>
+                    <div class="detail-item"><span class="detail-label">Date</span><span class="detail-value">${trade.date}</span></div>
+                    <div class="detail-item"><span class="detail-label">Plan</span><span class="detail-value">${trade.plan}</span></div>
+                    <div class="detail-item"><span class="detail-label">Type</span><span class="detail-value">${trade.type}</span></div>
+                    <div class="detail-item"><span class="detail-label">Asset</span><span class="detail-value">${trade.asset}</span></div>
+                    <div class="detail-item"><span class="detail-label">Category</span><span class="detail-value">${trade.category}</span></div>
+                    <div class="detail-item"><span class="detail-label">Order</span><span class="detail-value">${trade.order}</span></div>
+                    <div class="detail-item"><span class="detail-label">Entry</span><span class="detail-value">${trade.entryOrder || '-'}</span></div>
+                    <div class="detail-item"><span class="detail-label">Take Profit</span><span class="detail-value">${trade.tpOrder || '-'}</span></div>
+                    <div class="detail-item"><span class="detail-label">Stop Loss</span><span class="detail-value">${trade.slOrder || '-'}</span></div>
+                    <div class="detail-item"><span class="detail-label">RR</span><span class="detail-value">${trade.rr || '-'}</span></div>
+                    <div class="detail-item"><span class="detail-label">Strategy</span><span class="detail-value">${trade.strategy || '-'}</span></div>
+                    <div class="detail-item"><span class="detail-label">Setup</span><span class="detail-value">${trade.setup || '-'}</span></div>
+                    <div class="detail-item"><span class="detail-label">Result</span><span class="detail-value">${trade.result}</span></div>
+                    <div class="detail-item"><span class="detail-label">Points</span><span class="detail-value ${statusClass}">${trade.points >= 0 ? '+' : ''}${trade.points.toLocaleString()}</span></div>
+                    <div class="detail-item"><span class="detail-label">Status</span><span class="detail-value ${statusClass}">${trade.status}</span></div>
+                    <div class="detail-item full"><span class="detail-label">Note / Plan</span><div class="detail-note">${trade.notePlan || 'No notes'}</div></div>
                 </div>
                 ${groupEntriesHTML}
             `;
-
             modal.classList.add('active');
         }
-
-        function closeModal() {
-            document.getElementById('modalOverlay').classList.remove('active');
-        }
-
+        function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
         function applyFilters(filter, search) {
             filteredData = tradesData.filter(trade => {
                 let matchFilter = true;
                 let matchSearch = true;
-
                 const status = (trade.status || '').toString().toUpperCase();
                 const order = (trade.order || '').toString().toUpperCase();
-
-                if (filter === 'win') {
-                    matchFilter = status === 'WIN';
-                } else if (filter === 'lose') {
-                    matchFilter = status === 'LOSE';
-                } else if (filter === 'draw') {
-                    matchFilter = status === 'DRAW';
-                } else if (filter === 'other') {
-                    matchFilter = status === 'NONE' || status === 'CANCEL' || status === 'HOLD' || status === '';
-                } else if (filter === 'buy') {
-                    matchFilter = order === 'BUY';
-                } else if (filter === 'sell') {
-                    matchFilter = order === 'SELL';
-                }
-
+                if (filter === 'win') matchFilter = status === 'WIN';
+                else if (filter === 'lose') matchFilter = status === 'LOSE';
+                else if (filter === 'draw') matchFilter = status === 'DRAW';
+                else if (filter === 'other') matchFilter = status === 'NONE' || status === 'CANCEL' || status === 'HOLD' || status === '';
+                else if (filter === 'buy') matchFilter = order === 'BUY';
+                else if (filter === 'sell') matchFilter = order === 'SELL';
                 if (search) {
                     const searchLower = search.toLowerCase();
-                    matchSearch = 
-                        (trade.asset && trade.asset.toString().toLowerCase().includes(searchLower)) ||
+                    matchSearch = (trade.asset && trade.asset.toString().toLowerCase().includes(searchLower)) ||
                         (trade.strategy && trade.strategy.toString().toLowerCase().includes(searchLower)) ||
                         (trade.setup && trade.setup.toString().toLowerCase().includes(searchLower)) ||
                         (trade.type && trade.type.toString().toLowerCase().includes(searchLower)) ||
                         (trade.category && trade.category.toString().toLowerCase().includes(searchLower));
                 }
-
                 return matchFilter && matchSearch;
             });
-
             renderTable();
         }
     </script>
