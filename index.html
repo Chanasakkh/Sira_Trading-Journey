@@ -861,6 +861,7 @@
                 } else { 
                     currentWinStreak = 0; 
                     currentLoseStreak = 0; 
+                    // ถ้าไม่ใช่ WIN/LOSE ไม่นับรวมใน Avg แต่ยังนับ PnL รวมได้ถ้ามีค่า
                     if (p > 0) totalProfit += p;
                     if (p < 0) totalLoss += Math.abs(p);
                 }
