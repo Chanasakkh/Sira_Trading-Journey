@@ -23,11 +23,7 @@
             --accent-purple: #a855f7;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Instrument Sans', sans-serif;
@@ -38,641 +34,161 @@
         }
 
         body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            opacity: 0.03;
-            pointer-events: none;
-            z-index: 1000;
+            opacity: 0.03; pointer-events: none; z-index: 1000;
         }
 
-        .container {
-            max-width: 1800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
+        .container { max-width: 1800px; margin: 0 auto; padding: 40px 20px; }
 
         /* Header */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 60px;
-            padding-bottom: 40px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .logo-section h1 {
-            font-family: 'Space Mono', monospace;
-            font-size: 2.5rem;
-            font-weight: 700;
-            letter-spacing: -2px;
-            margin-bottom: 8px;
-        }
-
-        .logo-section h1 span {
-            color: var(--text-muted);
-        }
-
-        .logo-section p {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            font-family: 'Space Mono', monospace;
-        }
-
-        .upload-section {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .upload-btn {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            border: none;
-            padding: 14px 28px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Instrument Sans', sans-serif;
-            letter-spacing: 0.5px;
-        }
-
-        .upload-btn:hover {
-            background: var(--text-secondary);
-            transform: translateY(-2px);
-        }
-
-        .file-input {
-            display: none;
-        }
-
-        .file-name {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            font-family: 'Space Mono', monospace;
-        }
+        .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 60px; padding-bottom: 40px; border-bottom: 1px solid var(--border-color); }
+        .logo-section h1 { font-family: 'Space Mono', monospace; font-size: 2.5rem; font-weight: 700; letter-spacing: -2px; margin-bottom: 8px; }
+        .logo-section h1 span { color: var(--text-muted); }
+        .logo-section p { font-size: 0.875rem; color: var(--text-secondary); font-family: 'Space Mono', monospace; }
+        
+        .upload-section { display: flex; flex-direction: row; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .upload-btn { background: var(--text-primary); color: var(--bg-primary); border: none; padding: 14px 28px; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: 'Instrument Sans', sans-serif; letter-spacing: 0.5px; }
+        .upload-btn:hover { background: var(--text-secondary); transform: translateY(-2px); }
+        .file-input { display: none; }
+        .file-name { font-size: 0.75rem; color: var(--text-muted); font-family: 'Space Mono', monospace; }
 
         /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 1px;
-            background: var(--border-color);
-            margin-bottom: 60px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease;
-        }
-
-        .stats-grid.loaded {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .stat-card {
-            background: var(--bg-secondary);
-            padding: 32px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .stat-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-family: 'Space Mono', monospace;
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            font-family: 'Space Mono', monospace;
-            letter-spacing: -2px;
-        }
-
-        .stat-value.positive {
-            color: var(--accent-green);
-        }
-
-        .stat-value.negative {
-            color: var(--accent-red);
-        }
-
-        .stat-sub {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-        }
-
-        /* Calendar Section */
-        .calendar-section {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            padding: 24px;
-            margin-bottom: 40px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease;
-        }
-
-        .calendar-section.loaded {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .calendar-title {
-            font-family: 'Space Mono', monospace;
-            font-size: 1.25rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .calendar-nav {
-            display: flex;
-            gap: 8px;
-        }
-
-        .calendar-nav-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .calendar-nav-btn:hover {
-            border-color: var(--text-primary);
-            color: var(--text-primary);
-        }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 1px;
-            background: var(--border-color);
-            border: 1px solid var(--border-color);
-        }
-
-        .calendar-day-header {
-            background: var(--bg-tertiary);
-            padding: 12px;
-            text-align: center;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            font-family: 'Space Mono', monospace;
-            text-transform: uppercase;
-        }
-
-        .calendar-day {
-            background: var(--bg-secondary);
-            min-height: 100px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: background 0.2s;
-        }
-
-        .calendar-day:hover {
-            background: var(--bg-tertiary);
-        }
-
-        .calendar-day.empty {
-            background: rgba(17, 17, 17, 0.5);
-            pointer-events: none;
-        }
-
-        .day-number {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .day-profit {
-            text-align: right;
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .day-profit.positive { color: var(--accent-green); }
-        .day-profit.negative { color: var(--accent-red); }
-        .day-profit.neutral { color: var(--text-muted); }
-
-        .day-trades-count {
-            font-size: 0.65rem;
-            color: var(--text-secondary);
-            text-align: right;
-            margin-top: 4px;
-        }
+        .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--border-color); margin-bottom: 60px; opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+        .stats-grid.loaded { opacity: 1; transform: translateY(0); }
+        .stat-card { background: var(--bg-secondary); padding: 32px; display: flex; flex-direction: column; gap: 8px; }
+        .stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; font-family: 'Space Mono', monospace; }
+        .stat-value { font-size: 2.5rem; font-weight: 700; font-family: 'Space Mono', monospace; letter-spacing: -2px; }
+        .stat-value.positive { color: var(--accent-green); }
+        .stat-value.negative { color: var(--accent-red); }
+        .stat-sub { font-size: 0.875rem; color: var(--text-secondary); }
 
         /* Performance Section */
-        .performance-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr 280px;
-            gap: 1px;
-            background: var(--border-color);
-            margin-bottom: 40px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease;
-        }
-
-        .performance-section.loaded {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .chart-container {
-            background: var(--bg-secondary);
-            padding: 24px;
-        }
-
-        .extended-stats {
-            background: var(--bg-secondary);
-            padding: 24px;
-        }
-
-        .section-title {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 20px;
-        }
-
-        .chart-wrapper {
-            height: 200px;
-            position: relative;
-        }
-
-        .stats-list {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .stats-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .stats-label {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-
-        .stats-value {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
+        .performance-section { display: grid; grid-template-columns: 1fr 1fr 280px; gap: 1px; background: var(--border-color); margin-bottom: 40px; opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+        .performance-section.loaded { opacity: 1; transform: translateY(0); }
+        .chart-container { background: var(--bg-secondary); padding: 24px; }
+        .extended-stats { background: var(--bg-secondary); padding: 24px; }
+        .section-title { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px; }
+        .chart-wrapper { height: 200px; position: relative; }
+        .stats-list { display: flex; flex-direction: column; gap: 14px; }
+        .stats-row { display: flex; justify-content: space-between; align-items: center; }
+        .stats-label { font-size: 0.85rem; color: var(--text-secondary); }
+        .stats-value { font-family: 'Space Mono', monospace; font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
         .stats-value.positive { color: var(--accent-green); }
         .stats-value.negative { color: var(--accent-red); }
 
-        /* Filters */
-        .filters-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
+        /* Calendar Section (New & Improved) */
+        .calendar-section { background: var(--bg-secondary); border: 1px solid var(--border-color); margin-bottom: 40px; opacity: 0; transform: translateY(20px); transition: all 0.6s ease; display: grid; grid-template-columns: 1fr 300px; }
+        .calendar-section.loaded { opacity: 1; transform: translateY(0); }
+        
+        .calendar-main { padding: 24px; border-right: 1px solid var(--border-color); }
+        .calendar-sidebar { background: var(--bg-tertiary); padding: 24px; display: flex; flex-direction: column; justify-content: center; }
 
-        .filter-group {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .calendar-title { font-family: 'Space Mono', monospace; font-size: 1.25rem; font-weight: 700; text-transform: uppercase; }
+        .calendar-nav { display: flex; gap: 8px; }
+        .calendar-nav-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; }
+        .calendar-nav-btn:hover { border-color: var(--text-primary); color: var(--text-primary); }
 
-        .filter-btn {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            padding: 10px 20px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: 'Instrument Sans', sans-serif;
-        }
+        /* Grid: 7 days + 1 summary column = 8 columns */
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr) 80px; gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); }
+        
+        .calendar-day-header { background: var(--bg-tertiary); padding: 12px 4px; text-align: center; font-size: 0.7rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; }
+        .calendar-day-header.weekly-sum { color: var(--accent-blue); background: rgba(59, 130, 246, 0.1); font-weight: 700; }
 
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            border-color: var(--text-primary);
-        }
+        .calendar-day { background: var(--bg-secondary); min-height: 100px; padding: 8px; display: flex; flex-direction: column; justify-content: space-between; transition: background 0.2s; position: relative; }
+        .calendar-day:hover { background: var(--bg-tertiary); }
+        .calendar-day.empty { background: rgba(17, 17, 17, 0.5); pointer-events: none; }
+        
+        .calendar-week-sum { background: rgba(59, 130, 246, 0.05); display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 8px; border-left: 1px solid var(--border-color); }
+        .week-sum-label { font-size: 0.6rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .week-sum-value { font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 700; }
 
-        .search-box {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 12px 20px;
-            font-size: 0.875rem;
-            width: 280px;
-            font-family: 'Instrument Sans', sans-serif;
-        }
+        .day-number { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--text-muted); }
+        .day-profit { text-align: right; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.85rem; }
+        .day-profit.positive { color: var(--accent-green); }
+        .day-profit.negative { color: var(--accent-red); }
+        .day-profit.neutral { color: var(--text-muted); }
+        .day-trades-count { font-size: 0.65rem; color: var(--text-secondary); text-align: right; margin-top: 4px; }
 
-        .search-box::placeholder { color: var(--text-muted); }
+        /* Monthly Stats Sidebar */
+        .month-stat-group { margin-bottom: 24px; }
+        .month-stat-group:last-child { margin-bottom: 0; }
+        .month-stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-family: 'Space Mono', monospace; }
+        .month-stat-value { font-size: 1.5rem; font-weight: 700; font-family: 'Space Mono', monospace; }
+        .month-stat-sub { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; display: flex; justify-content: space-between; }
+
+        /* Filters & Table (Same as before) */
+        .filters-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 20px; }
+        .filter-group { display: flex; gap: 8px; flex-wrap: wrap; }
+        .filter-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); padding: 10px 20px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s ease; font-family: 'Instrument Sans', sans-serif; }
+        .filter-btn:hover, .filter-btn.active { background: var(--text-primary); color: var(--bg-primary); border-color: var(--text-primary); }
+        .search-box { background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 12px 20px; font-size: 0.875rem; width: 280px; font-family: 'Instrument Sans', sans-serif; }
         .search-box:focus { outline: none; border-color: var(--text-secondary); }
 
-        /* Table */
-        .table-container {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            overflow: hidden;
-            overflow-x: auto;
-        }
-
-        .table-header {
-            display: grid;
-            grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 55px 75px;
-            gap: 12px;
-            background: var(--bg-tertiary);
-            border-bottom: 1px solid var(--border-color);
-            padding: 0 20px;
-            min-width: 1650px;
-        }
-
-        .table-header-cell {
-            padding: 16px 0;
-            font-size: 0.6rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-family: 'Space Mono', monospace;
-        }
-
-        .table-body {
-            max-height: 600px;
-            overflow-y: auto;
-            min-width: 1650px;
-        }
-
-        .table-body::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-
+        .table-container { background: var(--bg-secondary); border: 1px solid var(--border-color); overflow: hidden; overflow-x: auto; }
+        .table-header { display: grid; grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 55px 75px; gap: 12px; background: var(--bg-tertiary); border-bottom: 1px solid var(--border-color); padding: 0 20px; min-width: 1650px; }
+        .table-header-cell { padding: 16px 0; font-size: 0.6rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-family: 'Space Mono', monospace; }
+        .table-body { max-height: 600px; overflow-y: auto; min-width: 1650px; }
+        .table-body::-webkit-scrollbar { width: 6px; height: 6px; }
         .table-body::-webkit-scrollbar-track { background: var(--bg-secondary); }
         .table-body::-webkit-scrollbar-thumb { background: var(--border-color); }
-
-        .table-row {
-            display: grid;
-            grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 55px 75px;
-            gap: 12px;
-            border-bottom: 1px solid var(--border-color);
-            padding: 0 20px;
-            transition: all 0.2s ease;
-            opacity: 0;
-            transform: translateX(-20px);
-            cursor: pointer;
-        }
-
-        .table-row.loaded {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
+        .table-row { display: grid; grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 55px 75px; gap: 12px; border-bottom: 1px solid var(--border-color); padding: 0 20px; transition: all 0.2s ease; opacity: 0; transform: translateX(-20px); cursor: pointer; }
+        .table-row.loaded { opacity: 1; transform: translateX(0); }
         .table-row:hover { background: var(--bg-tertiary); }
-
-        .table-row.grouped {
-            background: rgba(59, 130, 246, 0.05);
-            border-left: 3px solid var(--accent-blue);
-        }
-
-        .table-row.grouped:hover { background: rgba(59, 130, 246, 0.1); }
-
-        .group-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background: var(--accent-blue);
-            color: white;
-            font-size: 0.6rem;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-weight: 600;
-            margin-left: 4px;
-        }
-
-        .table-cell {
-            padding: 12px 0;
-            font-size: 0.75rem;
-            display: flex;
-            align-items: center;
-            color: var(--text-secondary);
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
+        .table-row.grouped { background: rgba(59, 130, 246, 0.05); border-left: 3px solid var(--accent-blue); }
+        .table-cell { padding: 12px 0; font-size: 0.75rem; display: flex; align-items: center; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; }
         .cell-no { font-family: 'Space Mono', monospace; color: var(--text-muted); }
         .cell-date { font-family: 'Space Mono', monospace; font-size: 0.7rem; }
         .cell-asset { font-weight: 600; color: var(--text-primary); }
-        
-        .cell-type {
-            display: inline-flex;
-            padding: 3px 8px;
-            font-size: 0.65rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            border-radius: 3px;
-        }
+        .cell-type { display: inline-flex; padding: 3px 8px; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.5px; border-radius: 3px; }
         .cell-type.buy { background: rgba(34, 197, 94, 0.15); color: var(--accent-green); }
         .cell-type.sell { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
-
-        .cell-category {
-            font-size: 0.65rem;
-            padding: 3px 8px;
-            border-radius: 3px;
-            background: rgba(168, 85, 247, 0.15);
-            color: var(--accent-purple);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
+        .cell-category { font-size: 0.65rem; padding: 3px 8px; border-radius: 3px; background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .cell-price { font-family: 'Space Mono', monospace; font-size: 0.75rem; }
-        .cell-strategy {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            line-height: 1.3;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+        .cell-strategy { font-size: 0.7rem; color: var(--text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .cell-setid { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--text-muted); }
         .cell-type-text { font-size: 0.7rem; color: var(--text-secondary); }
-        
-        /* RR Font fix */
-        .cell-rr {
-            font-family: 'Instrument Sans', sans-serif;
-            font-weight: 600;
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            white-space: nowrap;
-            letter-spacing: 0;
-        }
-
-        .cell-result {
-            font-weight: 600;
-            font-size: 0.65rem;
-            padding: 3px 8px;
-            border-radius: 3px;
-        }
+        .cell-rr { font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 0.75rem; color: var(--text-secondary); white-space: nowrap; letter-spacing: 0; }
+        .cell-result { font-weight: 600; font-size: 0.65rem; padding: 3px 8px; border-radius: 3px; }
         .cell-result.tp, .cell-result.tp1, .cell-result.tp2 { background: rgba(34, 197, 94, 0.15); color: var(--accent-green); }
         .cell-result.sl { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
         .cell-result.none, .cell-result.bit { background: rgba(251, 191, 36, 0.15); color: var(--accent-gold); }
-
         .cell-points { font-family: 'Space Mono', monospace; font-weight: 600; font-size: 0.75rem; }
         .cell-points.positive { color: var(--accent-green); }
         .cell-points.negative { color: var(--accent-red); }
-
         .cell-status { font-weight: 700; font-size: 0.65rem; letter-spacing: 0.5px; }
         .cell-status.win { color: var(--accent-green); }
         .cell-status.lose { color: var(--accent-red); }
         .cell-status.draw { color: var(--accent-gold); }
         .cell-status.none, .cell-status.cancel, .cell-status.hold { color: var(--text-muted); }
+        .group-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--accent-blue); color: white; font-size: 0.6rem; padding: 2px 5px; border-radius: 3px; font-weight: 600; margin-left: 4px; }
 
-        /* Empty State */
-        .empty-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 100px 40px;
-            text-align: center;
-        }
-        .empty-icon {
-            width: 80px;
-            height: 80px;
-            border: 2px dashed var(--border-color);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-        }
+        /* Empty State & Modal */
+        .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 100px 40px; text-align: center; }
+        .empty-icon { width: 80px; height: 80px; border: 2px dashed var(--border-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; }
         .empty-icon svg { width: 32px; height: 32px; stroke: var(--text-muted); }
         .empty-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 8px; }
         .empty-desc { color: var(--text-muted); font-size: 0.875rem; max-width: 400px; }
-
-        /* Modal */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
+        
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); display: flex; align-items: center; justify-content: center; z-index: 100; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
         .modal-overlay.active { opacity: 1; visibility: visible; }
-        .modal {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            max-width: 800px;
-            width: 90%;
-            max-height: 85vh;
-            overflow-y: auto;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-        }
+        .modal { background: var(--bg-secondary); border: 1px solid var(--border-color); max-width: 800px; width: 90%; max-height: 85vh; overflow-y: auto; transform: translateY(20px); transition: all 0.3s ease; }
         .modal-overlay.active .modal { transform: translateY(0); }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 24px 32px;
-            border-bottom: 1px solid var(--border-color);
-        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 24px 32px; border-bottom: 1px solid var(--border-color); }
         .modal-title { font-family: 'Space Mono', monospace; font-size: 1.25rem; font-weight: 700; }
-        .modal-close {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 1.5rem;
-            transition: color 0.2s;
-        }
+        .modal-close { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.5rem; transition: color 0.2s; }
         .modal-close:hover { color: var(--text-primary); }
         .modal-body { padding: 32px; }
-
         .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
         .detail-item { display: flex; flex-direction: column; gap: 6px; }
         .detail-item.full { grid-column: 1 / -1; }
-        .detail-label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: 'Space Mono', monospace;
-        }
+        .detail-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-family: 'Space Mono', monospace; }
         .detail-value { font-size: 1rem; color: var(--text-primary); }
-        .detail-note {
-            background: var(--bg-tertiary);
-            padding: 16px;
-            font-size: 0.875rem;
-            line-height: 1.6;
-            color: var(--text-secondary);
-            margin-top: 8px;
-            white-space: pre-wrap;
-        }
-
-        /* Group entries in modal */
-        .group-entries {
-            margin-top: 24px;
-            border-top: 1px solid var(--border-color);
-            padding-top: 24px;
-        }
-        .group-entries-title {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--accent-blue);
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .group-entry-item {
-            background: var(--bg-tertiary);
-            padding: 16px;
-            margin-bottom: 12px;
-            border-left: 3px solid var(--accent-blue);
-        }
+        .detail-note { background: var(--bg-tertiary); padding: 16px; font-size: 0.875rem; line-height: 1.6; color: var(--text-secondary); margin-top: 8px; white-space: pre-wrap; }
+        .group-entries { margin-top: 24px; border-top: 1px solid var(--border-color); padding-top: 24px; }
+        .group-entries-title { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--accent-blue); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+        .group-entry-item { background: var(--bg-tertiary); padding: 16px; margin-bottom: 12px; border-left: 3px solid var(--accent-blue); }
         .group-entry-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .group-entry-round { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--accent-blue); }
         .group-entry-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
@@ -680,13 +196,20 @@
         .group-entry-grid .detail-label { font-size: 0.65rem; }
         .group-entry-grid .detail-value { font-size: 0.9rem; }
 
+        @media (max-width: 1024px) {
+            .calendar-section { grid-template-columns: 1fr; }
+            .calendar-main { border-right: none; border-bottom: 1px solid var(--border-color); }
+            .calendar-sidebar { flex-direction: row; gap: 24px; flex-wrap: wrap; }
+            .month-stat-group { margin-bottom: 0; flex: 1; }
+        }
         @media (max-width: 768px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .header { flex-direction: column; gap: 30px; }
             .performance-section { grid-template-columns: 1fr; }
             .detail-grid { grid-template-columns: repeat(2, 1fr); }
-            .calendar-day { min-height: 80px; padding: 8px; }
-            .day-profit { font-size: 0.75rem; }
+            .calendar-day { min-height: 80px; padding: 4px; }
+            .day-profit { font-size: 0.7rem; }
+            .calendar-sidebar { flex-direction: column; }
         }
     </style>
 </head>
@@ -775,32 +298,67 @@
         </div>
 
         <div class="calendar-section" id="calendarSection">
-            <div class="calendar-header">
-                <div class="calendar-title" id="calendarTitle">January 2024</div>
-                <div class="calendar-nav">
-                    <button class="calendar-nav-btn" onclick="changeMonth(-1)">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M15 18l-6-6 6-6"/>
-                        </svg>
-                    </button>
-                    <button class="calendar-nav-btn" onclick="changeMonth(1)">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 18l6-6-6-6"/>
-                        </svg>
-                    </button>
+            <div class="calendar-main">
+                <div class="calendar-header">
+                    <div class="calendar-title" id="calendarTitle">January 2024</div>
+                    <div class="calendar-nav">
+                        <button class="calendar-nav-btn" onclick="changeMonth(-1)">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M15 18l-6-6 6-6"/>
+                            </svg>
+                        </button>
+                        <button class="calendar-nav-btn" onclick="changeMonth(1)">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 18l6-6-6-6"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="calendar-grid">
+                    <div class="calendar-day-header">Sun</div>
+                    <div class="calendar-day-header">Mon</div>
+                    <div class="calendar-day-header">Tue</div>
+                    <div class="calendar-day-header">Wed</div>
+                    <div class="calendar-day-header">Thu</div>
+                    <div class="calendar-day-header">Fri</div>
+                    <div class="calendar-day-header">Sat</div>
+                    <div class="calendar-day-header weekly-sum">W.Total</div> </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    </div>
+            </div>
+            
+            <div class="calendar-sidebar">
+                <div class="month-stat-group">
+                    <div class="month-stat-label">Monthly PnL</div>
+                    <div class="month-stat-value positive" id="monthTotalPoints">+0</div>
+                    <div class="month-stat-sub">
+                        <span>Trades: <span id="monthTotalTrades">0</span></span>
+                    </div>
+                </div>
+                <div class="month-stat-group">
+                    <div class="month-stat-label">Win Rate</div>
+                    <div class="month-stat-value" id="monthWinRate">0%</div>
+                    <div class="month-stat-sub">
+                        <span style="color: var(--accent-green)" id="monthWins">0W</span>
+                        <span style="color: var(--accent-red)" id="monthLosses">0L</span>
+                    </div>
+                </div>
+                <div class="month-stat-group">
+                    <div class="month-stat-label">Performance</div>
+                    <div class="month-stat-sub">
+                        <span>Avg RR:</span>
+                        <span style="font-weight: 600;" id="monthAvgRR">0</span>
+                    </div>
+                    <div class="month-stat-sub">
+                        <span>Avg Win:</span>
+                        <span style="color: var(--accent-green);" id="monthAvgWin">0</span>
+                    </div>
+                    <div class="month-stat-sub">
+                        <span>Avg Loss:</span>
+                        <span style="color: var(--accent-red);" id="monthAvgLoss">0</span>
+                    </div>
                 </div>
             </div>
-            <div class="calendar-grid">
-                <div class="calendar-day-header">Sun</div>
-                <div class="calendar-day-header">Mon</div>
-                <div class="calendar-day-header">Tue</div>
-                <div class="calendar-day-header">Wed</div>
-                <div class="calendar-day-header">Thu</div>
-                <div class="calendar-day-header">Fri</div>
-                <div class="calendar-day-header">Sat</div>
-            </div>
-            <div class="calendar-grid" id="calendarGrid">
-                </div>
         </div>
 
         <div class="filters-section">
@@ -865,6 +423,8 @@
         let groupedTrades = {};
         let currentCalendarDate = new Date();
         let dailyProfitData = {};
+        // Map to store full trade objects for monthly stats calculation
+        let tradesByMonth = {};
 
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('fileInput').addEventListener('change', function(e) {
@@ -952,6 +512,7 @@
             tradesData = [];
             groupedTrades = {};
             dailyProfitData = {};
+            tradesByMonth = {};
 
             for (let i = headerIndex + 1; i < data.length; i++) {
                 const row = data[i];
@@ -996,13 +557,21 @@
                     groupedTrades[setIdBase].push(trade);
                 }
 
-                // Aggregate daily profit
+                // Aggregate daily profit & Monthly Data
                 if (trade.date) {
                     if (!dailyProfitData[trade.date]) {
                         dailyProfitData[trade.date] = { points: 0, count: 0 };
                     }
                     dailyProfitData[trade.date].points += trade.points;
                     dailyProfitData[trade.date].count += 1;
+
+                    // Parse Month Key (e.g. "2024-01") for stats
+                    const parts = trade.date.split('/');
+                    if(parts.length === 3) {
+                        const monthKey = `${parts[2]}-${parts[1]}`; // YYYY-MM
+                        if (!tradesByMonth[monthKey]) tradesByMonth[monthKey] = [];
+                        tradesByMonth[monthKey].push(trade);
+                    }
                 }
             }
 
@@ -1061,11 +630,15 @@
             const grid = document.getElementById('calendarGrid');
             grid.innerHTML = '';
 
+            let currentWeekPoints = 0;
+            let dayCounter = 0;
+
             // Empty cells for previous month
             for (let i = 0; i < startDayOfWeek; i++) {
                 const cell = document.createElement('div');
                 cell.className = 'calendar-day empty';
                 grid.appendChild(cell);
+                dayCounter++;
             }
 
             // Days
@@ -1080,6 +653,7 @@
                 let profitHTML = '';
                 
                 if (dayData) {
+                    currentWeekPoints += dayData.points;
                     const profitClass = dayData.points > 0 ? 'positive' : (dayData.points < 0 ? 'negative' : 'neutral');
                     const profitSign = dayData.points > 0 ? '+' : '';
                     profitHTML = `
@@ -1097,7 +671,104 @@
                     ${profitHTML}
                 `;
                 grid.appendChild(cell);
+                dayCounter++;
+
+                // Check if it's Saturday (end of week row)
+                if (dayCounter % 7 === 0) {
+                    renderWeekSum(grid, currentWeekPoints);
+                    currentWeekPoints = 0; // Reset for next week
+                }
             }
+
+            // Fill remaining cells to complete the last week row if needed
+            while (dayCounter % 7 !== 0) {
+                const cell = document.createElement('div');
+                cell.className = 'calendar-day empty';
+                grid.appendChild(cell);
+                dayCounter++;
+                if (dayCounter % 7 === 0) {
+                    renderWeekSum(grid, currentWeekPoints);
+                }
+            }
+
+            // Render Monthly Stats Sidebar
+            renderMonthlyStats(year, month);
+        }
+
+        function renderWeekSum(grid, points) {
+            const cell = document.createElement('div');
+            cell.className = 'calendar-week-sum';
+            const profitClass = points > 0 ? 'positive' : (points < 0 ? 'negative' : 'neutral');
+            const profitSign = points > 0 ? '+' : '';
+            
+            cell.innerHTML = `
+                <div class="week-sum-label">Week</div>
+                <div class="week-sum-value ${profitClass}" style="color: ${points > 0 ? 'var(--accent-green)' : (points < 0 ? 'var(--accent-red)' : 'var(--text-muted)')}">
+                    ${profitSign}${points.toLocaleString()}
+                </div>
+            `;
+            grid.appendChild(cell);
+        }
+
+        function renderMonthlyStats(year, month) {
+            const monthKey = `${year}-${(month + 1).toString().padStart(2, '0')}`;
+            const monthTrades = tradesByMonth[monthKey] || [];
+
+            let totalPoints = 0;
+            let wins = 0;
+            let losses = 0;
+            let winPoints = 0;
+            let lossPoints = 0;
+            let rrSum = 0;
+            let rrCount = 0;
+
+            monthTrades.forEach(t => {
+                totalPoints += (t.points || 0);
+                const status = (t.status || '').toUpperCase();
+                if (status === 'WIN') {
+                    wins++;
+                    winPoints += (t.points || 0);
+                } else if (status === 'LOSE') {
+                    losses++;
+                    lossPoints += (t.points || 0);
+                }
+
+                // Parse RR (e.g., "1:2.5" -> 2.5)
+                if (t.rr && t.rr.includes(':')) {
+                    const parts = t.rr.split(':');
+                    if (parts.length === 2) {
+                        const risk = parseFloat(parts[0]);
+                        const reward = parseFloat(parts[1]);
+                        if (!isNaN(risk) && !isNaN(reward) && risk !== 0) {
+                            rrSum += (reward / risk);
+                            rrCount++;
+                        }
+                    }
+                }
+            });
+
+            const totalTrades = wins + losses; // Exclude draw/cancel for basic winrate
+            const winRate = totalTrades > 0 ? ((wins / totalTrades) * 100).toFixed(1) : 0;
+            const avgRR = rrCount > 0 ? (rrSum / rrCount).toFixed(2) : '0.00';
+            const avgWin = wins > 0 ? Math.round(winPoints / wins) : 0;
+            const avgLoss = losses > 0 ? Math.round(lossPoints / losses) : 0;
+
+            // Update DOM
+            const monthTotalEl = document.getElementById('monthTotalPoints');
+            monthTotalEl.textContent = (totalPoints >= 0 ? '+' : '') + totalPoints.toLocaleString();
+            monthTotalEl.className = 'month-stat-value ' + (totalPoints >= 0 ? 'positive' : 'negative');
+
+            document.getElementById('monthTotalTrades').textContent = monthTrades.length;
+            
+            document.getElementById('monthWinRate').textContent = winRate + '%';
+            document.getElementById('monthWinRate').className = 'month-stat-value ' + (parseFloat(winRate) >= 50 ? 'positive' : 'negative');
+            
+            document.getElementById('monthWins').textContent = wins + 'W';
+            document.getElementById('monthLosses').textContent = losses + 'L';
+
+            document.getElementById('monthAvgRR').textContent = '1:' + avgRR;
+            document.getElementById('monthAvgWin').textContent = '+' + avgWin.toLocaleString();
+            document.getElementById('monthAvgLoss').textContent = avgLoss.toLocaleString();
         }
 
         // ... (Existing updateStats, updateExtendedStats, renderCharts, renderTable functions remain same) ...
