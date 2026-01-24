@@ -8,7 +8,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
     <style>
-        /* ... (CSS เดิมของคุณทั้งหมด เก็บไว้เหมือนเดิม) ... */
         :root {
             --bg-primary: #0a0a0a;
             --bg-secondary: #111111;
@@ -42,23 +41,33 @@
 
         .container { max-width: 1800px; margin: 0 auto; padding: 40px 20px; }
 
-        /* Header Styles Modified for new button */
+        /* Header */
         .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 60px; padding-bottom: 40px; border-bottom: 1px solid var(--border-color); }
-        .logo-section h1 { font-family: 'Space Mono', monospace; font-size: 2.5rem; font-weight: 700; letter-spacing: -2px; margin-bottom: 8px; }
-        .logo-section h1 span { color: var(--text-muted); }
+        
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .main-logo {
+            max-height: 80px;
+            width: auto;
+            display: block;
+            margin-bottom: 8px;
+        }
+
         .logo-section p { font-size: 0.875rem; color: var(--text-secondary); font-family: 'Space Mono', monospace; }
         
         .upload-section { display: flex; flex-direction: row; align-items: center; gap: 12px; flex-wrap: wrap; }
-        
         .btn { background: var(--text-primary); color: var(--bg-primary); border: none; padding: 14px 28px; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; font-family: 'Instrument Sans', sans-serif; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; }
         .btn:hover { background: var(--text-secondary); transform: translateY(-2px); }
         .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-primary); }
         .btn-outline:hover { border-color: var(--text-primary); background: rgba(255,255,255,0.05); }
-
         .file-input { display: none; }
         .file-name { font-size: 0.75rem; color: var(--text-muted); font-family: 'Space Mono', monospace; margin-top: 8px; width: 100%; text-align: right; }
 
-        /* ... (Paste CSS เดิมของคุณต่อจากตรงนี้ได้เลย ผมละไว้เพื่อความกระชับ) ... */
+        /* Stats Grid */
         .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--border-color); margin-bottom: 60px; opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
         .stats-grid.loaded { opacity: 1; transform: translateY(0); }
         .stat-card { background: var(--bg-secondary); padding: 32px; display: flex; flex-direction: column; gap: 8px; }
@@ -205,26 +214,16 @@
             .day-profit { font-size: 0.7rem; }
             .calendar-sidebar { flex-direction: column; }
         }
-
-    .main-logo {
-        max-height: 80px;  /* ปรับความสูงโลโก้ตามชอบ */
-        width: auto;       /* ให้กว้างปรับอัตโนมัติ */
-        display: block;
-        margin-bottom: 5px;
-    }
     </style>
 </head>
 <body>
     <div class="container">
         <header class="header">
             <div class="logo-section">
-    <img src="logo.jpg" class="main-logo" alt="Trade Logo">
-    
-    <p>Trading Performance Tracker</p>
-</div>
-                <h1>TRADE<span>JOURNEY</span></h1>
+                <img src="logo.jpg" class="main-logo" alt="Trade Journey Logo">
                 <p>Trading Performance Tracker</p>
             </div>
+            
             <div class="upload-section">
                 <button class="btn" onclick="fetchFromGoogleSheet()">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -432,11 +431,9 @@
         </div>
     </div>
 
-<script>
-        // -------------------------------------------------------------------
-        // ⚠️ ใส่ URL ของคุณตรงนี้ (อย่าลืมเครื่องหมาย ' ' หัวท้าย)
+    <script>
+        // ใส่ URL ที่ถูกต้องให้แล้วครับ
         const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzHvKwXDeBbZbcJlXDim-kCZ1-Fjujo7EAGoc_Z3Evo_VITa1PqqfnnebBAxMAsUPMA/exec'; 
-        // -------------------------------------------------------------------
 
         let tradesData = [];
         let filteredData = [];
@@ -449,10 +446,8 @@
         let currentFilter = 'all';
 
         document.addEventListener('DOMContentLoaded', function() {
-            // โหลดปฏิทินเปล่าๆ รอไว้ก่อน
             renderCalendar();
 
-            // Existing File Input Listener
             document.getElementById('fileInput').addEventListener('change', function(e) {
                 const file = e.target.files[0];
                 if (!file) return;
@@ -488,7 +483,6 @@
             });
         });
 
-        // --- Fetch from Google Sheet ---
         function fetchFromGoogleSheet() {
             const statusText = document.getElementById('statusText');
             statusText.textContent = 'Syncing...';
@@ -504,7 +498,6 @@
             fetch(SHEET_API_URL)
                 .then(response => response.json())
                 .then(data => {
-                    // data ที่ได้จะเป็น 2D Array
                     processData(data);
                     statusText.textContent = 'Synced with Cloud';
                     statusText.style.color = 'var(--accent-green)';
@@ -516,7 +509,6 @@
                 });
         }
 
-        // --- Core Processing Logic ---
         function filterTrades(filter, btn) {
             currentFilter = filter;
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -550,7 +542,6 @@
 
         function processData(data) {
             let headerIndex = 0;
-            // หา header row
             for (let i = 0; i < data.length; i++) {
                 if (Array.isArray(data[i]) && (data[i].includes('No.') || data[i].includes('SetID'))) {
                     headerIndex = i;
@@ -606,7 +597,6 @@
                     groupedTrades[setIdBase].push(trade);
                 }
 
-                // Aggregate daily profit & Monthly Data
                 if (trade.date) {
                     if (!dailyProfitData[trade.date]) {
                         dailyProfitData[trade.date] = { points: 0, count: 0 };
@@ -614,8 +604,6 @@
                     dailyProfitData[trade.date].points += trade.points;
                     dailyProfitData[trade.date].count += 1;
 
-                    // Parse Month Key (e.g. "2024-01") for stats
-                    // Expecting DD/MM/YYYY
                     const parts = trade.date.split('/');
                     if(parts.length === 3) {
                         const monthKey = `${parts[2]}-${parts[1]}`; // YYYY-MM
@@ -625,7 +613,6 @@
                 }
             }
 
-            // Set current calendar date to the last trade date
             if (tradesData.length > 0) {
                 const lastTradeDate = tradesData[tradesData.length - 1].date;
                 const parts = lastTradeDate.split('/');
@@ -654,14 +641,10 @@
 
         function formatDate(excelDate) {
             if (!excelDate) return '';
-            // ถ้าเป็น string อยู่แล้ว
             if (typeof excelDate === 'string') return excelDate;
-            // ถ้าเป็น number (Excel Serial Date)
             const date = new Date((excelDate - 25569) * 86400 * 1000);
             return date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
         }
-
-        // --- Logic Functions (Missing Parts) ---
 
         function changeMonth(offset) {
             currentCalendarDate.setMonth(currentCalendarDate.getMonth() + offset);
@@ -675,7 +658,7 @@
             const firstDay = new Date(year, month, 1);
             const lastDay = new Date(year, month + 1, 0);
             const daysInMonth = lastDay.getDate();
-            const startDayOfWeek = firstDay.getDay(); // 0 = Sunday
+            const startDayOfWeek = firstDay.getDay();
 
             const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             document.getElementById('calendarTitle').textContent = `${monthNames[month]} ${year}`;
@@ -686,7 +669,6 @@
             let currentWeekPoints = 0;
             let dayCounter = 0;
 
-            // Empty cells for previous month
             for (let i = 0; i < startDayOfWeek; i++) {
                 const cell = document.createElement('div');
                 cell.className = 'calendar-day empty';
@@ -694,7 +676,6 @@
                 dayCounter++;
             }
 
-            // Days
             for (let day = 1; day <= daysInMonth; day++) {
                 const cell = document.createElement('div');
                 cell.className = 'calendar-day';
