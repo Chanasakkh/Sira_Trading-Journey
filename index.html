@@ -35,25 +35,77 @@
 
         .container { max-width: 1800px; margin: 0 auto; padding: 40px 20px; }
 
-        /* Header Layout */
-        .header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 20px; }
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 20px; }
         
         .logo-section { display: flex; flex-direction: column; justify-content: center; }
-        
-        /* --- LOGO UPDATE --- */
-        .main-logo { 
-            height: 150px; 
-            width: 150px; 
-            object-fit: contain; /* ป้องกันภาพเบี้ยว */
-            display: block; 
-            margin-bottom: 8px; 
-        }
-        
+        .main-logo { height: 150px; width: 150px; object-fit: contain; display: block; margin-bottom: 8px; }
         .logo-section p { font-size: 0.875rem; color: var(--text-secondary); font-family: 'Space Mono', monospace; }
         
         .controls-wrapper { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
         
-        /* Dropdown Style */
+        /* Filter Bar (SharePoint Style) */
+        .filter-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+            min-height: 32px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'Space Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: none; /* Show only when filters active */
+        }
+        .filter-label.show { display: block; }
+
+        .filter-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-blue);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            transition: all 0.2s ease;
+        }
+        
+        .filter-tag:hover { background: rgba(59, 130, 246, 0.2); }
+        
+        .filter-tag-close {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: background 0.2s;
+        }
+        .filter-tag-close:hover { background: rgba(255, 255, 255, 0.3); color: white; }
+
+        .clear-all-btn {
+            font-size: 0.75rem;
+            color: var(--accent-red);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 4px 8px;
+            display: none;
+        }
+        .clear-all-btn.show { display: block; }
+
+        /* Dropdown */
         .custom-select {
             background: var(--bg-secondary);
             color: var(--text-primary);
@@ -76,18 +128,6 @@
         .btn:hover { background: var(--text-secondary); transform: translateY(-1px); }
         .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-primary); }
         .btn-outline:hover { border-color: var(--text-primary); background: rgba(255,255,255,0.05); }
-        
-        /* Reset Button Style */
-        .btn-reset { 
-            background: rgba(239, 68, 68, 0.1); 
-            border: 1px solid rgba(239, 68, 68, 0.3); 
-            color: var(--accent-red); 
-        }
-        .btn-reset:hover { 
-            background: rgba(239, 68, 68, 0.2); 
-            border-color: var(--accent-red);
-        }
-
         .file-input { display: none; }
         
         /* Stats Grid */
@@ -105,38 +145,7 @@
         .performance-section.loaded { opacity: 1; transform: translateY(0); }
         .chart-container { background: var(--bg-secondary); padding: 24px; position: relative; }
         .extended-stats { background: var(--bg-secondary); padding: 24px; }
-        
-        .section-title { 
-            font-family: 'Space Mono', monospace; 
-            font-size: 0.7rem; 
-            color: var(--text-muted); 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            margin-bottom: 16px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-        }
-        
-        /* Filter Chip (Power BI Interaction) */
-        .active-filter-chip { 
-            display: none; 
-            align-items: center; 
-            gap: 6px; 
-            background: rgba(34, 197, 94, 0.1); 
-            color: var(--accent-green); 
-            padding: 4px 10px; 
-            border-radius: 4px; 
-            font-size: 0.65rem; 
-            font-weight: 600; 
-            cursor: pointer;
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            text-transform: none;
-            letter-spacing: 0;
-        }
-        .active-filter-chip:hover { background: rgba(34, 197, 94, 0.2); }
-        .active-filter-chip.show { display: inline-flex; }
-
+        .section-title { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
         .chart-wrapper { height: 240px; position: relative; width: 100%; }
         .stats-list { display: flex; flex-direction: column; gap: 12px; }
         .stats-row { display: flex; justify-content: space-between; align-items: center; }
@@ -272,11 +281,6 @@
                     <option value="all">All Time</option>
                 </select>
 
-                <button class="btn btn-reset" onclick="resetDashboard()">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-                    RESET
-                </button>
-
                 <button class="btn" onclick="fetchFromGoogleSheet()">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -293,6 +297,11 @@
             </div>
         </header>
 
+        <div class="filter-bar-container" id="activeFiltersBar">
+            <span class="filter-label" id="filterLabel">Filtered by:</span>
+            <button class="clear-all-btn" id="clearAllBtn" onclick="resetDashboard()">Clear All Filters</button>
+        </div>
+
         <div class="stats-grid" id="statsGrid">
             <div class="stat-card"><span class="stat-label">Total Trades</span><span class="stat-value" id="totalTrades">0</span></div>
             <div class="stat-card"><span class="stat-label">Win Rate</span><span class="stat-value positive" id="winRate">0%</span><span class="stat-sub" id="winRateSub">0W / 0L / 0D</span></div>
@@ -303,13 +312,7 @@
 
         <div class="performance-section" id="performanceSection">
             <div class="chart-container">
-                <div class="section-title">
-                    Daily Points
-                    <div id="chartFilterTag" class="active-filter-chip" onclick="clearChartFilter()">
-                        <span id="chartFilterText">Date</span>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                    </div>
-                </div>
+                <div class="section-title">Daily Points</div>
                 <div class="chart-wrapper"><canvas id="dailyChart"></canvas></div>
             </div>
             <div class="chart-container">
@@ -383,19 +386,17 @@
         const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzHvKwXDeBbZbcJlXDim-kCZ1-Fjujo7EAGoc_Z3Evo_VITa1PqqfnnebBAxMAsUPMA/exec'; 
 
         // State variables
-        let allTrades = [];      // Raw Data from Sheet
-        let displayedTrades = []; // Data currently shown
+        let allTrades = [];      
+        let displayedTrades = []; 
         let groupedTrades = {};
         
-        // Active Filter State
         let activeFilters = {
             status: 'all',
             search: '',
             month: 'all',
-            specificDate: null // For Chart Click Interaction
+            specificDate: null 
         };
 
-        // Charts & Calendars
         let dailyChart = null;
         let equityChart = null;
         let currentCalendarDate = new Date();
@@ -408,9 +409,8 @@
             document.getElementById('fileInput').addEventListener('change', handleFileUpload);
         });
 
-        // --- Data Loading ---
         function fetchFromGoogleSheet() {
-            const btn = document.querySelector('.btn'); // Button indicator
+            const btn = document.querySelector('.btn'); 
             const originalText = btn.innerHTML;
             btn.innerHTML = '<span style="font-size:16px">↻</span> Syncing...';
             
@@ -484,7 +484,6 @@
                 trade.groupSize = group ? group.length : 1;
             });
 
-            // Set Calendar to latest date
             if (allTrades.length > 0) {
                 const lastDate = parseDateString(allTrades[allTrades.length - 1].date);
                 if (lastDate) currentCalendarDate = lastDate;
@@ -498,26 +497,81 @@
             document.querySelector('.calendar-section').classList.add('loaded');
         }
 
-        // --- RESET FUNCTION (New) ---
         function resetDashboard() {
             activeFilters = { status: 'all', search: '', month: 'all', specificDate: null };
             document.getElementById('monthSelector').value = 'all';
             document.getElementById('searchBox').value = '';
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             document.querySelector('.filter-btn[onclick*="all"]').classList.add('active'); 
-            clearChartFilter(); // Handles UI
             applyAllFilters();
         }
 
-        // --- Core Logic: The "Brain" of Power BI ---
+        // --- Active Filter Bar Logic ---
+        function renderActiveFilterTags() {
+            const container = document.getElementById('activeFiltersBar');
+            const label = document.getElementById('filterLabel');
+            const clearBtn = document.getElementById('clearAllBtn');
+            
+            // Remove existing tags (but keep label/btn)
+            const tags = container.querySelectorAll('.filter-tag');
+            tags.forEach(t => t.remove());
+
+            let hasActive = false;
+
+            // Month
+            if (activeFilters.month !== 'all') {
+                const [y, m] = activeFilters.month.split('-');
+                const mName = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][parseInt(m)];
+                addTag(`📅 ${mName} ${y}`, () => filterByMonth('all'));
+                hasActive = true;
+            }
+
+            // Status
+            if (activeFilters.status !== 'all') {
+                addTag(`⚡ Status: ${activeFilters.status.toUpperCase()}`, () => filterTrades('all', document.querySelector('.filter-btn[onclick*="all"]')));
+                hasActive = true;
+            }
+
+            // Search
+            if (activeFilters.search) {
+                addTag(`🔍 "${activeFilters.search}"`, () => {
+                    document.getElementById('searchBox').value = '';
+                    searchTrades('');
+                });
+                hasActive = true;
+            }
+
+            // Date (Chart Click)
+            if (activeFilters.specificDate) {
+                addTag(`📊 Date: ${activeFilters.specificDate}`, () => {
+                    activeFilters.specificDate = null;
+                    applyAllFilters();
+                });
+                hasActive = true;
+            }
+
+            label.classList.toggle('show', hasActive);
+            clearBtn.classList.toggle('show', hasActive);
+        }
+
+        function addTag(text, closeCallback) {
+            const container = document.getElementById('activeFiltersBar');
+            const tag = document.createElement('div');
+            tag.className = 'filter-tag';
+            tag.innerHTML = `${text} <span class="filter-tag-close"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>`;
+            tag.querySelector('.filter-tag-close').onclick = closeCallback;
+            // Insert before clear button
+            container.insertBefore(tag, document.getElementById('clearAllBtn'));
+        }
+
         function applyAllFilters() {
-            // 1. First, Filter for Charts (Context) - excludes specific day click
-            // So the chart doesn't disappear when you click it
+            // Update the top bar UI
+            renderActiveFilterTags();
+
             const contextTrades = allTrades.filter(trade => {
                 return checkCommonFilters(trade);
             });
 
-            // 2. Filter for Table & Stats - includes specific day click
             displayedTrades = contextTrades.filter(trade => {
                 if (activeFilters.specificDate) {
                     if (trade.date !== activeFilters.specificDate) return false;
@@ -525,20 +579,14 @@
                 return true;
             });
 
-            // Update UI
             updateStats(displayedTrades);
             updateExtendedStats(displayedTrades);
             renderTable(displayedTrades);
-            
-            // Charts always show the "Context" (Month/All), but highlight selection if possible
             renderCharts(contextTrades);
-            
-            // Calendar shows context
             renderCalendarWithData(contextTrades);
         }
 
         function checkCommonFilters(trade) {
-            // Month Filter
             if (activeFilters.month !== 'all') {
                 const tradeDate = parseDateString(trade.date);
                 if (!tradeDate) return false;
@@ -546,7 +594,6 @@
                 if (tradeMonthKey !== activeFilters.month) return false;
             }
 
-            // Status/Type Filter
             const status = (trade.status || '').toUpperCase();
             const order = (trade.order || '').toUpperCase();
             let matchStatus = true;
@@ -558,7 +605,6 @@
             else if (activeFilters.status === 'sell') matchStatus = order === 'SELL';
             if (!matchStatus) return false;
 
-            // Search Text
             if (activeFilters.search) {
                 const s = activeFilters.search.toLowerCase();
                 const matchSearch = (trade.asset.toLowerCase().includes(s) || 
@@ -569,11 +615,11 @@
             return true;
         }
 
-        // --- Input Handlers ---
         function filterTrades(type, btn) {
             activeFilters.status = type;
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+            if(btn) btn.classList.add('active');
+            else document.querySelector('.filter-btn[onclick*="'+type+'"]').classList.add('active');
             applyAllFilters();
         }
 
@@ -584,43 +630,23 @@
 
         function filterByMonth(val) {
             activeFilters.month = val;
-            activeFilters.specificDate = null; // Reset drill-down
-            updateChartFilterUI();
+            activeFilters.specificDate = null;
+            document.getElementById('monthSelector').value = val;
             applyAllFilters();
         }
 
-        // --- Chart Click Interaction ---
         function handleChartClick(event, elements, chart) {
             if (!elements || elements.length === 0) return;
             const index = elements[0].index;
-            const label = chart.data.labels[index]; // e.g. "25/01/2026" or "25/01"
-            
-            // Better approach: The chart label IS the date string key from dailyPoints
+            const label = chart.data.labels[index]; 
             activeFilters.specificDate = label;
-            updateChartFilterUI();
             applyAllFilters();
-        }
-
-        function clearChartFilter() {
-            activeFilters.specificDate = null;
-            updateChartFilterUI();
-            applyAllFilters();
-        }
-
-        function updateChartFilterUI() {
-            const chip = document.getElementById('chartFilterTag');
-            const text = document.getElementById('chartFilterText');
-            if (activeFilters.specificDate) {
-                chip.classList.add('show');
-                text.textContent = `Filtered: ${activeFilters.specificDate}`;
-            } else {
-                chip.classList.remove('show');
-            }
         }
 
         // --- Logic Helpers ---
         function populateMonthDropdown() {
             const selector = document.getElementById('monthSelector');
+            const currentVal = selector.value;
             selector.innerHTML = '<option value="all">All Time</option>';
             const months = new Set();
             allTrades.forEach(t => {
@@ -641,9 +667,12 @@
                 opt.textContent = `${monthNames[parseInt(m)]} ${y}`;
                 selector.appendChild(opt);
             });
+            // Restore selection if exists
+            if (Array.from(selector.options).some(o => o.value === activeFilters.month)) {
+                selector.value = activeFilters.month;
+            }
         }
 
-        // --- Render Functions ---
         function updateStats(data) {
             const wins = data.filter(t => (t.status || '').toUpperCase() === 'WIN').length;
             const loses = data.filter(t => (t.status || '').toUpperCase() === 'LOSE').length;
@@ -684,7 +713,6 @@
             const absLoss = Math.abs(sumLose);
             const pf = absLoss > 0 ? (sumWin / absLoss).toFixed(2) : (sumWin > 0 ? '∞' : '0');
             
-            // Expectancy
             const totalWL = countWin + countLose;
             let exp = 0;
             if(totalWL > 0) {
@@ -703,25 +731,21 @@
         }
 
         function renderCharts(data) {
-            // Aggregate daily points
             const dailyMap = {};
             data.forEach(t => {
                 if(!t.date) return;
                 dailyMap[t.date] = (dailyMap[t.date] || 0) + t.points;
             });
 
-            // Sort dates
             const sortedDates = Object.keys(dailyMap).sort((a,b) => parseDateString(a) - parseDateString(b));
             const dailyValues = sortedDates.map(d => dailyMap[d]);
             
-            // Equity
             const equityValues = [];
             let sum = 0;
-            equityValues.push(0); // Start at 0
+            equityValues.push(0); 
             dailyValues.forEach(v => { sum += v; equityValues.push(sum); });
             const equityLabels = ['Start', ...sortedDates];
 
-            // Render Daily Chart
             const ctxD = document.getElementById('dailyChart');
             if(dailyChart) dailyChart.destroy();
             dailyChart = new Chart(ctxD, {
@@ -745,7 +769,6 @@
                 }
             });
 
-            // Render Equity Chart
             const ctxE = document.getElementById('equityChart');
             if(equityChart) equityChart.destroy();
             const lastEq = equityValues[equityValues.length-1];
@@ -768,10 +791,7 @@
                 options: {
                     responsive: true, maintainAspectRatio: false,
                     plugins: { legend: {display:false} },
-                    scales: { 
-                        x: { display:false }, 
-                        y: { grid: {color:'rgba(255,255,255,0.05)'}, ticks: {color:'#666', font:{family:'Space Mono'}} }
-                    }
+                    scales: { x: { display:false }, y: { grid: {color:'rgba(255,255,255,0.05)'}, ticks: {color:'#666', font:{family:'Space Mono'}} } }
                 }
             });
         }
@@ -828,9 +848,7 @@
             });
         }
 
-        // --- Calendar Logic ---
         function renderCalendarWithData(data) {
-            // Aggregate data for calendar
             dailyProfitData = {};
             data.forEach(t => {
                 if(t.date) {
@@ -885,7 +903,6 @@
             }
         }
 
-        // --- Helpers ---
         function getSetIdBase(id) {
             if(!id) return null;
             const str = id.toString();
@@ -900,7 +917,6 @@
         }
         function parseDateString(str) {
             if(!str) return null;
-            // Expect DD/MM/YYYY
             const parts = str.split('/');
             if(parts.length === 3) return new Date(parts[2], parts[1]-1, parts[0]);
             return null;
