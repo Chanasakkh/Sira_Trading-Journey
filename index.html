@@ -164,6 +164,7 @@
         .calendar-nav-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; }
         .calendar-nav-btn:hover { border-color: var(--text-primary); color: var(--text-primary); }
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); }
+        .calendar-grid-with-totals { display: grid; grid-template-columns: repeat(7, 1fr) auto; gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); }
         .calendar-day-header { background: var(--bg-tertiary); padding: 12px 4px; text-align: center; font-size: 0.7rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; }
         .calendar-day { background: var(--bg-secondary); min-height: 90px; padding: 8px; display: flex; flex-direction: column; justify-content: space-between; transition: background 0.2s; position: relative; }
         .calendar-day:hover { background: var(--bg-tertiary); }
@@ -174,6 +175,61 @@
         .day-profit.negative { color: var(--accent-red); }
         .day-profit.neutral { color: var(--text-muted); }
         .day-trades-count { font-size: 0.65rem; color: var(--text-secondary); text-align: right; margin-top: 4px; }
+        
+        /* Calendar Totals */
+        .calendar-week-total { 
+            background: var(--bg-tertiary); 
+            min-height: 90px; 
+            padding: 8px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            border-left: 2px solid var(--border-color); 
+            min-width: 80px; 
+        }
+        .calendar-week-total .week-label { 
+            font-size: 0.65rem; 
+            color: var(--text-muted); 
+            font-family: 'Space Mono', monospace; 
+            margin-bottom: 4px; 
+            text-transform: uppercase; 
+        }
+        .calendar-week-total .week-value { 
+            font-family: 'Space Mono', monospace; 
+            font-weight: 700; 
+            font-size: 0.85rem; 
+        }
+        .calendar-week-total .week-value.positive { color: var(--accent-green); }
+        .calendar-week-total .week-value.negative { color: var(--accent-red); }
+        .calendar-week-total .week-value.neutral { color: var(--text-muted); }
+        
+        .calendar-day-total { 
+            background: var(--bg-tertiary); 
+            padding: 12px 4px; 
+            text-align: center; 
+            border-top: 2px solid var(--border-color); 
+        }
+        .calendar-day-total .day-total-value { 
+            font-family: 'Space Mono', monospace; 
+            font-weight: 700; 
+            font-size: 0.75rem; 
+        }
+        .calendar-day-total .day-total-value.positive { color: var(--accent-green); }
+        .calendar-day-total .day-total-value.negative { color: var(--accent-red); }
+        .calendar-day-total .day-total-value.neutral { color: var(--text-muted); }
+        
+        .calendar-total-header { 
+            background: var(--bg-tertiary); 
+            padding: 12px 4px; 
+            text-align: center; 
+            font-size: 0.7rem; 
+            color: var(--text-muted); 
+            font-family: 'Space Mono', monospace; 
+            text-transform: uppercase; 
+            min-width: 80px; 
+            border-left: 2px solid var(--border-color); 
+        }
 
         /* Filters & Table */
         .filters-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
@@ -342,9 +398,19 @@
                     </div>
                 </div>
                 <div class="calendar-grid">
-                    <div class="calendar-day-header">Sun</div><div class="calendar-day-header">Mon</div><div class="calendar-day-header">Tue</div><div class="calendar-day-header">Wed</div><div class="calendar-day-header">Thu</div><div class="calendar-day-header">Fri</div><div class="calendar-day-header">Sat</div>
+                    <div class="calendar-day-header">Sun</div>
+                    <div class="calendar-day-header">Mon</div>
+                    <div class="calendar-day-header">Tue</div>
+                    <div class="calendar-day-header">Wed</div>
+                    <div class="calendar-day-header">Thu</div>
+                    <div class="calendar-day-header">Fri</div>
+                    <div class="calendar-day-header">Sat</div>
+                    <div class="calendar-total-header">Week</div>
                 </div>
-                <div class="calendar-grid" id="calendarGrid"></div>
+                <div class="calendar-grid-with-totals" id="calendarGrid"></div>
+                
+                <!-- Daily Totals Row -->
+                <div class="calendar-grid-with-totals" id="dailyTotalsRow"></div>
             </div>
         </div>
 
@@ -875,18 +941,33 @@
             document.getElementById('calendarTitle').textContent = `${months[month]} ${year}`;
             
             const grid = document.getElementById('calendarGrid');
+            const dailyTotalsRow = document.getElementById('dailyTotalsRow');
             grid.innerHTML = '';
+            dailyTotalsRow.innerHTML = '';
             
+            // Arrays to store daily and weekly totals
+            const dailyTotals = [0, 0, 0, 0, 0, 0, 0]; // Sun-Sat
+            const weeklyTotals = [];
+            let currentWeekTotal = 0;
+            let currentWeekDays = 0;
+            
+            // Empty cells before first day
             for(let i=0; i<firstDay; i++) {
                 grid.innerHTML += `<div class="calendar-day empty"></div>`;
+                currentWeekDays++;
             }
             
+            // Calendar days
             for(let d=1; d<=daysInMonth; d++) {
                 const dateStr = `${d.toString().padStart(2,'0')}/${(month+1).toString().padStart(2,'0')}/${year}`;
                 const info = dailyProfitData[dateStr];
+                const dayOfWeek = (firstDay + d - 1) % 7;
                 
                 let content = `<div class="day-profit neutral">-</div>`;
+                let points = 0;
+                
                 if(info) {
+                    points = info.points;
                     const pClass = info.points >= 0 ? 'positive' : 'negative';
                     content = `
                         <div class="day-profit ${pClass}">${info.points>0?'+':''}${info.points.toLocaleString()}</div>
@@ -894,13 +975,54 @@
                     `;
                 }
                 
+                // Add to daily totals
+                dailyTotals[dayOfWeek] += points;
+                currentWeekTotal += points;
+                currentWeekDays++;
+                
                 grid.innerHTML += `
                     <div class="calendar-day">
                         <div class="day-number">${d}</div>
                         ${content}
                     </div>
                 `;
+                
+                // End of week or end of month
+                if(dayOfWeek === 6 || d === daysInMonth) {
+                    weeklyTotals.push(currentWeekTotal);
+                    
+                    const weekClass = currentWeekTotal >= 0 ? 'positive' : currentWeekTotal < 0 ? 'negative' : 'neutral';
+                    grid.innerHTML += `
+                        <div class="calendar-week-total">
+                            <div class="week-label">Total</div>
+                            <div class="week-value ${weekClass}">${currentWeekTotal>0?'+':''}${currentWeekTotal.toLocaleString()}</div>
+                        </div>
+                    `;
+                    
+                    currentWeekTotal = 0;
+                    currentWeekDays = 0;
+                }
             }
+            
+            // Render daily totals row
+            dailyTotals.forEach(total => {
+                const totalClass = total >= 0 ? 'positive' : total < 0 ? 'negative' : 'neutral';
+                dailyTotalsRow.innerHTML += `
+                    <div class="calendar-day-total">
+                        <div class="day-total-value ${totalClass}">${total>0?'+':''}${total.toLocaleString()}</div>
+                    </div>
+                `;
+            });
+            
+            // Add month total in the corner
+            const monthTotal = dailyTotals.reduce((sum, val) => sum + val, 0);
+            const monthClass = monthTotal >= 0 ? 'positive' : monthTotal < 0 ? 'negative' : 'neutral';
+            dailyTotalsRow.innerHTML += `
+                <div class="calendar-week-total">
+                    <div class="week-label">Month</div>
+                    <div class="week-value ${monthClass}">${monthTotal>0?'+':''}${monthTotal.toLocaleString()}</div>
+                </div>
+            `;
         }
 
         function getSetIdBase(id) {
