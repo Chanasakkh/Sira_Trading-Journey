@@ -44,7 +44,7 @@
         
         .controls-wrapper { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
         
-        /* Filter Bar (SharePoint Style) */
+        /* Filter Bar */
         .filter-bar-container {
             display: flex;
             align-items: center;
@@ -60,7 +60,7 @@
             font-family: 'Space Mono', monospace;
             text-transform: uppercase;
             letter-spacing: 1px;
-            display: none; /* Show only when filters active */
+            display: none;
         }
         .filter-label.show { display: block; }
 
@@ -77,35 +77,14 @@
             border: 1px solid rgba(59, 130, 246, 0.3);
             transition: all 0.2s ease;
         }
-        
         .filter-tag:hover { background: rgba(59, 130, 246, 0.2); }
-        
-        .filter-tag-close {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: background 0.2s;
-        }
+        .filter-tag-close { cursor: pointer; display: flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); transition: background 0.2s; }
         .filter-tag-close:hover { background: rgba(255, 255, 255, 0.3); color: white; }
 
-        .clear-all-btn {
-            font-size: 0.75rem;
-            color: var(--accent-red);
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            text-decoration: underline;
-            padding: 4px 8px;
-            display: none;
-        }
+        .clear-all-btn { font-size: 0.75rem; color: var(--accent-red); background: transparent; border: none; cursor: pointer; text-decoration: underline; padding: 4px 8px; display: none; }
         .clear-all-btn.show { display: block; }
 
-        /* Dropdown */
+        /* Inputs */
         .custom-select {
             background: var(--bg-secondary);
             color: var(--text-primary);
@@ -122,12 +101,12 @@
             background-repeat: no-repeat;
             background-position: right 12px center;
         }
-        .custom-select:hover { border-color: var(--text-secondary); }
-
         .btn { background: var(--text-primary); color: var(--bg-primary); border: none; padding: 0 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; font-family: 'Instrument Sans', sans-serif; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; height: 42px; }
         .btn:hover { background: var(--text-secondary); transform: translateY(-1px); }
         .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-primary); }
         .btn-outline:hover { border-color: var(--text-primary); background: rgba(255,255,255,0.05); }
+        .btn-reset { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: var(--accent-red); }
+        .btn-reset:hover { background: rgba(239, 68, 68, 0.2); border-color: var(--accent-red); }
         .file-input { display: none; }
         
         /* Stats Grid */
@@ -154,82 +133,39 @@
         .stats-value.positive { color: var(--accent-green); }
         .stats-value.negative { color: var(--accent-red); }
 
-        /* Calendar Section */
-        .calendar-section { background: var(--bg-secondary); border: 1px solid var(--border-color); margin-bottom: 40px; opacity: 0; transform: translateY(10px); transition: all 0.5s ease; display: grid; grid-template-columns: 1fr; } 
+        /* Calendar Section (Restored 2 Columns) */
+        .calendar-section { background: var(--bg-secondary); border: 1px solid var(--border-color); margin-bottom: 40px; opacity: 0; transform: translateY(10px); transition: all 0.5s ease; display: grid; grid-template-columns: 1fr 300px; } 
         .calendar-section.loaded { opacity: 1; transform: translateY(0); }
-        .calendar-main { padding: 24px; }
+        .calendar-main { padding: 24px; border-right: 1px solid var(--border-color); }
+        .calendar-sidebar { background: var(--bg-tertiary); padding: 24px; display: flex; flex-direction: column; justify-content: center; }
+        
         .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .calendar-title { font-family: 'Space Mono', monospace; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; }
         .calendar-nav { display: flex; gap: 8px; }
         .calendar-nav-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; }
         .calendar-nav-btn:hover { border-color: var(--text-primary); color: var(--text-primary); }
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); }
-        .calendar-grid-with-totals { display: grid; grid-template-columns: repeat(7, 1fr) auto; gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr) 80px; gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); }
         .calendar-day-header { background: var(--bg-tertiary); padding: 12px 4px; text-align: center; font-size: 0.7rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; }
+        .calendar-day-header.weekly-sum { color: var(--accent-blue); background: rgba(59, 130, 246, 0.1); font-weight: 700; }
         .calendar-day { background: var(--bg-secondary); min-height: 90px; padding: 8px; display: flex; flex-direction: column; justify-content: space-between; transition: background 0.2s; position: relative; }
         .calendar-day:hover { background: var(--bg-tertiary); }
         .calendar-day.empty { background: rgba(17, 17, 17, 0.5); pointer-events: none; }
+        .calendar-week-sum { background: rgba(59, 130, 246, 0.05); display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 8px; border-left: 1px solid var(--border-color); }
+        .week-sum-label { font-size: 0.6rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .week-sum-value { font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 700; }
         .day-number { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--text-muted); }
         .day-profit { text-align: right; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.8rem; }
         .day-profit.positive { color: var(--accent-green); }
         .day-profit.negative { color: var(--accent-red); }
         .day-profit.neutral { color: var(--text-muted); }
         .day-trades-count { font-size: 0.65rem; color: var(--text-secondary); text-align: right; margin-top: 4px; }
-        
-        /* Calendar Totals */
-        .calendar-week-total { 
-            background: var(--bg-tertiary); 
-            min-height: 90px; 
-            padding: 8px; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            border-left: 2px solid var(--border-color); 
-            min-width: 80px; 
-        }
-        .calendar-week-total .week-label { 
-            font-size: 0.65rem; 
-            color: var(--text-muted); 
-            font-family: 'Space Mono', monospace; 
-            margin-bottom: 4px; 
-            text-transform: uppercase; 
-        }
-        .calendar-week-total .week-value { 
-            font-family: 'Space Mono', monospace; 
-            font-weight: 700; 
-            font-size: 0.85rem; 
-        }
-        .calendar-week-total .week-value.positive { color: var(--accent-green); }
-        .calendar-week-total .week-value.negative { color: var(--accent-red); }
-        .calendar-week-total .week-value.neutral { color: var(--text-muted); }
-        
-        .calendar-day-total { 
-            background: var(--bg-tertiary); 
-            padding: 12px 4px; 
-            text-align: center; 
-            border-top: 2px solid var(--border-color); 
-        }
-        .calendar-day-total .day-total-value { 
-            font-family: 'Space Mono', monospace; 
-            font-weight: 700; 
-            font-size: 0.75rem; 
-        }
-        .calendar-day-total .day-total-value.positive { color: var(--accent-green); }
-        .calendar-day-total .day-total-value.negative { color: var(--accent-red); }
-        .calendar-day-total .day-total-value.neutral { color: var(--text-muted); }
-        
-        .calendar-total-header { 
-            background: var(--bg-tertiary); 
-            padding: 12px 4px; 
-            text-align: center; 
-            font-size: 0.7rem; 
-            color: var(--text-muted); 
-            font-family: 'Space Mono', monospace; 
-            text-transform: uppercase; 
-            min-width: 80px; 
-            border-left: 2px solid var(--border-color); 
-        }
+
+        /* Monthly Stats Sidebar */
+        .month-stat-group { margin-bottom: 24px; }
+        .month-stat-group:last-child { margin-bottom: 0; }
+        .month-stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; font-family: 'Space Mono', monospace; }
+        .month-stat-value { font-size: 1.5rem; font-weight: 700; font-family: 'Space Mono', monospace; }
+        .month-stat-sub { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; display: flex; justify-content: space-between; }
 
         /* Filters & Table */
         .filters-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
@@ -337,6 +273,11 @@
                     <option value="all">All Time</option>
                 </select>
 
+                <button class="btn btn-reset" onclick="resetDashboard()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    RESET
+                </button>
+
                 <button class="btn" onclick="fetchFromGoogleSheet()">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -398,19 +339,28 @@
                     </div>
                 </div>
                 <div class="calendar-grid">
-                    <div class="calendar-day-header">Sun</div>
-                    <div class="calendar-day-header">Mon</div>
-                    <div class="calendar-day-header">Tue</div>
-                    <div class="calendar-day-header">Wed</div>
-                    <div class="calendar-day-header">Thu</div>
-                    <div class="calendar-day-header">Fri</div>
-                    <div class="calendar-day-header">Sat</div>
-                    <div class="calendar-total-header">Week</div>
+                    <div class="calendar-day-header">Sun</div><div class="calendar-day-header">Mon</div><div class="calendar-day-header">Tue</div><div class="calendar-day-header">Wed</div><div class="calendar-day-header">Thu</div><div class="calendar-day-header">Fri</div><div class="calendar-day-header">Sat</div><div class="calendar-day-header weekly-sum">W.Total</div>
                 </div>
-                <div class="calendar-grid-with-totals" id="calendarGrid"></div>
-                
-                <!-- Daily Totals Row -->
-                <div class="calendar-grid-with-totals" id="dailyTotalsRow"></div>
+                <div class="calendar-grid" id="calendarGrid"></div>
+            </div>
+            
+            <div class="calendar-sidebar">
+                <div class="month-stat-group">
+                    <div class="month-stat-label">Monthly PnL</div>
+                    <div class="month-stat-value positive" id="monthTotalPoints">+0</div>
+                    <div class="month-stat-sub"><span>Trades: <span id="monthTotalTrades">0</span></span></div>
+                </div>
+                <div class="month-stat-group">
+                    <div class="month-stat-label">Win Rate</div>
+                    <div class="month-stat-value" id="monthWinRate">0%</div>
+                    <div class="month-stat-sub"><span style="color: var(--accent-green)" id="monthWins">0W</span><span style="color: var(--accent-red)" id="monthLosses">0L</span></div>
+                </div>
+                <div class="month-stat-group">
+                    <div class="month-stat-label">Performance</div>
+                    <div class="month-stat-sub"><span>Avg RR:</span><span style="font-weight: 600;" id="monthAvgRR">0</span></div>
+                    <div class="month-stat-sub"><span>Avg Win:</span><span style="color: var(--accent-green);" id="monthAvgWin">0</span></div>
+                    <div class="month-stat-sub"><span>Avg Loss:</span><span style="color: var(--accent-red);" id="monthAvgLoss">0</span></div>
+                </div>
             </div>
         </div>
 
@@ -467,6 +417,7 @@
         let equityChart = null;
         let currentCalendarDate = new Date();
         let dailyProfitData = {};
+        let tradesByMonth = {};
 
         document.addEventListener('DOMContentLoaded', function() {
             renderCalendar();
@@ -516,6 +467,7 @@
 
             allTrades = [];
             groupedTrades = {};
+            tradesByMonth = {};
             
             for (let i = headerIndex + 1; i < data.length; i++) {
                 const row = data[i];
@@ -541,6 +493,16 @@
                 if (setIdBase) {
                     if (!groupedTrades[setIdBase]) groupedTrades[setIdBase] = [];
                     groupedTrades[setIdBase].push(trade);
+                }
+
+                // Month grouping for sidebar
+                if(trade.date) {
+                    const parts = trade.date.split('/');
+                    if(parts.length === 3) {
+                        const monthKey = `${parts[2]}-${parts[1]}`; // YYYY-MM
+                        if (!tradesByMonth[monthKey]) tradesByMonth[monthKey] = [];
+                        tradesByMonth[monthKey].push(trade);
+                    }
                 }
             }
 
@@ -572,33 +534,28 @@
             applyAllFilters();
         }
 
-        // --- Active Filter Bar Logic ---
         function renderActiveFilterTags() {
             const container = document.getElementById('activeFiltersBar');
             const label = document.getElementById('filterLabel');
             const clearBtn = document.getElementById('clearAllBtn');
             
-            // Remove existing tags (but keep label/btn)
             const tags = container.querySelectorAll('.filter-tag');
             tags.forEach(t => t.remove());
 
             let hasActive = false;
 
-            // Month
             if (activeFilters.month !== 'all') {
                 const [y, m] = activeFilters.month.split('-');
                 const mName = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][parseInt(m)];
-                addTag(`📅 ${mName} ${y}`, () => filterByMonth('all'));
+                addTag(`📅 Month: ${mName} ${y}`, () => filterByMonth('all'));
                 hasActive = true;
             }
 
-            // Status
             if (activeFilters.status !== 'all') {
                 addTag(`⚡ Status: ${activeFilters.status.toUpperCase()}`, () => filterTrades('all', document.querySelector('.filter-btn[onclick*="all"]')));
                 hasActive = true;
             }
 
-            // Search
             if (activeFilters.search) {
                 addTag(`🔍 "${activeFilters.search}"`, () => {
                     document.getElementById('searchBox').value = '';
@@ -607,7 +564,6 @@
                 hasActive = true;
             }
 
-            // Date (Chart Click)
             if (activeFilters.specificDate) {
                 addTag(`📊 Date: ${activeFilters.specificDate}`, () => {
                     activeFilters.specificDate = null;
@@ -626,12 +582,10 @@
             tag.className = 'filter-tag';
             tag.innerHTML = `${text} <span class="filter-tag-close"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>`;
             tag.querySelector('.filter-tag-close').onclick = closeCallback;
-            // Insert before clear button
             container.insertBefore(tag, document.getElementById('clearAllBtn'));
         }
 
         function applyAllFilters() {
-            // Update the top bar UI
             renderActiveFilterTags();
 
             const contextTrades = allTrades.filter(trade => {
@@ -709,7 +663,6 @@
             applyAllFilters();
         }
 
-        // --- Logic Helpers ---
         function populateMonthDropdown() {
             const selector = document.getElementById('monthSelector');
             const currentVal = selector.value;
@@ -733,7 +686,6 @@
                 opt.textContent = `${monthNames[parseInt(m)]} ${y}`;
                 selector.appendChild(opt);
             });
-            // Restore selection if exists
             if (Array.from(selector.options).some(o => o.value === activeFilters.month)) {
                 selector.value = activeFilters.month;
             }
@@ -941,44 +893,29 @@
             document.getElementById('calendarTitle').textContent = `${months[month]} ${year}`;
             
             const grid = document.getElementById('calendarGrid');
-            const dailyTotalsRow = document.getElementById('dailyTotalsRow');
             grid.innerHTML = '';
-            dailyTotalsRow.innerHTML = '';
             
-            // Arrays to store daily and weekly totals
-            const dailyTotals = [0, 0, 0, 0, 0, 0, 0]; // Sun-Sat
-            const weeklyTotals = [];
-            let currentWeekTotal = 0;
-            let currentWeekDays = 0;
-            
-            // Empty cells before first day
-            for(let i=0; i<firstDay; i++) {
+            let currentWeekPoints = 0;
+            let dayCounter = 0;
+
+            for (let i = 0; i < firstDay; i++) {
                 grid.innerHTML += `<div class="calendar-day empty"></div>`;
-                currentWeekDays++;
+                dayCounter++;
             }
             
-            // Calendar days
-            for(let d=1; d<=daysInMonth; d++) {
-                const dateStr = `${d.toString().padStart(2,'0')}/${(month+1).toString().padStart(2,'0')}/${year}`;
+            for (let d = 1; d <= daysInMonth; d++) {
+                const dateStr = `${d.toString().padStart(2, '0')}/${(month + 1).toString().padStart(2, '0')}/${year}`;
                 const info = dailyProfitData[dateStr];
-                const dayOfWeek = (firstDay + d - 1) % 7;
                 
                 let content = `<div class="day-profit neutral">-</div>`;
-                let points = 0;
-                
-                if(info) {
-                    points = info.points;
+                if (info) {
+                    currentWeekPoints += info.points;
                     const pClass = info.points >= 0 ? 'positive' : 'negative';
                     content = `
-                        <div class="day-profit ${pClass}">${info.points>0?'+':''}${info.points.toLocaleString()}</div>
+                        <div class="day-profit ${pClass}">${info.points > 0 ? '+' : ''}${info.points.toLocaleString()}</div>
                         <div class="day-trades-count">${info.count} Trades</div>
                     `;
                 }
-                
-                // Add to daily totals
-                dailyTotals[dayOfWeek] += points;
-                currentWeekTotal += points;
-                currentWeekDays++;
                 
                 grid.innerHTML += `
                     <div class="calendar-day">
@@ -986,43 +923,96 @@
                         ${content}
                     </div>
                 `;
-                
-                // End of week or end of month
-                if(dayOfWeek === 6 || d === daysInMonth) {
-                    weeklyTotals.push(currentWeekTotal);
-                    
-                    const weekClass = currentWeekTotal >= 0 ? 'positive' : currentWeekTotal < 0 ? 'negative' : 'neutral';
-                    grid.innerHTML += `
-                        <div class="calendar-week-total">
-                            <div class="week-label">Total</div>
-                            <div class="week-value ${weekClass}">${currentWeekTotal>0?'+':''}${currentWeekTotal.toLocaleString()}</div>
-                        </div>
-                    `;
-                    
-                    currentWeekTotal = 0;
-                    currentWeekDays = 0;
+                dayCounter++;
+
+                if (dayCounter % 7 === 0) {
+                    renderWeekSum(grid, currentWeekPoints);
+                    currentWeekPoints = 0; 
                 }
             }
-            
-            // Render daily totals row
-            dailyTotals.forEach(total => {
-                const totalClass = total >= 0 ? 'positive' : total < 0 ? 'negative' : 'neutral';
-                dailyTotalsRow.innerHTML += `
-                    <div class="calendar-day-total">
-                        <div class="day-total-value ${totalClass}">${total>0?'+':''}${total.toLocaleString()}</div>
+
+            while (dayCounter % 7 !== 0) {
+                grid.innerHTML += `<div class="calendar-day empty"></div>`;
+                dayCounter++;
+                if (dayCounter % 7 === 0) {
+                    renderWeekSum(grid, currentWeekPoints);
+                }
+            }
+
+            renderMonthlyStats(year, month);
+        }
+
+        function renderWeekSum(grid, points) {
+            const profitClass = points > 0 ? 'positive' : (points < 0 ? 'negative' : 'neutral');
+            const profitSign = points > 0 ? '+' : '';
+            grid.innerHTML += `
+                <div class="calendar-week-sum">
+                    <div class="week-sum-label">Week</div>
+                    <div class="week-sum-value ${profitClass}" style="color: ${points > 0 ? 'var(--accent-green)' : (points < 0 ? 'var(--accent-red)' : 'var(--text-muted)')}">
+                        ${profitSign}${points.toLocaleString()}
                     </div>
-                `;
-            });
-            
-            // Add month total in the corner
-            const monthTotal = dailyTotals.reduce((sum, val) => sum + val, 0);
-            const monthClass = monthTotal >= 0 ? 'positive' : monthTotal < 0 ? 'negative' : 'neutral';
-            dailyTotalsRow.innerHTML += `
-                <div class="calendar-week-total">
-                    <div class="week-label">Month</div>
-                    <div class="week-value ${monthClass}">${monthTotal>0?'+':''}${monthTotal.toLocaleString()}</div>
                 </div>
             `;
+        }
+
+        function renderMonthlyStats(year, month) {
+            // Find trades for this specific month view (not based on filter, but calendar view)
+            // But we might want to respect other filters (like strategy) if active?
+            // Usually calendar sidebar reflects the visible month.
+            // Let's filter contextTrades (which respects status/search) by this month.
+            
+            // To do this right, we need to know the 'context' trades (all filtered trades excluding date click)
+            // But here we can just use 'allTrades' filtered by active filters (except date).
+            // Actually, dailyProfitData already contains the points for the displayed context.
+            
+            // Re-calculate stats for this month from the filtered dataset
+            const monthKey = `${year}-${(month + 1).toString().padStart(2, '0')}`;
+            
+            // Filter all trades that match current filters (except specific date) AND match this month
+            const currentViewTrades = allTrades.filter(t => {
+                if(!checkCommonFilters(t)) return false; // Respect Search/Status/Global Month
+                
+                // Also Check Calendar View Month
+                if(!t.date) return false;
+                const parts = t.date.split('/');
+                if(parts.length !== 3) return false;
+                // parts[2] = year, parts[1] = month
+                return parseInt(parts[2]) === year && parseInt(parts[1]) === (month+1);
+            });
+
+            let totalPoints = 0, wins = 0, losses = 0, draws = 0, sumWin = 0, sumLose = 0, rrSum = 0, rrCount = 0;
+
+            currentViewTrades.forEach(t => {
+                const p = t.points || 0;
+                totalPoints += p;
+                const s = (t.status||'').toUpperCase();
+                if(s==='WIN') { wins++; sumWin+=p; }
+                else if(s==='LOSE') { losses++; sumLose+=p; }
+                else if(s==='DRAW') draws++;
+
+                if(t.rr && t.rr.includes(':')) {
+                    const parts = t.rr.split(':');
+                    const r = parseFloat(parts[1]);
+                    if(r) { rrSum += r; rrCount++; }
+                }
+            });
+
+            const total = wins + losses + draws;
+            const winRate = total > 0 ? ((wins/total)*100).toFixed(1) : 0;
+            const avgRR = rrCount > 0 ? (rrSum/rrCount).toFixed(2) : '0.00';
+            const avgWin = wins > 0 ? Math.round(sumWin/wins) : 0;
+            const avgLoss = losses > 0 ? Math.round(sumLose/losses) : 0;
+
+            document.getElementById('monthTotalPoints').textContent = (totalPoints>=0?'+':'') + totalPoints.toLocaleString();
+            document.getElementById('monthTotalPoints').className = `month-stat-value ${totalPoints>=0?'positive':'negative'}`;
+            document.getElementById('monthTotalTrades').textContent = currentViewTrades.length;
+            document.getElementById('monthWinRate').textContent = winRate + '%';
+            document.getElementById('monthWinRate').className = `month-stat-value ${winRate>=50?'positive':'negative'}`;
+            document.getElementById('monthWins').textContent = wins + 'W';
+            document.getElementById('monthLosses').textContent = losses + 'L';
+            document.getElementById('monthAvgRR').textContent = '1:' + avgRR;
+            document.getElementById('monthAvgWin').textContent = '+' + avgWin.toLocaleString();
+            document.getElementById('monthAvgLoss').textContent = avgLoss.toLocaleString();
         }
 
         function getSetIdBase(id) {
