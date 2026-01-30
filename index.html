@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trade Journey</title>
+    <title>Trade Journey (Enrich View)</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -123,7 +123,7 @@
         .calendar-day-total .day-total-value.neutral { color: var(--text-muted); }
         .calendar-total-header { background: var(--bg-tertiary); padding: 12px 4px; text-align: center; font-size: 0.7rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; min-width: 80px; border-left: 2px solid var(--border-color); }
 
-        /* Year Summary Table */
+        /* Year Summary Table - Enrich Heatmap Style */
         .year-summary-container { display: none; overflow-x: auto; }
         .year-summary-container.active { display: block; }
         .monthly-calendar-container { display: block; }
@@ -131,21 +131,65 @@
         
         .year-summary-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; min-width: 1200px; }
         .year-summary-table thead { background: var(--bg-tertiary); }
-        .year-summary-table th, .year-summary-table td { padding: 10px 8px; text-align: right; border: 1px solid var(--border-color); font-family: 'Space Mono', monospace; white-space: nowrap; }
-        .year-summary-table th { font-weight: 600; color: var(--text-muted); text-transform: uppercase; font-size: 0.65rem; letter-spacing: 0.5px; }
-        .year-summary-table th:first-child, .year-summary-table td:first-child { text-align: left; position: sticky; left: 0; background: var(--bg-secondary); z-index: 1; min-width: 120px; }
+        .year-summary-table th, .year-summary-table td { 
+            padding: 10px 8px; 
+            text-align: right; 
+            border: 1px solid #333; /* Darker border for heatmap look */
+            font-family: 'Space Mono', monospace; 
+            white-space: nowrap; 
+        }
+        
+        .year-summary-table th { 
+            font-weight: 600; 
+            color: var(--text-muted); 
+            text-transform: uppercase; 
+            font-size: 0.65rem; 
+            letter-spacing: 0.5px;
+            background-color: #1a1a1a; 
+            text-align: center;
+        }
+        
+        /* Sticky First Column */
+        .year-summary-table th:first-child, .year-summary-table td:first-child { 
+            text-align: left; 
+            position: sticky; 
+            left: 0; 
+            background: var(--bg-secondary); 
+            z-index: 1; 
+            min-width: 120px; 
+            color: #d4d4d4;
+            border-right: 2px solid #444;
+            font-weight: 600;
+        }
+        
         .year-summary-table thead th:first-child { background: var(--bg-tertiary); }
+        
+        /* Heatmap & Text Colors */
         .year-summary-table td { color: var(--text-secondary); }
-        .year-summary-table td.positive { color: var(--accent-green); }
-        .year-summary-table td.negative { color: var(--accent-red); }
-        .year-summary-table tr:hover td { background: var(--bg-tertiary); }
-        .year-summary-table tr:hover td:first-child { background: var(--bg-tertiary); }
-        .year-summary-table .row-header { font-weight: 500; color: var(--text-primary); }
-        .year-summary-table .section-row td { background: var(--bg-tertiary); font-weight: 600; color: var(--text-muted); font-size: 0.6rem; letter-spacing: 1px; }
-        .year-summary-table .total-col { background: rgba(59, 130, 246, 0.05) !important; font-weight: 700; color: var(--accent-blue) !important; }
-        .year-summary-table .total-col.positive { color: var(--accent-green) !important; }
-        .year-summary-table .total-col.negative { color: var(--accent-red) !important; }
-        .year-summary-table .avg-col { background: rgba(168, 85, 247, 0.05) !important; color: var(--accent-purple) !important; }
+        .year-summary-table .bg-pos-light { background-color: rgba(34, 197, 94, 0.15) !important; color: #4ade80 !important; }
+        .year-summary-table .bg-pos-med { background-color: rgba(34, 197, 94, 0.3) !important; color: #4ade80 !important; font-weight: bold; }
+        .year-summary-table .bg-neg-light { background-color: rgba(239, 68, 68, 0.15) !important; color: #f87171 !important; }
+        .year-summary-table .bg-neg-med { background-color: rgba(239, 68, 68, 0.3) !important; color: #f87171 !important; font-weight: bold; }
+        
+        /* Row Total Point (Dark Band) */
+        .year-summary-table .row-total-point td {
+            background-color: #222;
+            color: #fff;
+            font-weight: 700;
+            border-top: 2px solid #555;
+            border-bottom: 2px solid #555;
+        }
+        
+        /* Separators */
+        .year-summary-table .separator-row td { border-top: 1px solid #444; }
+        
+        /* Column Totals */
+        .year-summary-table .col-total-summary {
+            background-color: rgba(255,255,255,0.03) !important;
+            border-left: 2px solid #444;
+            color: #fff !important;
+            font-weight: bold;
+        }
 
         .year-selector { display: flex; align-items: center; gap: 8px; margin-left: 16px; }
         .year-selector select { background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color); padding: 6px 12px; font-family: 'Space Mono', monospace; font-size: 0.75rem; cursor: pointer; outline: none; }
@@ -497,117 +541,194 @@
             document.getElementById('prevMonthBtn').style.display = view === 'month' ? '' : 'none';
             document.getElementById('nextMonthBtn').style.display = view === 'month' ? '' : 'none';
             document.getElementById('yearSelector').style.display = view === 'year' ? 'flex' : 'none';
-            if(view === 'year') { renderYearSummary(); document.getElementById('calendarTitle').textContent = `Year Summary ${selectedYear}`; }
-            else renderCalendar();
+            if(view === 'year') { renderYearSummary(); }
+            else { document.getElementById('calendarTitle').textContent = `Calendar`; renderCalendar(); }
         }
 
+        // Updated Render Year Summary (Enrich Style)
         function renderYearSummary() {
             const table = document.getElementById('yearSummaryTable');
-            const thead = table.querySelector('thead'), tbody = table.querySelector('tbody');
-            document.getElementById('calendarTitle').textContent = `Year Summary ${selectedYear}`;
-            const yearTrades = allTrades.filter(t => { const d = parseDateString(t.date); return d && d.getFullYear() === selectedYear; });
-            const monthlyStats = {};
-            const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-            for(let i = 0; i < 12; i++) monthlyStats[i] = { planPoints: {}, totalPoints: 0, profit: 0, loss: 0, wins: 0, losses: 0, draws: 0, total: 0, cancel: 0, rrSum: 0, rrCount: 0 };
+            const thead = table.querySelector('thead');
+            const tbody = table.querySelector('tbody');
             
+            document.getElementById('calendarTitle').textContent = `Enrich Stat View: ${selectedYear}`;
+            
+            const yearTrades = allTrades.filter(t => { 
+                const d = parseDateString(t.date); 
+                return d && d.getFullYear() === selectedYear; 
+            });
+
+            const monthsData = Array.from({length: 12}, () => ({
+                weeks: {1:0, 2:0, 3:0, 4:0, 5:0, 6:0},
+                totalPoints: 0,
+                winCount: 0, lossCount: 0, drawCount: 0, cancelCount: 0, totalCount: 0,
+                winPointsSum: 0, lossPointsSum: 0,
+                rrSum: 0, rrCount: 0
+            }));
+
             yearTrades.forEach(t => {
-                const d = parseDateString(t.date); if(!d) return;
-                const month = d.getMonth(), stats = monthlyStats[month], status = (t.status || '').toUpperCase(), points = t.points || 0, plan = t.plan || 'Other';
-                if(!stats.planPoints[plan]) stats.planPoints[plan] = 0;
-                stats.planPoints[plan] += points;
-                stats.totalPoints += points; stats.total++;
-                if(status === 'WIN') { stats.wins++; stats.profit += points; }
-                else if(status === 'LOSE') { stats.losses++; stats.loss += points; }
-                else if(status === 'DRAW') stats.draws++;
-                else if(status === 'CANCEL') stats.cancel++;
-                if(t.rr && t.rr !== '-' && t.rr !== '#N/A') { const rrMatch = t.rr.match(/[\d.]+/); if(rrMatch) { stats.rrSum += parseFloat(rrMatch[0]); stats.rrCount++; } }
+                const d = parseDateString(t.date);
+                if(!d) return;
+                
+                const monthIdx = d.getMonth();
+                const dateNum = d.getDate();
+                const weekIdx = Math.ceil(dateNum / 7); 
+                
+                const points = t.points || 0;
+                const status = (t.status || '').toUpperCase();
+                const rrVal = parseFloat(t.rr) || 0;
+
+                if(weekIdx <= 6) {
+                    monthsData[monthIdx].weeks[weekIdx] += points;
+                }
+
+                if (status !== 'CANCEL' && status !== 'NONE') {
+                    monthsData[monthIdx].totalPoints += points;
+                    monthsData[monthIdx].totalCount++;
+                    
+                    if(status === 'WIN') {
+                        monthsData[monthIdx].winCount++;
+                        monthsData[monthIdx].winPointsSum += points;
+                    } else if(status === 'LOSE') {
+                        monthsData[monthIdx].lossCount++;
+                        monthsData[monthIdx].lossPointsSum += points;
+                    } else if(status === 'DRAW') {
+                        monthsData[monthIdx].drawCount++;
+                    }
+                    
+                    if(rrVal > 0) {
+                        monthsData[monthIdx].rrSum += rrVal;
+                        monthsData[monthIdx].rrCount++;
+                    }
+                } else if (status === 'CANCEL') {
+                    monthsData[monthIdx].cancelCount++;
+                }
             });
-            
-            Object.keys(monthlyStats).forEach(m => {
-                const stats = monthlyStats[m];
-                stats.avgProfit = stats.wins > 0 ? Math.round(stats.profit / stats.wins) : 0;
-                stats.avgLoss = stats.losses > 0 ? Math.round(stats.loss / stats.losses) : 0;
-                const validTrades = stats.wins + stats.losses + stats.draws;
-                stats.winRate = validTrades > 0 ? ((stats.wins / validTrades) * 100).toFixed(2) : 0;
-                stats.avgRR = stats.rrCount > 0 ? (stats.rrSum / stats.rrCount).toFixed(2) : 'N/A';
-            });
-            
-            const allPlans = new Set();
-            yearTrades.forEach(t => { if(t.plan) allPlans.add(t.plan); });
-            const sortedPlans = Array.from(allPlans).sort((a,b) => (parseInt(a)||999) - (parseInt(b)||999));
-            
-            let headerHTML = '<tr><th>Metric</th>';
-            for(let i = 0; i < 12; i++) headerHTML += `<th>${monthNames[i]}</th>`;
-            headerHTML += '<th class="total-col">TOTAL</th><th class="avg-col">AVG</th></tr>';
-            thead.innerHTML = headerHTML;
-            
+
+            const createCell = (val, type='normal', isPercent=false) => {
+                let text = val;
+                let className = '';
+                
+                if (val === 0 || val === '0' || val === '0.00') text = '-';
+                else if (typeof val === 'number') text = val.toLocaleString(undefined, {minimumFractionDigits: isPercent?2:0, maximumFractionDigits: 2}) + (isPercent?'%':'');
+                
+                if (type === 'point') {
+                    if (val > 0) className = 'bg-pos-med';
+                    if (val < 0) className = 'bg-neg-med';
+                } else if (type === 'wk') {
+                    if (val > 0) className = 'bg-pos-light';
+                    if (val < 0) className = 'bg-neg-light';
+                } else if (type === 'winrate') {
+                    if (val >= 50) className = 'bg-pos-med';
+                    else if (val > 0) className = 'bg-neg-med';
+                }
+
+                return `<td class="${className}">${text}</td>`;
+            };
+
+            const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+            let headHTML = `<tr><th style="min-width:100px;">Week/Month</th>`;
+            monthNames.forEach(m => headHTML += `<th>${m}${selectedYear.toString().slice(-2)}</th>`);
+            headHTML += `<th class="col-total-summary">TOTAL</th><th class="col-total-summary">Avg.month</th></tr>`;
+            thead.innerHTML = headHTML;
+
             let bodyHTML = '';
-            
-            // Plan rows
-            if(sortedPlans.length > 0) {
-                bodyHTML += '<tr class="section-row"><td colspan="15">POINTS BY PLAN</td></tr>';
-                sortedPlans.forEach(plan => {
-                    let total = 0, monthsWithData = 0;
-                    bodyHTML += `<tr><td class="row-header">Plan ${plan}</td>`;
-                    for(let i = 0; i < 12; i++) { const val = monthlyStats[i].planPoints[plan] || 0; total += val; if(val !== 0) monthsWithData++; bodyHTML += `<td class="${val > 0 ? 'positive' : val < 0 ? 'negative' : ''}">${val !== 0 ? val.toLocaleString() : '-'}</td>`; }
-                    const avg = monthsWithData > 0 ? Math.round(total / monthsWithData) : 0;
-                    bodyHTML += `<td class="total-col ${total > 0 ? 'positive' : total < 0 ? 'negative' : ''}">${total.toLocaleString()}</td><td class="avg-col">${avg.toLocaleString()}</td></tr>`;
-                });
+
+            for(let w=1; w<=5; w++) {
+                bodyHTML += `<tr><td>Week ${w}</td>`;
+                let rowSum = 0;
+                let countMonth = 0;
+                for(let m=0; m<12; m++) {
+                    const val = monthsData[m].weeks[w];
+                    rowSum += val;
+                    if(val !== 0) countMonth++;
+                    bodyHTML += createCell(val, 'wk');
+                }
+                bodyHTML += `<td class="col-total-summary">${rowSum.toLocaleString()}</td><td class="col-total-summary">${countMonth ? Math.round(rowSum/countMonth).toLocaleString() : '-'}</td></tr>`;
             }
-            
-            // Summary
-            bodyHTML += '<tr class="section-row"><td colspan="15">SUMMARY</td></tr>';
-            
-            // Total Points
-            let totalPoints = 0, monthsWithPoints = 0;
-            bodyHTML += '<tr><td class="row-header">Total Points</td>';
-            for(let i = 0; i < 12; i++) { const val = monthlyStats[i].totalPoints; totalPoints += val; if(monthlyStats[i].total > 0) monthsWithPoints++; bodyHTML += `<td class="${val > 0 ? 'positive' : val < 0 ? 'negative' : ''}">${val !== 0 ? val.toLocaleString() : '-'}</td>`; }
-            bodyHTML += `<td class="total-col ${totalPoints > 0 ? 'positive' : 'negative'}">${totalPoints.toLocaleString()}</td><td class="avg-col">${monthsWithPoints > 0 ? Math.round(totalPoints / monthsWithPoints).toLocaleString() : '-'}</td></tr>`;
-            
-            // Profit & Loss
-            let totalProfit = 0, totalLoss = 0;
-            bodyHTML += '<tr><td class="row-header">Profit</td>';
-            for(let i = 0; i < 12; i++) { totalProfit += monthlyStats[i].profit; bodyHTML += `<td class="positive">${monthlyStats[i].profit > 0 ? monthlyStats[i].profit.toLocaleString() : '-'}</td>`; }
-            bodyHTML += `<td class="total-col positive">${totalProfit.toLocaleString()}</td><td class="avg-col">${monthsWithPoints > 0 ? Math.round(totalProfit / monthsWithPoints).toLocaleString() : '-'}</td></tr>`;
-            
-            bodyHTML += '<tr><td class="row-header">Loss</td>';
-            for(let i = 0; i < 12; i++) { totalLoss += monthlyStats[i].loss; bodyHTML += `<td class="negative">${monthlyStats[i].loss < 0 ? monthlyStats[i].loss.toLocaleString() : '-'}</td>`; }
-            bodyHTML += `<td class="total-col negative">${totalLoss.toLocaleString()}</td><td class="avg-col">${monthsWithPoints > 0 ? Math.round(totalLoss / monthsWithPoints).toLocaleString() : '-'}</td></tr>`;
-            
-            // Trade counts
-            bodyHTML += '<tr class="section-row"><td colspan="15">TRADE COUNTS</td></tr>';
-            let totalWins = 0, totalLosses = 0, totalCancel = 0, grandTotal = 0;
-            
-            bodyHTML += '<tr><td class="row-header">Wins</td>';
-            for(let i = 0; i < 12; i++) { totalWins += monthlyStats[i].wins; bodyHTML += `<td class="positive">${monthlyStats[i].wins > 0 ? monthlyStats[i].wins : '-'}</td>`; }
-            bodyHTML += `<td class="total-col positive">${totalWins}</td><td class="avg-col">${monthsWithPoints > 0 ? (totalWins / monthsWithPoints).toFixed(1) : '-'}</td></tr>`;
-            
-            bodyHTML += '<tr><td class="row-header">Losses</td>';
-            for(let i = 0; i < 12; i++) { totalLosses += monthlyStats[i].losses; bodyHTML += `<td class="negative">${monthlyStats[i].losses > 0 ? monthlyStats[i].losses : '-'}</td>`; }
-            bodyHTML += `<td class="total-col negative">${totalLosses}</td><td class="avg-col">${monthsWithPoints > 0 ? (totalLosses / monthsWithPoints).toFixed(1) : '-'}</td></tr>`;
-            
-            bodyHTML += '<tr><td class="row-header">Cancel</td>';
-            for(let i = 0; i < 12; i++) { totalCancel += monthlyStats[i].cancel; bodyHTML += `<td>${monthlyStats[i].cancel > 0 ? monthlyStats[i].cancel : '-'}</td>`; }
-            bodyHTML += `<td class="total-col">${totalCancel}</td><td class="avg-col">${monthsWithPoints > 0 ? (totalCancel / monthsWithPoints).toFixed(1) : '-'}</td></tr>`;
-            
-            bodyHTML += '<tr><td class="row-header">Total Trades</td>';
-            for(let i = 0; i < 12; i++) { grandTotal += monthlyStats[i].total; bodyHTML += `<td>${monthlyStats[i].total > 0 ? monthlyStats[i].total : '-'}</td>`; }
-            bodyHTML += `<td class="total-col">${grandTotal}</td><td class="avg-col">${monthsWithPoints > 0 ? (grandTotal / monthsWithPoints).toFixed(1) : '-'}</td></tr>`;
-            
-            // Performance
-            bodyHTML += '<tr class="section-row"><td colspan="15">PERFORMANCE</td></tr>';
-            bodyHTML += '<tr><td class="row-header">Win Rate</td>';
-            for(let i = 0; i < 12; i++) { const val = monthlyStats[i].winRate; bodyHTML += `<td class="${parseFloat(val) >= 50 ? 'positive' : parseFloat(val) > 0 ? 'negative' : ''}">${val > 0 ? val + '%' : '-'}</td>`; }
-            const yearValidTrades = totalWins + totalLosses + Object.values(monthlyStats).reduce((s,m) => s + m.draws, 0);
-            const yearWinRate = yearValidTrades > 0 ? ((totalWins / yearValidTrades) * 100).toFixed(2) : 0;
-            bodyHTML += `<td class="total-col ${parseFloat(yearWinRate) >= 50 ? 'positive' : 'negative'}">${yearWinRate}%</td><td class="avg-col">-</td></tr>`;
-            
-            bodyHTML += '<tr><td class="row-header">Avg RR</td>';
-            for(let i = 0; i < 12; i++) { bodyHTML += `<td>${monthlyStats[i].avgRR !== 'N/A' ? monthlyStats[i].avgRR : '-'}</td>`; }
-            const yearRRSum = Object.values(monthlyStats).reduce((s,m) => s + m.rrSum, 0);
-            const yearRRCount = Object.values(monthlyStats).reduce((s,m) => s + m.rrCount, 0);
-            bodyHTML += `<td class="total-col">${yearRRCount > 0 ? (yearRRSum / yearRRCount).toFixed(2) : 'N/A'}</td><td class="avg-col">-</td></tr>`;
-            
+
+            bodyHTML += `<tr class="row-total-point"><td>Total (Point)</td>`;
+            let grandTotalPoints = 0;
+            let grandActiveMonths = 0;
+            for(let m=0; m<12; m++) {
+                const val = monthsData[m].totalPoints;
+                grandTotalPoints += val;
+                if(monthsData[m].totalCount > 0) grandActiveMonths++;
+                bodyHTML += createCell(val, 'point');
+            }
+            bodyHTML += `<td class="col-total-summary">${grandTotalPoints.toLocaleString()}</td><td class="col-total-summary">${grandActiveMonths ? Math.round(grandTotalPoints/grandActiveMonths).toLocaleString() : '-'}</td></tr>`;
+
+            bodyHTML += `<tr><td style="background:#222; height:10px;" colspan="14"></td></tr>`;
+
+            const generateStatRow = (label, dataKey, calcFn = null, styleType='normal', isPercent=false) => {
+                let rowHTML = `<tr class="separator-row"><td>${label}</td>`;
+                let total = 0;
+                let count = 0;
+                
+                for(let m=0; m<12; m++) {
+                    let val = 0;
+                    const d = monthsData[m];
+                    
+                    if (calcFn) {
+                        val = calcFn(d);
+                    } else {
+                        val = d[dataKey];
+                        total += val;
+                    }
+                    
+                    if(d.totalCount > 0 || (dataKey === 'cancelCount' && d[dataKey] > 0)) {
+                        count++;
+                    }
+                    
+                    rowHTML += createCell(val, styleType, isPercent);
+                }
+                
+                let grandVal = total;
+                let avgVal = count > 0 ? total / count : 0;
+
+                if (label === 'Win rate') {
+                    const allWins = monthsData.reduce((acc, cur) => acc + cur.winCount, 0);
+                    const allActive = monthsData.reduce((acc, cur) => acc + (cur.totalCount), 0);
+                    grandVal = allActive > 0 ? (allWins / allActive) * 100 : 0;
+                    avgVal = grandVal;
+                } else if (label.includes('Avg.')) {
+                     if(label === 'Avg. Profit') {
+                         const s = monthsData.reduce((acc,c) => acc + c.winPointsSum, 0);
+                         const c = monthsData.reduce((acc,c) => acc + c.winCount, 0);
+                         grandVal = c > 0 ? Math.round(s/c) : 0;
+                         avgVal = grandVal;
+                     } else if(label === 'Avg. Loss') {
+                         const s = monthsData.reduce((acc,c) => acc + c.lossPointsSum, 0);
+                         const c = monthsData.reduce((acc,c) => acc + c.lossCount, 0);
+                         grandVal = c > 0 ? Math.round(s/c) : 0;
+                         avgVal = grandVal;
+                     } else if(label === 'Avg. RR') {
+                         const s = monthsData.reduce((acc,c) => acc + c.rrSum, 0);
+                         const c = monthsData.reduce((acc,c) => acc + c.rrCount, 0);
+                         grandVal = c > 0 ? (s/c).toFixed(2) : 0;
+                         avgVal = grandVal;
+                     }
+                }
+                
+                rowHTML += `<td class="col-total-summary">${typeof grandVal === 'number' ? grandVal.toLocaleString(undefined, {maximumFractionDigits: isPercent?2:0}) + (isPercent?'%':'') : grandVal}</td>`;
+                rowHTML += `<td class="col-total-summary">${typeof avgVal === 'number' ? avgVal.toLocaleString(undefined, {maximumFractionDigits: isPercent?2:0}) + (isPercent?'%':'') : avgVal}</td></tr>`;
+                
+                return rowHTML;
+            };
+
+            bodyHTML += generateStatRow('Hold', null, () => 0);
+            bodyHTML += generateStatRow('Profit (Win)', 'winCount');
+            bodyHTML += generateStatRow('Avg. Profit', null, (d) => d.winCount > 0 ? Math.round(d.winPointsSum / d.winCount) : 0);
+            bodyHTML += generateStatRow('Lost', 'lossCount');
+            bodyHTML += generateStatRow('Avg. Loss', null, (d) => d.lossCount > 0 ? Math.round(d.lossPointsSum / d.lossCount) : 0);
+            bodyHTML += generateStatRow('Cancel', 'cancelCount');
+            bodyHTML += generateStatRow('Total', 'totalCount');
+            bodyHTML += generateStatRow('Win rate', null, (d) => d.totalCount > 0 ? (d.winCount/d.totalCount)*100 : 0, 'normal', true);
+            bodyHTML += generateStatRow('Avg. RR', null, (d) => d.rrCount > 0 ? parseFloat((d.rrSum/d.rrCount).toFixed(2)) : 0);
+            bodyHTML += `<tr><td>Capital</td><td colspan="12" style="text-align:center; color:#666;">(Manual Input Required)</td><td>-</td><td>-</td></tr>`;
+            bodyHTML += `<tr><td>ROI %</td><td colspan="12" style="text-align:center; color:#666;">-</td><td>-</td><td>-</td></tr>`;
+
             tbody.innerHTML = bodyHTML;
         }
 
