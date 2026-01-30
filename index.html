@@ -35,93 +35,23 @@
 
         .container { max-width: 1800px; margin: 0 auto; padding: 40px 20px; }
 
-        /* Header */
         .header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 20px; }
-        
         .logo-section { display: flex; flex-direction: column; justify-content: center; }
         .main-logo { height: 150px; width: 150px; object-fit: contain; display: block; margin-bottom: 8px; }
         .logo-section p { font-size: 0.875rem; color: var(--text-secondary); font-family: 'Space Mono', monospace; }
-        
         .controls-wrapper { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
         
-        /* Filter Bar (SharePoint Style) */
-        .filter-bar-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 30px;
-            min-height: 32px;
-            flex-wrap: wrap;
-        }
-        
-        .filter-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            font-family: 'Space Mono', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: none; /* Show only when filters active */
-        }
+        .filter-bar-container { display: flex; align-items: center; gap: 12px; margin-bottom: 30px; min-height: 32px; flex-wrap: wrap; }
+        .filter-label { font-size: 0.75rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 1px; display: none; }
         .filter-label.show { display: block; }
-
-        .filter-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--accent-blue);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            transition: all 0.2s ease;
-        }
-        
+        .filter-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; border: 1px solid rgba(59, 130, 246, 0.3); transition: all 0.2s ease; }
         .filter-tag:hover { background: rgba(59, 130, 246, 0.2); }
-        
-        .filter-tag-close {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: background 0.2s;
-        }
+        .filter-tag-close { cursor: pointer; display: flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); transition: background 0.2s; }
         .filter-tag-close:hover { background: rgba(255, 255, 255, 0.3); color: white; }
-
-        .clear-all-btn {
-            font-size: 0.75rem;
-            color: var(--accent-red);
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            text-decoration: underline;
-            padding: 4px 8px;
-            display: none;
-        }
+        .clear-all-btn { font-size: 0.75rem; color: var(--accent-red); background: transparent; border: none; cursor: pointer; text-decoration: underline; padding: 4px 8px; display: none; }
         .clear-all-btn.show { display: block; }
 
-        /* Dropdown */
-        .custom-select {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-            padding: 0 16px;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.8rem;
-            cursor: pointer;
-            outline: none;
-            min-width: 160px;
-            height: 42px;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 12px center;
-        }
+        .custom-select { background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); padding: 0 16px; font-family: 'Space Mono', monospace; font-size: 0.8rem; cursor: pointer; outline: none; min-width: 160px; height: 42px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
         .custom-select:hover { border-color: var(--text-secondary); }
 
         .btn { background: var(--text-primary); color: var(--bg-primary); border: none; padding: 0 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; font-family: 'Instrument Sans', sans-serif; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; height: 42px; }
@@ -130,7 +60,6 @@
         .btn-outline:hover { border-color: var(--text-primary); background: rgba(255,255,255,0.05); }
         .file-input { display: none; }
         
-        /* Stats Grid */
         .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--border-color); margin-bottom: 40px; opacity: 0; transform: translateY(10px); transition: all 0.5s ease; }
         .stats-grid.loaded { opacity: 1; transform: translateY(0); }
         .stat-card { background: var(--bg-secondary); padding: 24px; display: flex; flex-direction: column; gap: 6px; }
@@ -140,7 +69,6 @@
         .stat-value.negative { color: var(--accent-red); }
         .stat-sub { font-size: 0.8rem; color: var(--text-secondary); }
 
-        /* Performance Section */
         .performance-section { display: grid; grid-template-columns: 1fr 1fr 280px; gap: 1px; background: var(--border-color); margin-bottom: 40px; opacity: 0; transform: translateY(10px); transition: all 0.5s ease; }
         .performance-section.loaded { opacity: 1; transform: translateY(0); }
         .chart-container { background: var(--bg-secondary); padding: 24px; position: relative; }
@@ -154,15 +82,20 @@
         .stats-value.positive { color: var(--accent-green); }
         .stats-value.negative { color: var(--accent-red); }
 
-        /* Calendar Section */
-        .calendar-section { background: var(--bg-secondary); border: 1px solid var(--border-color); margin-bottom: 40px; opacity: 0; transform: translateY(10px); transition: all 0.5s ease; display: grid; grid-template-columns: 1fr; } 
+        .calendar-section { background: var(--bg-secondary); border: 1px solid var(--border-color); margin-bottom: 40px; opacity: 0; transform: translateY(10px); transition: all 0.5s ease; } 
         .calendar-section.loaded { opacity: 1; transform: translateY(0); }
         .calendar-main { padding: 24px; }
-        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
         .calendar-title { font-family: 'Space Mono', monospace; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; }
-        .calendar-nav { display: flex; gap: 8px; }
+        .calendar-nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
         .calendar-nav-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; }
         .calendar-nav-btn:hover { border-color: var(--text-primary); color: var(--text-primary); }
+        
+        .calendar-view-toggle { display: flex; gap: 4px; margin-left: 16px; }
+        .view-toggle-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); padding: 6px 12px; font-size: 0.7rem; cursor: pointer; transition: all 0.2s ease; font-family: 'Space Mono', monospace; text-transform: uppercase; }
+        .view-toggle-btn:hover { border-color: var(--text-secondary); color: var(--text-secondary); }
+        .view-toggle-btn.active { background: var(--text-primary); color: var(--bg-primary); border-color: var(--text-primary); }
+        
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); }
         .calendar-grid-with-totals { display: grid; grid-template-columns: repeat(7, 1fr) auto; gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); }
         .calendar-day-header { background: var(--bg-tertiary); padding: 12px 4px; text-align: center; font-size: 0.7rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; }
@@ -176,62 +109,47 @@
         .day-profit.neutral { color: var(--text-muted); }
         .day-trades-count { font-size: 0.65rem; color: var(--text-secondary); text-align: right; margin-top: 4px; }
         
-        /* Calendar Totals */
-        .calendar-week-total { 
-            background: var(--bg-tertiary); 
-            min-height: 90px; 
-            padding: 8px; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            border-left: 2px solid var(--border-color); 
-            min-width: 80px; 
-        }
-        .calendar-week-total .week-label { 
-            font-size: 0.65rem; 
-            color: var(--text-muted); 
-            font-family: 'Space Mono', monospace; 
-            margin-bottom: 4px; 
-            text-transform: uppercase; 
-        }
-        .calendar-week-total .week-value { 
-            font-family: 'Space Mono', monospace; 
-            font-weight: 700; 
-            font-size: 0.85rem; 
-        }
+        .calendar-week-total { background: var(--bg-tertiary); min-height: 90px; padding: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 2px solid var(--border-color); min-width: 80px; }
+        .calendar-week-total .week-label { font-size: 0.65rem; color: var(--text-muted); font-family: 'Space Mono', monospace; margin-bottom: 4px; text-transform: uppercase; }
+        .calendar-week-total .week-value { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.85rem; }
         .calendar-week-total .week-value.positive { color: var(--accent-green); }
         .calendar-week-total .week-value.negative { color: var(--accent-red); }
         .calendar-week-total .week-value.neutral { color: var(--text-muted); }
         
-        .calendar-day-total { 
-            background: var(--bg-tertiary); 
-            padding: 12px 4px; 
-            text-align: center; 
-            border-top: 2px solid var(--border-color); 
-        }
-        .calendar-day-total .day-total-value { 
-            font-family: 'Space Mono', monospace; 
-            font-weight: 700; 
-            font-size: 0.75rem; 
-        }
+        .calendar-day-total { background: var(--bg-tertiary); padding: 12px 4px; text-align: center; border-top: 2px solid var(--border-color); }
+        .calendar-day-total .day-total-value { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; }
         .calendar-day-total .day-total-value.positive { color: var(--accent-green); }
         .calendar-day-total .day-total-value.negative { color: var(--accent-red); }
         .calendar-day-total .day-total-value.neutral { color: var(--text-muted); }
-        
-        .calendar-total-header { 
-            background: var(--bg-tertiary); 
-            padding: 12px 4px; 
-            text-align: center; 
-            font-size: 0.7rem; 
-            color: var(--text-muted); 
-            font-family: 'Space Mono', monospace; 
-            text-transform: uppercase; 
-            min-width: 80px; 
-            border-left: 2px solid var(--border-color); 
-        }
+        .calendar-total-header { background: var(--bg-tertiary); padding: 12px 4px; text-align: center; font-size: 0.7rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; min-width: 80px; border-left: 2px solid var(--border-color); }
 
-        /* Filters & Table */
+        /* Year Summary Table */
+        .year-summary-container { display: none; overflow-x: auto; }
+        .year-summary-container.active { display: block; }
+        .monthly-calendar-container { display: block; }
+        .monthly-calendar-container.hidden { display: none; }
+        
+        .year-summary-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; min-width: 1200px; }
+        .year-summary-table thead { background: var(--bg-tertiary); }
+        .year-summary-table th, .year-summary-table td { padding: 10px 8px; text-align: right; border: 1px solid var(--border-color); font-family: 'Space Mono', monospace; white-space: nowrap; }
+        .year-summary-table th { font-weight: 600; color: var(--text-muted); text-transform: uppercase; font-size: 0.65rem; letter-spacing: 0.5px; }
+        .year-summary-table th:first-child, .year-summary-table td:first-child { text-align: left; position: sticky; left: 0; background: var(--bg-secondary); z-index: 1; min-width: 120px; }
+        .year-summary-table thead th:first-child { background: var(--bg-tertiary); }
+        .year-summary-table td { color: var(--text-secondary); }
+        .year-summary-table td.positive { color: var(--accent-green); }
+        .year-summary-table td.negative { color: var(--accent-red); }
+        .year-summary-table tr:hover td { background: var(--bg-tertiary); }
+        .year-summary-table tr:hover td:first-child { background: var(--bg-tertiary); }
+        .year-summary-table .row-header { font-weight: 500; color: var(--text-primary); }
+        .year-summary-table .section-row td { background: var(--bg-tertiary); font-weight: 600; color: var(--text-muted); font-size: 0.6rem; letter-spacing: 1px; }
+        .year-summary-table .total-col { background: rgba(59, 130, 246, 0.05) !important; font-weight: 700; color: var(--accent-blue) !important; }
+        .year-summary-table .total-col.positive { color: var(--accent-green) !important; }
+        .year-summary-table .total-col.negative { color: var(--accent-red) !important; }
+        .year-summary-table .avg-col { background: rgba(168, 85, 247, 0.05) !important; color: var(--accent-purple) !important; }
+
+        .year-selector { display: flex; align-items: center; gap: 8px; margin-left: 16px; }
+        .year-selector select { background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color); padding: 6px 12px; font-family: 'Space Mono', monospace; font-size: 0.75rem; cursor: pointer; outline: none; }
+
         .filters-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
         .filter-group { display: flex; gap: 8px; flex-wrap: wrap; }
         .filter-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); padding: 8px 16px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s ease; font-family: 'Instrument Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -307,12 +225,6 @@
         .group-entry-grid .detail-label { font-size: 0.65rem; }
         .group-entry-grid .detail-value { font-size: 0.9rem; }
 
-        @media (max-width: 1024px) {
-            .calendar-section { grid-template-columns: 1fr; }
-            .calendar-main { border-right: none; border-bottom: 1px solid var(--border-color); }
-            .calendar-sidebar { flex-direction: row; gap: 24px; flex-wrap: wrap; }
-            .month-stat-group { margin-bottom: 0; flex: 1; }
-        }
         @media (max-width: 768px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .header { flex-direction: column; gap: 30px; }
@@ -320,7 +232,7 @@
             .detail-grid { grid-template-columns: repeat(2, 1fr); }
             .calendar-day { min-height: 80px; padding: 4px; }
             .day-profit { font-size: 0.7rem; }
-            .calendar-sidebar { flex-direction: column; }
+            .calendar-nav { flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -331,24 +243,15 @@
                 <img src="logo.png" class="main-logo" alt="Trade Journey Logo">
                 <p>Trading Performance Tracker</p>
             </div>
-            
             <div class="controls-wrapper">
                 <select id="monthSelector" class="custom-select" onchange="filterByMonth(this.value)">
                     <option value="all">All Time</option>
                 </select>
-
                 <button class="btn" onclick="fetchFromGoogleSheet()">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="17 8 12 3 7 8"></polyline>
-                        <line x1="12" y1="3" x2="12" y2="15"></line>
-                    </svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                     CLOUD SYNC
                 </button>
-
-                <button class="btn btn-outline" onclick="document.getElementById('fileInput').click()">
-                    UPLOAD FILE
-                </button>
+                <button class="btn btn-outline" onclick="document.getElementById('fileInput').click()">UPLOAD FILE</button>
                 <input type="file" id="fileInput" class="file-input" accept=".xlsx,.xls,.csv">
             </div>
         </header>
@@ -393,24 +296,39 @@
                 <div class="calendar-header">
                     <div class="calendar-title" id="calendarTitle">Calendar</div>
                     <div class="calendar-nav">
-                        <button class="calendar-nav-btn" onclick="changeMonth(-1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
-                        <button class="calendar-nav-btn" onclick="changeMonth(1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+                        <button class="calendar-nav-btn" onclick="changeMonth(-1)" id="prevMonthBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+                        <button class="calendar-nav-btn" onclick="changeMonth(1)" id="nextMonthBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+                        <div class="calendar-view-toggle">
+                            <button class="view-toggle-btn active" onclick="setCalendarView('month')" id="monthViewBtn">Month</button>
+                            <button class="view-toggle-btn" onclick="setCalendarView('year')" id="yearViewBtn">Year</button>
+                        </div>
+                        <div class="year-selector" id="yearSelector" style="display: none;">
+                            <select id="yearSelect" onchange="changeYear(this.value)"></select>
+                        </div>
                     </div>
                 </div>
-                <div class="calendar-grid">
-                    <div class="calendar-day-header">Sun</div>
-                    <div class="calendar-day-header">Mon</div>
-                    <div class="calendar-day-header">Tue</div>
-                    <div class="calendar-day-header">Wed</div>
-                    <div class="calendar-day-header">Thu</div>
-                    <div class="calendar-day-header">Fri</div>
-                    <div class="calendar-day-header">Sat</div>
-                    <div class="calendar-total-header">Week</div>
-                </div>
-                <div class="calendar-grid-with-totals" id="calendarGrid"></div>
                 
-                <!-- Daily Totals Row -->
-                <div class="calendar-grid-with-totals" id="dailyTotalsRow"></div>
+                <div class="monthly-calendar-container" id="monthlyCalendarContainer">
+                    <div class="calendar-grid">
+                        <div class="calendar-day-header">Sun</div>
+                        <div class="calendar-day-header">Mon</div>
+                        <div class="calendar-day-header">Tue</div>
+                        <div class="calendar-day-header">Wed</div>
+                        <div class="calendar-day-header">Thu</div>
+                        <div class="calendar-day-header">Fri</div>
+                        <div class="calendar-day-header">Sat</div>
+                        <div class="calendar-total-header">Week</div>
+                    </div>
+                    <div class="calendar-grid-with-totals" id="calendarGrid"></div>
+                    <div class="calendar-grid-with-totals" id="dailyTotalsRow"></div>
+                </div>
+                
+                <div class="year-summary-container" id="yearSummaryContainer">
+                    <table class="year-summary-table" id="yearSummaryTable">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -450,23 +368,10 @@
 
     <script>
         const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwOhhUq2TE2LYylPqV8SR93p1eUbsTJ2A2MzbTrWSCcJ3UGe2RsPpUjG2CAFljepQIc/exec'; 
-
-        // State variables
-        let allTrades = [];      
-        let displayedTrades = []; 
-        let groupedTrades = {};
-        
-        let activeFilters = {
-            status: 'all',
-            search: '',
-            month: 'all',
-            specificDate: null 
-        };
-
-        let dailyChart = null;
-        let equityChart = null;
-        let currentCalendarDate = new Date();
-        let dailyProfitData = {};
+        let allTrades = [], displayedTrades = [], groupedTrades = {};
+        let activeFilters = { status: 'all', search: '', month: 'all', specificDate: null };
+        let dailyChart = null, equityChart = null, currentCalendarDate = new Date(), dailyProfitData = {};
+        let calendarView = 'month', selectedYear = new Date().getFullYear();
 
         document.addEventListener('DOMContentLoaded', function() {
             renderCalendar();
@@ -479,18 +384,8 @@
             const btn = document.querySelector('.btn'); 
             const originalText = btn.innerHTML;
             btn.innerHTML = '<span style="font-size:16px">↻</span> Syncing...';
-            
-            fetch(SHEET_API_URL)
-                .then(res => res.json())
-                .then(data => {
-                    processData(data);
-                    btn.innerHTML = originalText;
-                })
-                .catch(err => {
-                    console.error(err);
-                    btn.innerHTML = originalText;
-                    alert('Sync Failed. Please check permissions.');
-                });
+            fetch(SHEET_API_URL).then(res => res.json()).then(data => { processData(data); btn.innerHTML = originalText; })
+            .catch(err => { console.error(err); btn.innerHTML = originalText; alert('Sync Failed.'); });
         }
 
         function handleFileUpload(e) {
@@ -509,159 +404,53 @@
         function processData(data) {
             let headerIndex = 0;
             for (let i = 0; i < data.length; i++) {
-                if (Array.isArray(data[i]) && (data[i].includes('No.') || data[i].includes('SetID'))) {
-                    headerIndex = i; break;
-                }
+                if (Array.isArray(data[i]) && (data[i].includes('No.') || data[i].includes('SetID'))) { headerIndex = i; break; }
             }
-
-            allTrades = [];
-            groupedTrades = {};
-            
+            allTrades = []; groupedTrades = {};
             for (let i = headerIndex + 1; i < data.length; i++) {
                 const row = data[i];
                 if (!row || !row[0]) continue;
-
                 let rrValue = row[15] ? row[15].toString().replace(/\s/g, '') : '';
-                
-                const trade = {
-                    no: row[0] || '', setId: row[1] || '', date: formatDate(row[2]),
-                    plan: row[3] || '', type: row[4] || '', asset: row[5] || '',
-                    category: row[6] || '', order: row[7] || '', entryOrder: row[8] || '',
-                    tpOrder: row[9] || '', slOrder: row[10] || '', strategy: row[11] || '',
-                    setup: row[12] || '', result: row[13] || '', points: parseFloat(row[14]) || 0,
-                    rr: rrValue, notePlan: row[16] || '', status: row[17] || ''
-                };
-
+                const trade = { no: row[0] || '', setId: row[1] || '', date: formatDate(row[2]), plan: row[3] || '', type: row[4] || '', asset: row[5] || '', category: row[6] || '', order: row[7] || '', entryOrder: row[8] || '', tpOrder: row[9] || '', slOrder: row[10] || '', strategy: row[11] || '', setup: row[12] || '', result: row[13] || '', points: parseFloat(row[14]) || 0, rr: rrValue, notePlan: row[16] || '', status: row[17] || '' };
                 const setIdBase = getSetIdBase(trade.setId);
                 trade.setIdBase = setIdBase;
                 trade.round = getRoundFromSetId(trade.setId);
-                
                 allTrades.push(trade);
-
-                if (setIdBase) {
-                    if (!groupedTrades[setIdBase]) groupedTrades[setIdBase] = [];
-                    groupedTrades[setIdBase].push(trade);
-                }
+                if (setIdBase) { if (!groupedTrades[setIdBase]) groupedTrades[setIdBase] = []; groupedTrades[setIdBase].push(trade); }
             }
-
-            allTrades.forEach(trade => {
-                const group = groupedTrades[trade.setIdBase];
-                trade.isGrouped = group && group.length > 1;
-                trade.groupSize = group ? group.length : 1;
-            });
-
-            if (allTrades.length > 0) {
-                const lastDate = parseDateString(allTrades[allTrades.length - 1].date);
-                if (lastDate) currentCalendarDate = lastDate;
-            }
-
-            populateMonthDropdown();
-            applyAllFilters(); 
-            
+            allTrades.forEach(trade => { const group = groupedTrades[trade.setIdBase]; trade.isGrouped = group && group.length > 1; trade.groupSize = group ? group.length : 1; });
+            if (allTrades.length > 0) { const lastDate = parseDateString(allTrades[allTrades.length - 1].date); if (lastDate) { currentCalendarDate = lastDate; selectedYear = lastDate.getFullYear(); } }
+            populateMonthDropdown(); populateYearDropdown(); applyAllFilters();
             document.querySelector('.stats-grid').classList.add('loaded');
             document.querySelector('.performance-section').classList.add('loaded');
             document.querySelector('.calendar-section').classList.add('loaded');
         }
 
-        function resetDashboard() {
-            activeFilters = { status: 'all', search: '', month: 'all', specificDate: null };
-            document.getElementById('monthSelector').value = 'all';
-            document.getElementById('searchBox').value = '';
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            document.querySelector('.filter-btn[onclick*="all"]').classList.add('active'); 
-            applyAllFilters();
-        }
+        function resetDashboard() { activeFilters = { status: 'all', search: '', month: 'all', specificDate: null }; document.getElementById('monthSelector').value = 'all'; document.getElementById('searchBox').value = ''; document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); document.querySelector('.filter-btn[onclick*="all"]').classList.add('active'); applyAllFilters(); }
 
-        // --- Active Filter Bar Logic ---
         function renderActiveFilterTags() {
-            const container = document.getElementById('activeFiltersBar');
-            const label = document.getElementById('filterLabel');
-            const clearBtn = document.getElementById('clearAllBtn');
-            
-            // Remove existing tags (but keep label/btn)
-            const tags = container.querySelectorAll('.filter-tag');
-            tags.forEach(t => t.remove());
-
+            const container = document.getElementById('activeFiltersBar'), label = document.getElementById('filterLabel'), clearBtn = document.getElementById('clearAllBtn');
+            container.querySelectorAll('.filter-tag').forEach(t => t.remove());
             let hasActive = false;
-
-            // Month
-            if (activeFilters.month !== 'all') {
-                const [y, m] = activeFilters.month.split('-');
-                const mName = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][parseInt(m)];
-                addTag(`📅 ${mName} ${y}`, () => filterByMonth('all'));
-                hasActive = true;
-            }
-
-            // Status
-            if (activeFilters.status !== 'all') {
-                addTag(`⚡ Status: ${activeFilters.status.toUpperCase()}`, () => filterTrades('all', document.querySelector('.filter-btn[onclick*="all"]')));
-                hasActive = true;
-            }
-
-            // Search
-            if (activeFilters.search) {
-                addTag(`🔍 "${activeFilters.search}"`, () => {
-                    document.getElementById('searchBox').value = '';
-                    searchTrades('');
-                });
-                hasActive = true;
-            }
-
-            // Date (Chart Click)
-            if (activeFilters.specificDate) {
-                addTag(`📊 Date: ${activeFilters.specificDate}`, () => {
-                    activeFilters.specificDate = null;
-                    applyAllFilters();
-                });
-                hasActive = true;
-            }
-
-            label.classList.toggle('show', hasActive);
-            clearBtn.classList.toggle('show', hasActive);
+            if (activeFilters.month !== 'all') { const [y, m] = activeFilters.month.split('-'); const mName = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][parseInt(m)]; addTag(`📅 ${mName} ${y}`, () => filterByMonth('all')); hasActive = true; }
+            if (activeFilters.status !== 'all') { addTag(`⚡ ${activeFilters.status.toUpperCase()}`, () => filterTrades('all', document.querySelector('.filter-btn[onclick*="all"]'))); hasActive = true; }
+            if (activeFilters.search) { addTag(`🔍 "${activeFilters.search}"`, () => { document.getElementById('searchBox').value = ''; searchTrades(''); }); hasActive = true; }
+            if (activeFilters.specificDate) { addTag(`📊 ${activeFilters.specificDate}`, () => { activeFilters.specificDate = null; applyAllFilters(); }); hasActive = true; }
+            label.classList.toggle('show', hasActive); clearBtn.classList.toggle('show', hasActive);
         }
 
-        function addTag(text, closeCallback) {
-            const container = document.getElementById('activeFiltersBar');
-            const tag = document.createElement('div');
-            tag.className = 'filter-tag';
-            tag.innerHTML = `${text} <span class="filter-tag-close"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>`;
-            tag.querySelector('.filter-tag-close').onclick = closeCallback;
-            // Insert before clear button
-            container.insertBefore(tag, document.getElementById('clearAllBtn'));
-        }
+        function addTag(text, closeCallback) { const container = document.getElementById('activeFiltersBar'); const tag = document.createElement('div'); tag.className = 'filter-tag'; tag.innerHTML = `${text} <span class="filter-tag-close"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>`; tag.querySelector('.filter-tag-close').onclick = closeCallback; container.insertBefore(tag, document.getElementById('clearAllBtn')); }
 
         function applyAllFilters() {
-            // Update the top bar UI
             renderActiveFilterTags();
-
-            const contextTrades = allTrades.filter(trade => {
-                return checkCommonFilters(trade);
-            });
-
-            displayedTrades = contextTrades.filter(trade => {
-                if (activeFilters.specificDate) {
-                    if (trade.date !== activeFilters.specificDate) return false;
-                }
-                return true;
-            });
-
-            updateStats(displayedTrades);
-            updateExtendedStats(displayedTrades);
-            renderTable(displayedTrades);
-            renderCharts(contextTrades);
-            renderCalendarWithData(contextTrades);
+            const contextTrades = allTrades.filter(trade => checkCommonFilters(trade));
+            displayedTrades = contextTrades.filter(trade => { if (activeFilters.specificDate && trade.date !== activeFilters.specificDate) return false; return true; });
+            updateStats(displayedTrades); updateExtendedStats(displayedTrades); renderTable(displayedTrades); renderCharts(contextTrades); renderCalendarWithData(contextTrades);
         }
 
         function checkCommonFilters(trade) {
-            if (activeFilters.month !== 'all') {
-                const tradeDate = parseDateString(trade.date);
-                if (!tradeDate) return false;
-                const tradeMonthKey = `${tradeDate.getFullYear()}-${tradeDate.getMonth()}`; 
-                if (tradeMonthKey !== activeFilters.month) return false;
-            }
-
-            const status = (trade.status || '').toUpperCase();
-            const order = (trade.order || '').toUpperCase();
+            if (activeFilters.month !== 'all') { const tradeDate = parseDateString(trade.date); if (!tradeDate) return false; const tradeMonthKey = `${tradeDate.getFullYear()}-${tradeDate.getMonth()}`; if (tradeMonthKey !== activeFilters.month) return false; }
+            const status = (trade.status || '').toUpperCase(), order = (trade.order || '').toUpperCase();
             let matchStatus = true;
             if (activeFilters.status === 'win') matchStatus = status === 'WIN';
             else if (activeFilters.status === 'lose') matchStatus = status === 'LOSE';
@@ -670,73 +459,156 @@
             else if (activeFilters.status === 'buy') matchStatus = order === 'BUY';
             else if (activeFilters.status === 'sell') matchStatus = order === 'SELL';
             if (!matchStatus) return false;
-
-            if (activeFilters.search) {
-                const s = activeFilters.search.toLowerCase();
-                const matchSearch = (trade.asset.toLowerCase().includes(s) || 
-                                   trade.strategy.toLowerCase().includes(s) || 
-                                   trade.setup.toLowerCase().includes(s));
-                if (!matchSearch) return false;
-            }
+            if (activeFilters.search) { const s = activeFilters.search.toLowerCase(); if (!(trade.asset.toLowerCase().includes(s) || trade.strategy.toLowerCase().includes(s) || trade.setup.toLowerCase().includes(s))) return false; }
             return true;
         }
 
-        function filterTrades(type, btn) {
-            activeFilters.status = type;
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-            else document.querySelector('.filter-btn[onclick*="'+type+'"]').classList.add('active');
-            applyAllFilters();
-        }
+        function filterTrades(type, btn) { activeFilters.status = type; document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); if(btn) btn.classList.add('active'); applyAllFilters(); }
+        function searchTrades(val) { activeFilters.search = val; applyAllFilters(); }
+        function filterByMonth(val) { activeFilters.month = val; activeFilters.specificDate = null; document.getElementById('monthSelector').value = val; applyAllFilters(); }
+        function handleChartClick(event, elements, chart) { if (!elements || elements.length === 0) return; activeFilters.specificDate = chart.data.labels[elements[0].index]; applyAllFilters(); }
 
-        function searchTrades(val) {
-            activeFilters.search = val;
-            applyAllFilters();
-        }
-
-        function filterByMonth(val) {
-            activeFilters.month = val;
-            activeFilters.specificDate = null;
-            document.getElementById('monthSelector').value = val;
-            applyAllFilters();
-        }
-
-        function handleChartClick(event, elements, chart) {
-            if (!elements || elements.length === 0) return;
-            const index = elements[0].index;
-            const label = chart.data.labels[index]; 
-            activeFilters.specificDate = label;
-            applyAllFilters();
-        }
-
-        // --- Logic Helpers ---
         function populateMonthDropdown() {
             const selector = document.getElementById('monthSelector');
-            const currentVal = selector.value;
             selector.innerHTML = '<option value="all">All Time</option>';
             const months = new Set();
-            allTrades.forEach(t => {
-                if(!t.date) return;
-                const d = parseDateString(t.date);
-                if(d) months.add(`${d.getFullYear()}-${d.getMonth()}`);
+            allTrades.forEach(t => { if(!t.date) return; const d = parseDateString(t.date); if(d) months.add(`${d.getFullYear()}-${d.getMonth()}`); });
+            const sortedMonths = Array.from(months).sort((a,b) => { const [y1,m1] = a.split('-').map(Number); const [y2,m2] = b.split('-').map(Number); return (y2-y1) || (m2-m1); });
+            const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+            sortedMonths.forEach(key => { const [y,m] = key.split('-'); const opt = document.createElement('option'); opt.value = key; opt.textContent = `${monthNames[parseInt(m)]} ${y}`; selector.appendChild(opt); });
+        }
+
+        function populateYearDropdown() {
+            const selector = document.getElementById('yearSelect');
+            selector.innerHTML = '';
+            const years = new Set();
+            allTrades.forEach(t => { if(!t.date) return; const d = parseDateString(t.date); if(d) years.add(d.getFullYear()); });
+            Array.from(years).sort((a,b) => b-a).forEach(year => { const opt = document.createElement('option'); opt.value = year; opt.textContent = year; if(year === selectedYear) opt.selected = true; selector.appendChild(opt); });
+        }
+
+        function changeYear(year) { selectedYear = parseInt(year); if(calendarView === 'year') renderYearSummary(); }
+
+        function setCalendarView(view) {
+            calendarView = view;
+            document.getElementById('monthViewBtn').classList.toggle('active', view === 'month');
+            document.getElementById('yearViewBtn').classList.toggle('active', view === 'year');
+            document.getElementById('monthlyCalendarContainer').classList.toggle('hidden', view === 'year');
+            document.getElementById('yearSummaryContainer').classList.toggle('active', view === 'year');
+            document.getElementById('prevMonthBtn').style.display = view === 'month' ? '' : 'none';
+            document.getElementById('nextMonthBtn').style.display = view === 'month' ? '' : 'none';
+            document.getElementById('yearSelector').style.display = view === 'year' ? 'flex' : 'none';
+            if(view === 'year') { renderYearSummary(); document.getElementById('calendarTitle').textContent = `Year Summary ${selectedYear}`; }
+            else renderCalendar();
+        }
+
+        function renderYearSummary() {
+            const table = document.getElementById('yearSummaryTable');
+            const thead = table.querySelector('thead'), tbody = table.querySelector('tbody');
+            document.getElementById('calendarTitle').textContent = `Year Summary ${selectedYear}`;
+            const yearTrades = allTrades.filter(t => { const d = parseDateString(t.date); return d && d.getFullYear() === selectedYear; });
+            const monthlyStats = {};
+            const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+            for(let i = 0; i < 12; i++) monthlyStats[i] = { planPoints: {}, totalPoints: 0, profit: 0, loss: 0, wins: 0, losses: 0, draws: 0, total: 0, cancel: 0, rrSum: 0, rrCount: 0 };
+            
+            yearTrades.forEach(t => {
+                const d = parseDateString(t.date); if(!d) return;
+                const month = d.getMonth(), stats = monthlyStats[month], status = (t.status || '').toUpperCase(), points = t.points || 0, plan = t.plan || 'Other';
+                if(!stats.planPoints[plan]) stats.planPoints[plan] = 0;
+                stats.planPoints[plan] += points;
+                stats.totalPoints += points; stats.total++;
+                if(status === 'WIN') { stats.wins++; stats.profit += points; }
+                else if(status === 'LOSE') { stats.losses++; stats.loss += points; }
+                else if(status === 'DRAW') stats.draws++;
+                else if(status === 'CANCEL') stats.cancel++;
+                if(t.rr && t.rr !== '-' && t.rr !== '#N/A') { const rrMatch = t.rr.match(/[\d.]+/); if(rrMatch) { stats.rrSum += parseFloat(rrMatch[0]); stats.rrCount++; } }
             });
-            const sortedMonths = Array.from(months).sort((a,b) => {
-                const [y1, m1] = a.split('-').map(Number);
-                const [y2, m2] = b.split('-').map(Number);
-                return (y2 - y1) || (m2 - m1);
+            
+            Object.keys(monthlyStats).forEach(m => {
+                const stats = monthlyStats[m];
+                stats.avgProfit = stats.wins > 0 ? Math.round(stats.profit / stats.wins) : 0;
+                stats.avgLoss = stats.losses > 0 ? Math.round(stats.loss / stats.losses) : 0;
+                const validTrades = stats.wins + stats.losses + stats.draws;
+                stats.winRate = validTrades > 0 ? ((stats.wins / validTrades) * 100).toFixed(2) : 0;
+                stats.avgRR = stats.rrCount > 0 ? (stats.rrSum / stats.rrCount).toFixed(2) : 'N/A';
             });
-            const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-            sortedMonths.forEach(key => {
-                const [y, m] = key.split('-');
-                const opt = document.createElement('option');
-                opt.value = key;
-                opt.textContent = `${monthNames[parseInt(m)]} ${y}`;
-                selector.appendChild(opt);
-            });
-            // Restore selection if exists
-            if (Array.from(selector.options).some(o => o.value === activeFilters.month)) {
-                selector.value = activeFilters.month;
+            
+            const allPlans = new Set();
+            yearTrades.forEach(t => { if(t.plan) allPlans.add(t.plan); });
+            const sortedPlans = Array.from(allPlans).sort((a,b) => (parseInt(a)||999) - (parseInt(b)||999));
+            
+            let headerHTML = '<tr><th>Metric</th>';
+            for(let i = 0; i < 12; i++) headerHTML += `<th>${monthNames[i]}</th>`;
+            headerHTML += '<th class="total-col">TOTAL</th><th class="avg-col">AVG</th></tr>';
+            thead.innerHTML = headerHTML;
+            
+            let bodyHTML = '';
+            
+            // Plan rows
+            if(sortedPlans.length > 0) {
+                bodyHTML += '<tr class="section-row"><td colspan="15">POINTS BY PLAN</td></tr>';
+                sortedPlans.forEach(plan => {
+                    let total = 0, monthsWithData = 0;
+                    bodyHTML += `<tr><td class="row-header">Plan ${plan}</td>`;
+                    for(let i = 0; i < 12; i++) { const val = monthlyStats[i].planPoints[plan] || 0; total += val; if(val !== 0) monthsWithData++; bodyHTML += `<td class="${val > 0 ? 'positive' : val < 0 ? 'negative' : ''}">${val !== 0 ? val.toLocaleString() : '-'}</td>`; }
+                    const avg = monthsWithData > 0 ? Math.round(total / monthsWithData) : 0;
+                    bodyHTML += `<td class="total-col ${total > 0 ? 'positive' : total < 0 ? 'negative' : ''}">${total.toLocaleString()}</td><td class="avg-col">${avg.toLocaleString()}</td></tr>`;
+                });
             }
+            
+            // Summary
+            bodyHTML += '<tr class="section-row"><td colspan="15">SUMMARY</td></tr>';
+            
+            // Total Points
+            let totalPoints = 0, monthsWithPoints = 0;
+            bodyHTML += '<tr><td class="row-header">Total Points</td>';
+            for(let i = 0; i < 12; i++) { const val = monthlyStats[i].totalPoints; totalPoints += val; if(monthlyStats[i].total > 0) monthsWithPoints++; bodyHTML += `<td class="${val > 0 ? 'positive' : val < 0 ? 'negative' : ''}">${val !== 0 ? val.toLocaleString() : '-'}</td>`; }
+            bodyHTML += `<td class="total-col ${totalPoints > 0 ? 'positive' : 'negative'}">${totalPoints.toLocaleString()}</td><td class="avg-col">${monthsWithPoints > 0 ? Math.round(totalPoints / monthsWithPoints).toLocaleString() : '-'}</td></tr>`;
+            
+            // Profit & Loss
+            let totalProfit = 0, totalLoss = 0;
+            bodyHTML += '<tr><td class="row-header">Profit</td>';
+            for(let i = 0; i < 12; i++) { totalProfit += monthlyStats[i].profit; bodyHTML += `<td class="positive">${monthlyStats[i].profit > 0 ? monthlyStats[i].profit.toLocaleString() : '-'}</td>`; }
+            bodyHTML += `<td class="total-col positive">${totalProfit.toLocaleString()}</td><td class="avg-col">${monthsWithPoints > 0 ? Math.round(totalProfit / monthsWithPoints).toLocaleString() : '-'}</td></tr>`;
+            
+            bodyHTML += '<tr><td class="row-header">Loss</td>';
+            for(let i = 0; i < 12; i++) { totalLoss += monthlyStats[i].loss; bodyHTML += `<td class="negative">${monthlyStats[i].loss < 0 ? monthlyStats[i].loss.toLocaleString() : '-'}</td>`; }
+            bodyHTML += `<td class="total-col negative">${totalLoss.toLocaleString()}</td><td class="avg-col">${monthsWithPoints > 0 ? Math.round(totalLoss / monthsWithPoints).toLocaleString() : '-'}</td></tr>`;
+            
+            // Trade counts
+            bodyHTML += '<tr class="section-row"><td colspan="15">TRADE COUNTS</td></tr>';
+            let totalWins = 0, totalLosses = 0, totalCancel = 0, grandTotal = 0;
+            
+            bodyHTML += '<tr><td class="row-header">Wins</td>';
+            for(let i = 0; i < 12; i++) { totalWins += monthlyStats[i].wins; bodyHTML += `<td class="positive">${monthlyStats[i].wins > 0 ? monthlyStats[i].wins : '-'}</td>`; }
+            bodyHTML += `<td class="total-col positive">${totalWins}</td><td class="avg-col">${monthsWithPoints > 0 ? (totalWins / monthsWithPoints).toFixed(1) : '-'}</td></tr>`;
+            
+            bodyHTML += '<tr><td class="row-header">Losses</td>';
+            for(let i = 0; i < 12; i++) { totalLosses += monthlyStats[i].losses; bodyHTML += `<td class="negative">${monthlyStats[i].losses > 0 ? monthlyStats[i].losses : '-'}</td>`; }
+            bodyHTML += `<td class="total-col negative">${totalLosses}</td><td class="avg-col">${monthsWithPoints > 0 ? (totalLosses / monthsWithPoints).toFixed(1) : '-'}</td></tr>`;
+            
+            bodyHTML += '<tr><td class="row-header">Cancel</td>';
+            for(let i = 0; i < 12; i++) { totalCancel += monthlyStats[i].cancel; bodyHTML += `<td>${monthlyStats[i].cancel > 0 ? monthlyStats[i].cancel : '-'}</td>`; }
+            bodyHTML += `<td class="total-col">${totalCancel}</td><td class="avg-col">${monthsWithPoints > 0 ? (totalCancel / monthsWithPoints).toFixed(1) : '-'}</td></tr>`;
+            
+            bodyHTML += '<tr><td class="row-header">Total Trades</td>';
+            for(let i = 0; i < 12; i++) { grandTotal += monthlyStats[i].total; bodyHTML += `<td>${monthlyStats[i].total > 0 ? monthlyStats[i].total : '-'}</td>`; }
+            bodyHTML += `<td class="total-col">${grandTotal}</td><td class="avg-col">${monthsWithPoints > 0 ? (grandTotal / monthsWithPoints).toFixed(1) : '-'}</td></tr>`;
+            
+            // Performance
+            bodyHTML += '<tr class="section-row"><td colspan="15">PERFORMANCE</td></tr>';
+            bodyHTML += '<tr><td class="row-header">Win Rate</td>';
+            for(let i = 0; i < 12; i++) { const val = monthlyStats[i].winRate; bodyHTML += `<td class="${parseFloat(val) >= 50 ? 'positive' : parseFloat(val) > 0 ? 'negative' : ''}">${val > 0 ? val + '%' : '-'}</td>`; }
+            const yearValidTrades = totalWins + totalLosses + Object.values(monthlyStats).reduce((s,m) => s + m.draws, 0);
+            const yearWinRate = yearValidTrades > 0 ? ((totalWins / yearValidTrades) * 100).toFixed(2) : 0;
+            bodyHTML += `<td class="total-col ${parseFloat(yearWinRate) >= 50 ? 'positive' : 'negative'}">${yearWinRate}%</td><td class="avg-col">-</td></tr>`;
+            
+            bodyHTML += '<tr><td class="row-header">Avg RR</td>';
+            for(let i = 0; i < 12; i++) { bodyHTML += `<td>${monthlyStats[i].avgRR !== 'N/A' ? monthlyStats[i].avgRR : '-'}</td>`; }
+            const yearRRSum = Object.values(monthlyStats).reduce((s,m) => s + m.rrSum, 0);
+            const yearRRCount = Object.values(monthlyStats).reduce((s,m) => s + m.rrCount, 0);
+            bodyHTML += `<td class="total-col">${yearRRCount > 0 ? (yearRRSum / yearRRCount).toFixed(2) : 'N/A'}</td><td class="avg-col">-</td></tr>`;
+            
+            tbody.innerHTML = bodyHTML;
         }
 
         function updateStats(data) {
@@ -744,16 +616,12 @@
             const loses = data.filter(t => (t.status || '').toUpperCase() === 'LOSE').length;
             const draws = data.filter(t => (t.status || '').toUpperCase() === 'DRAW').length;
             const totalPoints = data.reduce((sum, t) => sum + (t.points || 0), 0);
-            
             const pointsArr = data.map(t => t.points).filter(p => p !== 0);
             const best = pointsArr.length ? Math.max(...pointsArr) : 0;
             const worst = pointsArr.length ? Math.min(...pointsArr) : 0;
-            
-            const total = data.length;
             const valid = wins + loses + draws;
             const rate = valid > 0 ? ((wins / valid) * 100).toFixed(1) : 0;
-
-            document.getElementById('totalTrades').textContent = total;
+            document.getElementById('totalTrades').textContent = data.length;
             document.getElementById('winRate').textContent = rate + '%';
             document.getElementById('winRateSub').textContent = `${wins}W / ${loses}L / ${draws}D`;
             document.getElementById('totalPoints').textContent = (totalPoints > 0 ? '+' : '') + totalPoints.toLocaleString();
@@ -763,30 +631,19 @@
         }
 
         function updateExtendedStats(data) {
-            let maxWin = 0, maxLose = 0, curWin = 0, curLose = 0;
-            let sumWin = 0, countWin = 0, sumLose = 0, countLose = 0;
-            
+            let maxWin = 0, maxLose = 0, curWin = 0, curLose = 0, sumWin = 0, countWin = 0, sumLose = 0, countLose = 0;
             data.forEach(t => {
-                const s = (t.status || '').toUpperCase();
-                const p = t.points || 0;
+                const s = (t.status || '').toUpperCase(), p = t.points || 0;
                 if(s==='WIN') { curWin++; curLose=0; maxWin=Math.max(maxWin, curWin); sumWin+=p; countWin++; }
                 else if(s==='LOSE') { curLose++; curWin=0; maxLose=Math.max(maxLose, curLose); sumLose+=p; countLose++; }
                 else { curWin=0; curLose=0; }
             });
-
             const avgWin = countWin ? Math.round(sumWin/countWin) : 0;
             const avgLoss = countLose ? Math.round(sumLose/countLose) : 0;
-            const absLoss = Math.abs(sumLose);
-            const pf = absLoss > 0 ? (sumWin / absLoss).toFixed(2) : (sumWin > 0 ? '∞' : '0');
-            
+            const pf = Math.abs(sumLose) > 0 ? (sumWin / Math.abs(sumLose)).toFixed(2) : (sumWin > 0 ? '∞' : '0');
             const totalWL = countWin + countLose;
             let exp = 0;
-            if(totalWL > 0) {
-                const winR = countWin/totalWL;
-                const lossR = countLose/totalWL;
-                exp = (winR * avgWin) + (lossR * avgLoss);
-            }
-
+            if(totalWL > 0) exp = (countWin/totalWL * avgWin) + (countLose/totalWL * avgLoss);
             document.getElementById('maxWinStreak').textContent = maxWin;
             document.getElementById('maxLoseStreak').textContent = maxLose;
             document.getElementById('avgWin').textContent = '+' + avgWin.toLocaleString();
@@ -798,42 +655,16 @@
 
         function renderCharts(data) {
             const dailyMap = {};
-            data.forEach(t => {
-                if(!t.date) return;
-                dailyMap[t.date] = (dailyMap[t.date] || 0) + t.points;
-            });
-
+            data.forEach(t => { if(t.date) dailyMap[t.date] = (dailyMap[t.date] || 0) + t.points; });
             const sortedDates = Object.keys(dailyMap).sort((a,b) => parseDateString(a) - parseDateString(b));
             const dailyValues = sortedDates.map(d => dailyMap[d]);
-            
-            const equityValues = [];
-            let sum = 0;
-            equityValues.push(0); 
+            const equityValues = [0]; let sum = 0;
             dailyValues.forEach(v => { sum += v; equityValues.push(sum); });
             const equityLabels = ['Start', ...sortedDates];
 
             const ctxD = document.getElementById('dailyChart');
             if(dailyChart) dailyChart.destroy();
-            dailyChart = new Chart(ctxD, {
-                type: 'bar',
-                data: {
-                    labels: sortedDates,
-                    datasets: [{
-                        data: dailyValues,
-                        backgroundColor: dailyValues.map(v => v>=0 ? 'rgba(34, 197, 94, 0.8)' : 'rgba(239, 68, 68, 0.8)'),
-                        borderRadius: 4
-                    }]
-                },
-                options: {
-                    responsive: true, maintainAspectRatio: false,
-                    onClick: (e, el) => handleChartClick(e, el, dailyChart),
-                    plugins: { legend: {display:false} },
-                    scales: { 
-                        x: { grid: {color:'rgba(255,255,255,0.05)'}, ticks: {color:'#666', font:{family:'Space Mono', size:9}} },
-                        y: { grid: {color:'rgba(255,255,255,0.05)'}, ticks: {color:'#666', font:{family:'Space Mono', size:10}} }
-                    }
-                }
-            });
+            dailyChart = new Chart(ctxD, { type: 'bar', data: { labels: sortedDates, datasets: [{ data: dailyValues, backgroundColor: dailyValues.map(v => v>=0 ? 'rgba(34, 197, 94, 0.8)' : 'rgba(239, 68, 68, 0.8)'), borderRadius: 4 }] }, options: { responsive: true, maintainAspectRatio: false, onClick: (e, el) => handleChartClick(e, el, dailyChart), plugins: { legend: {display:false} }, scales: { x: { grid: {color:'rgba(255,255,255,0.05)'}, ticks: {color:'#666', font:{family:'Space Mono', size:9}} }, y: { grid: {color:'rgba(255,255,255,0.05)'}, ticks: {color:'#666', font:{family:'Space Mono', size:10}} } } } });
 
             const ctxE = document.getElementById('equityChart');
             if(equityChart) equityChart.destroy();
@@ -842,73 +673,23 @@
             const gradient = ctxE.getContext('2d').createLinearGradient(0,0,0,200);
             gradient.addColorStop(0, lastEq>=0?'rgba(34,197,94,0.3)':'rgba(239,68,68,0.3)');
             gradient.addColorStop(1, 'rgba(0,0,0,0)');
-
-            equityChart = new Chart(ctxE, {
-                type: 'line',
-                data: {
-                    labels: equityLabels,
-                    datasets: [{
-                        data: equityValues,
-                        borderColor: eqColor,
-                        backgroundColor: gradient,
-                        borderWidth: 2, fill: true, pointRadius: 2, tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true, maintainAspectRatio: false,
-                    plugins: { legend: {display:false} },
-                    scales: { x: { display:false }, y: { grid: {color:'rgba(255,255,255,0.05)'}, ticks: {color:'#666', font:{family:'Space Mono'}} } }
-                }
-            });
+            equityChart = new Chart(ctxE, { type: 'line', data: { labels: equityLabels, datasets: [{ data: equityValues, borderColor: eqColor, backgroundColor: gradient, borderWidth: 2, fill: true, pointRadius: 2, tension: 0.4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: {display:false} }, scales: { x: { display:false }, y: { grid: {color:'rgba(255,255,255,0.05)'}, ticks: {color:'#666', font:{family:'Space Mono'}} } } } });
         }
 
         function renderTable(data) {
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = '';
-            if(data.length === 0) {
-                tbody.innerHTML = `<div class="empty-state"><div class="empty-title">No trades found</div></div>`;
-                return;
-            }
-            
+            if(data.length === 0) { tbody.innerHTML = `<div class="empty-state"><div class="empty-title">No trades found</div></div>`; return; }
             const shownSets = new Set();
             data.forEach(t => {
-                if(t.isGrouped) {
-                    if(shownSets.has(t.setIdBase)) return;
-                    shownSets.add(t.setIdBase);
-                }
+                if(t.isGrouped && shownSets.has(t.setIdBase)) return;
+                if(t.isGrouped) shownSets.add(t.setIdBase);
                 const row = document.createElement('div');
                 row.className = `table-row ${t.isGrouped?'grouped':''}`;
                 row.onclick = () => openModal(t);
-                
                 let pts = t.points;
-                if(t.isGrouped) {
-                    const g = groupedTrades[t.setIdBase];
-                    if(g) pts = g.reduce((s,x)=>s+(x.points||0),0);
-                }
-                
-                const pClass = pts >= 0 ? 'positive' : 'negative';
-                const sClass = getStatusClass(t.status);
-                const rClass = getResultClass(t.result);
-                const orderClass = (t.order||'').toLowerCase();
-
-                row.innerHTML = `
-                    <div class="table-cell cell-no">${t.no}${t.isGrouped?`<span class="group-badge">${t.groupSize}</span>`:''}</div>
-                    <div class="table-cell cell-setid">${t.setId}</div>
-                    <div class="table-cell cell-date">${t.date}</div>
-                    <div class="table-cell">${t.plan}</div>
-                    <div class="table-cell cell-type-text">${t.type}</div>
-                    <div class="table-cell cell-asset">${t.asset}</div>
-                    <div class="table-cell"><span class="cell-category">${t.category}</span></div>
-                    <div class="table-cell"><span class="cell-type ${orderClass}">${t.order}</span></div>
-                    <div class="table-cell cell-price">${t.entryOrder}</div>
-                    <div class="table-cell cell-price">${t.tpOrder}</div>
-                    <div class="table-cell cell-price">${t.slOrder}</div>
-                    <div class="table-cell cell-strategy">${truncate(t.strategy, 20)}</div>
-                    <div class="table-cell"><span class="cell-result ${rClass}">${t.result}</span></div>
-                    <div class="table-cell cell-points ${pClass}">${pts>0?'+':''}${pts.toLocaleString()}</div>
-                    <div class="table-cell cell-rr">${t.rr}</div>
-                    <div class="table-cell cell-status ${sClass}">${t.status}</div>
-                `;
+                if(t.isGrouped) { const g = groupedTrades[t.setIdBase]; if(g) pts = g.reduce((s,x)=>s+(x.points||0),0); }
+                row.innerHTML = `<div class="table-cell cell-no">${t.no}${t.isGrouped?`<span class="group-badge">${t.groupSize}</span>`:''}</div><div class="table-cell cell-setid">${t.setId}</div><div class="table-cell cell-date">${t.date}</div><div class="table-cell">${t.plan}</div><div class="table-cell cell-type-text">${t.type}</div><div class="table-cell cell-asset">${t.asset}</div><div class="table-cell"><span class="cell-category">${t.category}</span></div><div class="table-cell"><span class="cell-type ${(t.order||'').toLowerCase()}">${t.order}</span></div><div class="table-cell cell-price">${t.entryOrder}</div><div class="table-cell cell-price">${t.tpOrder}</div><div class="table-cell cell-price">${t.slOrder}</div><div class="table-cell cell-strategy">${truncate(t.strategy, 20)}</div><div class="table-cell"><span class="cell-result ${getResultClass(t.result)}">${t.result}</span></div><div class="table-cell cell-points ${pts >= 0 ? 'positive' : 'negative'}">${pts>0?'+':''}${pts.toLocaleString()}</div><div class="table-cell cell-rr">${t.rr}</div><div class="table-cell cell-status ${getStatusClass(t.status)}">${t.status}</div>`;
                 tbody.appendChild(row);
                 setTimeout(()=>row.classList.add('loaded'), 10);
             });
@@ -916,178 +697,49 @@
 
         function renderCalendarWithData(data) {
             dailyProfitData = {};
-            data.forEach(t => {
-                if(t.date) {
-                    if(!dailyProfitData[t.date]) dailyProfitData[t.date] = { points:0, count:0 };
-                    dailyProfitData[t.date].points += t.points;
-                    dailyProfitData[t.date].count++;
-                }
-            });
-            renderCalendar();
+            data.forEach(t => { if(t.date) { if(!dailyProfitData[t.date]) dailyProfitData[t.date] = { points:0, count:0 }; dailyProfitData[t.date].points += t.points; dailyProfitData[t.date].count++; } });
+            if(calendarView === 'month') renderCalendar(); else renderYearSummary();
         }
 
-        function changeMonth(offset) {
-            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + offset);
-            renderCalendar();
-        }
+        function changeMonth(offset) { currentCalendarDate.setMonth(currentCalendarDate.getMonth() + offset); renderCalendar(); }
 
         function renderCalendar() {
-            const year = currentCalendarDate.getFullYear();
-            const month = currentCalendarDate.getMonth();
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            
-            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const year = currentCalendarDate.getFullYear(), month = currentCalendarDate.getMonth();
+            const firstDay = new Date(year, month, 1).getDay(), daysInMonth = new Date(year, month + 1, 0).getDate();
+            const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
             document.getElementById('calendarTitle').textContent = `${months[month]} ${year}`;
-            
-            const grid = document.getElementById('calendarGrid');
-            const dailyTotalsRow = document.getElementById('dailyTotalsRow');
-            grid.innerHTML = '';
-            dailyTotalsRow.innerHTML = '';
-            
-            // Arrays to store daily and weekly totals
-            const dailyTotals = [0, 0, 0, 0, 0, 0, 0]; // Sun-Sat
-            const weeklyTotals = [];
-            let currentWeekTotal = 0;
-            let currentWeekDays = 0;
-            
-            // Empty cells before first day
-            for(let i=0; i<firstDay; i++) {
-                grid.innerHTML += `<div class="calendar-day empty"></div>`;
-                currentWeekDays++;
-            }
-            
-            // Calendar days
+            const grid = document.getElementById('calendarGrid'), dailyTotalsRow = document.getElementById('dailyTotalsRow');
+            grid.innerHTML = ''; dailyTotalsRow.innerHTML = '';
+            const dailyTotals = [0,0,0,0,0,0,0]; let currentWeekTotal = 0;
+            for(let i=0; i<firstDay; i++) grid.innerHTML += `<div class="calendar-day empty"></div>`;
             for(let d=1; d<=daysInMonth; d++) {
                 const dateStr = `${d.toString().padStart(2,'0')}/${(month+1).toString().padStart(2,'0')}/${year}`;
-                const info = dailyProfitData[dateStr];
-                const dayOfWeek = (firstDay + d - 1) % 7;
-                
-                let content = `<div class="day-profit neutral">-</div>`;
-                let points = 0;
-                
-                if(info) {
-                    points = info.points;
-                    const pClass = info.points >= 0 ? 'positive' : 'negative';
-                    content = `
-                        <div class="day-profit ${pClass}">${info.points>0?'+':''}${info.points.toLocaleString()}</div>
-                        <div class="day-trades-count">${info.count} Trades</div>
-                    `;
-                }
-                
-                // Add to daily totals
-                dailyTotals[dayOfWeek] += points;
-                currentWeekTotal += points;
-                currentWeekDays++;
-                
-                grid.innerHTML += `
-                    <div class="calendar-day">
-                        <div class="day-number">${d}</div>
-                        ${content}
-                    </div>
-                `;
-                
-                // End of week or end of month
-                if(dayOfWeek === 6 || d === daysInMonth) {
-                    weeklyTotals.push(currentWeekTotal);
-                    
-                    const weekClass = currentWeekTotal >= 0 ? 'positive' : currentWeekTotal < 0 ? 'negative' : 'neutral';
-                    grid.innerHTML += `
-                        <div class="calendar-week-total">
-                            <div class="week-label">Total</div>
-                            <div class="week-value ${weekClass}">${currentWeekTotal>0?'+':''}${currentWeekTotal.toLocaleString()}</div>
-                        </div>
-                    `;
-                    
-                    currentWeekTotal = 0;
-                    currentWeekDays = 0;
-                }
+                const info = dailyProfitData[dateStr], dayOfWeek = (firstDay + d - 1) % 7;
+                let content = `<div class="day-profit neutral">-</div>`, points = 0;
+                if(info) { points = info.points; content = `<div class="day-profit ${info.points >= 0 ? 'positive' : 'negative'}">${info.points>0?'+':''}${info.points.toLocaleString()}</div><div class="day-trades-count">${info.count} Trades</div>`; }
+                dailyTotals[dayOfWeek] += points; currentWeekTotal += points;
+                grid.innerHTML += `<div class="calendar-day"><div class="day-number">${d}</div>${content}</div>`;
+                if(dayOfWeek === 6 || d === daysInMonth) { grid.innerHTML += `<div class="calendar-week-total"><div class="week-label">Total</div><div class="week-value ${currentWeekTotal >= 0 ? 'positive' : 'negative'}">${currentWeekTotal>0?'+':''}${currentWeekTotal.toLocaleString()}</div></div>`; currentWeekTotal = 0; }
             }
-            
-            // Render daily totals row
-            dailyTotals.forEach(total => {
-                const totalClass = total >= 0 ? 'positive' : total < 0 ? 'negative' : 'neutral';
-                dailyTotalsRow.innerHTML += `
-                    <div class="calendar-day-total">
-                        <div class="day-total-value ${totalClass}">${total>0?'+':''}${total.toLocaleString()}</div>
-                    </div>
-                `;
-            });
-            
-            // Add month total in the corner
-            const monthTotal = dailyTotals.reduce((sum, val) => sum + val, 0);
-            const monthClass = monthTotal >= 0 ? 'positive' : monthTotal < 0 ? 'negative' : 'neutral';
-            dailyTotalsRow.innerHTML += `
-                <div class="calendar-week-total">
-                    <div class="week-label">Month</div>
-                    <div class="week-value ${monthClass}">${monthTotal>0?'+':''}${monthTotal.toLocaleString()}</div>
-                </div>
-            `;
+            dailyTotals.forEach(total => { dailyTotalsRow.innerHTML += `<div class="calendar-day-total"><div class="day-total-value ${total >= 0 ? 'positive' : 'negative'}">${total>0?'+':''}${total.toLocaleString()}</div></div>`; });
+            const monthTotal = dailyTotals.reduce((s,v) => s+v, 0);
+            dailyTotalsRow.innerHTML += `<div class="calendar-week-total"><div class="week-label">Month</div><div class="week-value ${monthTotal >= 0 ? 'positive' : 'negative'}">${monthTotal>0?'+':''}${monthTotal.toLocaleString()}</div></div>`;
         }
 
-        function getSetIdBase(id) {
-            if(!id) return null;
-            const str = id.toString();
-            const idx = str.lastIndexOf('-');
-            return idx > 0 ? str.substring(0, idx) : str;
-        }
-        function getRoundFromSetId(id) {
-            if(!id) return 1;
-            const str = id.toString();
-            const idx = str.lastIndexOf('-');
-            return (idx > 0 && idx < str.length-1) ? parseInt(str.substring(idx+1)) : 1;
-        }
-        function parseDateString(str) {
-            if(!str) return null;
-            const parts = str.split('/');
-            if(parts.length === 3) return new Date(parts[2], parts[1]-1, parts[0]);
-            return null;
-        }
-        function formatDate(excelDate) {
-            if (!excelDate) return '';
-            if (typeof excelDate === 'string') return excelDate;
-            const date = new Date((excelDate - 25569) * 86400 * 1000);
-            return date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
-        }
-        function getResultClass(r) { 
-            if(!r) return ''; r=r.toString().toUpperCase(); 
-            if(r.includes('TP')) return 'tp'; if(r==='SL') return 'sl'; return 'none'; 
-        }
-        function getStatusClass(s) {
-            if(!s) return ''; s=s.toString().toUpperCase();
-            if(s==='WIN') return 'win'; if(s==='LOSE') return 'lose'; if(s==='DRAW') return 'draw'; return 'none';
-        }
+        function getSetIdBase(id) { if(!id) return null; const str = id.toString(), idx = str.lastIndexOf('-'); return idx > 0 ? str.substring(0, idx) : str; }
+        function getRoundFromSetId(id) { if(!id) return 1; const str = id.toString(), idx = str.lastIndexOf('-'); return (idx > 0 && idx < str.length-1) ? parseInt(str.substring(idx+1)) : 1; }
+        function parseDateString(str) { if(!str) return null; const parts = str.split('/'); if(parts.length === 3) return new Date(parts[2], parts[1]-1, parts[0]); return null; }
+        function formatDate(excelDate) { if (!excelDate) return ''; if (typeof excelDate === 'string') return excelDate; const date = new Date((excelDate - 25569) * 86400 * 1000); return date.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }); }
+        function getResultClass(r) { if(!r) return ''; r=r.toString().toUpperCase(); if(r.includes('TP')) return 'tp'; if(r==='SL') return 'sl'; return 'none'; }
+        function getStatusClass(s) { if(!s) return ''; s=s.toString().toUpperCase(); if(s==='WIN') return 'win'; if(s==='LOSE') return 'lose'; if(s==='DRAW') return 'draw'; return 'none'; }
         function truncate(s, l) { if(!s) return '-'; return s.length>l ? s.substring(0,l)+'...' : s; }
 
         function openModal(t) {
-            const modal = document.getElementById('modalOverlay');
             const body = document.getElementById('modalBody');
-            
             let groupHTML = '';
-            if(t.isGrouped) {
-                const g = groupedTrades[t.setIdBase];
-                groupHTML = `<div class="group-entries"><div class="group-entries-title">Grouped Entries (${g.length})</div>` + 
-                g.map(sub => `
-                    <div class="group-entry-item">
-                        <div class="group-entry-header"><span class="group-entry-round">${sub.setId}</span><span class="cell-status ${getStatusClass(sub.status)}">${sub.status}</span></div>
-                        <div class="group-entry-grid">
-                            <div class="detail-item"><span class="detail-label">Entry</span><span class="detail-value">${sub.entryOrder}</span></div>
-                            <div class="detail-item"><span class="detail-label">Points</span><span class="detail-value ${sub.points>=0?'positive':'negative'}">${sub.points}</span></div>
-                        </div>
-                    </div>
-                `).join('') + `</div>`;
-            }
-
-            body.innerHTML = `
-                <div class="detail-grid">
-                    <div class="detail-item"><span class="detail-label">Asset</span><span class="detail-value">${t.asset}</span></div>
-                    <div class="detail-item"><span class="detail-label">Strategy</span><span class="detail-value">${t.strategy}</span></div>
-                    <div class="detail-item"><span class="detail-label">Points</span><span class="detail-value ${t.points>=0?'positive':'negative'}">${t.points}</span></div>
-                    <div class="detail-item full"><span class="detail-label">Note</span><div class="detail-note">${t.notePlan || '-'}</div></div>
-                </div>
-                ${groupHTML}
-            `;
-            modal.classList.add('active');
+            if(t.isGrouped) { const g = groupedTrades[t.setIdBase]; groupHTML = `<div class="group-entries"><div class="group-entries-title">Grouped Entries (${g.length})</div>` + g.map(sub => `<div class="group-entry-item"><div class="group-entry-header"><span class="group-entry-round">${sub.setId}</span><span class="cell-status ${getStatusClass(sub.status)}">${sub.status}</span></div><div class="group-entry-grid"><div class="detail-item"><span class="detail-label">Entry</span><span class="detail-value">${sub.entryOrder}</span></div><div class="detail-item"><span class="detail-label">Points</span><span class="detail-value ${sub.points>=0?'positive':'negative'}">${sub.points}</span></div></div></div>`).join('') + `</div>`; }
+            body.innerHTML = `<div class="detail-grid"><div class="detail-item"><span class="detail-label">Asset</span><span class="detail-value">${t.asset}</span></div><div class="detail-item"><span class="detail-label">Strategy</span><span class="detail-value">${t.strategy}</span></div><div class="detail-item"><span class="detail-label">Points</span><span class="detail-value ${t.points>=0?'positive':'negative'}">${t.points}</span></div><div class="detail-item full"><span class="detail-label">Note</span><div class="detail-note">${t.notePlan || '-'}</div></div></div>${groupHTML}`;
+            document.getElementById('modalOverlay').classList.add('active');
         }
         function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
     </script>
