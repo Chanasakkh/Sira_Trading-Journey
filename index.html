@@ -129,7 +129,7 @@
         .monthly-calendar-container { display: block; }
         .monthly-calendar-container.hidden { display: none; }
         
-        .year-summary-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; min-width: 1200px; }
+        .year-summary-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; min-width: 800px; }
         .year-summary-table thead { background: var(--bg-tertiary); }
         .year-summary-table th, .year-summary-table td { 
             padding: 10px 8px; 
@@ -295,7 +295,6 @@
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
                     CLOUD SYNC
                 </button>
-                <button class="btn btn-outline" onclick="document.getElementById('fileInput').click()">UPLOAD FILE</button>
                 <input type="file" id="fileInput" class="file-input" accept=".xlsx,.xls,.csv">
             </div>
         </header>
@@ -545,7 +544,7 @@
             else { document.getElementById('calendarTitle').textContent = `Calendar`; renderCalendar(); }
         }
 
-        // Updated Render Year Summary (Enrich Style)
+        // Updated Render Year Summary (Rows=Months, Cols=Weeks)
         function renderYearSummary() {
             const table = document.getElementById('yearSummaryTable');
             const thead = table.querySelector('thead');
@@ -558,13 +557,21 @@
                 return d && d.getFullYear() === selectedYear; 
             });
 
+            // Data storage: Months rows
             const monthsData = Array.from({length: 12}, () => ({
-                weeks: {1:0, 2:0, 3:0, 4:0, 5:0, 6:0},
+                weeks: {1:0, 2:0, 3:0, 4:0, 5:0},
                 totalPoints: 0,
-                winCount: 0, lossCount: 0, drawCount: 0, cancelCount: 0, totalCount: 0,
-                winPointsSum: 0, lossPointsSum: 0,
-                rrSum: 0, rrCount: 0
+                totalCount: 0
             }));
+
+            // Data storage: Weeks columns stats (for footer)
+            const weeksData = {};
+            for(let w=1; w<=5; w++) {
+                weeksData[w] = { 
+                    points: 0, win: 0, loss: 0, draw: 0, cancel: 0, count: 0, 
+                    winPts: 0, lossPts: 0, rrSum: 0, rrCount: 0 
+                };
+            }
 
             yearTrades.forEach(t => {
                 const d = parseDateString(t.date);
@@ -574,34 +581,40 @@
                 const dateNum = d.getDate();
                 const weekIdx = Math.ceil(dateNum / 7); 
                 
+                if (weekIdx > 5) return; // Should not happen often
+
                 const points = t.points || 0;
                 const status = (t.status || '').toUpperCase();
                 const rrVal = parseFloat(t.rr) || 0;
 
-                if(weekIdx <= 6) {
-                    monthsData[monthIdx].weeks[weekIdx] += points;
-                }
-
+                // Populate Month Rows Data
+                monthsData[monthIdx].weeks[weekIdx] += points;
                 if (status !== 'CANCEL' && status !== 'NONE') {
                     monthsData[monthIdx].totalPoints += points;
                     monthsData[monthIdx].totalCount++;
+                }
+
+                // Populate Week Columns Stats Data
+                if (status !== 'CANCEL' && status !== 'NONE') {
+                    weeksData[weekIdx].points += points;
+                    weeksData[weekIdx].count++;
                     
                     if(status === 'WIN') {
-                        monthsData[monthIdx].winCount++;
-                        monthsData[monthIdx].winPointsSum += points;
+                        weeksData[weekIdx].win++;
+                        weeksData[weekIdx].winPts += points;
                     } else if(status === 'LOSE') {
-                        monthsData[monthIdx].lossCount++;
-                        monthsData[monthIdx].lossPointsSum += points;
+                        weeksData[weekIdx].loss++;
+                        weeksData[weekIdx].lossPts += points;
                     } else if(status === 'DRAW') {
-                        monthsData[monthIdx].drawCount++;
+                        weeksData[weekIdx].draw++;
                     }
                     
                     if(rrVal > 0) {
-                        monthsData[monthIdx].rrSum += rrVal;
-                        monthsData[monthIdx].rrCount++;
+                        weeksData[weekIdx].rrSum += rrVal;
+                        weeksData[weekIdx].rrCount++;
                     }
                 } else if (status === 'CANCEL') {
-                    monthsData[monthIdx].cancelCount++;
+                    weeksData[weekIdx].cancel++;
                 }
             });
 
@@ -626,108 +639,88 @@
                 return `<td class="${className}">${text}</td>`;
             };
 
-            const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+            const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-            let headHTML = `<tr><th style="min-width:100px;">Week/Month</th>`;
-            monthNames.forEach(m => headHTML += `<th>${m}${selectedYear.toString().slice(-2)}</th>`);
-            headHTML += `<th class="col-total-summary">TOTAL</th><th class="col-total-summary">Avg.month</th></tr>`;
+            // 1. Generate Header (Month/Week | W1 | W2 ... | Total)
+            let headHTML = `<tr><th style="min-width:120px;">Month/Week</th>`;
+            for(let w=1; w<=5; w++) headHTML += `<th>Week ${w}</th>`;
+            headHTML += `<th class="col-total-summary">TOTAL</th></tr>`;
             thead.innerHTML = headHTML;
 
             let bodyHTML = '';
 
-            for(let w=1; w<=5; w++) {
-                bodyHTML += `<tr><td>Week ${w}</td>`;
-                let rowSum = 0;
-                let countMonth = 0;
-                for(let m=0; m<12; m++) {
+            // 2. Generate Month Rows
+            for(let m=0; m<12; m++) {
+                bodyHTML += `<tr><td>${monthNames[m]}</td>`;
+                for(let w=1; w<=5; w++) {
                     const val = monthsData[m].weeks[w];
-                    rowSum += val;
-                    if(val !== 0) countMonth++;
                     bodyHTML += createCell(val, 'wk');
                 }
-                bodyHTML += `<td class="col-total-summary">${rowSum.toLocaleString()}</td><td class="col-total-summary">${countMonth ? Math.round(rowSum/countMonth).toLocaleString() : '-'}</td></tr>`;
+                const mTotal = monthsData[m].totalPoints;
+                const count = monthsData[m].totalCount; // Not used for display but logic exists
+                bodyHTML += `<td class="col-total-summary">${mTotal === 0 ? '-' : mTotal.toLocaleString()}</td></tr>`;
             }
 
-            bodyHTML += `<tr class="row-total-point"><td>Total (Point)</td>`;
-            let grandTotalPoints = 0;
-            let grandActiveMonths = 0;
-            for(let m=0; m<12; m++) {
-                const val = monthsData[m].totalPoints;
-                grandTotalPoints += val;
-                if(monthsData[m].totalCount > 0) grandActiveMonths++;
-                bodyHTML += createCell(val, 'point');
-            }
-            bodyHTML += `<td class="col-total-summary">${grandTotalPoints.toLocaleString()}</td><td class="col-total-summary">${grandActiveMonths ? Math.round(grandTotalPoints/grandActiveMonths).toLocaleString() : '-'}</td></tr>`;
+            bodyHTML += `<tr class="separator-row"><td colspan="7" style="height:10px; background:#111;"></td></tr>`;
 
-            bodyHTML += `<tr><td style="background:#222; height:10px;" colspan="14"></td></tr>`;
-
-            const generateStatRow = (label, dataKey, calcFn = null, styleType='normal', isPercent=false) => {
+            // 3. Generate Stats Rows (Aggregated by Week Column)
+            
+            // Helper to create a stat row across 5 weeks + Grand Total
+            const generateStatRow = (label, valueExtractor, styleType='normal', isPercent=false) => {
                 let rowHTML = `<tr class="separator-row"><td>${label}</td>`;
-                let total = 0;
-                let count = 0;
+                let grandTotal = 0; // For summary of summaries (if applicable)
+                // Note: Grand totals might need specific logic depending on the stat
                 
-                for(let m=0; m<12; m++) {
-                    let val = 0;
-                    const d = monthsData[m];
-                    
-                    if (calcFn) {
-                        val = calcFn(d);
-                    } else {
-                        val = d[dataKey];
-                        total += val;
-                    }
-                    
-                    if(d.totalCount > 0 || (dataKey === 'cancelCount' && d[dataKey] > 0)) {
-                        count++;
-                    }
-                    
+                // Columns W1-W5
+                for(let w=1; w<=5; w++) {
+                    const d = weeksData[w];
+                    const val = valueExtractor(d);
                     rowHTML += createCell(val, styleType, isPercent);
                 }
                 
-                let grandVal = total;
-                let avgVal = count > 0 ? total / count : 0;
-
-                if (label === 'Win rate') {
-                    const allWins = monthsData.reduce((acc, cur) => acc + cur.winCount, 0);
-                    const allActive = monthsData.reduce((acc, cur) => acc + (cur.totalCount), 0);
-                    grandVal = allActive > 0 ? (allWins / allActive) * 100 : 0;
-                    avgVal = grandVal;
-                } else if (label.includes('Avg.')) {
-                     if(label === 'Avg. Profit') {
-                         const s = monthsData.reduce((acc,c) => acc + c.winPointsSum, 0);
-                         const c = monthsData.reduce((acc,c) => acc + c.winCount, 0);
-                         grandVal = c > 0 ? Math.round(s/c) : 0;
-                         avgVal = grandVal;
-                     } else if(label === 'Avg. Loss') {
-                         const s = monthsData.reduce((acc,c) => acc + c.lossPointsSum, 0);
-                         const c = monthsData.reduce((acc,c) => acc + c.lossCount, 0);
-                         grandVal = c > 0 ? Math.round(s/c) : 0;
-                         avgVal = grandVal;
-                     } else if(label === 'Avg. RR') {
-                         const s = monthsData.reduce((acc,c) => acc + c.rrSum, 0);
-                         const c = monthsData.reduce((acc,c) => acc + c.rrCount, 0);
-                         grandVal = c > 0 ? (s/c).toFixed(2) : 0;
-                         avgVal = grandVal;
-                     }
+                // Grand Total Column (Rightmost)
+                // We need to calculate the "Year Total" for this specific metric
+                // Simplest way: Aggregate all weeksData
+                let allWkData = { points:0, win:0, loss:0, draw:0, count:0, winPts:0, lossPts:0, rrSum:0, rrCount:0, cancel:0 };
+                for(let w=1; w<=5; w++) {
+                    const d = weeksData[w];
+                    allWkData.points += d.points;
+                    allWkData.win += d.win;
+                    allWkData.loss += d.loss;
+                    allWkData.draw += d.draw;
+                    allWkData.count += d.count;
+                    allWkData.winPts += d.winPts;
+                    allWkData.lossPts += d.lossPts;
+                    allWkData.rrSum += d.rrSum;
+                    allWkData.rrCount += d.rrCount;
+                    allWkData.cancel += d.cancel;
                 }
+                const grandVal = valueExtractor(allWkData);
                 
-                rowHTML += `<td class="col-total-summary">${typeof grandVal === 'number' ? grandVal.toLocaleString(undefined, {maximumFractionDigits: isPercent?2:0}) + (isPercent?'%':'') : grandVal}</td>`;
-                rowHTML += `<td class="col-total-summary">${typeof avgVal === 'number' ? avgVal.toLocaleString(undefined, {maximumFractionDigits: isPercent?2:0}) + (isPercent?'%':'') : avgVal}</td></tr>`;
-                
+                rowHTML += `<td class="col-total-summary">${typeof grandVal === 'number' ? grandVal.toLocaleString(undefined, {maximumFractionDigits: isPercent?2:0}) + (isPercent?'%':'') : grandVal}</td></tr>`;
                 return rowHTML;
-            };
+            }
 
-            bodyHTML += generateStatRow('Hold', null, () => 0);
-            bodyHTML += generateStatRow('Profit (Win)', 'winCount');
-            bodyHTML += generateStatRow('Avg. Profit', null, (d) => d.winCount > 0 ? Math.round(d.winPointsSum / d.winCount) : 0);
-            bodyHTML += generateStatRow('Lost', 'lossCount');
-            bodyHTML += generateStatRow('Avg. Loss', null, (d) => d.lossCount > 0 ? Math.round(d.lossPointsSum / d.lossCount) : 0);
-            bodyHTML += generateStatRow('Cancel', 'cancelCount');
-            bodyHTML += generateStatRow('Total', 'totalCount');
-            bodyHTML += generateStatRow('Win rate', null, (d) => d.totalCount > 0 ? (d.winCount/d.totalCount)*100 : 0, 'normal', true);
-            bodyHTML += generateStatRow('Avg. RR', null, (d) => d.rrCount > 0 ? parseFloat((d.rrSum/d.rrCount).toFixed(2)) : 0);
-            bodyHTML += `<tr><td>Capital</td><td colspan="12" style="text-align:center; color:#666;">(Manual Input Required)</td><td>-</td><td>-</td></tr>`;
-            bodyHTML += `<tr><td>ROI %</td><td colspan="12" style="text-align:center; color:#666;">-</td><td>-</td><td>-</td></tr>`;
+            // Row: Total (Points)
+            bodyHTML += generateStatRow('Total (Point)', (d) => d.points, 'point');
+            
+            // Row: Win Rate
+            bodyHTML += generateStatRow('Win Rate', (d) => d.count > 0 ? (d.win/d.count)*100 : 0, 'winrate', true);
+            
+            // Row: Avg Profit
+            bodyHTML += generateStatRow('Avg. Profit', (d) => d.win > 0 ? Math.round(d.winPts/d.win) : 0);
+            
+            // Row: Avg Loss
+            bodyHTML += generateStatRow('Avg. Loss', (d) => d.loss > 0 ? Math.round(d.lossPts/d.loss) : 0);
+            
+            // Row: Avg RR
+            bodyHTML += generateStatRow('Avg. RR', (d) => d.rrCount > 0 ? parseFloat((d.rrSum/d.rrCount).toFixed(2)) : 0);
+            
+            // Counts
+            bodyHTML += generateStatRow('Win', (d) => d.win);
+            bodyHTML += generateStatRow('Lose', (d) => d.loss);
+            bodyHTML += generateStatRow('Draw', (d) => d.draw);
+            bodyHTML += generateStatRow('Cancel', (d) => d.cancel);
 
             tbody.innerHTML = bodyHTML;
         }
