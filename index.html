@@ -835,19 +835,23 @@
         function getStatusClass(s) { if(!s) return ''; s=s.toString().toUpperCase(); if(s==='WIN') return 'win'; if(s==='LOSE') return 'lose'; if(s==='DRAW') return 'draw'; return 'none'; }
         function truncate(s, l) { if(!s) return '-'; return s.length>l ? s.substring(0,l)+'...' : s; }
 
-        // --- UPDATED HELPER FOR GOOGLE DRIVE IMAGE ---
+        // --- UPDATED HELPER FOR GOOGLE DRIVE IMAGE (THUMBNAIL METHOD) ---
         function convertDriveLink(link) {
             if (!link) return null;
-            // Handle standard drive file links
-            // Updated regex to be more robust (doesn't strict rely on trailing slash)
+            // Extract ID
+            let fileId = null;
             const fileIdMatch = link.match(/\/d\/([-_\w]+)/);
             if (fileIdMatch) {
-                return `https://drive.google.com/uc?export=view&id=${fileIdMatch[1]}`;
+                fileId = fileIdMatch[1];
+            } else {
+                const idParamMatch = link.match(/id=([^&]+)/);
+                if (idParamMatch) fileId = idParamMatch[1];
             }
-            // Handle id= format
-            const idParamMatch = link.match(/id=([^&]+)/);
-            if (idParamMatch) {
-                return `https://drive.google.com/uc?export=view&id=${idParamMatch[1]}`;
+
+            if (fileId) {
+                // Use the thumbnail endpoint which is more reliable for embedding
+                // sz=w2000 asks for a large image (width 2000px)
+                return `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`;
             }
             return link;
         }
