@@ -851,22 +851,7 @@
         function openModal(t) {
             const body = document.getElementById('modalBody');
             let groupHTML = '';
-            if(t.isGrouped) { 
-                const g = groupedTrades[t.setIdBase]; 
-                groupHTML = `<div class="group-entries"><div class="group-entries-title">Grouped Entries (${g.length})</div>` + 
-                g.map(sub => `<div class="group-entry-item">
-                    <div class="group-entry-header">
-                        <span class="group-entry-round">${sub.setId}</span>
-                        <span class="cell-status ${getStatusClass(sub.status)}">${sub.status}</span>
-                    </div>
-                    <div class="group-entry-grid">
-                        <div class="detail-item"><span class="detail-label">Entry</span><span class="detail-value">${sub.entryOrder || '-'}</span></div>
-                        <div class="detail-item"><span class="detail-label">TP</span><span class="detail-value">${sub.tpOrder || '-'}</span></div>
-                        <div class="detail-item"><span class="detail-label">SL</span><span class="detail-value">${sub.slOrder || '-'}</span></div>
-                        <div class="detail-item"><span class="detail-label">Points</span><span class="detail-value ${sub.points>=0?'positive':'negative'}">${sub.points}</span></div>
-                    </div>
-                </div>`).join('') + `</div>`; 
-            }
+            if(t.isGrouped) { const g = groupedTrades[t.setIdBase]; groupHTML = `<div class="group-entries"><div class="group-entries-title">Grouped Entries (${g.length})</div>` + g.map(sub => `<div class="group-entry-item"><div class="group-entry-header"><span class="group-entry-round">${sub.setId}</span><span class="cell-status ${getStatusClass(sub.status)}">${sub.status}</span></div><div class="group-entry-grid"><div class="detail-item"><span class="detail-label">Entry</span><span class="detail-value">${sub.entryOrder}</span></div><div class="detail-item"><span class="detail-label">Points</span><span class="detail-value ${sub.points>=0?'positive':'negative'}">${sub.points}</span></div></div></div>`).join('') + `</div>`; }
             body.innerHTML = `<div class="detail-grid"><div class="detail-item"><span class="detail-label">Asset</span><span class="detail-value">${t.asset}</span></div><div class="detail-item"><span class="detail-label">Strategy</span><span class="detail-value">${t.strategy}</span></div><div class="detail-item"><span class="detail-label">Points</span><span class="detail-value ${t.points>=0?'positive':'negative'}">${t.points}</span></div><div class="detail-item full"><span class="detail-label">Note</span><div class="detail-note">${t.notePlan || '-'}</div></div></div>${groupHTML}`;
             document.getElementById('modalOverlay').classList.add('active');
         }
