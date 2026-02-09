@@ -8,6 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
     <style>
+        /* ... (CSS เดิมทั้งหมด Copy มาใส่ตรงนี้) ... */
         :root {
             --bg-primary: #0a0a0a;
             --bg-secondary: #111111;
@@ -259,6 +260,12 @@
         .detail-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-family: 'Space Mono', monospace; }
         .detail-value { font-size: 1rem; color: var(--text-primary); }
         .detail-note { background: var(--bg-tertiary); padding: 16px; font-size: 0.875rem; line-height: 1.6; color: var(--text-secondary); margin-top: 8px; white-space: pre-wrap; }
+        
+        /* NEW STYLES FOR IMAGE */
+        .modal-image-container { margin-top: 24px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); display: none; }
+        .modal-image-container.has-image { display: block; }
+        .modal-image { width: 100%; height: auto; display: block; max-height: 500px; object-fit: contain; background: #050505; }
+        
         .group-entries { margin-top: 24px; border-top: 1px solid var(--border-color); padding-top: 24px; }
         .group-entries-title { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--accent-blue); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
         .group-entry-item { background: var(--bg-tertiary); padding: 16px; margin-bottom: 12px; border-left: 3px solid var(--accent-blue); }
@@ -454,6 +461,7 @@
                 const row = data[i];
                 if (!row || !row[0]) continue;
                 let rrValue = row[15] ? row[15].toString().replace(/\s/g, '') : '';
+                // Map setup to column M (index 12)
                 const trade = { no: row[0] || '', setId: row[1] || '', date: formatDate(row[2]), plan: row[3] || '', type: row[4] || '', asset: row[5] || '', category: row[6] || '', order: row[7] || '', entryOrder: row[8] || '', tpOrder: row[9] || '', slOrder: row[10] || '', strategy: row[11] || '', setup: row[12] || '', result: row[13] || '', points: parseFloat(row[14]) || 0, rr: rrValue, notePlan: row[16] || '', status: row[17] || '' };
                 const setIdBase = getSetIdBase(trade.setId);
                 trade.setIdBase = setIdBase;
@@ -469,6 +477,8 @@
             document.querySelector('.calendar-section').classList.add('loaded');
         }
 
+        // ... (Functions resetDashboard, renderActiveFilterTags, addTag, applyAllFilters, checkCommonFilters, filterTrades, searchTrades, filterByMonth, handleChartClick, populateMonthDropdown, populateYearDropdown, changeYear, setCalendarView, renderYearSummary, updateStats, updateExtendedStats, renderCharts, renderTable, renderCalendarWithData, changeMonth, renderCalendar, getSetIdBase, getRoundFromSetId, parseDateString, formatDate, getResultClass, getStatusClass, truncate เหมือนเดิม) ...
+        
         function resetDashboard() { activeFilters = { status: 'all', search: '', month: 'all', specificDate: null }; document.getElementById('monthSelector').value = 'all'; document.getElementById('searchBox').value = ''; document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); document.querySelector('.filter-btn[onclick*="all"]').classList.add('active'); applyAllFilters(); }
 
         function renderActiveFilterTags() {
@@ -544,7 +554,6 @@
             else { document.getElementById('calendarTitle').textContent = `Calendar`; renderCalendar(); }
         }
 
-        // Updated Render Year Summary (Rows=Months, Cols=Weeks)
         function renderYearSummary() {
             const table = document.getElementById('yearSummaryTable');
             const thead = table.querySelector('thead');
@@ -557,14 +566,12 @@
                 return d && d.getFullYear() === selectedYear; 
             });
 
-            // Data storage: Months rows
             const monthsData = Array.from({length: 12}, () => ({
                 weeks: {1:0, 2:0, 3:0, 4:0, 5:0},
                 totalPoints: 0,
                 totalCount: 0
             }));
 
-            // Data storage: Weeks columns stats (for footer)
             const weeksData = {};
             for(let w=1; w<=5; w++) {
                 weeksData[w] = { 
@@ -581,20 +588,18 @@
                 const dateNum = d.getDate();
                 const weekIdx = Math.ceil(dateNum / 7); 
                 
-                if (weekIdx > 5) return; // Should not happen often
+                if (weekIdx > 5) return; 
 
                 const points = t.points || 0;
                 const status = (t.status || '').toUpperCase();
                 const rrVal = parseFloat(t.rr) || 0;
 
-                // Populate Month Rows Data
                 monthsData[monthIdx].weeks[weekIdx] += points;
                 if (status !== 'CANCEL' && status !== 'NONE') {
                     monthsData[monthIdx].totalPoints += points;
                     monthsData[monthIdx].totalCount++;
                 }
 
-                // Populate Week Columns Stats Data
                 if (status !== 'CANCEL' && status !== 'NONE') {
                     weeksData[weekIdx].points += points;
                     weeksData[weekIdx].count++;
@@ -641,7 +646,6 @@
 
             const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-            // 1. Generate Header (Month/Week | W1 | W2 ... | Total)
             let headHTML = `<tr><th style="min-width:120px;">Month/Week</th>`;
             for(let w=1; w<=5; w++) headHTML += `<th>Week ${w}</th>`;
             headHTML += `<th class="col-total-summary">TOTAL</th></tr>`;
@@ -649,7 +653,6 @@
 
             let bodyHTML = '';
 
-            // 2. Generate Month Rows
             for(let m=0; m<12; m++) {
                 bodyHTML += `<tr><td>${monthNames[m]}</td>`;
                 for(let w=1; w<=5; w++) {
@@ -657,30 +660,21 @@
                     bodyHTML += createCell(val, 'wk');
                 }
                 const mTotal = monthsData[m].totalPoints;
-                const count = monthsData[m].totalCount; // Not used for display but logic exists
+                const count = monthsData[m].totalCount; 
                 bodyHTML += `<td class="col-total-summary">${mTotal === 0 ? '-' : mTotal.toLocaleString()}</td></tr>`;
             }
 
             bodyHTML += `<tr class="separator-row"><td colspan="7" style="height:10px; background:#111;"></td></tr>`;
 
-            // 3. Generate Stats Rows (Aggregated by Week Column)
-            
-            // Helper to create a stat row across 5 weeks + Grand Total
             const generateStatRow = (label, valueExtractor, styleType='normal', isPercent=false) => {
                 let rowHTML = `<tr class="separator-row"><td>${label}</td>`;
-                let grandTotal = 0; // For summary of summaries (if applicable)
-                // Note: Grand totals might need specific logic depending on the stat
                 
-                // Columns W1-W5
                 for(let w=1; w<=5; w++) {
                     const d = weeksData[w];
                     const val = valueExtractor(d);
                     rowHTML += createCell(val, styleType, isPercent);
                 }
                 
-                // Grand Total Column (Rightmost)
-                // We need to calculate the "Year Total" for this specific metric
-                // Simplest way: Aggregate all weeksData
                 let allWkData = { points:0, win:0, loss:0, draw:0, count:0, winPts:0, lossPts:0, rrSum:0, rrCount:0, cancel:0 };
                 for(let w=1; w<=5; w++) {
                     const d = weeksData[w];
@@ -701,22 +695,11 @@
                 return rowHTML;
             }
 
-            // Row: Total (Points)
             bodyHTML += generateStatRow('Total (Point)', (d) => d.points, 'point');
-            
-            // Row: Win Rate
             bodyHTML += generateStatRow('Win Rate', (d) => d.count > 0 ? (d.win/d.count)*100 : 0, 'winrate', true);
-            
-            // Row: Avg Profit
             bodyHTML += generateStatRow('Avg. Profit', (d) => d.win > 0 ? Math.round(d.winPts/d.win) : 0);
-            
-            // Row: Avg Loss
             bodyHTML += generateStatRow('Avg. Loss', (d) => d.loss > 0 ? Math.round(d.lossPts/d.loss) : 0);
-            
-            // Row: Avg RR
             bodyHTML += generateStatRow('Avg. RR', (d) => d.rrCount > 0 ? parseFloat((d.rrSum/d.rrCount).toFixed(2)) : 0);
-            
-            // Counts
             bodyHTML += generateStatRow('Win', (d) => d.win);
             bodyHTML += generateStatRow('Lose', (d) => d.loss);
             bodyHTML += generateStatRow('Draw', (d) => d.draw);
@@ -848,11 +831,65 @@
         function getStatusClass(s) { if(!s) return ''; s=s.toString().toUpperCase(); if(s==='WIN') return 'win'; if(s==='LOSE') return 'lose'; if(s==='DRAW') return 'draw'; return 'none'; }
         function truncate(s, l) { if(!s) return '-'; return s.length>l ? s.substring(0,l)+'...' : s; }
 
+        // --- NEW HELPER FOR GOOGLE DRIVE IMAGE ---
+        function convertDriveLink(link) {
+            if (!link) return null;
+            // Handle standard drive file links
+            const fileIdMatch = link.match(/\/d\/(.+?)\//);
+            if (fileIdMatch) {
+                return `https://drive.google.com/uc?export=view&id=${fileIdMatch[1]}`;
+            }
+            // Handle id= format
+            const idParamMatch = link.match(/id=([^&]+)/);
+            if (idParamMatch) {
+                return `https://drive.google.com/uc?export=view&id=${idParamMatch[1]}`;
+            }
+            // Return original if it's not a recognized drive link (e.g. imgur)
+            return link;
+        }
+
         function openModal(t) {
             const body = document.getElementById('modalBody');
             let groupHTML = '';
-            if(t.isGrouped) { const g = groupedTrades[t.setIdBase]; groupHTML = `<div class="group-entries"><div class="group-entries-title">Grouped Entries (${g.length})</div>` + g.map(sub => `<div class="group-entry-item"><div class="group-entry-header"><span class="group-entry-round">${sub.setId}</span><span class="cell-status ${getStatusClass(sub.status)}">${sub.status}</span></div><div class="group-entry-grid"><div class="detail-item"><span class="detail-label">Entry</span><span class="detail-value">${sub.entryOrder}</span></div><div class="detail-item"><span class="detail-label">Points</span><span class="detail-value ${sub.points>=0?'positive':'negative'}">${sub.points}</span></div></div></div>`).join('') + `</div>`; }
-            body.innerHTML = `<div class="detail-grid"><div class="detail-item"><span class="detail-label">Asset</span><span class="detail-value">${t.asset}</span></div><div class="detail-item"><span class="detail-label">Strategy</span><span class="detail-value">${t.strategy}</span></div><div class="detail-item"><span class="detail-label">Points</span><span class="detail-value ${t.points>=0?'positive':'negative'}">${t.points}</span></div><div class="detail-item full"><span class="detail-label">Note</span><div class="detail-note">${t.notePlan || '-'}</div></div></div>${groupHTML}`;
+            
+            // Build grouped entries list
+            if(t.isGrouped) { 
+                const g = groupedTrades[t.setIdBase]; 
+                groupHTML = `<div class="group-entries"><div class="group-entries-title">Grouped Entries (${g.length})</div>` + 
+                g.map(sub => `<div class="group-entry-item">
+                    <div class="group-entry-header">
+                        <span class="group-entry-round">${sub.setId}</span>
+                        <span class="cell-status ${getStatusClass(sub.status)}">${sub.status}</span>
+                    </div>
+                    <div class="group-entry-grid">
+                        <div class="detail-item"><span class="detail-label">Entry</span><span class="detail-value">${sub.entryOrder || '-'}</span></div>
+                        <div class="detail-item"><span class="detail-label">TP</span><span class="detail-value">${sub.tpOrder || '-'}</span></div>
+                        <div class="detail-item"><span class="detail-label">SL</span><span class="detail-value">${sub.slOrder || '-'}</span></div>
+                        <div class="detail-item"><span class="detail-label">Points</span><span class="detail-value ${sub.points>=0?'positive':'negative'}">${sub.points}</span></div>
+                    </div>
+                </div>`).join('') + `</div>`; 
+            }
+
+            // Prepare Image HTML
+            const imageUrl = convertDriveLink(t.setup);
+            let imageHTML = '';
+            if (imageUrl) {
+                imageHTML = `<div class="modal-image-container has-image">
+                    <img src="${imageUrl}" class="modal-image" alt="Trade Setup" onerror="this.parentElement.style.display='none'">
+                </div>`;
+            }
+            
+            // Build final Modal Body
+            body.innerHTML = `
+                <div class="detail-grid">
+                    <div class="detail-item"><span class="detail-label">Asset</span><span class="detail-value">${t.asset}</span></div>
+                    <div class="detail-item"><span class="detail-label">Strategy</span><span class="detail-value">${t.strategy}</span></div>
+                    <div class="detail-item"><span class="detail-label">Points</span><span class="detail-value ${t.points>=0?'positive':'negative'}">${t.points}</span></div>
+                    <div class="detail-item full"><span class="detail-label">Note</span><div class="detail-note">${t.notePlan || '-'}</div></div>
+                    ${imageHTML ? `<div class="detail-item full"><span class="detail-label">Setup Image</span>${imageHTML}</div>` : ''}
+                </div>
+                ${groupHTML}
+            `;
             document.getElementById('modalOverlay').classList.add('active');
         }
         function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
