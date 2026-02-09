@@ -860,9 +860,9 @@
                         <span class="cell-status ${getStatusClass(sub.status)}">${sub.status}</span>
                     </div>
                     <div class="group-entry-grid">
-                        <div class="detail-item"><span class="detail-label">Entry</span><span class="detail-value">${sub.entryOrder}</span></div>
-                        <div class="detail-item"><span class="detail-label">TP</span><span class="detail-value">${sub.tpOrder}</span></div>
-                        <div class="detail-item"><span class="detail-label">SL</span><span class="detail-value">${sub.slOrder}</span></div>
+                        <div class="detail-item"><span class="detail-label">Entry</span><span class="detail-value">${sub.entryOrder || '-'}</span></div>
+                        <div class="detail-item"><span class="detail-label">TP</span><span class="detail-value">${sub.tpOrder || '-'}</span></div>
+                        <div class="detail-item"><span class="detail-label">SL</span><span class="detail-value">${sub.slOrder || '-'}</span></div>
                         <div class="detail-item"><span class="detail-label">Points</span><span class="detail-value ${sub.points>=0?'positive':'negative'}">${sub.points}</span></div>
                     </div>
                 </div>`).join('') + `</div>`; 
