@@ -888,7 +888,7 @@
             if (imageUrl) {
                 // Updated Image HTML with Fallback Button
                 imageHTML = `<div class="modal-image-container has-image">
-                    <img src="${imageUrl}" class="modal-image" alt="Trade Setup" onerror="handleImageError(this)">
+                    <img src="${imageUrl}" class="modal-image" alt="Trade Setup" onerror="handleImageError(this)" referrerpolicy="no-referrer">
                     <div class="image-error-fallback">
                         <span class="image-error-text">Image failed to load (Check Drive Permissions)</span>
                         <a href="${t.setup}" target="_blank" class="view-image-btn">
