@@ -8,7 +8,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
     <style>
-        /* ... (CSS เดิมทั้งหมด Copy มาใส่ตรงนี้) ... */
         :root {
             --bg-primary: #0a0a0a;
             --bg-secondary: #111111;
@@ -261,11 +260,18 @@
         .detail-value { font-size: 1rem; color: var(--text-primary); }
         .detail-note { background: var(--bg-tertiary); padding: 16px; font-size: 0.875rem; line-height: 1.6; color: var(--text-secondary); margin-top: 8px; white-space: pre-wrap; }
         
-        /* NEW STYLES FOR IMAGE */
-        .modal-image-container { margin-top: 24px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); display: none; }
+        /* NEW STYLES FOR IMAGE AND ERROR STATE */
+        .modal-image-container { margin-top: 24px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); display: none; position: relative; }
         .modal-image-container.has-image { display: block; }
         .modal-image { width: 100%; height: auto; display: block; max-height: 500px; object-fit: contain; background: #050505; }
         
+        /* Image Error State */
+        .image-error-fallback { display: none; background: #1a1a1a; padding: 20px; text-align: center; border: 1px dashed var(--accent-red); border-radius: 8px; margin-top: 8px; }
+        .image-error-fallback.active { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+        .image-error-text { color: var(--accent-red); font-size: 0.8rem; }
+        .view-image-btn { background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 6px 12px; font-size: 0.75rem; cursor: pointer; border-radius: 4px; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; margin-top: 4px; }
+        .view-image-btn:hover { background: var(--bg-tertiary); border-color: var(--text-secondary); }
+
         .group-entries { margin-top: 24px; border-top: 1px solid var(--border-color); padding-top: 24px; }
         .group-entries-title { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--accent-blue); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
         .group-entry-item { background: var(--bg-tertiary); padding: 16px; margin-bottom: 12px; border-left: 3px solid var(--accent-blue); }
@@ -477,8 +483,6 @@
             document.querySelector('.calendar-section').classList.add('loaded');
         }
 
-        // ... (Functions resetDashboard, renderActiveFilterTags, addTag, applyAllFilters, checkCommonFilters, filterTrades, searchTrades, filterByMonth, handleChartClick, populateMonthDropdown, populateYearDropdown, changeYear, setCalendarView, renderYearSummary, updateStats, updateExtendedStats, renderCharts, renderTable, renderCalendarWithData, changeMonth, renderCalendar, getSetIdBase, getRoundFromSetId, parseDateString, formatDate, getResultClass, getStatusClass, truncate เหมือนเดิม) ...
-        
         function resetDashboard() { activeFilters = { status: 'all', search: '', month: 'all', specificDate: null }; document.getElementById('monthSelector').value = 'all'; document.getElementById('searchBox').value = ''; document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); document.querySelector('.filter-btn[onclick*="all"]').classList.add('active'); applyAllFilters(); }
 
         function renderActiveFilterTags() {
@@ -831,11 +835,12 @@
         function getStatusClass(s) { if(!s) return ''; s=s.toString().toUpperCase(); if(s==='WIN') return 'win'; if(s==='LOSE') return 'lose'; if(s==='DRAW') return 'draw'; return 'none'; }
         function truncate(s, l) { if(!s) return '-'; return s.length>l ? s.substring(0,l)+'...' : s; }
 
-        // --- NEW HELPER FOR GOOGLE DRIVE IMAGE ---
+        // --- UPDATED HELPER FOR GOOGLE DRIVE IMAGE ---
         function convertDriveLink(link) {
             if (!link) return null;
             // Handle standard drive file links
-            const fileIdMatch = link.match(/\/d\/(.+?)\//);
+            // Updated regex to be more robust (doesn't strict rely on trailing slash)
+            const fileIdMatch = link.match(/\/d\/([-_\w]+)/);
             if (fileIdMatch) {
                 return `https://drive.google.com/uc?export=view&id=${fileIdMatch[1]}`;
             }
@@ -844,8 +849,15 @@
             if (idParamMatch) {
                 return `https://drive.google.com/uc?export=view&id=${idParamMatch[1]}`;
             }
-            // Return original if it's not a recognized drive link (e.g. imgur)
             return link;
+        }
+
+        function handleImageError(img) {
+            img.style.display = 'none';
+            // Find the fallback container within the same parent
+            const container = img.parentElement;
+            const fallback = container.querySelector('.image-error-fallback');
+            if(fallback) fallback.classList.add('active');
         }
 
         function openModal(t) {
@@ -874,8 +886,16 @@
             const imageUrl = convertDriveLink(t.setup);
             let imageHTML = '';
             if (imageUrl) {
+                // Updated Image HTML with Fallback Button
                 imageHTML = `<div class="modal-image-container has-image">
-                    <img src="${imageUrl}" class="modal-image" alt="Trade Setup" onerror="this.parentElement.style.display='none'">
+                    <img src="${imageUrl}" class="modal-image" alt="Trade Setup" onerror="handleImageError(this)">
+                    <div class="image-error-fallback">
+                        <span class="image-error-text">Image failed to load (Check Drive Permissions)</span>
+                        <a href="${t.setup}" target="_blank" class="view-image-btn">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                            Open Original Link
+                        </a>
+                    </div>
                 </div>`;
             }
             
