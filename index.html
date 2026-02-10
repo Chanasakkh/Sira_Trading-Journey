@@ -39,9 +39,35 @@
         .logo-section { display: flex; flex-direction: column; justify-content: center; }
         .main-logo { height: 150px; width: 150px; object-fit: contain; display: block; margin-bottom: 8px; }
         .logo-section p { font-size: 0.875rem; color: var(--text-secondary); font-family: 'Space Mono', monospace; }
+        
+        /* --- SIMULATOR STYLES --- */
+        .simulator-section {
+            display: flex;
+            gap: 16px;
+            background: var(--bg-tertiary);
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            align-self: center;
+        }
+        .sim-input-group { display: flex; flex-direction: column; gap: 4px; }
+        .sim-label { font-size: 0.65rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px; }
+        .sim-input { 
+            background: var(--bg-primary); 
+            border: 1px solid var(--border-color); 
+            color: var(--accent-gold); 
+            padding: 6px 10px; 
+            font-family: 'Space Mono', monospace; 
+            font-size: 0.9rem; 
+            width: 100px; 
+            border-radius: 4px;
+            font-weight: 700;
+        }
+        .sim-input:focus { outline: none; border-color: var(--accent-gold); }
+        /* ----------------------- */
+
         .controls-wrapper { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
         
-        /* NEW STATUS INDICATOR STYLES */
         .status-indicator { 
             font-family: 'Space Mono', monospace; 
             font-size: 0.75rem; 
@@ -220,13 +246,14 @@
         .search-box:focus { outline: none; border-color: var(--text-secondary); }
 
         .table-container { background: var(--bg-secondary); border: 1px solid var(--border-color); overflow: hidden; overflow-x: auto; }
-        .table-header { display: grid; grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 55px 75px; gap: 12px; background: var(--bg-tertiary); border-bottom: 1px solid var(--border-color); padding: 0 20px; min-width: 1650px; }
+        /* UPDATED GRID FOR NEW PROFIT COLUMN */
+        .table-header { display: grid; grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 90px 55px 75px; gap: 12px; background: var(--bg-tertiary); border-bottom: 1px solid var(--border-color); padding: 0 20px; min-width: 1750px; }
         .table-header-cell { padding: 16px 0; font-size: 0.6rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-family: 'Space Mono', monospace; }
-        .table-body { max-height: 600px; overflow-y: auto; min-width: 1650px; }
+        .table-body { max-height: 600px; overflow-y: auto; min-width: 1750px; }
         .table-body::-webkit-scrollbar { width: 6px; height: 6px; }
         .table-body::-webkit-scrollbar-track { background: var(--bg-secondary); }
         .table-body::-webkit-scrollbar-thumb { background: var(--border-color); }
-        .table-row { display: grid; grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 55px 75px; gap: 12px; border-bottom: 1px solid var(--border-color); padding: 0 20px; transition: all 0.2s ease; opacity: 0; transform: translateX(-10px); cursor: pointer; }
+        .table-row { display: grid; grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 90px 55px 75px; gap: 12px; border-bottom: 1px solid var(--border-color); padding: 0 20px; transition: all 0.2s ease; opacity: 0; transform: translateX(-10px); cursor: pointer; }
         .table-row.loaded { opacity: 1; transform: translateX(0); }
         .table-row:hover { background: var(--bg-tertiary); }
         .table-row.grouped { background: rgba(59, 130, 246, 0.05); border-left: 3px solid var(--accent-blue); }
@@ -308,6 +335,7 @@
             .calendar-day { min-height: 80px; padding: 4px; }
             .day-profit { font-size: 0.7rem; }
             .calendar-nav { flex-wrap: wrap; }
+            .simulator-section { width: 100%; justify-content: space-between; }
         }
     </style>
 </head>
@@ -318,6 +346,18 @@
                 <img src="logo.png" class="main-logo" alt="Trade Journey Logo">
                 <p>Trading Performance Tracker</p>
             </div>
+
+            <div class="simulator-section">
+                <div class="sim-input-group">
+                    <span class="sim-label">Capital ($)</span>
+                    <input type="number" class="sim-input" id="capitalInput" value="10000" oninput="updateSimulation()">
+                </div>
+                <div class="sim-input-group">
+                    <span class="sim-label">Lot Size</span>
+                    <input type="number" class="sim-input" id="lotInput" value="" placeholder="0.0" step="0.01" oninput="updateSimulation()">
+                </div>
+            </div>
+
             <div class="controls-wrapper">
                 <select id="monthSelector" class="custom-select" onchange="filterByMonth(this.value)">
                     <option value="all">All Time</option>
@@ -340,7 +380,8 @@
         <div class="stats-grid" id="statsGrid">
             <div class="stat-card"><span class="stat-label">Total Trades</span><span class="stat-value" id="totalTrades">0</span></div>
             <div class="stat-card"><span class="stat-label">Win Rate</span><span class="stat-value positive" id="winRate">0%</span><span class="stat-sub" id="winRateSub">0W / 0L / 0D</span></div>
-            <div class="stat-card"><span class="stat-label">Total Points</span><span class="stat-value" id="totalPoints">0</span></div>
+            <div class="stat-card"><span class="stat-label" id="statLabel-total">Total Points</span><span class="stat-value" id="totalPoints">0</span></div>
+            <div class="stat-card" id="roiCard" style="display:none;"><span class="stat-label">ROI %</span><span class="stat-value" id="roiValue">0%</span></div>
             <div class="stat-card"><span class="stat-label">Best Trade</span><span class="stat-value positive" id="bestTrade">0</span></div>
             <div class="stat-card"><span class="stat-label">Worst Trade</span><span class="stat-value negative" id="worstTrade">0</span></div>
         </div>
@@ -351,7 +392,7 @@
                 <div class="chart-wrapper"><canvas id="dailyChart"></canvas></div>
             </div>
             <div class="chart-container">
-                <div class="section-title">Equity Curve (Cumulative)</div>
+                <div class="section-title" id="equityChartTitle">Cumulative Points</div>
                 <div class="chart-wrapper"><canvas id="equityChart"></canvas></div>
             </div>
             <div class="extended-stats">
@@ -423,7 +464,7 @@
 
         <div class="table-container">
             <div class="table-header">
-                <div class="table-header-cell">No.</div><div class="table-header-cell">SetID</div><div class="table-header-cell">Date</div><div class="table-header-cell">Plan</div><div class="table-header-cell">Type</div><div class="table-header-cell">Asset</div><div class="table-header-cell">Category</div><div class="table-header-cell">Order</div><div class="table-header-cell">Entry</div><div class="table-header-cell">TP</div><div class="table-header-cell">SL</div><div class="table-header-cell">Strategy</div><div class="table-header-cell">Result</div><div class="table-header-cell">Points</div><div class="table-header-cell">RR</div><div class="table-header-cell">Status</div>
+                <div class="table-header-cell">No.</div><div class="table-header-cell">SetID</div><div class="table-header-cell">Date</div><div class="table-header-cell">Plan</div><div class="table-header-cell">Type</div><div class="table-header-cell">Asset</div><div class="table-header-cell">Category</div><div class="table-header-cell">Order</div><div class="table-header-cell">Entry</div><div class="table-header-cell">TP</div><div class="table-header-cell">SL</div><div class="table-header-cell">Strategy</div><div class="table-header-cell">Result</div><div class="table-header-cell">Points</div><div class="table-header-cell">Profit ($)</div><div class="table-header-cell">RR</div><div class="table-header-cell">Status</div>
             </div>
             <div class="table-body" id="tableBody">
                 <div class="empty-state" id="emptyState">
@@ -448,11 +489,19 @@
         let activeFilters = { status: 'all', search: '', month: 'all', specificDate: null };
         let dailyChart = null, equityChart = null, currentCalendarDate = new Date(), dailyProfitData = {};
         let calendarView = 'month', selectedYear = new Date().getFullYear();
+        
+        // SIMULATOR STATE
+        let currentCapital = 10000;
+        let currentLot = 0; // Default 0 means Simulator is OFF
 
         document.addEventListener('DOMContentLoaded', function() {
             renderCalendar();
             
-            // AUTO LOAD DATA
+            // Initial read of inputs
+            currentCapital = parseFloat(document.getElementById('capitalInput').value) || 10000;
+            const lotVal = document.getElementById('lotInput').value;
+            currentLot = (lotVal === '' || parseFloat(lotVal) === 0) ? 0 : parseFloat(lotVal);
+
             updateConnectionStatus('syncing');
             fetchFromGoogleSheet();
 
@@ -475,6 +524,14 @@
                 dot.className = 'status-dot error';
                 text.textContent = 'Connection Failed';
             }
+        }
+
+        // --- SIMULATOR UPDATE FUNCTION ---
+        function updateSimulation() {
+            currentCapital = parseFloat(document.getElementById('capitalInput').value) || 0;
+            const lotVal = document.getElementById('lotInput').value;
+            currentLot = (lotVal === '' || parseFloat(lotVal) === 0) ? 0 : parseFloat(lotVal);
+            applyAllFilters(); 
         }
 
         function fetchFromGoogleSheet() {
@@ -759,23 +816,47 @@
             tbody.innerHTML = bodyHTML;
         }
 
+        // --- UPDATED STATS CALCULATION (WITH TOGGLE LOGIC) ---
         function updateStats(data) {
             const wins = data.filter(t => (t.status || '').toUpperCase() === 'WIN').length;
             const loses = data.filter(t => (t.status || '').toUpperCase() === 'LOSE').length;
             const draws = data.filter(t => (t.status || '').toUpperCase() === 'DRAW').length;
+            
             const totalPoints = data.reduce((sum, t) => sum + (t.points || 0), 0);
             const pointsArr = data.map(t => t.points).filter(p => p !== 0);
             const best = pointsArr.length ? Math.max(...pointsArr) : 0;
             const worst = pointsArr.length ? Math.min(...pointsArr) : 0;
             const valid = wins + loses + draws;
             const rate = valid > 0 ? ((wins / valid) * 100).toFixed(1) : 0;
+            
             document.getElementById('totalTrades').textContent = data.length;
             document.getElementById('winRate').textContent = rate + '%';
             document.getElementById('winRateSub').textContent = `${wins}W / ${loses}L / ${draws}D`;
-            document.getElementById('totalPoints').textContent = (totalPoints > 0 ? '+' : '') + totalPoints.toLocaleString();
-            document.getElementById('totalPoints').className = `stat-value ${totalPoints >= 0 ? 'positive' : 'negative'}`;
             document.getElementById('bestTrade').textContent = '+' + best.toLocaleString();
             document.getElementById('worstTrade').textContent = worst.toLocaleString();
+
+            const isSimulating = currentLot > 0;
+
+            if (isSimulating) {
+                // SIMULATOR MODE
+                const totalProfit = totalPoints * currentLot;
+                const roi = currentCapital > 0 ? (totalProfit / currentCapital) * 100 : 0;
+
+                document.getElementById('statLabel-total').textContent = 'Total Profit ($)';
+                document.getElementById('totalPoints').textContent = (totalProfit >= 0 ? '+' : '') + '$' + Math.round(totalProfit).toLocaleString();
+                document.getElementById('totalPoints').className = `stat-value ${totalProfit >= 0 ? 'positive' : 'negative'}`;
+                
+                document.getElementById('roiCard').style.display = 'flex';
+                document.getElementById('roiValue').textContent = (roi >= 0 ? '+' : '') + roi.toFixed(2) + '%';
+                document.getElementById('roiValue').className = `stat-value ${roi >= 0 ? 'positive' : 'negative'}`;
+            } else {
+                // NORMAL MODE
+                document.getElementById('statLabel-total').textContent = 'Total Points';
+                document.getElementById('totalPoints').textContent = (totalPoints >= 0 ? '+' : '') + totalPoints.toLocaleString();
+                document.getElementById('totalPoints').className = `stat-value ${totalPoints >= 0 ? 'positive' : 'negative'}`;
+                
+                document.getElementById('roiCard').style.display = 'none';
+            }
         }
 
         function updateExtendedStats(data) {
@@ -801,13 +882,37 @@
             document.getElementById('expectancy').className = `stats-value ${exp>=0?'positive':'negative'}`;
         }
 
+        // --- UPDATED CHARTS (WITH TOGGLE LOGIC) ---
         function renderCharts(data) {
             const dailyMap = {};
             data.forEach(t => { if(t.date) dailyMap[t.date] = (dailyMap[t.date] || 0) + t.points; });
             const sortedDates = Object.keys(dailyMap).sort((a,b) => parseDateString(a) - parseDateString(b));
+            
             const dailyValues = sortedDates.map(d => dailyMap[d]);
-            const equityValues = [0]; let sum = 0;
-            dailyValues.forEach(v => { sum += v; equityValues.push(sum); });
+            
+            const isSimulating = currentLot > 0;
+            let equityValues = [];
+            
+            if (isSimulating) {
+                // Equity Curve ($)
+                document.getElementById('equityChartTitle').textContent = 'Equity Curve ($)';
+                let runningBalance = currentCapital;
+                equityValues = [currentCapital];
+                dailyValues.forEach(v => { 
+                    runningBalance += (v * currentLot); 
+                    equityValues.push(runningBalance); 
+                });
+            } else {
+                // Cumulative Points Curve
+                document.getElementById('equityChartTitle').textContent = 'Cumulative Points';
+                let runningPoints = 0;
+                equityValues = [0];
+                dailyValues.forEach(v => {
+                    runningPoints += v;
+                    equityValues.push(runningPoints);
+                });
+            }
+            
             const equityLabels = ['Start', ...sortedDates];
 
             const ctxD = document.getElementById('dailyChart');
@@ -816,14 +921,28 @@
 
             const ctxE = document.getElementById('equityChart');
             if(equityChart) equityChart.destroy();
-            const lastEq = equityValues[equityValues.length-1];
-            const eqColor = lastEq >= 0 ? '#22c55e' : '#ef4444';
+            
+            let eqColor = '#3b82f6'; // Default Blue for Points
+            let lastVal = equityValues[equityValues.length-1];
+            
+            if (isSimulating) {
+                eqColor = lastVal >= currentCapital ? '#22c55e' : '#ef4444';
+            } else {
+                eqColor = lastVal >= 0 ? '#22c55e' : '#ef4444';
+            }
+
             const gradient = ctxE.getContext('2d').createLinearGradient(0,0,0,200);
-            gradient.addColorStop(0, lastEq>=0?'rgba(34,197,94,0.3)':'rgba(239,68,68,0.3)');
+            if (isSimulating) {
+                gradient.addColorStop(0, lastVal>=currentCapital?'rgba(34,197,94,0.3)':'rgba(239,68,68,0.3)');
+            } else {
+                gradient.addColorStop(0, lastVal>=0?'rgba(34,197,94,0.3)':'rgba(239,68,68,0.3)');
+            }
             gradient.addColorStop(1, 'rgba(0,0,0,0)');
+            
             equityChart = new Chart(ctxE, { type: 'line', data: { labels: equityLabels, datasets: [{ data: equityValues, borderColor: eqColor, backgroundColor: gradient, borderWidth: 2, fill: true, pointRadius: 2, tension: 0.4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: {display:false} }, scales: { x: { display:false }, y: { grid: {color:'rgba(255,255,255,0.05)'}, ticks: {color:'#666', font:{family:'Space Mono'}} } } } });
         }
 
+        // --- UPDATED TABLE ---
         function renderTable(data) {
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = '';
@@ -835,9 +954,20 @@
                 const row = document.createElement('div');
                 row.className = `table-row ${t.isGrouped?'grouped':''}`;
                 row.onclick = () => openModal(t);
+                
                 let pts = t.points;
                 if(t.isGrouped) { const g = groupedTrades[t.setIdBase]; if(g) pts = g.reduce((s,x)=>s+(x.points||0),0); }
-                row.innerHTML = `<div class="table-cell cell-no">${t.no}${t.isGrouped?`<span class="group-badge">${t.groupSize}</span>`:''}</div><div class="table-cell cell-setid">${t.setId}</div><div class="table-cell cell-date">${t.date}</div><div class="table-cell">${t.plan}</div><div class="table-cell cell-type-text">${t.type}</div><div class="table-cell cell-asset">${t.asset}</div><div class="table-cell"><span class="cell-category">${t.category}</span></div><div class="table-cell"><span class="cell-type ${(t.order||'').toLowerCase()}">${t.order}</span></div><div class="table-cell cell-price">${t.entryOrder}</div><div class="table-cell cell-price">${t.tpOrder}</div><div class="table-cell cell-price">${t.slOrder}</div><div class="table-cell cell-strategy">${truncate(t.strategy, 20)}</div><div class="table-cell"><span class="cell-result ${getResultClass(t.result)}">${t.result}</span></div><div class="table-cell cell-points ${pts >= 0 ? 'positive' : 'negative'}">${pts>0?'+':''}${pts.toLocaleString()}</div><div class="table-cell cell-rr">${t.rr}</div><div class="table-cell cell-status ${getStatusClass(t.status)}">${t.status}</div>`;
+                
+                let profitCell = '-';
+                if (currentLot > 0) {
+                    const profit = pts * currentLot;
+                    profitCell = `<span class="${profit>=0?'positive':'negative'}">${profit>0?'+':''}$${Math.round(profit).toLocaleString()}</span>`;
+                }
+
+                row.innerHTML = `<div class="table-cell cell-no">${t.no}${t.isGrouped?`<span class="group-badge">${t.groupSize}</span>`:''}</div><div class="table-cell cell-setid">${t.setId}</div><div class="table-cell cell-date">${t.date}</div><div class="table-cell">${t.plan}</div><div class="table-cell cell-type-text">${t.type}</div><div class="table-cell cell-asset">${t.asset}</div><div class="table-cell"><span class="cell-category">${t.category}</span></div><div class="table-cell"><span class="cell-type ${(t.order||'').toLowerCase()}">${t.order}</span></div><div class="table-cell cell-price">${t.entryOrder}</div><div class="table-cell cell-price">${t.tpOrder}</div><div class="table-cell cell-price">${t.slOrder}</div><div class="table-cell cell-strategy">${truncate(t.strategy, 20)}</div><div class="table-cell"><span class="cell-result ${getResultClass(t.result)}">${t.result}</span></div>
+                <div class="table-cell cell-points ${pts >= 0 ? 'positive' : 'negative'}">${pts>0?'+':''}${pts.toLocaleString()}</div>
+                <div class="table-cell cell-points">${profitCell}</div>
+                <div class="table-cell cell-rr">${t.rr}</div><div class="table-cell cell-status ${getStatusClass(t.status)}">${t.status}</div>`;
                 tbody.appendChild(row);
                 setTimeout(()=>row.classList.add('loaded'), 10);
             });
