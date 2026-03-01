@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Trade Journey (Enrich View)</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -23,7 +23,7 @@
             --accent-blue: #3b82f6;
             --accent-purple: #8b5cf6;
             
-            /* New Layout Variables */
+            /* Layout Variables */
             --sidebar-width: 80px;
             --header-height: 70px;
         }
@@ -35,6 +35,7 @@
             background: var(--bg-primary);
             color: var(--text-primary);
             height: 100vh;
+            height: 100dvh; /* For mobile browsers with dynamic UI */
             overflow: hidden; 
             line-height: 1.6;
             display: flex;
@@ -64,7 +65,7 @@
         .nav-item svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
         .nav-item span { font-size: 0.65rem; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--bg-primary); }
+        .main-content { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--bg-primary); width: 100%; }
         .global-header {
             height: var(--header-height); padding: 0 24px; display: flex; justify-content: space-between;
             align-items: center; border-bottom: 1px solid var(--border-color); flex-shrink: 0; background: var(--bg-secondary);
@@ -106,15 +107,15 @@
         /* =========================================
            NEW DASHBOARD LAYOUT (Zella Style - Exact Fit)
            ========================================= */
-        #page-dashboard { overflow: hidden; padding-right: 24px; } /* Removed overflow-y: auto */
+        #page-dashboard { overflow: hidden; padding-right: 24px; }
 
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: auto 1fr 1fr; /* Row1: auto fit, Row2 & Row3: split remaining height equally */
+            grid-template-rows: auto 1fr 1fr;
             gap: 12px;
             width: 100%;
-            height: 100%; /* Force grid to fill exactly the container */
+            height: 100%;
             padding-bottom: 0;
         }
 
@@ -126,10 +127,9 @@
             display: flex;
             flex-direction: column;
             box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-            min-height: 0; /* Critical: allows flex children to shrink below their content size if needed */
+            min-height: 0;
         }
 
-        /* Span helpers */
         .col-span-1 { grid-column: span 1; }
         .col-span-2 { grid-column: span 2; }
         .col-span-3 { grid-column: span 3; }
@@ -147,7 +147,6 @@
             display: inline-flex; align-items: center; justify-content: center; font-size: 0.5rem; color: var(--text-muted);
         }
 
-        /* Big Stat Text */
         .stat-value-huge { font-family: 'Space Mono', monospace; font-size: 1.8rem; font-weight: 700; letter-spacing: -1px; line-height: 1.2; }
         .stat-value-huge.positive { color: var(--accent-green); }
         .stat-value-huge.negative { color: var(--accent-red); }
@@ -159,15 +158,12 @@
             background: rgba(255,255,255,0.05); color: var(--text-secondary); margin-top: 8px; align-self: flex-start;
         }
 
-        /* Score Display inside title */
         .score-highlight { color: var(--text-primary); font-size: 1.2rem; font-weight: 700; font-family: 'Space Mono', monospace; margin-left: auto; }
 
-        /* Chart Wrappers - allow shrinking to fit grid row */
         .chart-wrapper, .radar-wrapper { 
             flex: 1; position: relative; width: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; 
         }
 
-        /* Stats List List in Dashboard */
         .adv-stats-list { display: flex; flex-direction: column; flex: 1; min-height: 0; justify-content: space-around; margin-top: 8px; }
         .adv-stats-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 6px; }
         .adv-stats-row:last-child { border-bottom: none; padding-bottom: 0; }
@@ -176,36 +172,19 @@
         .adv-stats-value.positive { color: var(--accent-green); }
         .adv-stats-value.negative { color: var(--accent-red); }
 
-        /* Progress Bar (Win Rate visual) */
         .progress-bar-bg { width: 100%; height: 6px; background: rgba(239, 68, 68, 0.2); border-radius: 3px; overflow: hidden; margin-top: 12px; display: flex; flex-shrink: 0; }
         .progress-bar-fill { height: 100%; background: var(--accent-green); transition: width 0.5s ease; }
-
-        /* Responsive Fallback: Allow scroll on small screens where squeezing doesn't work */
-        @media (max-width: 1400px) {
-            #page-dashboard { overflow-y: auto; padding-right: 12px; }
-            #page-dashboard::-webkit-scrollbar { width: 6px; }
-            #page-dashboard::-webkit-scrollbar-track { background: transparent; }
-            #page-dashboard::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
-            
-            .dashboard-grid { 
-                grid-template-columns: repeat(2, 1fr); 
-                grid-template-rows: auto;
-                height: auto; 
-                padding-bottom: 24px;
-            }
-            .chart-wrapper, .radar-wrapper { min-height: 220px; }
-        }
 
         /* =========================================
            CALENDAR & TABLE STYLES
            ========================================= */
-        .calendar-section { background: var(--bg-card); border: 1px solid var(--border-color); flex: 1; display: flex; flex-direction: column; min-height: 0; opacity: 0; transition: opacity 0.5s ease; border-radius: 12px; } 
+        .calendar-section { background: var(--bg-card); border: 1px solid var(--border-color); flex: 1; display: flex; flex-direction: column; min-height: 0; opacity: 0; transition: opacity 0.5s ease; border-radius: 12px; overflow: hidden; } 
         .calendar-section.loaded { opacity: 1; }
-        .calendar-main { padding: 20px; flex: 1; display: flex; flex-direction: column; min-height: 0; }
-        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-shrink: 0; }
+        .calendar-main { padding: 20px; flex: 1; display: flex; flex-direction: column; min-height: 0; overflow-y: auto; }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-shrink: 0; flex-wrap: wrap; gap: 12px; }
         .calendar-title { font-family: 'Space Mono', monospace; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; }
-        .calendar-nav { display: flex; gap: 8px; align-items: center; }
-        .calendar-nav-btn { background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-secondary); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; border-radius: 6px; }
+        .calendar-nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .calendar-nav-btn { background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-secondary); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; border-radius: 6px; flex-shrink: 0; }
         .calendar-nav-btn:hover { border-color: var(--text-primary); color: var(--text-primary); }
         
         .calendar-view-toggle { display: flex; gap: 4px; margin-left: 12px; background: var(--bg-tertiary); padding: 4px; border-radius: 6px; border: 1px solid var(--border-color); }
@@ -213,26 +192,26 @@
         .view-toggle-btn:hover { color: var(--text-secondary); }
         .view-toggle-btn.active { background: var(--bg-secondary); color: var(--text-primary); box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         
-        .monthly-calendar-container { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+        .monthly-calendar-container { flex: 1; display: flex; flex-direction: column; min-height: 0; overflow-x: auto;} /* added overflow-x auto for safe fallback */
         .monthly-calendar-container.hidden { display: none; }
         
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); flex-shrink: 0; border-radius: 8px 8px 0 0; overflow: hidden;}
-        .calendar-grid-with-totals { display: grid; grid-template-columns: repeat(7, 1fr) auto; gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); border-top: none; }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); flex-shrink: 0; border-radius: 8px 8px 0 0; overflow: hidden;}
+        .calendar-grid-with-totals { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)) auto; gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); border-top: none; }
         #calendarGrid { flex: 1; overflow-y: auto; }
         #dailyTotalsRow { flex-shrink: 0; border-radius: 0 0 8px 8px; overflow: hidden; }
 
         .calendar-day-header { background: rgba(255,255,255,0.02); padding: 10px 4px; text-align: center; font-size: 0.65rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; }
-        .calendar-day { background: var(--bg-card); padding: 8px; display: flex; flex-direction: column; justify-content: space-between; transition: background 0.2s; position: relative; min-height: 60px; }
+        .calendar-day { background: var(--bg-card); padding: 8px; display: flex; flex-direction: column; justify-content: space-between; transition: background 0.2s; position: relative; min-height: 60px; word-break: break-all; }
         .calendar-day:hover { background: var(--bg-tertiary); }
         .calendar-day.empty { background: rgba(20, 20, 20, 0.5); pointer-events: none; }
         .day-number { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--text-muted); font-weight: 600;}
-        .day-profit { text-align: right; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.85rem; margin-top: 4px;}
+        .day-profit { text-align: right; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.85rem; margin-top: 4px; }
         .day-profit.positive { color: var(--accent-green); }
         .day-profit.negative { color: var(--accent-red); }
         .day-profit.neutral { color: var(--text-muted); }
         .day-trades-count { font-size: 0.6rem; color: var(--text-secondary); text-align: right; margin-top: 2px; }
         
-        .calendar-week-total { background: rgba(255,255,255,0.02); padding: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 2px solid var(--border-color); min-width: 80px; }
+        .calendar-week-total { background: rgba(255,255,255,0.02); padding: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 2px solid var(--border-color); min-width: 60px; }
         .calendar-week-total .week-label { font-size: 0.6rem; color: var(--text-muted); font-family: 'Space Mono', monospace; margin-bottom: 2px; text-transform: uppercase; }
         .calendar-week-total .week-value { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.85rem; }
         .calendar-week-total .week-value.positive { color: var(--accent-green); }
@@ -240,11 +219,11 @@
         .calendar-week-total .week-value.neutral { color: var(--text-muted); }
         
         .calendar-day-total { background: rgba(255,255,255,0.02); padding: 10px 4px; text-align: center; border-top: 2px solid var(--border-color); }
-        .calendar-day-total .day-total-value { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.8rem; }
+        .calendar-day-total .day-total-value { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.8rem; word-break: break-all; }
         .calendar-day-total .day-total-value.positive { color: var(--accent-green); }
         .calendar-day-total .day-total-value.negative { color: var(--accent-red); }
         .calendar-day-total .day-total-value.neutral { color: var(--text-muted); }
-        .calendar-total-header { background: rgba(255,255,255,0.02); padding: 10px 4px; text-align: center; font-size: 0.65rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; min-width: 80px; border-left: 2px solid var(--border-color); }
+        .calendar-total-header { background: rgba(255,255,255,0.02); padding: 10px 4px; text-align: center; font-size: 0.65rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; min-width: 60px; border-left: 2px solid var(--border-color); }
 
         /* Year Summary Table */
         .year-summary-container { display: none; overflow-x: auto; flex: 1; border: 1px solid var(--border-color); border-radius: 8px;}
@@ -269,7 +248,7 @@
         .filter-group { display: flex; gap: 8px; flex-wrap: wrap; }
         .filter-btn { background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-secondary); padding: 8px 14px; font-size: 0.7rem; cursor: pointer; transition: all 0.2s ease; font-family: 'Instrument Sans', sans-serif; text-transform: uppercase; border-radius: 6px; font-weight: 600;}
         .filter-btn:hover, .filter-btn.active { background: var(--text-primary); color: var(--bg-primary); border-color: var(--text-primary); }
-        .search-box { background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px 14px; font-size: 0.8rem; width: 260px; font-family: 'Instrument Sans', sans-serif; border-radius: 6px; }
+        .search-box { background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px 14px; font-size: 0.8rem; width: 260px; font-family: 'Instrument Sans', sans-serif; border-radius: 6px; max-width: 100%;}
         .search-box:focus { outline: none; border-color: var(--text-secondary); }
 
         .table-container { background: var(--bg-card); border: 1px solid var(--border-color); flex: 1; display: flex; flex-direction: column; overflow: hidden; border-radius: 12px; }
@@ -311,13 +290,13 @@
         .cell-status.none, .cell-status.cancel, .cell-status.hold { color: var(--text-muted); }
         .group-badge { display: inline-flex; align-items: center; justify-content: center; background: var(--accent-blue); color: white; font-size: 0.6rem; padding: 2px 5px; border-radius: 3px; font-weight: 600; margin-left: 4px; }
         
-        .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; text-align: center; height: 100%; width: 100vw; position: sticky; left: 0; }
+        .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; text-align: center; height: 100%; width: 100%; position: sticky; left: 0; }
         .empty-icon { width: 48px; height: 48px; border: 2px dashed var(--border-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
         .empty-icon svg { width: 20px; height: 20px; stroke: var(--text-muted); }
         .empty-title { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
         .empty-desc { color: var(--text-muted); font-size: 0.75rem; }
 
-        /* Modal Styles Keep Intact */
+        /* Modal Styles */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); display: flex; align-items: center; justify-content: center; z-index: 100; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
         .modal-overlay.active { opacity: 1; visibility: visible; }
         .modal { background: var(--bg-card); border: 1px solid var(--border-color); max-width: 800px; width: 90%; max-height: 85vh; overflow-y: auto; transform: translateY(20px); transition: all 0.3s ease; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);}
@@ -350,11 +329,108 @@
         .group-entry-grid .detail-item { gap: 2px; }
         .group-entry-grid .detail-label { font-size: 0.6rem; }
         .group-entry-grid .detail-value { font-size: 0.85rem; }
+
+
+        /* =========================================
+           RESPONSIVE DESIGN (TABLETS & MOBILE)
+           ========================================= */
+        
+        /* Tablets & Smaller Desktops */
+        @media (max-width: 1400px) {
+            #page-dashboard { overflow-y: auto; padding-right: 12px; }
+            #page-dashboard::-webkit-scrollbar { width: 6px; }
+            #page-dashboard::-webkit-scrollbar-track { background: transparent; }
+            #page-dashboard::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+            
+            .dashboard-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                grid-template-rows: auto;
+                height: auto; 
+                padding-bottom: 24px;
+            }
+            .chart-wrapper, .radar-wrapper { min-height: 220px; }
+        }
+
+        /* Mobile Phones */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column-reverse; /* Put Sidebar at the bottom */
+            }
+
+            /* Bottom Navigation Bar */
+            .sidebar {
+                width: 100%;
+                height: 65px;
+                flex-direction: row;
+                border-right: none;
+                border-top: 1px solid var(--border-color);
+                padding-top: 0;
+                padding-bottom: env(safe-area-inset-bottom, 0px); /* iPhone safe area */
+                background: rgba(17, 17, 17, 0.95);
+                backdrop-filter: blur(10px);
+            }
+            .sidebar-logo-wrapper { display: none; }
+            .nav-menu { flex-direction: row; justify-content: space-around; height: 100%; align-items: stretch;}
+            .nav-item { padding: 5px; flex: 1; justify-content: center; }
+            .nav-item.active::before {
+                width: 50%; height: 3px; top: 0; bottom: auto; left: 25%; right: auto; border-radius: 0 0 3px 3px;
+            }
+            .nav-item svg { width: 20px; height: 20px; }
+            .nav-item span { font-size: 0.6rem; }
+
+            /* Header adjustments */
+            .global-header {
+                height: auto;
+                flex-direction: column;
+                padding: 12px;
+                gap: 12px;
+                align-items: stretch;
+            }
+            .simulator-section { justify-content: space-between; }
+            .controls-wrapper { justify-content: space-between; flex-wrap: wrap; }
+            .custom-select { flex: 1; }
+
+            /* Pages container adjustments */
+            .page-container { padding: 10px; }
+            .filter-bar-container { padding: 10px 10px 0; }
+
+            /* Dashboard Grid to 1 Column */
+            .dashboard-grid { grid-template-columns: 1fr; gap: 16px; padding-bottom: 20px;}
+            .col-span-1, .col-span-2, .col-span-3, .col-span-4 { grid-column: span 1; }
+            .stat-value-huge { font-size: 1.5rem; }
+
+            /* Calendar adjustments for mobile */
+            .calendar-main { padding: 10px; }
+            .calendar-title { font-size: 0.9rem; }
+            .calendar-view-toggle { margin-left: auto; }
+            .calendar-day-header { font-size: 0.5rem; padding: 6px 2px; }
+            .calendar-day { min-height: 45px; padding: 4px; }
+            .day-number { font-size: 0.6rem; }
+            .day-profit { font-size: 0.65rem; }
+            .day-trades-count { display: none; } /* Hide sub-text to save space */
+            
+            .calendar-week-total, .calendar-total-header { min-width: 50px; padding: 4px; }
+            .calendar-week-total .week-value { font-size: 0.7rem; }
+            .calendar-day-total .day-total-value { font-size: 0.65rem; }
+
+            /* Table Filter adjustments */
+            .filters-section { flex-direction: column; align-items: stretch; gap: 10px;}
+            .filter-group { justify-content: flex-start; }
+            .filter-btn { flex: 1; text-align: center; padding: 8px; font-size: 0.65rem;}
+
+            /* Modal adjustments */
+            .modal { width: 95%; max-height: 80vh; }
+            .modal-header { padding: 15px; }
+            .modal-body { padding: 15px; }
+            .detail-grid { grid-template-columns: 1fr; gap: 12px; }
+            .group-entry-grid { grid-template-columns: repeat(2, 1fr); gap: 8px;}
+        }
+
     </style>
 </head>
 <body>
     
-    <!-- SIDEBAR NAVIGATION -->
+    <!-- SIDEBAR NAVIGATION (Becomes Bottom Nav on Mobile) -->
     <nav class="sidebar">
         <div class="sidebar-logo-wrapper">
             <img src="logo.png" class="main-logo" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
