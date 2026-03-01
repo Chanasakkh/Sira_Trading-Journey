@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
@@ -714,7 +714,25 @@
 
         function filterTrades(type, btn) { activeFilters.status = type; document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); if(btn) btn.classList.add('active'); applyAllFilters(); }
         function searchTrades(val) { activeFilters.search = val; applyAllFilters(); }
-        function filterByMonth(val) { activeFilters.month = val; activeFilters.specificDate = null; document.getElementById('monthSelector').value = val; applyAllFilters(); }
+        
+        // --- UPDATED: Connect Dropdown to Calendar View ---
+        function filterByMonth(val) { 
+            activeFilters.month = val; 
+            activeFilters.specificDate = null; 
+            document.getElementById('monthSelector').value = val; 
+            
+            // Sync calendar view with the selected filter month
+            if (val !== 'all') {
+                const [y, m] = val.split('-');
+                currentCalendarDate = new Date(parseInt(y), parseInt(m), 1);
+                selectedYear = parseInt(y); // Update for year view
+                const yearSelect = document.getElementById('yearSelect');
+                if(yearSelect) yearSelect.value = selectedYear;
+            }
+            
+            applyAllFilters(); 
+        }
+
         function handleChartClick(event, elements, chart) { if (!elements || elements.length === 0) return; activeFilters.specificDate = chart.data.labels[elements[0].index]; applyAllFilters(); }
 
         function populateMonthDropdown() {
@@ -1059,7 +1077,26 @@
             if(calendarView === 'month') renderCalendar(); else renderYearSummary();
         }
 
-        function changeMonth(offset) { currentCalendarDate.setMonth(currentCalendarDate.getMonth() + offset); renderCalendar(); }
+        // --- UPDATED: Connect Calendar Buttons back to Dropdown ---
+        function changeMonth(offset) { 
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + offset); 
+            const newMonthVal = `${currentCalendarDate.getFullYear()}-${currentCalendarDate.getMonth()}`;
+            
+            // Check if this month exists in our dropdown
+            const selector = document.getElementById('monthSelector');
+            let optionExists = Array.from(selector.options).some(opt => opt.value === newMonthVal);
+            
+            // If the user has a specific month filtered (not 'all'), keep it synced
+            if (activeFilters.month !== 'all' && optionExists) {
+                activeFilters.month = newMonthVal;
+                selector.value = newMonthVal;
+                activeFilters.specificDate = null;
+                applyAllFilters(); // This will redraw everything including the calendar
+            } else {
+                // If we are in "All Time" or the month isn't in the filter list, just redraw the calendar view
+                renderCalendar(); 
+            }
+        }
 
         function renderCalendar() {
             const year = currentCalendarDate.getFullYear(), month = currentCalendarDate.getMonth();
