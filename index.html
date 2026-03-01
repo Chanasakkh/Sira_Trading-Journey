@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
@@ -21,6 +21,10 @@
             --accent-gold: #fbbf24;
             --accent-blue: #3b82f6;
             --accent-purple: #a855f7;
+            
+            /* New Layout Variables */
+            --sidebar-width: 80px;
+            --header-height: 70px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,248 +33,285 @@
             font-family: 'Instrument Sans', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
-            min-height: 100vh;
+            height: 100vh; /* Fixed Height */
+            overflow: hidden; /* Prevent Main Scroll */
             line-height: 1.6;
+            display: flex;
         }
 
-        .container { max-width: 1800px; margin: 0 auto; padding: 40px 20px; }
+        /* --- NEW LAYOUT STYLES --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            z-index: 50;
+        }
 
-        .header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 20px; }
-        .logo-section { display: flex; flex-direction: column; justify-content: center; }
-        .main-logo { height: 150px; width: 150px; object-fit: contain; display: block; margin-bottom: 8px; }
-        .logo-section p { font-size: 0.875rem; color: var(--text-secondary); font-family: 'Space Mono', monospace; }
-        
-        /* --- SIMULATOR STYLES --- */
+        .sidebar-logo-wrapper {
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-logo { height: 40px; width: 40px; object-fit: contain; }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+
+        .nav-item {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 15px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            position: relative;
+            width: 100%;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: var(--text-primary);
+            background: rgba(255,255,255,0.03);
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent-blue);
+        }
+
+        .nav-item svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+        .nav-item span { font-size: 0.65rem; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: var(--bg-primary);
+        }
+
+        .global-header {
+            height: var(--header-height);
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            flex-shrink: 0;
+            background: var(--bg-secondary);
+        }
+
+        .page-container {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            padding: 16px 24px;
+        }
+
+        .page {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            gap: 16px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .page.active { display: flex; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- EXISTING STYLES ADAPTED FOR FLEX --- */
         .simulator-section {
             display: flex;
             gap: 16px;
             background: var(--bg-tertiary);
-            padding: 12px 20px;
+            padding: 8px 16px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
-            align-self: center;
         }
-        .sim-input-group { display: flex; flex-direction: column; gap: 4px; }
-        .sim-label { font-size: 0.65rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px; }
+        .sim-input-group { display: flex; flex-direction: column; gap: 2px; }
+        .sim-label { font-size: 0.6rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px; }
         .sim-input { 
-            background: var(--bg-primary); 
-            border: 1px solid var(--border-color); 
-            color: var(--accent-gold); 
-            padding: 6px 10px; 
-            font-family: 'Space Mono', monospace; 
-            font-size: 0.9rem; 
-            width: 100px; 
-            border-radius: 4px;
-            font-weight: 700;
+            background: var(--bg-primary); border: 1px solid var(--border-color); color: var(--accent-gold); 
+            padding: 4px 8px; font-family: 'Space Mono', monospace; font-size: 0.85rem; width: 90px; border-radius: 4px; font-weight: 700;
         }
         .sim-input:focus { outline: none; border-color: var(--accent-gold); }
-        /* ----------------------- */
 
-        .controls-wrapper { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+        .controls-wrapper { display: flex; gap: 12px; align-items: center; }
         
         .status-indicator { 
-            font-family: 'Space Mono', monospace; 
-            font-size: 0.75rem; 
-            color: var(--text-secondary); 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            background: var(--bg-secondary);
-            padding: 8px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
+            font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--text-secondary); 
+            display: flex; align-items: center; gap: 8px; background: var(--bg-tertiary); padding: 6px 10px; border: 1px solid var(--border-color); border-radius: 4px;
         }
         .status-dot { width: 8px; height: 8px; background: var(--accent-gold); border-radius: 50%; animation: pulse 1.5s infinite; }
         .status-dot.connected { background: var(--accent-green); animation: none; box-shadow: 0 0 5px rgba(34, 197, 94, 0.5); }
         .status-dot.error { background: var(--accent-red); animation: none; }
         @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
-        .filter-bar-container { display: flex; align-items: center; gap: 12px; margin-bottom: 30px; min-height: 32px; flex-wrap: wrap; }
+        .filter-bar-container { display: flex; align-items: center; gap: 12px; min-height: 28px; flex-wrap: wrap; flex-shrink: 0; padding: 12px 24px 0; background: var(--bg-primary); }
         .filter-label { font-size: 0.75rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 1px; display: none; }
         .filter-label.show { display: block; }
-        .filter-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 500; border: 1px solid rgba(59, 130, 246, 0.3); transition: all 0.2s ease; }
+        .filter-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 500; border: 1px solid rgba(59, 130, 246, 0.3); transition: all 0.2s ease; }
         .filter-tag:hover { background: rgba(59, 130, 246, 0.2); }
-        .filter-tag-close { cursor: pointer; display: flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); transition: background 0.2s; }
+        .filter-tag-close { cursor: pointer; display: flex; align-items: center; justify-content: center; width: 14px; height: 14px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); transition: background 0.2s; }
         .filter-tag-close:hover { background: rgba(255, 255, 255, 0.3); color: white; }
         .clear-all-btn { font-size: 0.75rem; color: var(--accent-red); background: transparent; border: none; cursor: pointer; text-decoration: underline; padding: 4px 8px; display: none; }
         .clear-all-btn.show { display: block; }
 
-        .custom-select { background: var(--bg-secondary); color: var(--text-primary); border: 1px solid var(--border-color); padding: 0 16px; font-family: 'Space Mono', monospace; font-size: 0.8rem; cursor: pointer; outline: none; min-width: 160px; height: 42px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
+        .custom-select { background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color); padding: 0 12px; font-family: 'Space Mono', monospace; font-size: 0.75rem; cursor: pointer; outline: none; min-width: 140px; height: 32px; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
         .custom-select:hover { border-color: var(--text-secondary); }
 
-        .btn { background: var(--text-primary); color: var(--bg-primary); border: none; padding: 0 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; font-family: 'Instrument Sans', sans-serif; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; height: 42px; }
-        .btn:hover { background: var(--text-secondary); transform: translateY(-1px); }
-        .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-primary); }
-        .btn-outline:hover { border-color: var(--text-primary); background: rgba(255,255,255,0.05); }
         .file-input { display: none; }
         
-        .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--border-color); margin-bottom: 40px; opacity: 0; transform: translateY(10px); transition: all 0.5s ease; }
-        .stats-grid.loaded { opacity: 1; transform: translateY(0); }
-        .stat-card { background: var(--bg-secondary); padding: 24px; display: flex; flex-direction: column; gap: 6px; }
-        .stat-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-family: 'Space Mono', monospace; }
-        .stat-value { font-size: 2rem; font-weight: 700; font-family: 'Space Mono', monospace; letter-spacing: -1px; }
+        .page-container {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            padding: 12px 24px 16px 24px;
+        }
+
+        /* Stats Grid Fit */
+        .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--border-color); flex-shrink: 0; opacity: 0; transition: opacity 0.5s ease; }
+        .stats-grid.loaded { opacity: 1; }
+        .stat-card { background: var(--bg-secondary); padding: 16px; display: flex; flex-direction: column; justify-content: center; }
+        .stat-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-family: 'Space Mono', monospace; margin-bottom: 4px; }
+        .stat-value { font-size: 1.5rem; font-weight: 700; font-family: 'Space Mono', monospace; letter-spacing: -1px; line-height: 1; }
         .stat-value.positive { color: var(--accent-green); }
         .stat-value.negative { color: var(--accent-red); }
-        .stat-sub { font-size: 0.8rem; color: var(--text-secondary); }
+        .stat-sub { font-size: 0.7rem; color: var(--text-secondary); margin-top: 4px; }
 
-        .performance-section { display: grid; grid-template-columns: 1fr 1fr 280px; gap: 1px; background: var(--border-color); margin-bottom: 40px; opacity: 0; transform: translateY(10px); transition: all 0.5s ease; }
-        .performance-section.loaded { opacity: 1; transform: translateY(0); }
-        .chart-container { background: var(--bg-secondary); padding: 24px; position: relative; }
-        .extended-stats { background: var(--bg-secondary); padding: 24px; }
-        .section-title { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
-        .chart-wrapper { height: 240px; position: relative; width: 100%; }
-        .stats-list { display: flex; flex-direction: column; gap: 12px; }
+        /* Performance Section Fit */
+        .performance-section { display: grid; grid-template-columns: 1fr 1fr 280px; gap: 1px; background: var(--border-color); flex-shrink: 0; flex: 1; min-height: 0; opacity: 0; transition: opacity 0.5s ease; }
+        .performance-section.loaded { opacity: 1; }
+        .chart-container { background: var(--bg-secondary); padding: 16px; position: relative; display: flex; flex-direction: column; }
+        .extended-stats { background: var(--bg-secondary); padding: 16px; display: flex; flex-direction: column; justify-content: center; }
+        .section-title { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; flex-shrink: 0; }
+        .chart-wrapper { flex: 1; position: relative; width: 100%; min-height: 0; }
+        .stats-list { display: flex; flex-direction: column; gap: 10px; }
         .stats-row { display: flex; justify-content: space-between; align-items: center; }
-        .stats-label { font-size: 0.8rem; color: var(--text-secondary); }
-        .stats-value { font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 600; color: var(--text-primary); }
+        .stats-label { font-size: 0.75rem; color: var(--text-secondary); }
+        .stats-value { font-family: 'Space Mono', monospace; font-size: 0.8rem; font-weight: 600; color: var(--text-primary); }
         .stats-value.positive { color: var(--accent-green); }
         .stats-value.negative { color: var(--accent-red); }
 
-        .calendar-section { background: var(--bg-secondary); border: 1px solid var(--border-color); margin-bottom: 40px; opacity: 0; transform: translateY(10px); transition: all 0.5s ease; } 
-        .calendar-section.loaded { opacity: 1; transform: translateY(0); }
-        .calendar-main { padding: 24px; }
-        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
-        .calendar-title { font-family: 'Space Mono', monospace; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; }
-        .calendar-nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-        .calendar-nav-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; }
+        /* Calendar Section Fit */
+        .calendar-section { background: var(--bg-secondary); border: 1px solid var(--border-color); flex: 1; display: flex; flex-direction: column; min-height: 0; opacity: 0; transition: opacity 0.5s ease; } 
+        .calendar-section.loaded { opacity: 1; }
+        .calendar-main { padding: 16px; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-shrink: 0; }
+        .calendar-title { font-family: 'Space Mono', monospace; font-size: 1rem; font-weight: 700; text-transform: uppercase; }
+        .calendar-nav { display: flex; gap: 8px; align-items: center; }
+        .calendar-nav-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; border-radius: 4px; }
         .calendar-nav-btn:hover { border-color: var(--text-primary); color: var(--text-primary); }
         
-        .calendar-view-toggle { display: flex; gap: 4px; margin-left: 16px; }
-        .view-toggle-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); padding: 6px 12px; font-size: 0.7rem; cursor: pointer; transition: all 0.2s ease; font-family: 'Space Mono', monospace; text-transform: uppercase; }
+        .calendar-view-toggle { display: flex; gap: 4px; margin-left: 12px; }
+        .view-toggle-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); padding: 4px 10px; font-size: 0.65rem; cursor: pointer; transition: all 0.2s ease; font-family: 'Space Mono', monospace; text-transform: uppercase; border-radius: 4px; }
         .view-toggle-btn:hover { border-color: var(--text-secondary); color: var(--text-secondary); }
         .view-toggle-btn.active { background: var(--text-primary); color: var(--bg-primary); border-color: var(--text-primary); }
         
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); }
+        .monthly-calendar-container { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+        .monthly-calendar-container.hidden { display: none; }
+        
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); flex-shrink: 0; }
         .calendar-grid-with-totals { display: grid; grid-template-columns: repeat(7, 1fr) auto; gap: 1px; background: var(--border-color); border: 1px solid var(--border-color); }
-        .calendar-day-header { background: var(--bg-tertiary); padding: 12px 4px; text-align: center; font-size: 0.7rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; }
-        .calendar-day { background: var(--bg-secondary); min-height: 90px; padding: 8px; display: flex; flex-direction: column; justify-content: space-between; transition: background 0.2s; position: relative; }
+        /* Make calendar body take remaining space */
+        #calendarGrid { flex: 1; overflow-y: auto; }
+        #dailyTotalsRow { flex-shrink: 0; }
+
+        .calendar-day-header { background: var(--bg-tertiary); padding: 8px 4px; text-align: center; font-size: 0.65rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; }
+        .calendar-day { background: var(--bg-secondary); padding: 6px; display: flex; flex-direction: column; justify-content: space-between; transition: background 0.2s; position: relative; min-height: 50px; }
         .calendar-day:hover { background: var(--bg-tertiary); }
         .calendar-day.empty { background: rgba(17, 17, 17, 0.5); pointer-events: none; }
-        .day-number { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--text-muted); }
+        .day-number { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--text-muted); }
         .day-profit { text-align: right; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.8rem; }
         .day-profit.positive { color: var(--accent-green); }
         .day-profit.negative { color: var(--accent-red); }
         .day-profit.neutral { color: var(--text-muted); }
-        .day-trades-count { font-size: 0.65rem; color: var(--text-secondary); text-align: right; margin-top: 4px; }
+        .day-trades-count { font-size: 0.6rem; color: var(--text-secondary); text-align: right; margin-top: 2px; }
         
-        .calendar-week-total { background: var(--bg-tertiary); min-height: 90px; padding: 8px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 2px solid var(--border-color); min-width: 80px; }
-        .calendar-week-total .week-label { font-size: 0.65rem; color: var(--text-muted); font-family: 'Space Mono', monospace; margin-bottom: 4px; text-transform: uppercase; }
-        .calendar-week-total .week-value { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.85rem; }
+        .calendar-week-total { background: var(--bg-tertiary); padding: 6px; display: flex; flex-direction: column; justify-content: center; align-items: center; border-left: 2px solid var(--border-color); min-width: 70px; }
+        .calendar-week-total .week-label { font-size: 0.6rem; color: var(--text-muted); font-family: 'Space Mono', monospace; margin-bottom: 2px; text-transform: uppercase; }
+        .calendar-week-total .week-value { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.8rem; }
         .calendar-week-total .week-value.positive { color: var(--accent-green); }
         .calendar-week-total .week-value.negative { color: var(--accent-red); }
         .calendar-week-total .week-value.neutral { color: var(--text-muted); }
         
-        .calendar-day-total { background: var(--bg-tertiary); padding: 12px 4px; text-align: center; border-top: 2px solid var(--border-color); }
+        .calendar-day-total { background: var(--bg-tertiary); padding: 8px 4px; text-align: center; border-top: 2px solid var(--border-color); }
         .calendar-day-total .day-total-value { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.75rem; }
         .calendar-day-total .day-total-value.positive { color: var(--accent-green); }
         .calendar-day-total .day-total-value.negative { color: var(--accent-red); }
         .calendar-day-total .day-total-value.neutral { color: var(--text-muted); }
-        .calendar-total-header { background: var(--bg-tertiary); padding: 12px 4px; text-align: center; font-size: 0.7rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; min-width: 80px; border-left: 2px solid var(--border-color); }
+        .calendar-total-header { background: var(--bg-tertiary); padding: 8px 4px; text-align: center; font-size: 0.65rem; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; min-width: 70px; border-left: 2px solid var(--border-color); }
 
-        /* Year Summary Table - Enrich Heatmap Style */
-        .year-summary-container { display: none; overflow-x: auto; }
+        /* Year Summary Table */
+        .year-summary-container { display: none; overflow-x: auto; flex: 1; }
         .year-summary-container.active { display: block; }
-        .monthly-calendar-container { display: block; }
-        .monthly-calendar-container.hidden { display: none; }
-        
         .year-summary-table { width: 100%; border-collapse: collapse; font-size: 0.75rem; min-width: 800px; }
         .year-summary-table thead { background: var(--bg-tertiary); }
-        .year-summary-table th, .year-summary-table td { 
-            padding: 10px 8px; 
-            text-align: right; 
-            border: 1px solid #333; /* Darker border for heatmap look */
-            font-family: 'Space Mono', monospace; 
-            white-space: nowrap; 
-        }
-        
-        .year-summary-table th { 
-            font-weight: 600; 
-            color: var(--text-muted); 
-            text-transform: uppercase; 
-            font-size: 0.65rem; 
-            letter-spacing: 0.5px;
-            background-color: #1a1a1a; 
-            text-align: center;
-        }
-        
-        /* Sticky First Column */
-        .year-summary-table th:first-child, .year-summary-table td:first-child { 
-            text-align: left; 
-            position: sticky; 
-            left: 0; 
-            background: var(--bg-secondary); 
-            z-index: 1; 
-            min-width: 120px; 
-            color: #d4d4d4;
-            border-right: 2px solid #444;
-            font-weight: 600;
-        }
-        
-        .year-summary-table thead th:first-child { background: var(--bg-tertiary); }
-        
-        /* Heatmap & Text Colors */
+        .year-summary-table th, .year-summary-table td { padding: 8px 6px; text-align: right; border: 1px solid #333; font-family: 'Space Mono', monospace; white-space: nowrap; }
+        .year-summary-table th { font-weight: 600; color: var(--text-muted); text-transform: uppercase; font-size: 0.65rem; background-color: #1a1a1a; text-align: center; }
+        .year-summary-table th:first-child, .year-summary-table td:first-child { text-align: left; position: sticky; left: 0; background: var(--bg-secondary); z-index: 1; min-width: 100px; color: #d4d4d4; border-right: 2px solid #444; }
         .year-summary-table td { color: var(--text-secondary); }
         .year-summary-table .bg-pos-light { background-color: rgba(34, 197, 94, 0.15) !important; color: #4ade80 !important; }
         .year-summary-table .bg-pos-med { background-color: rgba(34, 197, 94, 0.3) !important; color: #4ade80 !important; font-weight: bold; }
         .year-summary-table .bg-neg-light { background-color: rgba(239, 68, 68, 0.15) !important; color: #f87171 !important; }
         .year-summary-table .bg-neg-med { background-color: rgba(239, 68, 68, 0.3) !important; color: #f87171 !important; font-weight: bold; }
-        
-        /* Row Total Point (Dark Band) */
-        .year-summary-table .row-total-point td {
-            background-color: #222;
-            color: #fff;
-            font-weight: 700;
-            border-top: 2px solid #555;
-            border-bottom: 2px solid #555;
-        }
-        
-        /* Separators */
         .year-summary-table .separator-row td { border-top: 1px solid #444; }
-        
-        /* Column Totals */
-        .year-summary-table .col-total-summary {
-            background-color: rgba(255,255,255,0.03) !important;
-            border-left: 2px solid #444;
-            color: #fff !important;
-            font-weight: bold;
-        }
+        .year-summary-table .col-total-summary { background-color: rgba(255,255,255,0.03) !important; border-left: 2px solid #444; color: #fff !important; font-weight: bold; }
+        .year-selector { display: flex; align-items: center; gap: 8px; margin-left: 12px; }
+        .year-selector select { background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color); padding: 4px 8px; font-family: 'Space Mono', monospace; font-size: 0.75rem; border-radius: 4px; }
 
-        .year-selector { display: flex; align-items: center; gap: 8px; margin-left: 16px; }
-        .year-selector select { background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color); padding: 6px 12px; font-family: 'Space Mono', monospace; font-size: 0.75rem; cursor: pointer; outline: none; }
-
-        .filters-section { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
+        /* --- TABLE PAGE STYLES --- */
+        .filters-section { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; flex-shrink: 0; }
         .filter-group { display: flex; gap: 8px; flex-wrap: wrap; }
-        .filter-btn { background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); padding: 8px 16px; font-size: 0.75rem; cursor: pointer; transition: all 0.2s ease; font-family: 'Instrument Sans', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; }
+        .filter-btn { background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-secondary); padding: 6px 12px; font-size: 0.7rem; cursor: pointer; transition: all 0.2s ease; font-family: 'Instrument Sans', sans-serif; text-transform: uppercase; border-radius: 4px; }
         .filter-btn:hover, .filter-btn.active { background: var(--text-primary); color: var(--bg-primary); border-color: var(--text-primary); }
-        .search-box { background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 8px 16px; font-size: 0.8rem; width: 260px; font-family: 'Instrument Sans', sans-serif; }
+        .search-box { background: var(--bg-tertiary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 6px 12px; font-size: 0.8rem; width: 260px; font-family: 'Instrument Sans', sans-serif; border-radius: 4px; }
         .search-box:focus { outline: none; border-color: var(--text-secondary); }
 
-        .table-container { background: var(--bg-secondary); border: 1px solid var(--border-color); overflow: hidden; overflow-x: auto; }
-        /* UPDATED GRID FOR NEW PROFIT COLUMN */
-        .table-header { display: grid; grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 90px 55px 75px; gap: 12px; background: var(--bg-tertiary); border-bottom: 1px solid var(--border-color); padding: 0 20px; min-width: 1750px; }
-        .table-header-cell { padding: 16px 0; font-size: 0.6rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-family: 'Space Mono', monospace; }
-        .table-body { max-height: 600px; overflow-y: auto; min-width: 1750px; }
-        .table-body::-webkit-scrollbar { width: 6px; height: 6px; }
-        .table-body::-webkit-scrollbar-track { background: var(--bg-secondary); }
-        .table-body::-webkit-scrollbar-thumb { background: var(--border-color); }
-        .table-row { display: grid; grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 90px 55px 75px; gap: 12px; border-bottom: 1px solid var(--border-color); padding: 0 20px; transition: all 0.2s ease; opacity: 0; transform: translateX(-10px); cursor: pointer; }
-        .table-row.loaded { opacity: 1; transform: translateX(0); }
+        .table-container { background: var(--bg-secondary); border: 1px solid var(--border-color); flex: 1; display: flex; flex-direction: column; overflow: hidden; border-radius: 4px; }
+        .table-header { display: grid; grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 90px 55px 75px; gap: 12px; background: var(--bg-tertiary); border-bottom: 1px solid var(--border-color); padding: 0 16px; min-width: 1750px; flex-shrink: 0; }
+        .table-header-cell { padding: 12px 0; font-size: 0.6rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; font-family: 'Space Mono', monospace; }
+        .table-body-wrapper { flex: 1; overflow: auto; background: var(--bg-primary); }
+        .table-body { min-width: 1750px; }
+        .table-body-wrapper::-webkit-scrollbar { width: 6px; height: 6px; }
+        .table-body-wrapper::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        .table-body-wrapper::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+        
+        .table-row { display: grid; grid-template-columns: 45px 80px 115px 55px 75px 90px 130px 65px 85px 85px 85px 1fr 65px 90px 90px 55px 75px; gap: 12px; border-bottom: 1px solid var(--border-color); padding: 0 16px; transition: background 0.2s ease; cursor: pointer; background: var(--bg-secondary); }
         .table-row:hover { background: var(--bg-tertiary); }
-        .table-row.grouped { background: rgba(59, 130, 246, 0.05); border-left: 3px solid var(--accent-blue); }
-        .table-cell { padding: 12px 0; font-size: 0.75rem; display: flex; align-items: center; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; }
+        .table-row.grouped { background: rgba(59, 130, 246, 0.03); border-left: 3px solid var(--accent-blue); padding-left: 13px; }
+        .table-cell { padding: 10px 0; font-size: 0.75rem; display: flex; align-items: center; color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; }
         .cell-no { font-family: 'Space Mono', monospace; color: var(--text-muted); }
         .cell-date { font-family: 'Space Mono', monospace; font-size: 0.7rem; }
         .cell-asset { font-weight: 600; color: var(--text-primary); }
-        .cell-type { display: inline-flex; padding: 3px 8px; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.5px; border-radius: 3px; }
+        .cell-type { display: inline-flex; padding: 2px 6px; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.5px; border-radius: 3px; }
         .cell-type.buy { background: rgba(34, 197, 94, 0.15); color: var(--accent-green); }
         .cell-type.sell { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
-        .cell-category { font-size: 0.65rem; padding: 3px 8px; border-radius: 3px; background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .cell-category { font-size: 0.6rem; padding: 2px 6px; border-radius: 3px; background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); white-space: nowrap; }
         .cell-price { font-family: 'Space Mono', monospace; font-size: 0.75rem; }
-        .cell-strategy { font-size: 0.7rem; color: var(--text-muted); line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .cell-strategy { font-size: 0.7rem; color: var(--text-muted); white-space: nowrap; }
         .cell-setid { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--text-muted); }
         .cell-type-text { font-size: 0.7rem; color: var(--text-secondary); }
-        .cell-rr { font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 0.75rem; color: var(--text-secondary); white-space: nowrap; letter-spacing: 0; }
-        .cell-result { font-weight: 600; font-size: 0.65rem; padding: 3px 8px; border-radius: 3px; }
+        .cell-rr { font-family: 'Instrument Sans', sans-serif; font-weight: 600; font-size: 0.75rem; color: var(--text-secondary); }
+        .cell-result { font-weight: 600; font-size: 0.65rem; padding: 2px 6px; border-radius: 3px; }
         .cell-result.tp, .cell-result.tp1, .cell-result.tp2 { background: rgba(34, 197, 94, 0.15); color: var(--accent-green); }
         .cell-result.sl { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
         .cell-result.none, .cell-result.bit { background: rgba(251, 191, 36, 0.15); color: var(--accent-gold); }
@@ -282,71 +323,78 @@
         .cell-status.lose { color: var(--accent-red); }
         .cell-status.draw { color: var(--accent-gold); }
         .cell-status.none, .cell-status.cancel, .cell-status.hold { color: var(--text-muted); }
-        .group-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--accent-blue); color: white; font-size: 0.6rem; padding: 2px 5px; border-radius: 3px; font-weight: 600; margin-left: 4px; }
-        .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 40px; text-align: center; }
-        .empty-icon { width: 64px; height: 64px; border: 2px dashed var(--border-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
-        .empty-icon svg { width: 24px; height: 24px; stroke: var(--text-muted); }
-        .empty-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
-        .empty-desc { color: var(--text-muted); font-size: 0.8rem; max-width: 400px; }
-        
+        .group-badge { display: inline-flex; align-items: center; justify-content: center; background: var(--accent-blue); color: white; font-size: 0.6rem; padding: 2px 5px; border-radius: 3px; font-weight: 600; margin-left: 4px; }
+        .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; text-align: center; height: 100%; width: 100vw; position: sticky; left: 0; }
+        .empty-icon { width: 48px; height: 48px; border: 2px dashed var(--border-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+        .empty-icon svg { width: 20px; height: 20px; stroke: var(--text-muted); }
+        .empty-title { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+        .empty-desc { color: var(--text-muted); font-size: 0.75rem; }
+
+        /* Modal Styles Keep Intact */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); display: flex; align-items: center; justify-content: center; z-index: 100; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
         .modal-overlay.active { opacity: 1; visibility: visible; }
-        .modal { background: var(--bg-secondary); border: 1px solid var(--border-color); max-width: 800px; width: 90%; max-height: 85vh; overflow-y: auto; transform: translateY(20px); transition: all 0.3s ease; }
+        .modal { background: var(--bg-secondary); border: 1px solid var(--border-color); max-width: 800px; width: 90%; max-height: 85vh; overflow-y: auto; transform: translateY(20px); transition: all 0.3s ease; border-radius: 8px;}
         .modal-overlay.active .modal { transform: translateY(0); }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 24px 32px; border-bottom: 1px solid var(--border-color); }
-        .modal-title { font-family: 'Space Mono', monospace; font-size: 1.25rem; font-weight: 700; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; background: var(--bg-secondary); z-index: 2;}
+        .modal-title { font-family: 'Space Mono', monospace; font-size: 1.1rem; font-weight: 700; }
         .modal-close { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.5rem; transition: color 0.2s; }
         .modal-close:hover { color: var(--text-primary); }
-        .modal-body { padding: 32px; }
-        .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-        .detail-item { display: flex; flex-direction: column; gap: 6px; }
+        .modal-body { padding: 24px; }
+        .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .detail-item { display: flex; flex-direction: column; gap: 4px; }
         .detail-item.full { grid-column: 1 / -1; }
-        .detail-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-family: 'Space Mono', monospace; }
-        .detail-value { font-size: 1rem; color: var(--text-primary); }
-        .detail-note { background: var(--bg-tertiary); padding: 16px; font-size: 0.875rem; line-height: 1.6; color: var(--text-secondary); margin-top: 8px; white-space: pre-wrap; }
-        
-        /* NEW STYLES FOR IMAGE AND ERROR STATE */
-        .modal-image-container { margin-top: 24px; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); display: none; position: relative; }
+        .detail-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-family: 'Space Mono', monospace; }
+        .detail-value { font-size: 0.95rem; color: var(--text-primary); }
+        .detail-note { background: var(--bg-tertiary); padding: 12px; font-size: 0.8rem; line-height: 1.5; color: var(--text-secondary); margin-top: 4px; border-radius: 4px; white-space: pre-wrap;}
+        .modal-image-container { margin-top: 20px; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); display: none; position: relative; }
         .modal-image-container.has-image { display: block; }
-        .modal-image { width: 100%; height: auto; display: block; max-height: 500px; object-fit: contain; background: #050505; }
-        
-        /* Image Error State */
-        .image-error-fallback { display: none; background: #1a1a1a; padding: 20px; text-align: center; border: 1px dashed var(--accent-red); border-radius: 8px; margin-top: 8px; }
+        .modal-image { width: 100%; height: auto; display: block; max-height: 400px; object-fit: contain; background: #050505; }
+        .image-error-fallback { display: none; background: #1a1a1a; padding: 20px; text-align: center; border: 1px dashed var(--accent-red); border-radius: 4px; margin-top: 8px; }
         .image-error-fallback.active { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .image-error-text { color: var(--accent-red); font-size: 0.8rem; }
+        .image-error-text { color: var(--accent-red); font-size: 0.75rem; }
         .view-image-btn { background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary); padding: 6px 12px; font-size: 0.75rem; cursor: pointer; border-radius: 4px; display: inline-flex; align-items: center; gap: 6px; text-decoration: none; margin-top: 4px; }
         .view-image-btn:hover { background: var(--bg-tertiary); border-color: var(--text-secondary); }
-
-        .group-entries { margin-top: 24px; border-top: 1px solid var(--border-color); padding-top: 24px; }
-        .group-entries-title { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--accent-blue); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-        .group-entry-item { background: var(--bg-tertiary); padding: 16px; margin-bottom: 12px; border-left: 3px solid var(--accent-blue); }
-        .group-entry-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .group-entry-round { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--accent-blue); }
+        .group-entries { margin-top: 24px; border-top: 1px solid var(--border-color); padding-top: 20px; }
+        .group-entries-title { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--accent-blue); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .group-entry-item { background: var(--bg-tertiary); padding: 12px; margin-bottom: 8px; border-left: 3px solid var(--accent-blue); border-radius: 0 4px 4px 0;}
+        .group-entry-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .group-entry-round { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--accent-blue); }
         .group-entry-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-        .group-entry-grid .detail-item { gap: 4px; }
-        .group-entry-grid .detail-label { font-size: 0.65rem; }
-        .group-entry-grid .detail-value { font-size: 0.9rem; }
-
-        @media (max-width: 768px) {
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .header { flex-direction: column; gap: 30px; }
-            .performance-section { grid-template-columns: 1fr; }
-            .detail-grid { grid-template-columns: repeat(2, 1fr); }
-            .calendar-day { min-height: 80px; padding: 4px; }
-            .day-profit { font-size: 0.7rem; }
-            .calendar-nav { flex-wrap: wrap; }
-            .simulator-section { width: 100%; justify-content: space-between; }
-        }
+        .group-entry-grid .detail-item { gap: 2px; }
+        .group-entry-grid .detail-label { font-size: 0.6rem; }
+        .group-entry-grid .detail-value { font-size: 0.85rem; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <div class="logo-section">
-                <img src="logo.png" class="main-logo" alt="Trade Journey Logo">
-                <p>Trading Performance Tracker</p>
-            </div>
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <nav class="sidebar">
+        <div class="sidebar-logo-wrapper">
+            <img src="logo.png" class="main-logo" alt="Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <span style="display:none; font-family: 'Space Mono', monospace; font-weight: bold; font-size: 1.2rem;">TJ</span>
+        </div>
+        
+        <div class="nav-menu">
+            <button class="nav-item active" id="nav-calendar" onclick="switchPage('calendar')">
+                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <span>Calendar</span>
+            </button>
+            <button class="nav-item" id="nav-dashboard" onclick="switchPage('dashboard')">
+                <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                <span>Board</span>
+            </button>
+            <button class="nav-item" id="nav-table" onclick="switchPage('table')">
+                <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                <span>Data</span>
+            </button>
+        </div>
+    </nav>
 
+    <!-- MAIN APP CONTENT -->
+    <main class="main-content">
+        
+        <!-- GLOBAL HEADER -->
+        <header class="global-header">
             <div class="simulator-section">
                 <div class="sim-input-group">
                     <span class="sim-label">Capital ($)</span>
@@ -372,110 +420,127 @@
             </div>
         </header>
 
+        <!-- Active Filters Bar (Moved to be global across all pages) -->
         <div class="filter-bar-container" id="activeFiltersBar">
             <span class="filter-label" id="filterLabel">Filtered by:</span>
-            <button class="clear-all-btn" id="clearAllBtn" onclick="resetDashboard()">Clear All Filters</button>
+            <button class="clear-all-btn" id="clearAllBtn" onclick="resetDashboard()">Clear All</button>
         </div>
 
-        <div class="stats-grid" id="statsGrid">
-            <div class="stat-card"><span class="stat-label">Total Trades</span><span class="stat-value" id="totalTrades">0</span></div>
-            <div class="stat-card"><span class="stat-label">Win Rate</span><span class="stat-value positive" id="winRate">0%</span><span class="stat-sub" id="winRateSub">0W / 0L / 0D</span></div>
-            <div class="stat-card"><span class="stat-label" id="statLabel-total">Total Points</span><span class="stat-value" id="totalPoints">0</span></div>
-            <div class="stat-card" id="roiCard" style="display:none;"><span class="stat-label">ROI %</span><span class="stat-value" id="roiValue">0%</span></div>
-            <div class="stat-card"><span class="stat-label">Best Trade</span><span class="stat-value positive" id="bestTrade">0</span></div>
-            <div class="stat-card"><span class="stat-label">Worst Trade</span><span class="stat-value negative" id="worstTrade">0</span></div>
-        </div>
-
-        <div class="performance-section" id="performanceSection">
-            <div class="chart-container">
-                <div class="section-title">Daily Points</div>
-                <div class="chart-wrapper"><canvas id="dailyChart"></canvas></div>
-            </div>
-            <div class="chart-container">
-                <div class="section-title" id="equityChartTitle">Cumulative Points</div>
-                <div class="chart-wrapper"><canvas id="equityChart"></canvas></div>
-            </div>
-            <div class="extended-stats">
-                <div class="section-title">Statistics</div>
-                <div class="stats-list">
-                    <div class="stats-row"><span class="stats-label">Win Streak:</span><span class="stats-value" id="maxWinStreak">0</span></div>
-                    <div class="stats-row"><span class="stats-label">Lose Streak:</span><span class="stats-value" id="maxLoseStreak">0</span></div>
-                    <div class="stats-row"><span class="stats-label">Avg Win:</span><span class="stats-value positive" id="avgWin">0</span></div>
-                    <div class="stats-row"><span class="stats-label">Avg Loss:</span><span class="stats-value negative" id="avgLoss">0</span></div>
-                    <div class="stats-row"><span class="stats-label">Profit Factor:</span><span class="stats-value" id="profitFactor">0</span></div>
-                    <div class="stats-row"><span class="stats-label">Expectancy:</span><span class="stats-value" id="expectancy">0</span></div>
+        <!-- PAGE 1: CALENDAR -->
+        <div class="page-container page active" id="page-calendar">
+            <div class="calendar-section" id="calendarSection">
+                <div class="calendar-main">
+                    <div class="calendar-header">
+                        <div class="calendar-title" id="calendarTitle">Calendar</div>
+                        <div class="calendar-nav">
+                            <button class="calendar-nav-btn" onclick="changeMonth(-1)" id="prevMonthBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+                            <button class="calendar-nav-btn" onclick="changeMonth(1)" id="nextMonthBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+                            <div class="calendar-view-toggle">
+                                <button class="view-toggle-btn active" onclick="setCalendarView('month')" id="monthViewBtn">Month</button>
+                                <button class="view-toggle-btn" onclick="setCalendarView('year')" id="yearViewBtn">Year</button>
+                            </div>
+                            <div class="year-selector" id="yearSelector" style="display: none;">
+                                <select id="yearSelect" onchange="changeYear(this.value)"></select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="monthly-calendar-container" id="monthlyCalendarContainer">
+                        <div class="calendar-grid">
+                            <div class="calendar-day-header">Sun</div>
+                            <div class="calendar-day-header">Mon</div>
+                            <div class="calendar-day-header">Tue</div>
+                            <div class="calendar-day-header">Wed</div>
+                            <div class="calendar-day-header">Thu</div>
+                            <div class="calendar-day-header">Fri</div>
+                            <div class="calendar-day-header">Sat</div>
+                            <div class="calendar-total-header">Week</div>
+                        </div>
+                        <div class="calendar-grid-with-totals" id="calendarGrid"></div>
+                        <div class="calendar-grid-with-totals" id="dailyTotalsRow"></div>
+                    </div>
+                    
+                    <div class="year-summary-container" id="yearSummaryContainer">
+                        <table class="year-summary-table" id="yearSummaryTable">
+                            <thead></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="calendar-section" id="calendarSection">
-            <div class="calendar-main">
-                <div class="calendar-header">
-                    <div class="calendar-title" id="calendarTitle">Calendar</div>
-                    <div class="calendar-nav">
-                        <button class="calendar-nav-btn" onclick="changeMonth(-1)" id="prevMonthBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
-                        <button class="calendar-nav-btn" onclick="changeMonth(1)" id="nextMonthBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
-                        <div class="calendar-view-toggle">
-                            <button class="view-toggle-btn active" onclick="setCalendarView('month')" id="monthViewBtn">Month</button>
-                            <button class="view-toggle-btn" onclick="setCalendarView('year')" id="yearViewBtn">Year</button>
-                        </div>
-                        <div class="year-selector" id="yearSelector" style="display: none;">
-                            <select id="yearSelect" onchange="changeYear(this.value)"></select>
+        <!-- PAGE 2: DASHBOARD (Stats & Charts) -->
+        <div class="page-container page" id="page-dashboard">
+            <!-- Stats -->
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card"><span class="stat-label">Total Trades</span><span class="stat-value" id="totalTrades">0</span></div>
+                <div class="stat-card"><span class="stat-label">Win Rate</span><span class="stat-value positive" id="winRate">0%</span><span class="stat-sub" id="winRateSub">0W / 0L / 0D</span></div>
+                <div class="stat-card"><span class="stat-label" id="statLabel-total">Total Points</span><span class="stat-value" id="totalPoints">0</span></div>
+                <div class="stat-card" id="roiCard" style="display:none;"><span class="stat-label">ROI %</span><span class="stat-value" id="roiValue">0%</span></div>
+                <div class="stat-card"><span class="stat-label">Best Trade</span><span class="stat-value positive" id="bestTrade">0</span></div>
+                <div class="stat-card"><span class="stat-label">Worst Trade</span><span class="stat-value negative" id="worstTrade">0</span></div>
+            </div>
+
+            <!-- Charts & Extended Stats -->
+            <div class="performance-section" id="performanceSection">
+                <div class="chart-container">
+                    <div class="section-title">Daily Points</div>
+                    <div class="chart-wrapper"><canvas id="dailyChart"></canvas></div>
+                </div>
+                <div class="chart-container">
+                    <div class="section-title" id="equityChartTitle">Cumulative Points</div>
+                    <div class="chart-wrapper"><canvas id="equityChart"></canvas></div>
+                </div>
+                <div class="extended-stats">
+                    <div class="section-title">Statistics</div>
+                    <div class="stats-list">
+                        <div class="stats-row"><span class="stats-label">Win Streak:</span><span class="stats-value" id="maxWinStreak">0</span></div>
+                        <div class="stats-row"><span class="stats-label">Lose Streak:</span><span class="stats-value" id="maxLoseStreak">0</span></div>
+                        <div class="stats-row"><span class="stats-label">Avg Win:</span><span class="stats-value positive" id="avgWin">0</span></div>
+                        <div class="stats-row"><span class="stats-label">Avg Loss:</span><span class="stats-value negative" id="avgLoss">0</span></div>
+                        <div class="stats-row"><span class="stats-label">Profit Factor:</span><span class="stats-value" id="profitFactor">0</span></div>
+                        <div class="stats-row"><span class="stats-label">Expectancy:</span><span class="stats-value" id="expectancy">0</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 3: TABLE -->
+        <div class="page-container page" id="page-table">
+            
+            <div class="filters-section">
+                <div class="filter-group">
+                    <button class="filter-btn active" data-filter="all" onclick="filterTrades('all', this)">All</button>
+                    <button class="filter-btn" data-filter="win" onclick="filterTrades('win', this)">Win</button>
+                    <button class="filter-btn" data-filter="lose" onclick="filterTrades('lose', this)">Lose</button>
+                    <button class="filter-btn" data-filter="draw" onclick="filterTrades('draw', this)">Draw</button>
+                    <button class="filter-btn" data-filter="other" onclick="filterTrades('other', this)">Other</button>
+                    <button class="filter-btn" data-filter="buy" onclick="filterTrades('buy', this)">Buy</button>
+                    <button class="filter-btn" data-filter="sell" onclick="filterTrades('sell', this)">Sell</button>
+                </div>
+                <input type="text" class="search-box" placeholder="Search asset, strategy..." id="searchBox" oninput="searchTrades(this.value)">
+            </div>
+
+            <div class="table-container">
+                <div class="table-header">
+                    <div class="table-header-cell">No.</div><div class="table-header-cell">SetID</div><div class="table-header-cell">Date</div><div class="table-header-cell">Plan</div><div class="table-header-cell">Type</div><div class="table-header-cell">Asset</div><div class="table-header-cell">Category</div><div class="table-header-cell">Order</div><div class="table-header-cell">Entry</div><div class="table-header-cell">TP</div><div class="table-header-cell">SL</div><div class="table-header-cell">Strategy</div><div class="table-header-cell">Result</div><div class="table-header-cell">Points</div><div class="table-header-cell">Profit ($)</div><div class="table-header-cell">RR</div><div class="table-header-cell">Status</div>
+                </div>
+                <div class="table-body-wrapper">
+                    <div class="table-body" id="tableBody">
+                        <div class="empty-state" id="emptyState">
+                            <div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 0 1-2-2V5a2 2 0 0 1-2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"/></svg></div>
+                            <h3 class="empty-title">Waiting for data...</h3>
+                            <p class="empty-desc">Synchronizing with Google Sheet</p>
                         </div>
                     </div>
                 </div>
-                
-                <div class="monthly-calendar-container" id="monthlyCalendarContainer">
-                    <div class="calendar-grid">
-                        <div class="calendar-day-header">Sun</div>
-                        <div class="calendar-day-header">Mon</div>
-                        <div class="calendar-day-header">Tue</div>
-                        <div class="calendar-day-header">Wed</div>
-                        <div class="calendar-day-header">Thu</div>
-                        <div class="calendar-day-header">Fri</div>
-                        <div class="calendar-day-header">Sat</div>
-                        <div class="calendar-total-header">Week</div>
-                    </div>
-                    <div class="calendar-grid-with-totals" id="calendarGrid"></div>
-                    <div class="calendar-grid-with-totals" id="dailyTotalsRow"></div>
-                </div>
-                
-                <div class="year-summary-container" id="yearSummaryContainer">
-                    <table class="year-summary-table" id="yearSummaryTable">
-                        <thead></thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
             </div>
         </div>
 
-        <div class="filters-section">
-            <div class="filter-group">
-                <button class="filter-btn active" data-filter="all" onclick="filterTrades('all', this)">All</button>
-                <button class="filter-btn" data-filter="win" onclick="filterTrades('win', this)">Win</button>
-                <button class="filter-btn" data-filter="lose" onclick="filterTrades('lose', this)">Lose</button>
-                <button class="filter-btn" data-filter="draw" onclick="filterTrades('draw', this)">Draw</button>
-                <button class="filter-btn" data-filter="other" onclick="filterTrades('other', this)">Other</button>
-                <button class="filter-btn" data-filter="buy" onclick="filterTrades('buy', this)">Buy</button>
-                <button class="filter-btn" data-filter="sell" onclick="filterTrades('sell', this)">Sell</button>
-            </div>
-            <input type="text" class="search-box" placeholder="Search asset, strategy..." id="searchBox" oninput="searchTrades(this.value)">
-        </div>
+    </main>
 
-        <div class="table-container">
-            <div class="table-header">
-                <div class="table-header-cell">No.</div><div class="table-header-cell">SetID</div><div class="table-header-cell">Date</div><div class="table-header-cell">Plan</div><div class="table-header-cell">Type</div><div class="table-header-cell">Asset</div><div class="table-header-cell">Category</div><div class="table-header-cell">Order</div><div class="table-header-cell">Entry</div><div class="table-header-cell">TP</div><div class="table-header-cell">SL</div><div class="table-header-cell">Strategy</div><div class="table-header-cell">Result</div><div class="table-header-cell">Points</div><div class="table-header-cell">Profit ($)</div><div class="table-header-cell">RR</div><div class="table-header-cell">Status</div>
-            </div>
-            <div class="table-body" id="tableBody">
-                <div class="empty-state" id="emptyState">
-                    <div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 0 1-2-2V5a2 2 0 0 1-2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"/></svg></div>
-                    <h3 class="empty-title">Waiting for data...</h3>
-                    <p class="empty-desc">Synchronizing with Google Sheet</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <!-- MODAL -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <div class="modal-header"><h3 class="modal-title">Trade Details</h3><button class="modal-close" onclick="closeModal()">&times;</button></div>
@@ -483,6 +548,7 @@
         </div>
     </div>
 
+    <!-- MAIN SCRIPT -->
     <script>
         const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbwOhhUq2TE2LYylPqV8SR93p1eUbsTJ2A2MzbTrWSCcJ3UGe2RsPpUjG2CAFljepQIc/exec'; 
         let allTrades = [], displayedTrades = [], groupedTrades = {};
@@ -490,14 +556,12 @@
         let dailyChart = null, equityChart = null, currentCalendarDate = new Date(), dailyProfitData = {};
         let calendarView = 'month', selectedYear = new Date().getFullYear();
         
-        // SIMULATOR STATE
         let currentCapital = 10000;
-        let currentLot = 0; // Default 0 means Simulator is OFF
+        let currentLot = 0; 
 
         document.addEventListener('DOMContentLoaded', function() {
             renderCalendar();
             
-            // Initial read of inputs
             currentCapital = parseFloat(document.getElementById('capitalInput').value) || 10000;
             const lotVal = document.getElementById('lotInput').value;
             currentLot = (lotVal === '' || parseFloat(lotVal) === 0) ? 0 : parseFloat(lotVal);
@@ -509,6 +573,23 @@
             document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
             document.getElementById('fileInput').addEventListener('change', handleFileUpload);
         });
+
+        // --- PAGE NAVIGATION LOGIC ---
+        function switchPage(pageId) {
+            // Remove active classes
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            // Add active class to selected
+            document.getElementById('page-' + pageId).classList.add('active');
+            document.getElementById('nav-' + pageId).classList.add('active');
+
+            // Force Chart.js to resize nicely when dashboard is shown
+            if (pageId === 'dashboard') {
+                if (dailyChart) dailyChart.resize();
+                if (equityChart) equityChart.resize();
+            }
+        }
 
         function updateConnectionStatus(state) {
             const dot = document.querySelector('.status-dot');
@@ -526,7 +607,6 @@
             }
         }
 
-        // --- SIMULATOR UPDATE FUNCTION ---
         function updateSimulation() {
             currentCapital = parseFloat(document.getElementById('capitalInput').value) || 0;
             const lotVal = document.getElementById('lotInput').value;
@@ -571,7 +651,6 @@
                 const row = data[i];
                 if (!row || !row[0]) continue;
                 let rrValue = row[15] ? row[15].toString().replace(/\s/g, '') : '';
-                // Map setup to column M (index 12)
                 const trade = { no: row[0] || '', setId: row[1] || '', date: formatDate(row[2]), plan: row[3] || '', type: row[4] || '', asset: row[5] || '', category: row[6] || '', order: row[7] || '', entryOrder: row[8] || '', tpOrder: row[9] || '', slOrder: row[10] || '', strategy: row[11] || '', setup: row[12] || '', result: row[13] || '', points: parseFloat(row[14]) || 0, rr: rrValue, notePlan: row[16] || '', status: row[17] || '' };
                 const setIdBase = getSetIdBase(trade.setId);
                 trade.setIdBase = setIdBase;
@@ -582,12 +661,21 @@
             allTrades.forEach(trade => { const group = groupedTrades[trade.setIdBase]; trade.isGrouped = group && group.length > 1; trade.groupSize = group ? group.length : 1; });
             if (allTrades.length > 0) { const lastDate = parseDateString(allTrades[allTrades.length - 1].date); if (lastDate) { currentCalendarDate = lastDate; selectedYear = lastDate.getFullYear(); } }
             populateMonthDropdown(); populateYearDropdown(); applyAllFilters();
+            
+            // Trigger load animations
             document.querySelector('.stats-grid').classList.add('loaded');
             document.querySelector('.performance-section').classList.add('loaded');
             document.querySelector('.calendar-section').classList.add('loaded');
         }
 
-        function resetDashboard() { activeFilters = { status: 'all', search: '', month: 'all', specificDate: null }; document.getElementById('monthSelector').value = 'all'; document.getElementById('searchBox').value = ''; document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); document.querySelector('.filter-btn[onclick*="all"]').classList.add('active'); applyAllFilters(); }
+        function resetDashboard() { 
+            activeFilters = { status: 'all', search: '', month: 'all', specificDate: null }; 
+            document.getElementById('monthSelector').value = 'all'; 
+            document.getElementById('searchBox').value = ''; 
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); 
+            document.querySelector('.filter-btn[onclick*="all"]').classList.add('active'); 
+            applyAllFilters(); 
+        }
 
         function renderActiveFilterTags() {
             const container = document.getElementById('activeFiltersBar'), label = document.getElementById('filterLabel'), clearBtn = document.getElementById('clearAllBtn');
@@ -754,7 +842,7 @@
 
             const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-            let headHTML = `<tr><th style="min-width:120px;">Month/Week</th>`;
+            let headHTML = `<tr><th style="min-width:100px;">Month/Week</th>`;
             for(let w=1; w<=5; w++) headHTML += `<th>Week ${w}</th>`;
             headHTML += `<th class="col-total-summary">TOTAL</th></tr>`;
             thead.innerHTML = headHTML;
@@ -772,7 +860,7 @@
                 bodyHTML += `<td class="col-total-summary">${mTotal === 0 ? '-' : mTotal.toLocaleString()}</td></tr>`;
             }
 
-            bodyHTML += `<tr class="separator-row"><td colspan="7" style="height:10px; background:#111;"></td></tr>`;
+            bodyHTML += `<tr class="separator-row"><td colspan="7" style="height:8px; background:#111;"></td></tr>`;
 
             const generateStatRow = (label, valueExtractor, styleType='normal', isPercent=false) => {
                 let rowHTML = `<tr class="separator-row"><td>${label}</td>`;
@@ -816,7 +904,6 @@
             tbody.innerHTML = bodyHTML;
         }
 
-        // --- UPDATED STATS CALCULATION (WITH TOGGLE LOGIC) ---
         function updateStats(data) {
             const wins = data.filter(t => (t.status || '').toUpperCase() === 'WIN').length;
             const loses = data.filter(t => (t.status || '').toUpperCase() === 'LOSE').length;
@@ -838,7 +925,6 @@
             const isSimulating = currentLot > 0;
 
             if (isSimulating) {
-                // SIMULATOR MODE
                 const totalProfit = totalPoints * currentLot;
                 const roi = currentCapital > 0 ? (totalProfit / currentCapital) * 100 : 0;
 
@@ -850,7 +936,6 @@
                 document.getElementById('roiValue').textContent = (roi >= 0 ? '+' : '') + roi.toFixed(2) + '%';
                 document.getElementById('roiValue').className = `stat-value ${roi >= 0 ? 'positive' : 'negative'}`;
             } else {
-                // NORMAL MODE
                 document.getElementById('statLabel-total').textContent = 'Total Points';
                 document.getElementById('totalPoints').textContent = (totalPoints >= 0 ? '+' : '') + totalPoints.toLocaleString();
                 document.getElementById('totalPoints').className = `stat-value ${totalPoints >= 0 ? 'positive' : 'negative'}`;
@@ -882,7 +967,6 @@
             document.getElementById('expectancy').className = `stats-value ${exp>=0?'positive':'negative'}`;
         }
 
-        // --- UPDATED CHARTS (WITH TOGGLE LOGIC) ---
         function renderCharts(data) {
             const dailyMap = {};
             data.forEach(t => { if(t.date) dailyMap[t.date] = (dailyMap[t.date] || 0) + t.points; });
@@ -894,7 +978,6 @@
             let equityValues = [];
             
             if (isSimulating) {
-                // Equity Curve ($)
                 document.getElementById('equityChartTitle').textContent = 'Equity Curve ($)';
                 let runningBalance = currentCapital;
                 equityValues = [currentCapital];
@@ -903,7 +986,6 @@
                     equityValues.push(runningBalance); 
                 });
             } else {
-                // Cumulative Points Curve
                 document.getElementById('equityChartTitle').textContent = 'Cumulative Points';
                 let runningPoints = 0;
                 equityValues = [0];
@@ -922,7 +1004,7 @@
             const ctxE = document.getElementById('equityChart');
             if(equityChart) equityChart.destroy();
             
-            let eqColor = '#3b82f6'; // Default Blue for Points
+            let eqColor = '#3b82f6';
             let lastVal = equityValues[equityValues.length-1];
             
             if (isSimulating) {
@@ -942,11 +1024,10 @@
             equityChart = new Chart(ctxE, { type: 'line', data: { labels: equityLabels, datasets: [{ data: equityValues, borderColor: eqColor, backgroundColor: gradient, borderWidth: 2, fill: true, pointRadius: 2, tension: 0.4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: {display:false} }, scales: { x: { display:false }, y: { grid: {color:'rgba(255,255,255,0.05)'}, ticks: {color:'#666', font:{family:'Space Mono'}} } } } });
         }
 
-        // --- UPDATED TABLE ---
         function renderTable(data) {
             const tbody = document.getElementById('tableBody');
             tbody.innerHTML = '';
-            if(data.length === 0) { tbody.innerHTML = `<div class="empty-state"><div class="empty-title">No trades found</div></div>`; return; }
+            if(data.length === 0) { tbody.innerHTML = `<div class="empty-state"><div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></div><div class="empty-title">No trades found</div></div>`; return; }
             const shownSets = new Set();
             data.forEach(t => {
                 if(t.isGrouped && shownSets.has(t.setIdBase)) return;
@@ -969,7 +1050,6 @@
                 <div class="table-cell cell-points">${profitCell}</div>
                 <div class="table-cell cell-rr">${t.rr}</div><div class="table-cell cell-status ${getStatusClass(t.status)}">${t.status}</div>`;
                 tbody.appendChild(row);
-                setTimeout(()=>row.classList.add('loaded'), 10);
             });
         }
 
@@ -1012,10 +1092,8 @@
         function getStatusClass(s) { if(!s) return ''; s=s.toString().toUpperCase(); if(s==='WIN') return 'win'; if(s==='LOSE') return 'lose'; if(s==='DRAW') return 'draw'; return 'none'; }
         function truncate(s, l) { if(!s) return '-'; return s.length>l ? s.substring(0,l)+'...' : s; }
 
-        // --- UPDATED HELPER FOR GOOGLE DRIVE IMAGE (THUMBNAIL METHOD) ---
         function convertDriveLink(link) {
             if (!link) return null;
-            // Extract ID
             let fileId = null;
             const fileIdMatch = link.match(/\/d\/([-_\w]+)/);
             if (fileIdMatch) {
@@ -1024,18 +1102,12 @@
                 const idParamMatch = link.match(/id=([^&]+)/);
                 if (idParamMatch) fileId = idParamMatch[1];
             }
-
-            if (fileId) {
-                // Use the thumbnail endpoint which is more reliable for embedding
-                // sz=w2000 asks for a large image (width 2000px)
-                return `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`;
-            }
+            if (fileId) return `https://drive.google.com/thumbnail?id=${fileId}&sz=w2000`;
             return link;
         }
 
         function handleImageError(img) {
             img.style.display = 'none';
-            // Find the fallback container within the same parent
             const container = img.parentElement;
             const fallback = container.querySelector('.image-error-fallback');
             if(fallback) fallback.classList.add('active');
@@ -1045,7 +1117,6 @@
             const body = document.getElementById('modalBody');
             let groupHTML = '';
             
-            // Build grouped entries list
             if(t.isGrouped) { 
                 const g = groupedTrades[t.setIdBase]; 
                 groupHTML = `<div class="group-entries"><div class="group-entries-title">Grouped Entries (${g.length})</div>` + 
@@ -1063,11 +1134,9 @@
                 </div>`).join('') + `</div>`; 
             }
 
-            // Prepare Image HTML
             const imageUrl = convertDriveLink(t.setup);
             let imageHTML = '';
             if (imageUrl) {
-                // Updated Image HTML with Fallback Button
                 imageHTML = `<div class="modal-image-container has-image">
                     <img src="${imageUrl}" class="modal-image" alt="Trade Setup" onerror="handleImageError(this)" referrerpolicy="no-referrer">
                     <div class="image-error-fallback">
@@ -1080,7 +1149,6 @@
                 </div>`;
             }
             
-            // Build final Modal Body
             body.innerHTML = `
                 <div class="detail-grid">
                     <div class="detail-item"><span class="detail-label">Asset</span><span class="detail-value">${t.asset}</span></div>
