@@ -104,29 +104,29 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* =========================================
-           NEW DASHBOARD LAYOUT (Zella Style)
+           NEW DASHBOARD LAYOUT (Zella Style - Exact Fit)
            ========================================= */
-        #page-dashboard { overflow-y: auto; padding-right: 12px; }
-        #page-dashboard::-webkit-scrollbar { width: 6px; }
-        #page-dashboard::-webkit-scrollbar-track { background: transparent; }
-        #page-dashboard::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+        #page-dashboard { overflow: hidden; padding-right: 24px; } /* Removed overflow-y: auto */
 
         .dashboard-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
+            grid-template-rows: auto 1fr 1fr; /* Row1: auto fit, Row2 & Row3: split remaining height equally */
+            gap: 12px;
             width: 100%;
-            padding-bottom: 24px;
+            height: 100%; /* Force grid to fill exactly the container */
+            padding-bottom: 0;
         }
 
         .dash-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 20px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
             box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            min-height: 0; /* Critical: allows flex children to shrink below their content size if needed */
         }
 
         /* Span helpers */
@@ -135,12 +135,8 @@
         .col-span-3 { grid-column: span 3; }
         .col-span-4 { grid-column: span 4; }
         
-        @media (max-width: 1400px) {
-            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
         .dash-card-header {
-            display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;
+            display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; flex-shrink: 0;
         }
         .dash-card-title {
             font-family: 'Instrument Sans', sans-serif; font-size: 0.85rem; font-weight: 600; 
@@ -152,7 +148,7 @@
         }
 
         /* Big Stat Text */
-        .stat-value-huge { font-family: 'Space Mono', monospace; font-size: 2rem; font-weight: 700; letter-spacing: -1px; line-height: 1.2; }
+        .stat-value-huge { font-family: 'Space Mono', monospace; font-size: 1.8rem; font-weight: 700; letter-spacing: -1px; line-height: 1.2; }
         .stat-value-huge.positive { color: var(--accent-green); }
         .stat-value-huge.negative { color: var(--accent-red); }
         .stat-value-huge.neutral { color: var(--text-primary); }
@@ -166,22 +162,39 @@
         /* Score Display inside title */
         .score-highlight { color: var(--text-primary); font-size: 1.2rem; font-weight: 700; font-family: 'Space Mono', monospace; margin-left: auto; }
 
-        /* Chart Wrappers */
-        .chart-wrapper { flex: 1; position: relative; width: 100%; min-height: 220px; display: flex; align-items: center; justify-content: center; }
-        .radar-wrapper { height: 250px; width: 100%; position: relative; }
+        /* Chart Wrappers - allow shrinking to fit grid row */
+        .chart-wrapper, .radar-wrapper { 
+            flex: 1; position: relative; width: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; 
+        }
 
         /* Stats List List in Dashboard */
-        .adv-stats-list { display: flex; flex-direction: column; gap: 14px; margin-top: 10px; }
-        .adv-stats-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 8px; }
-        .adv-stats-row:last-child { border-bottom: none; }
-        .adv-stats-label { font-size: 0.8rem; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; }
-        .adv-stats-value { font-family: 'Space Mono', monospace; font-size: 0.9rem; font-weight: 700; color: var(--text-primary); }
+        .adv-stats-list { display: flex; flex-direction: column; flex: 1; min-height: 0; justify-content: space-around; margin-top: 8px; }
+        .adv-stats-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.03); padding-bottom: 6px; }
+        .adv-stats-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .adv-stats-label { font-size: 0.75rem; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; }
+        .adv-stats-value { font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 700; color: var(--text-primary); }
         .adv-stats-value.positive { color: var(--accent-green); }
         .adv-stats-value.negative { color: var(--accent-red); }
 
         /* Progress Bar (Win Rate visual) */
-        .progress-bar-bg { width: 100%; height: 6px; background: rgba(239, 68, 68, 0.2); border-radius: 3px; overflow: hidden; margin-top: 12px; display: flex; }
+        .progress-bar-bg { width: 100%; height: 6px; background: rgba(239, 68, 68, 0.2); border-radius: 3px; overflow: hidden; margin-top: 12px; display: flex; flex-shrink: 0; }
         .progress-bar-fill { height: 100%; background: var(--accent-green); transition: width 0.5s ease; }
+
+        /* Responsive Fallback: Allow scroll on small screens where squeezing doesn't work */
+        @media (max-width: 1400px) {
+            #page-dashboard { overflow-y: auto; padding-right: 12px; }
+            #page-dashboard::-webkit-scrollbar { width: 6px; }
+            #page-dashboard::-webkit-scrollbar-track { background: transparent; }
+            #page-dashboard::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+            
+            .dashboard-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                grid-template-rows: auto;
+                height: auto; 
+                padding-bottom: 24px;
+            }
+            .chart-wrapper, .radar-wrapper { min-height: 220px; }
+        }
 
         /* =========================================
            CALENDAR & TABLE STYLES
@@ -486,7 +499,7 @@
                 </div>
 
                 <!-- ROW 2: RADAR & CUMULATIVE & STATS -->
-                <div class="dash-card col-span-1" style="display: flex; flex-direction: column;">
+                <div class="dash-card col-span-1">
                     <div class="dash-card-header" style="margin-bottom: 0;">
                         <div class="dash-card-title">Trading Edge Score <span class="dash-card-info-icon">i</span></div>
                         <div class="score-highlight" id="overallScore">0</div>
@@ -505,7 +518,7 @@
                     <div class="dash-card-header">
                         <div class="dash-card-title">Advanced Statistics <span class="dash-card-info-icon">i</span></div>
                     </div>
-                    <div class="adv-stats-list" style="flex: 1; justify-content: center;">
+                    <div class="adv-stats-list">
                         <div class="adv-stats-row"><span class="adv-stats-label">Win Streak:</span><span class="adv-stats-value positive" id="maxWinStreak">0</span></div>
                         <div class="adv-stats-row"><span class="adv-stats-label">Lose Streak:</span><span class="adv-stats-value negative" id="maxLoseStreak">0</span></div>
                         <div class="adv-stats-row"><span class="adv-stats-label">Avg Win:</span><span class="adv-stats-value positive" id="avgWin">0</span></div>
