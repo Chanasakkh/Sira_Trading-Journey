@@ -1557,7 +1557,7 @@
                 
                 <div class="status-indicator" id="connectionStatus">
                     <div class="status-dot"></div>
-                    <span id="statusText">Connected</span>
+                    <span id="statusText">Connecting...</span>
                 </div>
 
                 <input type="file" id="fileInput" class="file-input" accept=".xlsx,.xls,.csv">
@@ -1599,8 +1599,8 @@
                             <div class="calendar-day-header">Fri</div>
                             <div class="calendar-day-header">Sat</div>
                         </div>
-                        <div class="calendar-grid" id="calendarGrid"></div>
-                        <div class="calendar-grid" id="dailyTotalsRow"></div>
+                        <div class="calendar-grid-with-totals" id="calendarGrid"></div>
+                        <div class="calendar-grid-with-totals" id="dailyTotalsRow"></div>
                     </div>
                     
                     <div class="year-summary-container" id="yearSummaryContainer">
@@ -1727,7 +1727,7 @@
                         <div class="empty-state" id="emptyState">
                             <div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 0 1-2-2V5a2 2 0 0 1-2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"/></svg></div>
                             <h3 class="empty-title">Waiting for data...</h3>
-                            <p class="empty-desc">Load data from file</p>
+                            <p class="empty-desc">Synchronizing with Google Sheet</p>
                         </div>
                     </div>
                 </div>
@@ -1766,8 +1766,8 @@
             const lotVal = document.getElementById('lotInput').value;
             currentLot = (lotVal === '' || parseFloat(lotVal) === 0) ? 0 : parseFloat(lotVal);
 
-            updateConnectionStatus('connected');
-            // fetchFromGoogleSheet();
+            updateConnectionStatus('syncing');
+            fetchFromGoogleSheet();
 
             document.getElementById('modalOverlay').addEventListener('click', (e) => { if(e.target === document.getElementById('modalOverlay')) closeModal(); });
             document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
@@ -1793,7 +1793,7 @@
             const dot = document.querySelector('.status-dot');
             const text = document.getElementById('statusText');
             if(state === 'syncing') { dot.className = 'status-dot'; text.textContent = 'Syncing...'; } 
-            else if(state === 'connected') { dot.className = 'status-dot connected'; text.textContent = 'Connected'; } 
+            else if(state === 'connected') { dot.className = 'status-dot connected'; text.textContent = 'Online'; } 
             else if(state === 'error') { dot.className = 'status-dot error'; text.textContent = 'Connection Failed'; }
         }
 
@@ -1936,7 +1936,7 @@
             const netProfit = grossProfit - grossLoss;
             const profitFactor = grossLoss > 0 ? (grossProfit / grossLoss) : (grossProfit > 0 ? 99 : 0); // Cap at 99 visually
             const avgWin = wins > 0 ? grossProfit / wins : 0;
-            const avgLoss = loses > 0 ? grossLoss / losses : 0;
+            const avgLoss = loses > 0 ? grossLoss / loses : 0;
             
             let exp = 0;
             if(valid > 0) exp = ((wins/valid) * avgWin) - ((loses/valid) * avgLoss);
