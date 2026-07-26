@@ -2561,15 +2561,17 @@
             }
         }
 
-        /* 1. Mobile Portrait (Standard Vertical Phone) */
-        @media (max-width: 768px) and (orientation: portrait) {
+        /* 1. Mobile & Small Tablets */
+        @media (max-width: 768px) {
             body {
                 flex-direction: column-reverse;
             }
 
-            /* Bottom Navbar */
-
+            /* --- Global Layout: Bottom Navigation Bar --- */
             .sidebar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
                 width: 100%;
                 height: 65px;
                 flex-direction: row;
@@ -2579,7 +2581,11 @@
                 padding-bottom: env(safe-area-inset-bottom, 0px);
                 background: rgba(17, 17, 17, 0.95);
                 backdrop-filter: blur(10px);
-                z-index: 100;
+                z-index: 999;
+            }
+
+            .main-content {
+                padding-bottom: calc(65px + env(safe-area-inset-bottom, 0px));
             }
 
             .sidebar-logo-wrapper {
@@ -2618,6 +2624,7 @@
                 font-size: 0.6rem;
             }
 
+            /* --- Global Header & Simulator Bar (Stacked) --- */
             .global-header {
                 height: auto;
                 flex-direction: column;
@@ -2628,11 +2635,13 @@
 
             .simulator-section {
                 justify-content: space-between;
+                width: 100%;
             }
 
             .controls-wrapper {
                 justify-content: space-between;
                 flex-wrap: wrap;
+                width: 100%;
             }
 
             .page-container {
@@ -2643,10 +2652,19 @@
                 padding: 10px 10px 0;
             }
 
-            /* Calendar Settings for Portrait (Force Horizontal Scroll) */
+            /* --- Calendar Page --- */
+            .monthly-calendar-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                width: 100%;
+            }
+
+            .calendar-grid, .calendar-grid-with-totals {
+                min-width: 650px;
+            }
+
             .calendar-main {
                 padding: 10px;
-                overflow: hidden;
             }
 
             .calendar-title {
@@ -2662,12 +2680,21 @@
                 min-height: 60px;
                 padding: 4px;
             }
-
-            /* Keep good height */
-            .day-trades-count {
-                display: block;
+            
+            .day-number {
+                font-size: 0.75rem;
+            }
+            
+            .day-profit {
+                font-size: 0.85rem;
             }
 
+            .day-trades-count {
+                display: block;
+                font-size: 0.65rem;
+            }
+
+            /* --- Dashboard Page --- */
             #page-dashboard {
                 overflow-y: auto;
                 padding-right: 10px;
@@ -2681,6 +2708,22 @@
                 height: auto;
             }
 
+            .chart-wrapper,
+            .radar-wrapper {
+                min-height: 250px;
+            }
+
+            .stat-value-huge {
+                font-size: 1.5rem;
+            }
+
+            /* --- Data Page (Table & Filters) --- */
+            .table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                width: 100%;
+            }
+
             .filters-section {
                 flex-direction: column;
                 align-items: stretch;
@@ -2688,19 +2731,45 @@
             }
 
             .filter-group {
-                justify-content: flex-start;
+                justify-content: space-between;
+                width: 100%;
             }
 
-            .filter-btn {
+            .search-box {
+                width: 100%;
+            }
+
+            .filter-btn, .custom-select {
                 flex: 1;
                 text-align: center;
                 padding: 8px;
-                font-size: 0.65rem;
+                font-size: 0.75rem;
             }
 
+            /* --- Course Page --- */
+            .course-auth-card {
+                width: 95%;
+                padding: 24px 20px;
+            }
+
+            .course-catalog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .course-grid {
+                grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .video-player-section {
+                order: -1;
+            }
+
+            /* --- Modals --- */
             .modal {
                 width: 95%;
-                max-height: 80vh;
+                max-height: 90vh;
             }
 
             .modal-header {
@@ -3293,8 +3362,8 @@
                     <form id="courseLoginForm" onsubmit="handleCourseLogin(event)">
                         <div class="auth-input-group">
                             <label>Username / Member ID</label>
-                            <input type="text" id="courseUsername" placeholder="Enter username"
-                                required autocomplete="username">
+                            <input type="text" id="courseUsername" placeholder="Enter username" required
+                                autocomplete="username">
                         </div>
                         <div class="auth-input-group">
                             <label>Password</label>
@@ -3729,26 +3798,26 @@
                 method: 'POST',
                 body: payload
             })
-            .then(res => res.json())
-            .then(data => {
-                submitBtn.textContent = originalBtnText;
-                submitBtn.disabled = false;
+                .then(res => res.json())
+                .then(data => {
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.disabled = false;
 
-                if (data && data.success) {
-                    localStorage.setItem('tj_course_user', JSON.stringify({ username: data.username, role: data.role }));
-                    checkCourseAuth();
-                } else {
+                    if (data && data.success) {
+                        localStorage.setItem('tj_course_user', JSON.stringify({ username: data.username, role: data.role }));
+                        checkCourseAuth();
+                    } else {
+                        err.textContent = "Invalid username or password. Please try again.";
+                        err.style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    console.error('Login error:', error);
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.disabled = false;
                     err.textContent = "Invalid username or password. Please try again.";
                     err.style.display = 'block';
-                }
-            })
-            .catch(error => {
-                console.error('Login error:', error);
-                submitBtn.textContent = originalBtnText;
-                submitBtn.disabled = false;
-                err.textContent = "Invalid username or password. Please try again.";
-                err.style.display = 'block';
-            });
+                });
         }
 
         function handleCourseLogout() {
