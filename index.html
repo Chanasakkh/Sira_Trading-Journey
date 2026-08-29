@@ -4123,6 +4123,20 @@
                 localStorage.removeItem('tj_custom_cover_' + lessonId);
             }
 
+            // Sync to Google Sheets backend if it's a URL
+            if (urlVal && !urlVal.startsWith('data:image')) {
+                const payload = new URLSearchParams({
+                    action: 'saveCoverUrl',
+                    lessonId: lessonId,
+                    coverUrl: urlVal
+                });
+                fetch(SHEET_API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: payload
+                }).catch(err => console.error('[DEBUG] Save cover error:', err));
+            }
+
             closeCoverModal();
             renderCourseCards();
         }
@@ -4132,6 +4146,18 @@
             localStorage.removeItem('tj_custom_cover_' + lessonId);
             document.getElementById('coverUrlInput').value = '';
             document.getElementById('coverFileInput').value = '';
+
+            const payload = new URLSearchParams({
+                action: 'saveCoverUrl',
+                lessonId: lessonId,
+                coverUrl: ''
+            });
+            fetch(SHEET_API_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: payload
+            }).catch(err => console.error('[DEBUG] Reset cover error:', err));
+
             closeCoverModal();
             renderCourseCards();
         }
@@ -4613,6 +4639,21 @@
                             lesson.videoUrl = videoUrl;
                         }
                     });
+                }
+
+                // 3. Process Cover Links (Sync from Google Sheets if available)
+                if (data && data.coverLinks && Array.isArray(data.coverLinks)) {
+                    data.coverLinks.forEach(linkObj => {
+                        let lessonId = linkObj.lessonId || linkObj[0];
+                        let coverUrl = linkObj.coverUrl || linkObj[1];
+                        if (lessonId === 'Lesson ID' || !lessonId) return;
+                        if (coverUrl) {
+                            localStorage.setItem('tj_custom_cover_' + lessonId, coverUrl);
+                            let lesson = courseLessons.find(l => l.id === lessonId);
+                            if (lesson) lesson.coverImage = coverUrl;
+                        }
+                    });
+                    renderCourseCards();
                 }
 
                 updateConnectionStatus('connected');
