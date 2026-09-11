@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Trade Journey (Trade-D)</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Instrument+Sans:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
         rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
@@ -111,7 +111,9 @@
         }
 
         /* --- GLOBAL RESETS & SCROLLBAR --- */
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -125,7 +127,7 @@
         }
 
         body {
-            font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Instrument Sans', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             height: 100vh;
@@ -455,8 +457,15 @@
         }
 
         @keyframes radarPulse {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(2.6); opacity: 0; }
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(2.6);
+                opacity: 0;
+            }
         }
 
         .status-dot.error {
@@ -604,6 +613,7 @@
                 opacity: 0;
                 transform: translateY(8px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -896,9 +906,17 @@
             font-size: 0.82rem;
         }
 
-        .calendar-week-total .week-value.positive { color: var(--accent-green); }
-        .calendar-week-total .week-value.negative { color: var(--accent-red); }
-        .calendar-week-total .week-value.neutral { color: var(--text-muted); }
+        .calendar-week-total .week-value.positive {
+            color: var(--accent-green);
+        }
+
+        .calendar-week-total .week-value.negative {
+            color: var(--accent-red);
+        }
+
+        .calendar-week-total .week-value.neutral {
+            color: var(--text-muted);
+        }
 
         .calendar-day-total {
             background: rgba(255, 255, 255, 0.03);
@@ -914,9 +932,17 @@
             word-break: break-all;
         }
 
-        .calendar-day-total .day-total-value.positive { color: var(--accent-green); }
-        .calendar-day-total .day-total-value.negative { color: var(--accent-red); }
-        .calendar-day-total .day-total-value.neutral { color: var(--text-muted); }
+        .calendar-day-total .day-total-value.positive {
+            color: var(--accent-green);
+        }
+
+        .calendar-day-total .day-total-value.negative {
+            color: var(--accent-red);
+        }
+
+        .calendar-day-total .day-total-value.neutral {
+            color: var(--text-muted);
+        }
 
         .calendar-total-header {
             background: rgba(255, 255, 255, 0.03);
@@ -1094,10 +1120,21 @@
             box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
         }
 
-        .col-span-1 { grid-column: span 1; }
-        .col-span-2 { grid-column: span 2; }
-        .col-span-3 { grid-column: span 3; }
-        .col-span-4 { grid-column: span 4; }
+        .col-span-1 {
+            grid-column: span 1;
+        }
+
+        .col-span-2 {
+            grid-column: span 2;
+        }
+
+        .col-span-3 {
+            grid-column: span 3;
+        }
+
+        .col-span-4 {
+            grid-column: span 4;
+        }
 
         .dash-card-header {
             display: flex;
@@ -1139,9 +1176,17 @@
             color: var(--text-primary);
         }
 
-        .stat-value-huge.positive { color: var(--accent-green); }
-        .stat-value-huge.negative { color: var(--accent-red); }
-        .stat-value-huge.neutral { color: var(--text-primary); }
+        .stat-value-huge.positive {
+            color: var(--accent-green);
+        }
+
+        .stat-value-huge.negative {
+            color: var(--accent-red);
+        }
+
+        .stat-value-huge.neutral {
+            color: var(--text-primary);
+        }
 
         .stat-sub-badge {
             display: inline-flex;
@@ -1224,8 +1269,13 @@
             color: var(--text-primary);
         }
 
-        .adv-stats-value.positive { color: var(--accent-green); }
-        .adv-stats-value.negative { color: var(--accent-red); }
+        .adv-stats-value.positive {
+            color: var(--accent-green);
+        }
+
+        .adv-stats-value.negative {
+            color: var(--accent-red);
+        }
 
         .progress-bar-bg {
             width: 100%;
@@ -1504,8 +1554,13 @@
             font-size: 0.76rem;
         }
 
-        .cell-points.positive { color: var(--accent-green); }
-        .cell-points.negative { color: var(--accent-red); }
+        .cell-points.positive {
+            color: var(--accent-green);
+        }
+
+        .cell-points.negative {
+            color: var(--accent-red);
+        }
 
         .cell-status {
             font-weight: 700;
@@ -1758,50 +1813,67 @@
         }
 
         .cat-pill {
-            background: var(--bg-card);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
-            padding: 8px 16px;
-            border-radius: 30px;
+            padding: 7px 14px;
+            border-radius: 99px;
             font-size: 0.82rem;
-            font-weight: 600;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            user-select: none;
         }
 
         .cat-pill:hover {
             color: var(--text-primary);
             border-color: var(--border-hover);
+            background: rgba(255, 255, 255, 0.06);
             transform: translateY(-1px);
         }
 
         .cat-pill.active {
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            color: #ffffff;
-            font-weight: 700;
-            border-color: transparent;
-            box-shadow: 0 4px 14px var(--accent-blue-glow);
+            background: rgba(59, 130, 246, 0.12);
+            color: #60a5fa;
+            font-weight: 600;
+            border-color: rgba(59, 130, 246, 0.45);
+            box-shadow: 0 0 16px rgba(59, 130, 246, 0.12);
+        }
+
+        :root[data-theme="white"] .cat-pill.active {
+            background: rgba(37, 99, 235, 0.1);
+            color: #1d4ed8;
+            border-color: rgba(37, 99, 235, 0.4);
+            box-shadow: none;
         }
 
         .cat-count {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.15);
-            color: inherit;
-            font-size: 0.65rem;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            font-size: 0.68rem;
             font-family: 'Space Mono', monospace;
             padding: 2px 7px;
             border-radius: 20px;
             font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .cat-pill.active .cat-count {
-            background: rgba(255, 255, 255, 0.25);
-            color: #ffffff;
+            background: rgba(59, 130, 246, 0.22);
+            color: #93c5fd;
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        :root[data-theme="white"] .cat-pill.active .cat-count {
+            background: rgba(37, 99, 235, 0.15);
+            color: #1d4ed8;
+            border-color: rgba(37, 99, 235, 0.25);
         }
 
         .course-user-mini {
@@ -1855,25 +1927,28 @@
             color: var(--accent-red);
         }
 
-        /* Course Catalog Cards */
+        /* ==========================================================================
+           COURSE CATALOG & CURRICULUM OVERVIEW
+           ========================================================================== */
         #course-catalog-view {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 22px;
             width: 100%;
         }
 
+        /* Course Catalog Grid & Cards */
         .course-catalog-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 24px;
             animation: fadeIn 0.35s ease;
         }
 
         .course-card {
-            background: var(--bg-card);
+            background: linear-gradient(180deg, var(--bg-card) 0%, rgba(10, 13, 20, 0.95) 100%);
             border: 1px solid var(--border-color);
-            border-radius: 18px;
+            border-radius: 20px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -1883,33 +1958,53 @@
             box-shadow: var(--card-shadow);
         }
 
+        :root[data-theme="white"] .course-card {
+            background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+        }
+
         .course-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--border-hover);
-            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.22);
+            box-shadow: 0 20px 42px -8px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08);
+        }
+
+        :root[data-theme="white"] .course-card:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.1), 0 0 0 1px #cbd5e1;
         }
 
         .course-card-cover {
             position: relative;
             width: 100%;
-            height: 175px;
+            height: 195px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 16px;
+            padding: 16px 18px;
             overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .course-card-cover::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(6, 7, 10, 0.15) 0%, rgba(6, 7, 10, 0.8) 100%);
+            pointer-events: none;
+            z-index: 1;
         }
 
         .cover-gold {
-            background: linear-gradient(135deg, #0c0e18 0%, #1c180e 50%, #3f2c0d 100%);
+            background: linear-gradient(135deg, #0d0f1a 0%, #1c180e 45%, #3f2c0d 100%);
         }
 
         .cover-tech {
-            background: linear-gradient(135deg, #070914 0%, #111d3d 50%, #1d4ed8 100%);
+            background: linear-gradient(135deg, #080a16 0%, #0d1a38 45%, #1d4ed8 100%);
         }
 
         .cover-armor {
-            background: linear-gradient(135deg, #090e17 0%, #13273e 50%, #0ea5e9 100%);
+            background: linear-gradient(135deg, #070e17 0%, #0c2538 45%, #059669 100%);
         }
 
         .cover-top-row {
@@ -1917,6 +2012,7 @@
             justify-content: space-between;
             align-items: center;
             z-index: 2;
+            position: relative;
         }
 
         .admin-cover-edit-btn {
@@ -1926,7 +2022,7 @@
             color: #f8fafc;
             font-size: 0.7rem;
             font-weight: 600;
-            padding: 3px 9px;
+            padding: 4px 10px;
             border-radius: 20px;
             display: inline-flex;
             align-items: center;
@@ -1952,35 +2048,62 @@
             font-family: 'Space Mono', monospace;
             font-weight: 700;
             font-size: 0.65rem;
-            padding: 3px 8px;
-            border-radius: 6px;
+            padding: 4px 9px;
+            border-radius: 8px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            backdrop-filter: blur(10px);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .badge-new { background: #f59e0b; color: #000; }
-        .badge-bestseller { background: #3b82f6; color: #fff; }
-        .badge-pro { background: #10b981; color: #000; }
+        .badge-foundation {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.35);
+        }
+
+        .badge-system {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.35);
+        }
+
+        .badge-armor {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.35);
+        }
 
         .cover-format-icon {
             width: 30px;
             height: 30px;
             border-radius: 8px;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.55);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.14);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
+            color: #f8fafc;
+        }
+
+        .cover-banner-center {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            z-index: 2;
+            position: relative;
         }
 
         .cover-banner-title {
             font-family: 'Space Mono', monospace;
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             letter-spacing: 0.5px;
             color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
         }
 
         .cover-banner-subtitle {
@@ -1990,83 +2113,195 @@
             letter-spacing: 2px;
             color: #fbbf24;
             opacity: 0.95;
+            font-family: 'Space Mono', monospace;
         }
 
         .course-card-body {
-            padding: 18px 20px;
+            padding: 20px 22px 16px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
             flex: 1;
         }
 
-        .card-meta-row {
+        .card-track-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.72rem;
         }
 
-        .card-cat {
-            font-weight: 700;
-            color: #f59e0b;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: 0.72rem;
-        }
-
-        .card-duration {
-            color: var(--text-muted);
+        .card-track-chip {
             font-family: 'Space Mono', monospace;
-            font-size: 0.72rem;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+        }
+
+        .track-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .dot-basic {
+            background: #fbbf24;
+            box-shadow: 0 0 6px rgba(251, 191, 36, 0.6);
+        }
+
+        .dot-buttons {
+            background: #60a5fa;
+            box-shadow: 0 0 6px rgba(96, 165, 250, 0.6);
+        }
+
+        .dot-armor {
+            background: #34d399;
+            box-shadow: 0 0 6px rgba(52, 211, 153, 0.6);
+        }
+
+        .card-episodes-pill {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.68rem;
             font-weight: 600;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 3px 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .card-title {
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 700;
             color: var(--text-primary);
-            line-height: 1.45;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .card-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            min-height: 2.9rem;
+            margin: 0;
+        }
+
+        .card-progress-box {
+            margin-top: auto;
+            padding-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .card-progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.72rem;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .card-progress-label {
+            color: var(--text-muted);
+            font-size: 0.7rem;
+        }
+
+        .card-progress-val {
+            color: var(--text-secondary);
+            font-weight: 700;
+        }
+
+        .card-progress-val.completed {
+            color: var(--accent-green);
+        }
+
+        .card-progress-track {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        :root[data-theme="white"] .card-progress-track {
+            background: #e2e8f0;
+        }
+
+        .card-progress-fill {
+            height: 100%;
+            border-radius: 99px;
+            transition: width 0.4s ease;
+            background: var(--accent-blue);
+        }
+
+        .card-progress-fill.completed {
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green-glow);
         }
 
         .course-card-footer {
-            padding: 14px 20px;
+            padding: 14px 22px;
             border-top: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(0, 0, 0, 0.15);
         }
 
-        .card-member-tag {
-            font-size: 0.72rem;
+        :root[data-theme="white"] .course-card-footer {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .card-access-pill {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
             color: var(--text-muted);
-            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .card-action-btn {
             font-size: 0.76rem;
             font-weight: 700;
             color: var(--text-primary);
-            background: transparent;
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-color);
-            padding: 6px 14px;
+            padding: 7px 16px;
             border-radius: 20px;
             transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             font-family: 'Instrument Sans', sans-serif;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 7px;
+            cursor: pointer;
         }
 
         .course-card:hover .card-action-btn {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            border-color: var(--text-primary);
+            background: var(--accent-blue);
+            color: #ffffff;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 14px var(--accent-blue-glow);
+            transform: scale(1.03);
+        }
+
+        .course-card:hover .card-action-btn.btn-completed {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            box-shadow: 0 0 14px var(--accent-green-glow);
         }
 
         /* Course Player View */
@@ -2110,7 +2345,7 @@
 
         .course-grid {
             display: grid;
-            grid-template-columns: 1fr 340px;
+            grid-template-columns: 1fr 375px;
             gap: 24px;
             width: 100%;
         }
@@ -2124,7 +2359,8 @@
         .video-frame-wrapper {
             position: relative;
             width: 100%;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%;
+            /* 16:9 Aspect Ratio */
             background: #000000;
             border-radius: 20px;
             overflow: hidden;
@@ -2277,11 +2513,13 @@
             line-height: 1;
         }
 
-        /* Course Playlist Section */
+        /* ==========================================================================
+           COURSE PLAYLIST - INSTITUTIONAL MODULAR ROADMAP (PASS 2: FULL POTENTIAL)
+           ========================================================================== */
         .course-playlist-section {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 18px;
+            border-radius: 20px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -2289,28 +2527,65 @@
             position: sticky;
             top: 20px;
             box-shadow: var(--card-shadow);
+            backdrop-filter: blur(var(--backdrop-blur));
         }
 
         .playlist-header {
-            padding: 18px 20px;
-            background: rgba(0, 0, 0, 0.2);
+            padding: 16px 20px;
+            background: rgba(0, 0, 0, 0.25);
             border-bottom: 1px solid var(--border-color);
             display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        :root[data-theme="white"] .playlist-header {
+            background: rgba(241, 245, 249, 0.75);
+        }
+
+        .playlist-header-top {
+            display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: baseline;
         }
 
         .playlist-header h3 {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 700;
             color: var(--text-primary);
+            letter-spacing: -0.2px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
         }
 
-        .progress-text {
+        .playlist-header-meta {
             font-size: 0.72rem;
             color: var(--accent-green);
             font-family: 'Space Mono', monospace;
             font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+
+        .playlist-progress-track {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        :root[data-theme="white"] .playlist-progress-track {
+            background: rgba(0, 0, 0, 0.08);
+        }
+
+        .playlist-progress-fill {
+            height: 100%;
+            background: var(--accent-green);
+            border-radius: 99px;
+            transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .playlist-items {
@@ -2318,129 +2593,264 @@
             display: flex;
             flex-direction: column;
             padding: 12px;
-            gap: 6px;
+            gap: 10px;
         }
 
-        .playlist-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 14px;
-            border-radius: 12px;
+        .playlist-items::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .playlist-items::-webkit-scrollbar-track {
             background: transparent;
-            border: 1px solid transparent;
-            cursor: pointer;
+        }
+
+        .playlist-items::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 99px;
+        }
+
+        :root[data-theme="white"] .playlist-items::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        /* Modular Roadmap Container (Sequential Milestones) */
+        .playlist-module {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            overflow: hidden;
             transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .playlist-item:hover {
-            background: rgba(255, 255, 255, 0.04);
-            transform: translateX(2px);
+        :root[data-theme="white"] .playlist-module {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
         }
 
-        .playlist-item.active {
-            background: rgba(59, 130, 246, 0.12);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            box-shadow: 0 2px 12px rgba(59, 130, 246, 0.1);
+        .playlist-module.has-active {
+            border-color: rgba(59, 130, 246, 0.35);
+            background: rgba(59, 130, 246, 0.025);
+            box-shadow: 0 4px 20px -4px rgba(59, 130, 246, 0.12);
         }
 
-        .item-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
+        .module-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 0.8rem;
-            font-weight: 700;
-            font-family: 'Space Mono', monospace;
+            justify-content: space-between;
+            padding: 11px 14px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.15s ease;
+            gap: 10px;
         }
 
-        .playlist-item.active .item-icon {
-            background: var(--accent-blue);
-            color: #ffffff;
-            box-shadow: 0 0 10px var(--accent-blue-glow);
+        .module-header:hover {
+            background: rgba(255, 255, 255, 0.035);
         }
 
-        .playlist-item.watched .item-icon {
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--accent-green);
+        :root[data-theme="white"] .module-header:hover {
+            background: rgba(0, 0, 0, 0.025);
         }
 
-        .item-info {
+        .module-header-left {
             display: flex;
-            flex-direction: column;
-            gap: 3px;
-            flex: 1;
+            align-items: center;
+            gap: 10px;
             min-width: 0;
+            flex: 1;
         }
 
-        .item-title {
+        .module-badge {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.64rem;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+
+        .playlist-module.has-active .module-badge {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        .playlist-module.is-completed .module-badge {
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--accent-green);
+            border-color: rgba(16, 185, 129, 0.25);
+        }
+
+        .module-title {
             font-size: 0.82rem;
             font-weight: 600;
             color: var(--text-primary);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            letter-spacing: -0.1px;
+        }
+
+        .module-header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .module-progress-stat {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 0.2px;
+        }
+
+        .playlist-module.is-completed .module-progress-stat {
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+
+        .module-chevron {
+            color: var(--text-muted);
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .playlist-module.expanded .module-chevron {
+            transform: rotate(180deg);
+            color: var(--text-primary);
+        }
+
+        .module-episodes {
+            display: none;
+            flex-direction: column;
+            padding: 4px 8px 8px;
+            gap: 4px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        :root[data-theme="white"] .module-episodes {
+            border-top: 1px solid var(--border-color);
+        }
+
+        .playlist-module.expanded .module-episodes {
+            display: flex;
+        }
+
+        /* Restrained, Disciplined Lesson Item */
+        .playlist-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 9px 10px;
+            border-radius: 10px;
+            background: transparent;
+            border: 1px solid transparent;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .playlist-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.06);
+        }
+
+        :root[data-theme="white"] .playlist-item:hover {
+            background: rgba(0, 0, 0, 0.03);
+            border-color: rgba(0, 0, 0, 0.06);
+        }
+
+        /* Active: Single bold accent, no extraneous clutter */
+        .playlist-item.active {
+            background: rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        :root[data-theme="white"] .playlist-item.active {
+            background: rgba(37, 99, 235, 0.06);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        .playlist-item.watched:not(.active) {
+            opacity: 0.85;
+        }
+
+        .playlist-item.watched:not(.active):hover {
+            opacity: 1;
+        }
+
+        .item-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 7px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.7rem;
+            font-weight: 700;
+            font-family: 'Space Mono', monospace;
+            transition: all 0.15s ease;
+        }
+
+        :root[data-theme="white"] .item-icon {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .playlist-item.active .item-icon {
+            background: var(--accent-blue);
+            color: #ffffff;
+        }
+
+        .playlist-item.watched .item-icon {
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--accent-green);
+        }
+
+        .item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .item-title {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            line-height: 1.35;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            word-break: break-word;
         }
 
         .playlist-item.active .item-title {
-            color: #60a5fa;
-            font-weight: 700;
+            color: #93c5fd;
+            font-weight: 600;
+        }
+
+        :root[data-theme="white"] .playlist-item.active .item-title {
+            color: #1d4ed8;
+            font-weight: 600;
         }
 
         .item-meta {
             display: flex;
+            align-items: center;
             justify-content: space-between;
             font-size: 0.68rem;
             color: var(--text-muted);
-            font-family: 'Space Mono', monospace;
-        }
-
-        .source-tag-mini {
-            font-size: 0.65rem;
-            color: var(--accent-green);
-        }
-
-        .playlist-section-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 8px 6px;
-            margin-top: 6px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .playlist-section-header:first-child {
-            margin-top: 0;
-            padding-top: 2px;
-        }
-
-        .section-badge-pill {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.62rem;
-            font-weight: 700;
-            padding: 2px 7px;
-            border-radius: 4px;
-            background: rgba(245, 158, 11, 0.15);
-            color: #fbbf24;
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            flex-shrink: 0;
-        }
-
-        .section-title-text {
-            font-size: 0.78rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            letter-spacing: 0.2px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         /* ==========================================================================
@@ -2845,7 +3255,10 @@
                 height: auto;
             }
 
-            .col-span-1, .col-span-2, .col-span-3, .col-span-4 {
+            .col-span-1,
+            .col-span-2,
+            .col-span-3,
+            .col-span-4 {
                 grid-column: span 1;
             }
 
@@ -3444,14 +3857,22 @@
                 <!-- Minimalist Navigation & Actions Bar -->
                 <div class="course-nav-bar">
                     <div class="course-categories">
-                        <button class="cat-pill active" data-cat="all" onclick="filterCourses('all', this)">ทั้งหมด
-                            <span class="cat-count" id="count-all">0</span></button>
-                        <button class="cat-pill" data-cat="basic" onclick="filterCourses('basic', this)">ติดอาวุธการเทรด
-                            <span class="cat-count" id="count-basic">0</span></button>
-                        <button class="cat-pill" data-cat="buttons" onclick="filterCourses('buttons', this)">กระดุม 5 เม็ด
-                            <span class="cat-count" id="count-buttons">0</span></button>
-                        <button class="cat-pill" data-cat="armor" onclick="filterCourses('armor', this)">ชุดเกราะการเทรด
-                            <span class="cat-count" id="count-armor">0</span></button>
+                        <button class="cat-pill active" data-cat="all" onclick="filterCourses('all', this)">
+                            <span>ทั้งหมด</span>
+                            <span class="cat-count" id="count-all">0</span>
+                        </button>
+                        <button class="cat-pill" data-cat="basic" onclick="filterCourses('basic', this)">
+                            <span>ติดอาวุธการเทรด</span>
+                            <span class="cat-count" id="count-basic">0</span>
+                        </button>
+                        <button class="cat-pill" data-cat="buttons" onclick="filterCourses('buttons', this)">
+                            <span>กระดุม 5 เม็ด</span>
+                            <span class="cat-count" id="count-buttons">0</span>
+                        </button>
+                        <button class="cat-pill" data-cat="armor" onclick="filterCourses('armor', this)">
+                            <span>ชุดเกราะการเทรด</span>
+                            <span class="cat-count" id="count-armor">0</span>
+                        </button>
                     </div>
                     <div class="course-user-mini">
                         <button class="custom-cloud-btn-mini" onclick="promptCustomCloudVideo()"
@@ -3478,7 +3899,7 @@
                     </div>
                 </div>
 
-                <!-- 1. COURSE CATALOG GRID VIEW (Matching Screenshot) -->
+                <!-- 1. COURSE CATALOG GRID VIEW -->
                 <div id="course-catalog-view">
                     <div class="course-catalog-grid" id="courseCatalogGrid">
                         <!-- Populated dynamically by renderCourseCards() -->
@@ -3555,9 +3976,30 @@
                         <!-- Right: Lesson Playlist -->
                         <div class="course-playlist-section">
                             <div class="playlist-header">
-                                <h3>รายการหลักสูตร (<span id="playlistCount">0</span> ตอน)</h3>
-                                <span class="progress-text">รับชมแล้ว <span id="watchedCount">0</span>/<span
-                                        id="playlistTotal">0</span></span>
+                                <div class="playlist-header-top">
+                                    <h3>
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                                            stroke-linejoin="round" style="color:var(--accent-blue);">
+                                            <line x1="8" y1="6" x2="21" y2="6"></line>
+                                            <line x1="8" y1="12" x2="21" y2="12"></line>
+                                            <line x1="8" y1="18" x2="21" y2="18"></line>
+                                            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                                        </svg>
+                                        <span>สารบัญหลักสูตร</span>
+                                        <span
+                                            style="font-size:0.75rem; color:var(--text-muted); font-weight:500;">(<span
+                                                id="playlistCount">0</span> ตอน)</span>
+                                    </h3>
+                                    <span class="playlist-header-meta" id="playlistProgressText">รับชมแล้ว <span
+                                            id="watchedCount">0</span>/<span id="playlistTotal">0</span></span>
+                                </div>
+                                <div class="playlist-progress-track">
+                                    <div class="playlist-progress-fill" id="playlistProgressBar" style="width: 0%;">
+                                    </div>
+                                </div>
                             </div>
                             <div class="playlist-items" id="playlistContainer">
                                 <!-- Populated by JS -->
@@ -3591,16 +4033,20 @@
             </div>
             <div class="modal-body" style="display:flex; flex-direction:column; gap:16px; padding: 20px 24px;">
                 <input type="hidden" id="editCoverLessonId" value="">
-                
+
                 <!-- Cover Preview -->
-                <div class="cover-preview-box" id="coverPreviewBox" style="width:100%; height:160px; border-radius:12px; border:1px solid var(--border-color); display:flex; align-items:center; justify-content:center; overflow:hidden; background: var(--bg-tertiary); position:relative;">
-                    <div id="coverPreviewContent" style="color:var(--text-muted); font-size:0.85rem;">พรีวิวรูปภาพหน้าปก</div>
+                <div class="cover-preview-box" id="coverPreviewBox"
+                    style="width:100%; height:160px; border-radius:12px; border:1px solid var(--border-color); display:flex; align-items:center; justify-content:center; overflow:hidden; background: var(--bg-tertiary); position:relative;">
+                    <div id="coverPreviewContent" style="color:var(--text-muted); font-size:0.85rem;">พรีวิวรูปภาพหน้าปก
+                    </div>
                 </div>
 
                 <!-- Option 1: File Upload -->
                 <div style="display:flex; flex-direction:column; gap:6px;">
-                    <label style="font-size:0.8rem; font-weight:600; color:var(--text-secondary);">1. เลือกรูปจากเครื่องคอมพิวเตอร์ / มือถือ:</label>
-                    <input type="file" id="coverFileInput" accept="image/*" onchange="handleCoverFileUpload(event)" style="font-size:0.82rem; color:var(--text-primary); cursor:pointer;">
+                    <label style="font-size:0.8rem; font-weight:600; color:var(--text-secondary);">1.
+                        เลือกรูปจากเครื่องคอมพิวเตอร์ / มือถือ:</label>
+                    <input type="file" id="coverFileInput" accept="image/*" onchange="handleCoverFileUpload(event)"
+                        style="font-size:0.82rem; color:var(--text-primary); cursor:pointer;">
                 </div>
 
                 <div style="display:flex; align-items:center; gap:10px; color:var(--text-muted); font-size:0.75rem;">
@@ -3611,16 +4057,24 @@
 
                 <!-- Option 2: Image URL / Filename -->
                 <div style="display:flex; flex-direction:column; gap:6px;">
-                    <label style="font-size:0.8rem; font-weight:600; color:var(--text-secondary);">2. วาง URL หรือชื่อไฟล์รูปภาพ:</label>
-                    <input type="text" id="coverUrlInput" placeholder="เช่น cover1.jpg หรือ https://..." oninput="updateCoverPreview(this.value)" style="width:100%; background:var(--bg-tertiary); border:1px solid var(--border-color); border-radius:8px; padding:8px 12px; color:var(--text-primary); font-size:0.85rem;">
+                    <label style="font-size:0.8rem; font-weight:600; color:var(--text-secondary);">2. วาง URL
+                        หรือชื่อไฟล์รูปภาพ:</label>
+                    <input type="text" id="coverUrlInput" placeholder="เช่น cover1.jpg หรือ https://..."
+                        oninput="updateCoverPreview(this.value)"
+                        style="width:100%; background:var(--bg-tertiary); border:1px solid var(--border-color); border-radius:8px; padding:8px 12px; color:var(--text-primary); font-size:0.85rem;">
                 </div>
 
                 <!-- Action Buttons -->
                 <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:8px;">
-                    <button type="button" onclick="resetCoverToDefault()" style="background:rgba(244,63,94,0.12); border:1px solid rgba(244,63,94,0.3); color:var(--accent-red); padding:8px 14px; border-radius:8px; font-size:0.82rem; font-weight:600; cursor:pointer;">↺ ค่าเริ่มต้น</button>
+                    <button type="button" onclick="resetCoverToDefault()"
+                        style="background:rgba(244,63,94,0.12); border:1px solid rgba(244,63,94,0.3); color:var(--accent-red); padding:8px 14px; border-radius:8px; font-size:0.82rem; font-weight:600; cursor:pointer;">↺
+                        ค่าเริ่มต้น</button>
                     <div style="display:flex; gap:8px;">
-                        <button type="button" onclick="closeCoverModal()" style="background:var(--bg-tertiary); border:1px solid var(--border-color); color:var(--text-secondary); padding:8px 14px; border-radius:8px; font-size:0.82rem; cursor:pointer;">ยกเลิก</button>
-                        <button type="button" onclick="saveCoverImage()" style="background:var(--accent-blue); border:none; color:#fff; padding:8px 18px; border-radius:8px; font-size:0.82rem; font-weight:600; cursor:pointer; box-shadow:0 0 15px var(--accent-blue-glow);">💾 บันทึกรูปปก</button>
+                        <button type="button" onclick="closeCoverModal()"
+                            style="background:var(--bg-tertiary); border:1px solid var(--border-color); color:var(--text-secondary); padding:8px 14px; border-radius:8px; font-size:0.82rem; cursor:pointer;">ยกเลิก</button>
+                        <button type="button" onclick="saveCoverImage()"
+                            style="background:var(--accent-blue); border:none; color:#fff; padding:8px 18px; border-radius:8px; font-size:0.82rem; font-weight:600; cursor:pointer; box-shadow:0 0 15px var(--accent-blue-glow);">💾
+                            บันทึกรูปปก</button>
                     </div>
                 </div>
             </div>
@@ -3645,21 +4099,21 @@
             {
                 id: 'class_basic',
                 isClass: true,
-                title: 'ติดอาวุธการเทรด',
+                title: 'ติดอาวุธการเทรด (Trend & Price Structure)',
                 cat: 'basic',
-                catLabel: 'ติดอาวุธการเทรด',
+                catLabel: 'LEVEL 1 • ปูพื้นฐาน',
                 duration: '3 ตอน',
                 videoType: 'none',
                 coverImage: '', // 👉 ใส่ URL หรือชื่อไฟล์รูปหน้าปกได้ที่นี่ เช่น 'cover_basic.jpg' หรือ 'https://example.com/cover.png'
                 desc: 'คลาสเรียนสำหรับผู้เริ่มต้นเพื่อปูพื้นฐานการเทรดแบบเป็นระบบ ครอบคลุมการดูแนวโน้ม การเคลื่อนไหวของตลาด และโครงสร้างราคา',
-                badge: 'FOUNDATION', badgeClass: 'badge-new', coverTheme: 'cover-tech', coverTitle: 'BASICS', coverSubtitle: 'TRADING ARSENAL',
+                badge: 'FOUNDATION', badgeClass: 'badge-foundation', coverTheme: 'cover-tech', coverTitle: 'BASICS', coverSubtitle: 'TRADING ARSENAL',
                 notes: ['คลาสนี้ประกอบด้วยเนื้อหา 3 ตอนย่อย โปรดเลือกรับชมในเพลย์ลิสต์ด้านขวา']
             },
             {
                 id: 'basic1',
                 classId: 'class_basic',
                 isEpisode: true,
-                title: 'ตอนที่ 1: การดูแนวโน้มตลาด',
+                title: 'Part 1: การดูแนวโน้มตลาด (Market Trend)',
                 cat: 'basic',
                 catLabel: 'ติดอาวุธการเทรด',
                 duration: 'TBD',
@@ -3672,7 +4126,7 @@
                 id: 'basic2',
                 classId: 'class_basic',
                 isEpisode: true,
-                title: 'ตอนที่ 2: การเคลื่อนไหวของตลาด',
+                title: 'Part 2: การเคลื่อนไหวของตลาด (Market Movement)',
                 cat: 'basic',
                 catLabel: 'ติดอาวุธการเทรด',
                 duration: 'TBD',
@@ -3685,7 +4139,7 @@
                 id: 'basic3',
                 classId: 'class_basic',
                 isEpisode: true,
-                title: 'ตอนที่ 3: โครงสร้างราคา',
+                title: 'Part 3: โครงสร้างราคา (Price Structure)',
                 cat: 'basic',
                 catLabel: 'ติดอาวุธการเทรด',
                 duration: 'TBD',
@@ -3699,14 +4153,14 @@
             {
                 id: 'class_buttons',
                 isClass: true,
-                title: 'กระดุม 5 เม็ด ปั้นระบบเทรด (Basic 1-5)',
+                title: 'กระดุม 5 เม็ด ปั้นระบบเทรด (5 Buttons Framework)',
                 cat: 'buttons',
-                catLabel: 'กระดุม 5 เม็ด',
+                catLabel: 'LEVEL 2 • ระบบเทรดหลัก',
                 duration: '5 บท (10 ตอน)',
                 videoType: 'none',
                 coverImage: '', // 👉 ใส่ URL หรือชื่อไฟล์รูปหน้าปกได้ที่นี่ เช่น 'cover_buttons.jpg'
                 desc: '5 หัวใจสำคัญของการสร้างระบบเทรด: Money Management, SnD, Fibonacci Retracement, Fibonacci Extension และการประกอบร่าง Setup รันกำไร',
-                badge: 'SYSTEM', badgeClass: 'badge-bestseller', coverTheme: 'cover-gold', coverTitle: '5 BUTTONS', coverSubtitle: 'TRADING MASTERY',
+                badge: 'CORE SYSTEM', badgeClass: 'badge-system', coverTheme: 'cover-gold', coverTitle: '5 BUTTONS', coverSubtitle: 'TRADING MASTERY',
                 notes: ['คลาสนี้ประกอบด้วย 5 กระดุมเม็ดสำคัญ รวม 10 ตอนย่อย พร้อม Workshop และตัวอย่างการใช้งานจริง']
             },
             // กระดุมเม็ดที่ 1 : Money Management
@@ -3716,7 +4170,7 @@
                 isEpisode: true,
                 section: 'กระดุมเม็ดที่ 1 : Money management',
                 sectionBadge: 'เม็ดที่ 1',
-                title: 'ตอน: Part 1',
+                title: 'Part 1: การบริหารหน้าตัก & Risk per Trade',
                 cat: 'buttons',
                 catLabel: 'กระดุมเม็ดที่ 1',
                 duration: 'TBD',
@@ -3734,7 +4188,7 @@
                 isEpisode: true,
                 section: 'กระดุมเม็ดที่ 1 : Money management',
                 sectionBadge: 'เม็ดที่ 1',
-                title: 'ตอน: Part 2',
+                title: 'Part 2: Risk:Reward Ratio & การรักษาต้นทุน',
                 cat: 'buttons',
                 catLabel: 'กระดุมเม็ดที่ 1',
                 duration: 'TBD',
@@ -3753,7 +4207,7 @@
                 isEpisode: true,
                 section: 'กระดุมเม็ดที่ 2 : SnD ระบบ Supply&Demand+ workshop',
                 sectionBadge: 'เม็ดที่ 2',
-                title: 'ตอน: ความสำคัญของปัจจัยพื้นฐาน Demand-Supply เบื้องต้น',
+                title: 'Part 1: พื้นฐาน Demand-Supply โซนคุณภาพ',
                 cat: 'buttons',
                 catLabel: 'กระดุมเม็ดที่ 2',
                 duration: 'TBD',
@@ -3771,7 +4225,7 @@
                 isEpisode: true,
                 section: 'กระดุมเม็ดที่ 2 : SnD ระบบ Supply&Demand+ workshop',
                 sectionBadge: 'เม็ดที่ 2',
-                title: 'ตอน: Backtest ทดสอบระบบ',
+                title: 'Part 2: Workshop ทดสอบระบบกราฟจริง',
                 cat: 'buttons',
                 catLabel: 'กระดุมเม็ดที่ 2',
                 duration: 'TBD',
@@ -3790,7 +4244,7 @@
                 isEpisode: true,
                 section: 'กระดุมเม็ดที่ 3 : Fibonacci retracement',
                 sectionBadge: 'เม็ดที่ 3',
-                title: 'ตอน: Fibonacci_Part1',
+                title: 'Part 1: การหาจุดสวิง & Golden Ratio',
                 cat: 'buttons',
                 catLabel: 'กระดุมเม็ดที่ 3',
                 duration: 'TBD',
@@ -3808,7 +4262,7 @@
                 isEpisode: true,
                 section: 'กระดุมเม็ดที่ 3 : Fibonacci retracement',
                 sectionBadge: 'เม็ดที่ 3',
-                title: 'ตอน: Fibonacci_Part2',
+                title: 'Part 2: การผสาน Confluence Zone',
                 cat: 'buttons',
                 catLabel: 'กระดุมเม็ดที่ 3',
                 duration: 'TBD',
@@ -3827,7 +4281,7 @@
                 isEpisode: true,
                 section: 'กระดุมเม็ดที่ 4 : Fibonacci extension',
                 sectionBadge: 'เม็ดที่ 4',
-                title: 'ตอน: Fibonacci (Extension)',
+                title: 'Part 1: ทฤษฎีการวัดเป้าหมายทำกำไร',
                 cat: 'buttons',
                 catLabel: 'กระดุมเม็ดที่ 4',
                 duration: 'TBD',
@@ -3845,7 +4299,7 @@
                 isEpisode: true,
                 section: 'กระดุมเม็ดที่ 4 : Fibonacci extension',
                 sectionBadge: 'เม็ดที่ 4',
-                title: 'ตอน: Fibonacci Extension (Workshop)',
+                title: 'Part 2: Workshop วัดเป้า Wave & วาง TP',
                 cat: 'buttons',
                 catLabel: 'กระดุมเม็ดที่ 4',
                 duration: 'TBD',
@@ -3864,7 +4318,7 @@
                 isEpisode: true,
                 section: 'กระดุมเม็ดที่ 5 : การประกอบร่าง setupและเทคนิคการรันกำไร',
                 sectionBadge: 'เม็ดที่ 5',
-                title: 'ตอน: Part 1',
+                title: 'Part 1: Trading Checklist 4 ข้อยืนยันจุดเข้า',
                 cat: 'buttons',
                 catLabel: 'กระดุมเม็ดที่ 5',
                 duration: 'TBD',
@@ -3882,7 +4336,7 @@
                 isEpisode: true,
                 section: 'กระดุมเม็ดที่ 5 : การประกอบร่าง setupและเทคนิคการรันกำไร',
                 sectionBadge: 'เม็ดที่ 5',
-                title: 'ตอน: Part 2',
+                title: 'Part 2: เทคนิคการรันกำไร & Trailing Stop',
                 cat: 'buttons',
                 catLabel: 'กระดุมเม็ดที่ 5',
                 duration: 'TBD',
@@ -3899,15 +4353,15 @@
             {
                 id: 'class_armor',
                 isClass: true,
-                title: 'ชุดเกราะการเทรด',
+                title: 'ชุดเกราะการเทรด (Stochastic Sideway Strategy)',
                 cat: 'armor',
-                catLabel: 'ชุดเกราะการเทรด',
+                catLabel: 'LEVEL 3 • กลยุทธ์เสริม',
                 duration: '1 บท (2 ตอน)',
                 videoType: 'none',
                 coverImage: '', // 👉 ใส่ URL หรือชื่อไฟล์รูปหน้าปกได้ที่นี่ เช่น 'cover_armor.jpg'
                 desc: 'หลักสูตรชุดเกราะป้องกันและเครื่องมือจับจังหวะการเทรดในสภาวะตลาดไร้ทิศทาง (Sideway) ด้วย Stochastic Oscillator',
-                badge: 'ARMOR',
-                badgeClass: 'badge-pro',
+                badge: 'TACTICAL DEFENSE',
+                badgeClass: 'badge-armor',
                 coverTheme: 'cover-armor',
                 coverTitle: 'ARMOR',
                 coverSubtitle: 'TRADING DEFENSE',
@@ -3920,7 +4374,7 @@
                 isEpisode: true,
                 section: 'ชุดเกราะที่ 1 : Stochastic (ตัวช่วยในการเทรดsideway)',
                 sectionBadge: 'เกราะที่ 1',
-                title: 'ตอน: Stochastic (ตัวช่วยในการเทรดsideway) 1',
+                title: 'Part 1: พื้นฐาน Stochastic ในตลาด Sideway',
                 cat: 'armor',
                 catLabel: 'ชุดเกราะที่ 1',
                 duration: 'TBD',
@@ -3938,7 +4392,7 @@
                 isEpisode: true,
                 section: 'ชุดเกราะที่ 1 : Stochastic (ตัวช่วยในการเทรดsideway)',
                 sectionBadge: 'เกราะที่ 1',
-                title: 'ตอน: Stochastic (ตัวช่วยในการเทรดsideway) 2',
+                title: 'Part 2: เทคนิค Divergence & วางแผนเข้าทำ',
                 cat: 'armor',
                 catLabel: 'ชุดเกราะที่ 1',
                 duration: 'TBD',
@@ -4102,7 +4556,7 @@
             }
 
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 const dataUrl = e.target.result;
                 const lessonId = document.getElementById('editCoverLessonId').value;
                 localStorage.setItem('tj_custom_cover_' + lessonId, dataUrl);
@@ -4124,7 +4578,7 @@
             }
 
             // Sync to Google Sheets backend if it's a URL
-            if (urlVal && !urlVal.startsWith('data:image')) {
+            if (urlVal && !urlVal.startsWith('data:image') && !urlVal.startsWith('[ไฟล์รูปภาพจากเครื่อง')) {
                 const payload = new URLSearchParams({
                     action: 'saveCoverUrl',
                     lessonId: lessonId,
@@ -4174,18 +4628,22 @@
                 try {
                     const u = JSON.parse(userStr);
                     isAdmin = (u.username && u.username.toLowerCase() === 'admin') || (u.role && u.role.toLowerCase() === 'admin');
-                } catch(e) {}
+                } catch (e) { }
             }
 
             const baseLessons = courseLessons.filter(l => !l.isEpisode);
             const filtered = filterCat === 'all' ? baseLessons : baseLessons.filter(l => l.cat === filterCat);
 
             filtered.forEach(l => {
-                const isWatched = watchedLessons.includes(l.id);
-                const formatIcon = l.isClass ? '📚' : '☁️';
+                const classEpisodes = courseLessons.filter(ep => ep.classId === l.id && ep.isEpisode);
+                const epCount = classEpisodes.length || 1;
+                const watchedInClass = classEpisodes.filter(ep => watchedLessons.includes(ep.id)).length;
+                const pct = Math.round((watchedInClass / epCount) * 100);
+                const isAllWatched = pct === 100;
+
                 const savedCover = localStorage.getItem('tj_custom_cover_' + l.id);
                 const activeCover = resolveCoverUrl(savedCover || l.coverImage);
-                const coverBgStyle = activeCover ? `background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.65) 100%), url('${activeCover}') center/cover no-repeat;` : '';
+                const coverBgStyle = activeCover ? `background: linear-gradient(180deg, rgba(6,7,10,0.1) 0%, rgba(6,7,10,0.85) 100%), url('${activeCover}') center/cover no-repeat;` : '';
 
                 const adminBtn = isAdmin ? `
                     <button class="admin-cover-edit-btn" onclick="event.stopPropagation(); openCoverImageModal('${l.id}')" title="เปลี่ยนรูปหน้าปก (Admin)">
@@ -4200,9 +4658,31 @@
                 const bannerCenter = activeCover ? '' : `
                     <div class="cover-banner-center">
                         <div class="cover-banner-subtitle">${l.coverSubtitle || 'TECHNICAL MASTERCLASS'}</div>
-                        <div class="cover-banner-title">${l.coverTitle || 'GOLD TRADING'}</div>
+                        <div class="cover-banner-title">${l.coverTitle || 'SYSTEM TRACK'}</div>
                     </div>
                 `;
+
+                // Status & Action button styling
+                let actionBtnText = 'เข้าสู่บทเรียน';
+                let actionBtnClass = 'btn-start';
+                let actionBtnIcon = `
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                    </svg>`;
+
+                if (isAllWatched) {
+                    actionBtnText = 'ทบทวน';
+                    actionBtnClass = 'btn-completed';
+                    actionBtnIcon = `
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>`;
+                } else if (watchedInClass > 0) {
+                    actionBtnText = 'เรียนต่อ';
+                    actionBtnClass = 'btn-resume';
+                }
+
+                const dotColorClass = l.cat === 'basic' ? 'dot-basic' : (l.cat === 'buttons' ? 'dot-buttons' : 'dot-armor');
 
                 const card = document.createElement('div');
                 card.className = 'course-card';
@@ -4215,24 +4695,53 @@
                 card.innerHTML = `
                     <div class="course-card-cover ${l.coverTheme || 'cover-gold'}" style="${coverBgStyle}">
                         <div class="cover-top-row">
-                            <span class="card-badge ${l.badgeClass || 'badge-bestseller'}">${l.badge || 'PRO'}</span>
+                            <span class="card-badge ${l.badgeClass || 'badge-foundation'}">${l.badge || 'PRO'}</span>
                             <div style="display:flex; align-items:center; gap:8px;">
                                 ${adminBtn}
-                                <span class="cover-format-icon" title="Cloud / Drive Video Stream">${formatIcon}</span>
+                                <span class="cover-format-icon" title="${epCount} ตอน • HD Video Stream">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                                    </svg>
+                                </span>
                             </div>
                         </div>
                         ${bannerCenter}
                     </div>
                     <div class="course-card-body">
-                        <div class="card-meta-row">
-                            <span class="card-cat">${l.catLabel}</span>
-                            <span class="card-duration">⏱ ${l.duration}</span>
+                        <div class="card-track-row">
+                            <span class="card-track-chip"><span class="track-dot ${dotColorClass}"></span> ${l.catLabel || 'LEVEL TRACK'}</span>
+                            <span class="card-episodes-pill">
+                                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 6h16M4 12h16M4 18h7"></path>
+                                </svg>
+                                ${epCount} ตอน
+                            </span>
                         </div>
                         <h4 class="card-title">${l.title}</h4>
+                        <p class="card-desc">${l.desc || 'หลักสูตรเข้มข้นเจาะลึกเทคนิคการเทรดแบบสถาบัน พร้อมตัวอย่างและการนำไปใช้งานจริง'}</p>
+                        
+                        <div class="card-progress-box">
+                            <div class="card-progress-header">
+                                <span class="card-progress-label">ความคืบหน้า</span>
+                                <span class="card-progress-val ${isAllWatched ? 'completed' : ''}">${watchedInClass}/${epCount} ตอน (${pct}%)</span>
+                            </div>
+                            <div class="card-progress-track">
+                                <div class="card-progress-fill ${isAllWatched ? 'completed' : ''}" style="width: ${pct}%"></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="course-card-footer">
-                        <span class="card-member-tag">${isWatched ? '✓ รับชมแล้ว' : 'Member+'}</span>
-                        <button class="card-action-btn"><span>เข้าเรียน</span> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
+                        <span class="card-access-pill">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                            </svg>
+                            MEMBER+
+                        </span>
+                        <button class="card-action-btn ${actionBtnClass}">
+                            <span>${actionBtnText}</span>
+                            ${actionBtnIcon}
+                        </button>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -4240,9 +4749,11 @@
         }
 
         function loadClass(classId) {
-            const firstEp = courseLessons.find(l => l.classId === classId && l.isEpisode);
-            if (firstEp) {
-                loadLesson(firstEp.id);
+            const classEps = courseLessons.filter(l => l.classId === classId && l.isEpisode);
+            const nextUnwatched = classEps.find(ep => !watchedLessons.includes(ep.id));
+            const target = nextUnwatched || classEps[0];
+            if (target) {
+                loadLesson(target.id);
             }
         }
 
@@ -4348,6 +4859,33 @@
             }
         }
 
+        let expandedModules = new Set();
+
+        function toggleModule(modKey) {
+            if (expandedModules.has(modKey)) {
+                expandedModules.delete(modKey);
+            } else {
+                expandedModules.add(modKey);
+            }
+            renderPlaylist();
+        }
+
+        function cleanSectionTitle(rawSection, badge) {
+            if (!rawSection) return '';
+            let clean = rawSection.trim();
+            clean = clean.replace(/^(กระดุม)?เม็ดที่\s*\d+\s*:\s*/i, '');
+            clean = clean.replace(/^ชุดเกราะที่\s*\d+\s*:\s*/i, '');
+            clean = clean.replace(/\+ workshop/i, ' (Workshop)');
+            return clean.trim();
+        }
+
+        function cleanLessonTitle(rawTitle) {
+            if (!rawTitle) return '';
+            let clean = rawTitle.trim();
+            clean = clean.replace(/^ตอน(\s*ที่\s*\d+)?\s*:\s*/i, '');
+            return clean.trim();
+        }
+
         function renderPlaylist(filterCat = 'all') {
             const container = document.getElementById('playlistContainer');
             if (!container) return;
@@ -4363,47 +4901,147 @@
                 filtered = filterCat === 'all' ? baseLessons : baseLessons.filter(l => l.cat === filterCat);
             }
 
+            const total = filtered.length;
             const watchedInList = filtered.filter(l => watchedLessons.includes(l.id)).length;
-            if (document.getElementById('playlistCount')) document.getElementById('playlistCount').textContent = filtered.length;
+            const pct = total > 0 ? Math.round((watchedInList / total) * 100) : 0;
+
+            if (document.getElementById('playlistCount')) document.getElementById('playlistCount').textContent = total;
             if (document.getElementById('watchedCount')) document.getElementById('watchedCount').textContent = watchedInList;
-            if (document.getElementById('playlistTotal')) document.getElementById('playlistTotal').textContent = filtered.length;
+            if (document.getElementById('playlistTotal')) document.getElementById('playlistTotal').textContent = total;
 
-            let currentSection = null;
+            const progressBar = document.getElementById('playlistProgressBar');
+            if (progressBar) progressBar.style.width = pct + '%';
 
-            filtered.forEach((l, idx) => {
-                // Render section header if the lesson belongs to a section
-                if (l.section && l.section !== currentSection) {
-                    currentSection = l.section;
-                    const secHeader = document.createElement('div');
-                    secHeader.className = 'playlist-section-header';
-                    secHeader.innerHTML = `
-                        ${l.sectionBadge ? `<span class="section-badge-pill">${l.sectionBadge}</span>` : ''}
-                        <span class="section-title-text">${l.section}</span>
-                    `;
-                    container.appendChild(secHeader);
+            const progressText = document.getElementById('playlistProgressText');
+            if (progressText) {
+                progressText.innerHTML = `ความคืบหน้า <span>${watchedInList}/${total}</span> <span style="opacity:0.65;">(${pct}%)</span>`;
+            }
+
+            // Group filtered lessons into cohesive sequential Modules
+            const modules = [];
+            const moduleMap = new Map();
+
+            filtered.forEach(l => {
+                const secKey = l.section || 'default_class_module';
+                if (!moduleMap.has(secKey)) {
+                    const modObj = {
+                        key: secKey,
+                        badge: l.sectionBadge || (l.section ? 'MODULE' : (l.catLabel || 'BASIC')),
+                        title: l.section ? cleanSectionTitle(l.section, l.sectionBadge) : (l.catLabel || 'สารบัญบทเรียน'),
+                        lessons: []
+                    };
+                    moduleMap.set(secKey, modObj);
+                    modules.push(modObj);
                 }
+                moduleMap.get(secKey).lessons.push(l);
+            });
 
-                const isWatched = watchedLessons.includes(l.id);
-                const isActive = l.id === currentLessonId;
+            // Ensure active module containing currentLessonId is expanded by default
+            const activeModule = modules.find(m => m.lessons.some(l => l.id === currentLessonId));
+            if (activeModule && expandedModules.size === 0) {
+                expandedModules.add(activeModule.key);
+            } else if (activeModule && !expandedModules.has(activeModule.key)) {
+                expandedModules.add(activeModule.key);
+            }
 
-                const item = document.createElement('div');
-                item.className = `playlist-item ${isActive ? 'active' : ''} ${isWatched ? 'watched' : ''}`;
-                item.onclick = () => loadLesson(l.id);
+            // If only 1 module exists, always expand it
+            if (modules.length === 1) {
+                expandedModules.add(modules[0].key);
+            }
 
-                const iconSymbol = isWatched ? '✓' : (idx + 1);
-                const sourceTag = '☁️ Cloud Stream';
+            let globalLessonIndex = 0;
 
-                item.innerHTML = `
-                    <div class="item-icon">${iconSymbol}</div>
-                    <div class="item-info">
-                        <div class="item-title">${l.title}</div>
-                        <div class="item-meta">
-                            <span>${l.catLabel}</span>
-                            <span><strong class="source-tag-mini">${sourceTag}</strong> • ⏱️ ${l.duration}</span>
-                        </div>
+            modules.forEach(m => {
+                const totalInMod = m.lessons.length;
+                const watchedInMod = m.lessons.filter(l => watchedLessons.includes(l.id)).length;
+                const isModCompleted = totalInMod > 0 && watchedInMod === totalInMod;
+                const hasActive = m.lessons.some(l => l.id === currentLessonId);
+                const isExpanded = expandedModules.has(m.key);
+
+                const moduleEl = document.createElement('div');
+                moduleEl.className = `playlist-module ${hasActive ? 'has-active' : ''} ${isModCompleted ? 'is-completed' : ''} ${isExpanded ? 'expanded' : ''}`;
+
+                // Module Header
+                const modHeader = document.createElement('div');
+                modHeader.className = 'module-header';
+                modHeader.onclick = () => toggleModule(m.key);
+
+                const progressStatusText = isModCompleted
+                    ? `✓ ครบ ${totalInMod} ตอน`
+                    : `${watchedInMod}/${totalInMod} ตอน`;
+
+                modHeader.innerHTML = `
+                    <div class="module-header-left">
+                        <span class="module-badge">${m.badge}</span>
+                        <span class="module-title" title="${m.title}">${m.title}</span>
+                    </div>
+                    <div class="module-header-right">
+                        <span class="module-progress-stat">${progressStatusText}</span>
+                        <svg class="module-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
                     </div>
                 `;
-                container.appendChild(item);
+                moduleEl.appendChild(modHeader);
+
+                // Module Episodes
+                const modEpisodes = document.createElement('div');
+                modEpisodes.className = 'module-episodes';
+
+                m.lessons.forEach(l => {
+                    globalLessonIndex++;
+                    const isWatched = watchedLessons.includes(l.id);
+                    const isActive = l.id === currentLessonId;
+                    const cleanedTitle = cleanLessonTitle(l.title);
+
+                    const item = document.createElement('div');
+                    item.className = `playlist-item ${isActive ? 'active' : ''} ${isWatched ? 'watched' : ''}`;
+                    item.onclick = (e) => {
+                        e.stopPropagation();
+                        loadLesson(l.id);
+                    };
+
+                    let iconHtml = '';
+                    if (isActive) {
+                        iconHtml = `
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="margin-left:1px;">
+                                <polygon points="6 3 20 12 6 21 6 3"></polygon>
+                            </svg>`;
+                    } else if (isWatched) {
+                        iconHtml = `
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>`;
+                    } else {
+                        iconHtml = String(globalLessonIndex).padStart(2, '0');
+                    }
+
+                    let metaText = '';
+                    if (isActive) {
+                        metaText = 'กำลังเล่น';
+                    } else if (isWatched) {
+                        metaText = 'รับชมแล้ว';
+                    } else {
+                        metaText = 'ยังไม่ได้เริ่ม';
+                    }
+
+                    const durationText = (l.duration && l.duration !== 'TBD') ? `⏱️ ${l.duration}` : '';
+
+                    item.innerHTML = `
+                        <div class="item-icon">${iconHtml}</div>
+                        <div class="item-info">
+                            <div class="item-title" title="${cleanedTitle}">${cleanedTitle}</div>
+                            <div class="item-meta">
+                                <span>${metaText}</span>
+                                ${durationText ? `<span>${durationText}</span>` : ''}
+                            </div>
+                        </div>
+                    `;
+                    modEpisodes.appendChild(item);
+                });
+
+                moduleEl.appendChild(modEpisodes);
+                container.appendChild(moduleEl);
             });
         }
 
