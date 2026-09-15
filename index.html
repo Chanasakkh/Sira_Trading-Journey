@@ -585,6 +585,315 @@
             box-shadow: 0 0 0 2px var(--accent-blue-glow);
         }
 
+        /* ==========================================================================
+           FINTECH TIME FILTER POPOVER (MONTH + WEEK SELECTOR)
+           ========================================================================== */
+        .time-filter-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .time-filter-trigger {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            padding: 0 12px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.74rem;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            min-width: 140px;
+            height: 34px;
+            border-radius: 8px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        .time-filter-trigger:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+        }
+
+        .time-filter-trigger.active,
+        .time-filter-trigger:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 2px var(--accent-blue-glow);
+        }
+
+        .time-filter-trigger .tf-cal-icon {
+            color: var(--accent-blue);
+            display: inline-flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .time-filter-trigger .tf-label {
+            flex: 1;
+            text-align: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .time-filter-trigger .tf-badge {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent-blue);
+            font-size: 0.65rem;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .time-filter-trigger .tf-chevron {
+            color: var(--text-muted);
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+            margin-left: 2px;
+        }
+
+        .time-filter-wrapper.open .time-filter-trigger .tf-chevron {
+            transform: rotate(180deg);
+        }
+
+        /* Popover Window */
+        .time-filter-popover {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            width: 320px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.65), 0 0 0 1px var(--border-color);
+            backdrop-filter: blur(var(--backdrop-blur));
+            -webkit-backdrop-filter: blur(var(--backdrop-blur));
+            padding: 14px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px) scale(0.98);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+        }
+
+        .time-filter-wrapper.open .time-filter-popover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        /* Section Headings */
+        .tf-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .tf-section-header .tf-sub {
+            color: var(--accent-blue);
+            font-family: 'Space Mono', monospace;
+            text-transform: none;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        /* Quick Presets */
+        .tf-presets {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .tf-preset-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 7px 4px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .tf-preset-btn:hover {
+            border-color: var(--accent-blue);
+            color: var(--text-primary);
+            background: var(--bg-card-hover);
+        }
+
+        .tf-preset-btn.active {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: #ffffff;
+            box-shadow: 0 0 12px var(--accent-blue-glow);
+        }
+
+        .tf-divider {
+            height: 1px;
+            background: var(--border-color);
+            margin: 10px 0;
+        }
+
+        /* Months Grid */
+        .tf-months-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            max-height: 140px;
+            overflow-y: auto;
+            padding-right: 2px;
+            margin-bottom: 10px;
+        }
+
+        .tf-months-grid::-webkit-scrollbar {
+            width: 4px;
+        }
+        .tf-months-grid::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        .tf-month-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 0.74rem;
+            font-weight: 600;
+            padding: 7px 4px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-align: center;
+        }
+
+        .tf-month-btn:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+        }
+
+        .tf-month-btn.active {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            font-weight: 700;
+        }
+
+        /* Weeks Container */
+        .tf-weeks-container {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 4px;
+        }
+
+        .tf-weeks-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 6px;
+            max-height: 155px;
+            overflow-y: auto;
+            padding-right: 2px;
+        }
+
+        .tf-weeks-grid::-webkit-scrollbar {
+            width: 4px;
+        }
+        .tf-weeks-grid::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        .tf-week-chip {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 0.72rem;
+            font-family: 'Instrument Sans', sans-serif;
+            padding: 7px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .tf-week-chip:hover {
+            border-color: var(--accent-blue);
+            background: var(--bg-card-hover);
+        }
+
+        .tf-week-chip.active {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: #ffffff;
+            font-weight: 600;
+            box-shadow: 0 0 10px var(--accent-blue-glow);
+        }
+
+        .tf-week-chip .wk-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tf-week-chip .wk-name {
+            font-family: 'Instrument Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.75rem;
+        }
+
+        .tf-week-chip .wk-dates {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            font-family: 'Instrument Sans', sans-serif;
+        }
+
+        .tf-week-chip.active .wk-dates {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .tf-week-chip .wk-trades {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 4px;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+        }
+
+        .tf-week-chip.active .wk-trades {
+            background: rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            color: #ffffff;
+        }
+
+        .calendar-day.active-week-day {
+            border: 1px solid var(--accent-blue);
+            background: rgba(59, 130, 246, 0.08);
+        }
+
         .file-input {
             display: none;
         }
@@ -779,6 +1088,14 @@
             width: 100%;
         }
 
+        .calendar-header-row {
+            border-radius: 10px 10px 0 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
         #calendarGrid {
             flex: 1;
             overflow-y: auto;
@@ -793,15 +1110,15 @@
         }
 
         .calendar-day-header {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 10px 6px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 11px 6px;
             text-align: center;
-            font-size: 0.68rem;
+            font-size: 0.72rem;
             color: var(--text-muted);
-            font-family: 'Space Mono', monospace;
+            font-family: 'Instrument Sans', sans-serif;
             text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
         }
 
         .calendar-day {
@@ -839,10 +1156,10 @@
         }
 
         .day-number {
-            font-family: 'Space Mono', monospace;
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            font-weight: 700;
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+            font-weight: 600;
         }
 
         .day-profit {
@@ -872,12 +1189,13 @@
         }
 
         .day-trades-count {
-            font-size: 0.62rem;
-            color: var(--text-secondary);
+            font-size: 0.64rem;
+            color: var(--text-muted);
             text-align: right;
             margin-top: 3px;
-            font-family: 'Space Mono', monospace;
-            opacity: 0.85;
+            font-family: 'Instrument Sans', sans-serif;
+            font-weight: 500;
+            opacity: 0.9;
         }
 
         .calendar-week-total {
@@ -892,12 +1210,13 @@
         }
 
         .calendar-week-total .week-label {
-            font-size: 0.6rem;
+            font-size: 0.62rem;
             color: var(--text-muted);
-            font-family: 'Space Mono', monospace;
+            font-family: 'Instrument Sans', sans-serif;
             margin-bottom: 2px;
             text-transform: uppercase;
-            font-weight: 700;
+            font-weight: 600;
+            letter-spacing: 0.05em;
         }
 
         .calendar-week-total .week-value {
@@ -946,15 +1265,16 @@
 
         .calendar-total-header {
             background: rgba(255, 255, 255, 0.03);
-            padding: 10px 4px;
+            padding: 11px 6px;
             text-align: center;
-            font-size: 0.65rem;
+            font-size: 0.72rem;
             color: var(--text-muted);
-            font-family: 'Space Mono', monospace;
+            font-family: 'Instrument Sans', sans-serif;
             text-transform: uppercase;
             min-width: 80px;
             border-left: 2px solid var(--border-color);
             font-weight: 700;
+            letter-spacing: 0.08em;
         }
 
         /* Year Summary Table */
@@ -1394,12 +1714,12 @@
 
         .table-header-cell {
             padding: 14px 0;
-            font-size: 0.68rem;
-            font-weight: 700;
+            font-size: 0.72rem;
+            font-weight: 600;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.6px;
-            font-family: 'Space Mono', monospace;
+            letter-spacing: 0.06em;
+            font-family: 'Instrument Sans', sans-serif;
         }
 
         .table-body-wrapper {
@@ -2909,10 +3229,11 @@
         }
 
         .modal-title {
-            font-family: 'Space Mono', monospace;
-            font-size: 1.1rem;
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 1.15rem;
             font-weight: 700;
             color: var(--text-primary);
+            letter-spacing: -0.01em;
         }
 
         .modal-close {
@@ -2950,12 +3271,12 @@
         }
 
         .detail-label {
-            font-size: 0.64rem;
+            font-size: 0.68rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.8px;
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
+            letter-spacing: 0.05em;
+            font-family: 'Instrument Sans', sans-serif;
+            font-weight: 600;
         }
 
         .detail-value {
@@ -3100,6 +3421,568 @@
 
         .group-entry-grid .detail-value {
             font-size: 0.84rem;
+        }
+
+        /* ==========================================================================
+           5.1 MODAL OVERLAYS & Z-INDEX STACKING HIERARCHY
+           ========================================================================== */
+        #dayOrdersModalOverlay {
+            z-index: 1200;
+        }
+
+        #dayOrdersModalOverlay .modal {
+            z-index: 1201;
+        }
+
+        #modalOverlay {
+            z-index: 1600;
+        }
+
+        #modalOverlay .modal {
+            z-index: 1601;
+        }
+
+        #coverModalOverlay {
+            z-index: 1700;
+        }
+
+        /* Modal Close Icon Button */
+        .modal-close-icon-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .modal-close-icon-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+            transform: scale(1.05);
+        }
+
+        .setup-modal-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .setup-badge-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .modal-subtitle {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-family: 'Instrument Sans', sans-serif;
+            margin-top: 2px;
+        }
+
+        /* ==========================================================================
+           5.2 INSTITUTIONAL DAY ORDERS EXECUTION BLOTTER (CALENDAR DAY POPUP)
+           ========================================================================== */
+        .day-orders-modal {
+            max-width: 1060px;
+            width: 95%;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 28px 70px -10px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--border-color), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        /* Blotter Modal Header */
+        .blotter-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 22px;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-card);
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .blotter-header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .blotter-date-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 0 16px var(--accent-blue-glow);
+        }
+
+        .blotter-title-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .blotter-title {
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .blotter-live-tag {
+            font-size: 0.62rem;
+            font-weight: 700;
+            font-family: 'Instrument Sans', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            padding: 1px 6px;
+            border-radius: 4px;
+        }
+
+        .blotter-subtitle {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-family: 'Instrument Sans', sans-serif;
+            margin-top: 1px;
+        }
+
+        .blotter-header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .blotter-badges {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        /* Blotter Stat Chips */
+        .blotter-chip {
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .blotter-chip.points {
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+        }
+
+        .blotter-chip-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            display: inline-block;
+        }
+
+        .blotter-chip.points.positive,
+        .blotter-chip.pnl.positive {
+            color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.12);
+            border-color: rgba(16, 185, 129, 0.3);
+            box-shadow: 0 0 10px var(--accent-green-glow);
+        }
+
+        .blotter-chip.points.negative,
+        .blotter-chip.pnl.negative {
+            color: var(--accent-red);
+            background: rgba(244, 63, 94, 0.12);
+            border-color: rgba(244, 63, 94, 0.3);
+            box-shadow: 0 0 10px var(--accent-red-glow);
+        }
+
+        .blotter-chip.winrate {
+            background: rgba(59, 130, 246, 0.08);
+            border-color: rgba(59, 130, 246, 0.25);
+            color: var(--text-primary);
+        }
+
+        .blotter-chip.winrate .chip-win {
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+
+        .blotter-chip.winrate .chip-lose {
+            color: var(--accent-red);
+            font-weight: 700;
+        }
+
+        .blotter-chip.winrate .chip-draw {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .blotter-chip.winrate .chip-sep {
+            color: var(--text-muted);
+            opacity: 0.6;
+            margin: 0 1px;
+        }
+
+        .blotter-chip.winrate .chip-pct {
+            color: var(--accent-blue);
+            font-weight: 700;
+            margin-left: 2px;
+        }
+
+        /* Blotter Body & Table */
+        .day-orders-body {
+            overflow-y: auto;
+            max-height: 60vh;
+            padding: 0;
+            background: var(--bg-secondary);
+        }
+
+        .blotter-table-wrapper {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        .day-orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.74rem;
+            text-align: left;
+        }
+
+        .day-orders-table th {
+            background: var(--bg-tertiary);
+            color: var(--text-muted);
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            white-space: nowrap;
+        }
+
+        .day-orders-table td {
+            padding: 11px 12px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-family: 'Instrument Sans', sans-serif;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        .day-orders-table tbody tr {
+            cursor: pointer;
+            transition: all 0.15s ease;
+            position: relative;
+        }
+
+        .day-orders-table tbody tr:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .day-orders-table tbody tr:hover td:first-child {
+            box-shadow: inset 3px 0 0 var(--accent-blue);
+        }
+
+        /* Table Column Specialties */
+        .day-orders-table .col-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            width: 44px;
+        }
+
+        .blotter-setid {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.22);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .blotter-asset-badge {
+            font-family: 'Instrument Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.72rem;
+            color: var(--accent-gold);
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.28);
+            padding: 2px 7px;
+            border-radius: 4px;
+            display: inline-block;
+            letter-spacing: 0.02em;
+        }
+
+        .blotter-order-pill {
+            font-family: 'Instrument Sans', sans-serif;
+            font-weight: 700;
+            font-size: 0.68rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            display: inline-block;
+        }
+
+        .blotter-order-pill.buy {
+            color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .blotter-order-pill.sell {
+            color: var(--accent-red);
+            background: rgba(244, 63, 94, 0.12);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+        }
+
+        .day-orders-table .col-mono {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.74rem;
+            letter-spacing: -0.02em;
+            color: var(--text-secondary);
+        }
+
+        .day-orders-table .col-strategy {
+            max-width: 140px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: var(--text-primary);
+            font-size: 0.74rem;
+        }
+
+        .blotter-result-pill {
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .blotter-result-pill.tp {
+            color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .blotter-result-pill.sl {
+            color: var(--accent-red);
+            background: rgba(244, 63, 94, 0.12);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+        }
+
+        .day-orders-table .col-pts {
+            font-family: 'Space Mono', monospace;
+            font-weight: 700;
+            font-size: 0.78rem;
+        }
+
+        .day-orders-table .col-pts.positive {
+            color: var(--accent-green);
+        }
+
+        .day-orders-table .col-pts.negative {
+            color: var(--accent-red);
+        }
+
+        .blotter-rr-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+
+        .blotter-status-pill {
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            display: inline-block;
+        }
+
+        .blotter-status-pill.win {
+            color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+        }
+
+        .blotter-status-pill.lose {
+            color: var(--accent-red);
+            background: rgba(244, 63, 94, 0.15);
+            border: 1px solid rgba(244, 63, 94, 0.35);
+        }
+
+        .blotter-status-pill.draw {
+            color: var(--text-muted);
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Blotter Empty State */
+        .blotter-empty-state {
+            text-align: center;
+            padding: 44px 20px;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .blotter-empty-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .blotter-empty-state h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .blotter-empty-state p {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+        }
+
+        /* Blotter Modal Footer */
+        .blotter-modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            border-top: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 0 0 16px 16px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .blotter-footer-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-family: 'Instrument Sans', sans-serif;
+        }
+
+        .blotter-footer-hint svg {
+            color: var(--accent-blue);
+            flex-shrink: 0;
+        }
+
+        .blotter-footer-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .blotter-action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(59, 130, 246, 0.12);
+            color: var(--accent-blue);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.74rem;
+            font-weight: 600;
+            font-family: 'Instrument Sans', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .blotter-action-btn:hover {
+            background: var(--accent-blue);
+            color: #ffffff;
+            box-shadow: 0 0 14px var(--accent-blue-glow);
+            transform: translateY(-1px);
+        }
+
+        .blotter-close-btn {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-size: 0.74rem;
+            font-weight: 600;
+            font-family: 'Instrument Sans', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .blotter-close-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
         }
 
         /* ==========================================================================
@@ -3399,11 +4282,17 @@
                 gap: 8px;
             }
 
-            .custom-select {
+            .custom-select,
+            .time-filter-trigger {
                 height: 28px;
-                min-width: 110px;
+                min-width: 105px;
                 padding: 0 8px;
                 font-size: 0.7rem;
+            }
+
+            .time-filter-popover {
+                width: 290px;
+                right: -10px;
             }
 
             .filter-bar-container {
@@ -3589,7 +4478,62 @@
                     </button>
                 </div>
 
-                <select id="monthSelector" class="custom-select" onchange="filterByMonth(this.value)">
+                <!-- FINTECH TIME FILTER POPOVER (MONTH + WEEK) -->
+                <div class="time-filter-wrapper" id="timeFilterWrapper">
+                    <button type="button" class="time-filter-trigger" id="timeFilterTrigger" onclick="toggleTimeFilterPopover(event)" aria-haspopup="true" aria-expanded="false" title="Filter by Month & Week">
+                        <span class="tf-cal-icon">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                        </span>
+                        <span class="tf-label" id="timeFilterLabel">All Time</span>
+                        <span class="tf-badge" id="timeFilterBadge" style="display: none;">W1</span>
+                        <svg class="tf-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 9l6 6 6-6" />
+                        </svg>
+                    </button>
+
+                    <div class="time-filter-popover" id="timeFilterPopover" onclick="event.stopPropagation()">
+                        <!-- Quick Presets -->
+                        <div class="tf-section-header">
+                            <span>Quick Select</span>
+                        </div>
+                        <div class="tf-presets">
+                            <button type="button" class="tf-preset-btn active" id="tfPresetAll" onclick="selectQuickPreset('all')">All</button>
+                            <button type="button" class="tf-preset-btn" id="tfPresetThisMonth" onclick="selectQuickPreset('this-month')">Month</button>
+                            <button type="button" class="tf-preset-btn" id="tfPresetThisWeek" onclick="selectQuickPreset('this-week')">This Wk</button>
+                            <button type="button" class="tf-preset-btn" id="tfPresetLastWeek" onclick="selectQuickPreset('last-week')">Last Wk</button>
+                        </div>
+
+                        <div class="tf-divider"></div>
+
+                        <!-- Month Selection Grid -->
+                        <div class="tf-section-header">
+                            <span>Select Month</span>
+                            <span class="tf-sub" id="tfMonthCountSub"></span>
+                        </div>
+                        <div class="tf-months-grid" id="tfMonthsGrid">
+                            <!-- Dynamically generated -->
+                        </div>
+
+                        <!-- Week Selection Section -->
+                        <div class="tf-weeks-container" id="tfWeeksContainer" style="display: none;">
+                            <div class="tf-section-header">
+                                <span>Select Week</span>
+                                <span class="tf-sub" id="tfSelectedMonthContext"></span>
+                            </div>
+                            <div class="tf-weeks-grid" id="tfWeeksGrid">
+                                <!-- Dynamically generated -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hidden select for backwards compatibility -->
+                <select id="monthSelector" style="display: none;">
                     <option value="all">All Time</option>
                 </select>
 
@@ -3636,7 +4580,7 @@
                     </div>
 
                     <div class="monthly-calendar-container" id="monthlyCalendarContainer">
-                        <div class="calendar-grid">
+                        <div class="calendar-grid-with-totals calendar-header-row">
                             <div class="calendar-day-header">Sun</div>
                             <div class="calendar-day-header">Mon</div>
                             <div class="calendar-day-header">Tue</div>
@@ -3644,7 +4588,7 @@
                             <div class="calendar-day-header">Thu</div>
                             <div class="calendar-day-header">Fri</div>
                             <div class="calendar-day-header">Sat</div>
-                            <div class="calendar-total-header">Week</div>
+                            <div class="calendar-total-header">Total</div>
                         </div>
                         <div class="calendar-grid-with-totals" id="calendarGrid"></div>
                         <div class="calendar-grid-with-totals" id="dailyTotalsRow"></div>
@@ -3681,7 +4625,7 @@
                     <div class="progress-bar-bg">
                         <div class="progress-bar-fill" id="dashWinRateBar" style="width: 0%;"></div>
                     </div>
-                    <div style="font-size: 0.65rem; color: var(--text-muted); margin-top: 6px; font-family: 'Space Mono', monospace;"
+                    <div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 6px; font-family: 'Instrument Sans', sans-serif; font-weight: 600;"
                         id="dashWinRateSub">0W / 0L / 0D</div>
                 </div>
 
@@ -3691,7 +4635,7 @@
                     </div>
                     <div class="stat-value-huge neutral" id="dashProfitFactor">0.00</div>
                     <div
-                        style="font-size: 0.65rem; color: var(--text-muted); margin-top: auto; font-family: 'Space Mono', monospace;">
+                        style="font-size: 0.68rem; color: var(--text-muted); margin-top: auto; font-family: 'Instrument Sans', sans-serif; font-weight: 500;">
                         Gross Profit / Gross Loss</div>
                 </div>
 
@@ -4013,14 +4957,90 @@
 
     </main>
 
-    <!-- MODAL -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal">
+    <!-- MODAL: Trade Details / Setup Record -->
+    <div class="modal-overlay" id="modalOverlay" onclick="if(event.target === this) closeModal()">
+        <div class="modal trade-setup-modal">
             <div class="modal-header">
-                <h3 class="modal-title">Trade Details</h3><button class="modal-close"
-                    onclick="closeModal()">&times;</button>
+                <div class="setup-modal-title-wrap">
+                    <div class="setup-badge-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="modal-title">Trade Setup &amp; Analysis</h3>
+                        <p class="modal-subtitle">Trade execution details, planning, and chart setup</p>
+                    </div>
+                </div>
+                <button class="modal-close-icon-btn" onclick="closeModal()" title="Close details">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
             </div>
             <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- DAY TRADES MODAL: Institutional Execution Blotter -->
+    <div class="modal-overlay" id="dayOrdersModalOverlay" onclick="if(event.target === this) closeDayOrdersModal()">
+        <div class="modal day-orders-modal">
+            <div class="blotter-modal-header">
+                <div class="blotter-header-left">
+                    <div class="blotter-date-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="blotter-title-row">
+                            <h3 class="blotter-title" id="dayOrdersTitle">15 Sep 2026</h3>
+                            <span class="blotter-live-tag">Daily Blotter</span>
+                        </div>
+                        <p class="blotter-subtitle" id="dayOrdersSubtitle">Execution Blotter · Daily Trading Activity</p>
+                    </div>
+                </div>
+                <div class="blotter-header-right">
+                    <div class="blotter-badges" id="dayOrdersBadges"></div>
+                    <button class="modal-close-icon-btn" onclick="closeDayOrdersModal()" title="Close blotter">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body day-orders-body" id="dayOrdersBody"></div>
+            <div class="blotter-modal-footer">
+                <div class="blotter-footer-hint">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    <span>Click any row to inspect setup charts and notes</span>
+                </div>
+                <div class="blotter-footer-actions">
+                    <button type="button" class="blotter-action-btn" onclick="viewDayInDataPage()">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="8" y1="6" x2="21" y2="6"></line>
+                            <line x1="8" y1="12" x2="21" y2="12"></line>
+                            <line x1="8" y1="18" x2="21" y2="18"></line>
+                            <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                            <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                            <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                        </svg>
+                        <span>Open in Data Table</span>
+                    </button>
+                    <button type="button" class="blotter-close-btn" onclick="closeDayOrdersModal()">Dismiss</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -4085,7 +5105,7 @@
     <script>
         const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbzDcNeytZg5VPJRp66XAM_pB75l0fR1KuW7m-0JZUJ-O3k4uoReTjkHKrzUqC3LDKyG/exec';
         let allTrades = [], displayedTrades = [], groupedTrades = {};
-        let activeFilters = { status: 'all', search: '', month: 'all', specificDate: null };
+        let activeFilters = { status: 'all', search: '', month: 'all', week: 'all', specificDate: null };
         let dailyChart = null, equityChart = null, radarChart = null, assetChart = null;
         let currentCalendarDate = new Date(), dailyProfitData = {};
         let calendarView = 'month', selectedYear = new Date().getFullYear();
@@ -5338,10 +6358,13 @@
         }
 
         function resetDashboard() {
-            activeFilters = { status: 'all', search: '', month: 'all', specificDate: null };
-            document.getElementById('monthSelector').value = 'all'; document.getElementById('searchBox').value = '';
+            activeFilters = { status: 'all', search: '', month: 'all', week: 'all', specificDate: null };
+            const selector = document.getElementById('monthSelector');
+            if (selector) selector.value = 'all';
+            document.getElementById('searchBox').value = '';
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             document.querySelector('.filter-btn[onclick*="all"]').classList.add('active');
+            updateTimeFilterUI();
             applyAllFilters();
         }
 
@@ -5349,7 +6372,19 @@
             const container = document.getElementById('activeFiltersBar'), label = document.getElementById('filterLabel'), clearBtn = document.getElementById('clearAllBtn');
             container.querySelectorAll('.filter-tag').forEach(t => t.remove());
             let hasActive = false;
-            if (activeFilters.month !== 'all') { const [y, m] = activeFilters.month.split('-'); const mName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][parseInt(m)]; addTag(`📅 ${mName} ${y}`, () => filterByMonth('all')); hasActive = true; }
+            if (activeFilters.month !== 'all') {
+                const [y, m] = activeFilters.month.split('-');
+                const mIdx = parseInt(m);
+                const mName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][mIdx];
+                if (activeFilters.week && activeFilters.week !== 'all') {
+                    const w = parseInt(activeFilters.week);
+                    const range = getTradingWeekRange(parseInt(y), mIdx, w);
+                    addTag(`📅 ${mName} ${y} (W${w}: ${range.label})`, () => filterByTime('all', 'all'));
+                } else {
+                    addTag(`📅 ${mName} ${y}`, () => filterByTime('all', 'all'));
+                }
+                hasActive = true;
+            }
             if (activeFilters.status !== 'all') { addTag(`⚡ ${activeFilters.status.toUpperCase()}`, () => filterTrades('all', document.querySelector('.filter-btn[onclick*="all"]'))); hasActive = true; }
             if (activeFilters.search) { addTag(`🔍 "${activeFilters.search}"`, () => { document.getElementById('searchBox').value = ''; searchTrades(''); }); hasActive = true; }
             if (activeFilters.specificDate) { addTag(`📊 ${activeFilters.specificDate}`, () => { activeFilters.specificDate = null; applyAllFilters(); }); hasActive = true; }
@@ -5375,7 +6410,16 @@
         }
 
         function checkCommonFilters(trade) {
-            if (activeFilters.month !== 'all') { const tradeDate = parseDateString(trade.date); if (!tradeDate) return false; const tradeMonthKey = `${tradeDate.getFullYear()}-${tradeDate.getMonth()}`; if (tradeMonthKey !== activeFilters.month) return false; }
+            if (activeFilters.month !== 'all') {
+                const tradeDate = parseDateString(trade.date);
+                if (!tradeDate) return false;
+                const tradeMonthKey = `${tradeDate.getFullYear()}-${tradeDate.getMonth()}`;
+                if (tradeMonthKey !== activeFilters.month) return false;
+
+                if (activeFilters.week && activeFilters.week !== 'all') {
+                    if (getTradeWeekNum(tradeDate) !== parseInt(activeFilters.week)) return false;
+                }
+            }
             const status = (trade.status || '').toUpperCase(), order = (trade.order || '').toUpperCase();
             let matchStatus = true;
             if (activeFilters.status === 'win') matchStatus = status === 'WIN';
@@ -5391,14 +6435,281 @@
 
         function filterTrades(type, btn) { activeFilters.status = type; document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); if (btn) btn.classList.add('active'); applyAllFilters(); }
         function searchTrades(val) { activeFilters.search = val; applyAllFilters(); }
-        function filterByMonth(val) {
-            activeFilters.month = val; activeFilters.specificDate = null; document.getElementById('monthSelector').value = val;
-            if (val !== 'all') {
-                const [y, m] = val.split('-'); currentCalendarDate = new Date(parseInt(y), parseInt(m), 1); selectedYear = parseInt(y);
-                const yearSelect = document.getElementById('yearSelect'); if (yearSelect) yearSelect.value = selectedYear;
+
+        // --- FINTECH TIME FILTER (MONTH + WEEK) CONTROLLER ---
+        function getTradeWeekNum(dateObj) {
+            const year = dateObj.getFullYear();
+            const month = dateObj.getMonth();
+            const firstDay = new Date(year, month, 1).getDay(); // 0 = Sun
+            return Math.floor((firstDay + dateObj.getDate() - 1) / 7) + 1;
+        }
+
+        function getTradingWeekRange(year, month, weekNum) {
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+            let tradingDays = [];
+            let allRowDays = [];
+            for (let d = 1; d <= daysInMonth; d++) {
+                const wIdx = Math.floor((firstDay + d - 1) / 7) + 1;
+                if (wIdx === weekNum) {
+                    allRowDays.push(d);
+                    const dayOfWeek = (firstDay + d - 1) % 7;
+                    if (dayOfWeek >= 1 && dayOfWeek <= 5) { // Mon to Fri
+                        tradingDays.push(d);
+                    }
+                }
             }
+
+            const daysToUse = tradingDays.length > 0 ? tradingDays : allRowDays;
+            const startDay = Math.min(...daysToUse);
+            const endDay = Math.max(...daysToUse);
+            const mName = monthNames[month] || '';
+
+            return {
+                startDay,
+                endDay,
+                label: startDay === endDay ? `${startDay} ${mName}` : `${startDay} - ${endDay} ${mName}`
+            };
+        }
+
+        function getLatestTradeDate() {
+            if (!allTrades || allTrades.length === 0) return new Date();
+            let latest = null;
+            allTrades.forEach(t => {
+                if (!t.date) return;
+                const d = parseDateString(t.date);
+                if (d && (!latest || d > latest)) latest = d;
+            });
+            return latest || new Date();
+        }
+
+        function toggleTimeFilterPopover(e) {
+            if (e) e.stopPropagation();
+            const wrapper = document.getElementById('timeFilterWrapper');
+            const trigger = document.getElementById('timeFilterTrigger');
+            if (!wrapper) return;
+            const isOpen = wrapper.classList.contains('open');
+            if (isOpen) {
+                closeTimeFilterPopover();
+            } else {
+                wrapper.classList.add('open');
+                if (trigger) {
+                    trigger.classList.add('active');
+                    trigger.setAttribute('aria-expanded', 'true');
+                }
+                updateTimeFilterUI();
+            }
+        }
+
+        function closeTimeFilterPopover() {
+            const wrapper = document.getElementById('timeFilterWrapper');
+            const trigger = document.getElementById('timeFilterTrigger');
+            if (wrapper) wrapper.classList.remove('open');
+            if (trigger) {
+                trigger.classList.remove('active');
+                trigger.setAttribute('aria-expanded', 'false');
+            }
+        }
+
+        function selectQuickPreset(preset) {
+            const latestDate = getLatestTradeDate();
+            if (preset === 'all') {
+                filterByTime('all', 'all', false);
+            } else if (preset === 'this-month') {
+                const mKey = `${latestDate.getFullYear()}-${latestDate.getMonth()}`;
+                filterByTime(mKey, 'all', false);
+            } else if (preset === 'this-week') {
+                const mKey = `${latestDate.getFullYear()}-${latestDate.getMonth()}`;
+                const w = getTradeWeekNum(latestDate);
+                filterByTime(mKey, w, false);
+            } else if (preset === 'last-week') {
+                let prevDate = new Date(latestDate);
+                prevDate.setDate(prevDate.getDate() - 7);
+                const mKey = `${prevDate.getFullYear()}-${prevDate.getMonth()}`;
+                const w = getTradeWeekNum(prevDate);
+                filterByTime(mKey, w, false);
+            }
+        }
+
+        function selectFilterMonth(monthKey) {
+            activeFilters.month = monthKey;
+            activeFilters.week = 'all';
+            activeFilters.specificDate = null;
+
+            const selector = document.getElementById('monthSelector');
+            if (selector) selector.value = monthKey;
+
+            if (monthKey !== 'all') {
+                const [y, m] = monthKey.split('-').map(Number);
+                currentCalendarDate = new Date(y, m, 1);
+                selectedYear = y;
+                const yearSelect = document.getElementById('yearSelect');
+                if (yearSelect) yearSelect.value = selectedYear;
+            }
+
+            updateTimeFilterUI();
             applyAllFilters();
         }
+
+        function selectFilterWeek(weekNum) {
+            activeFilters.week = weekNum;
+            activeFilters.specificDate = null;
+            updateTimeFilterUI();
+            applyAllFilters();
+            // Popover remains open until user clicks outside
+        }
+
+        function filterByTime(monthKey, weekVal = 'all', closePopover = true) {
+            activeFilters.month = monthKey;
+            activeFilters.week = weekVal;
+            activeFilters.specificDate = null;
+
+            const selector = document.getElementById('monthSelector');
+            if (selector) selector.value = monthKey;
+
+            if (monthKey !== 'all') {
+                const [y, m] = monthKey.split('-').map(Number);
+                currentCalendarDate = new Date(y, m, 1);
+                selectedYear = y;
+                const yearSelect = document.getElementById('yearSelect');
+                if (yearSelect) yearSelect.value = selectedYear;
+            }
+
+            updateTimeFilterUI();
+            applyAllFilters();
+
+            if (closePopover) {
+                closeTimeFilterPopover();
+            }
+        }
+
+        function filterByMonth(val) {
+            filterByTime(val, 'all', true);
+        }
+
+        function updateTimeFilterUI() {
+            const label = document.getElementById('timeFilterLabel');
+            const badge = document.getElementById('timeFilterBadge');
+            const weeksContainer = document.getElementById('tfWeeksContainer');
+            const monthContext = document.getElementById('tfSelectedMonthContext');
+            const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+            if (activeFilters.month === 'all') {
+                if (label) label.textContent = 'All Time';
+                if (badge) badge.style.display = 'none';
+            } else {
+                const [y, m] = activeFilters.month.split('-').map(Number);
+                const mName = monthNames[m] || '';
+                if (label) label.textContent = `${mName} ${y}`;
+                if (badge) {
+                    if (activeFilters.week && activeFilters.week !== 'all') {
+                        badge.textContent = `W${activeFilters.week}`;
+                        badge.style.display = 'inline-block';
+                    } else {
+                        badge.style.display = 'none';
+                    }
+                }
+            }
+
+            // Presets active highlighting
+            const latestDate = getLatestTradeDate();
+            const thisMonthKey = `${latestDate.getFullYear()}-${latestDate.getMonth()}`;
+            const thisWeekNum = getTradeWeekNum(latestDate);
+
+            let prevDate = new Date(latestDate);
+            prevDate.setDate(prevDate.getDate() - 7);
+            const lastWeekMonthKey = `${prevDate.getFullYear()}-${prevDate.getMonth()}`;
+            const lastWeekNum = getTradeWeekNum(prevDate);
+
+            const isAll = activeFilters.month === 'all';
+            const isThisMonth = activeFilters.month === thisMonthKey && activeFilters.week === 'all';
+            const isThisWeek = activeFilters.month === thisMonthKey && String(activeFilters.week) === String(thisWeekNum);
+            const isLastWeek = activeFilters.month === lastWeekMonthKey && String(activeFilters.week) === String(lastWeekNum);
+
+            const btnAll = document.getElementById('tfPresetAll');
+            const btnThisMonth = document.getElementById('tfPresetThisMonth');
+            const btnThisWeek = document.getElementById('tfPresetThisWeek');
+            const btnLastWeek = document.getElementById('tfPresetLastWeek');
+
+            if (btnAll) btnAll.classList.toggle('active', isAll);
+            if (btnThisMonth) btnThisMonth.classList.toggle('active', isThisMonth);
+            if (btnThisWeek) btnThisWeek.classList.toggle('active', isThisWeek);
+            if (btnLastWeek) btnLastWeek.classList.toggle('active', isLastWeek);
+
+            // Month buttons active styling
+            document.querySelectorAll('.tf-month-btn').forEach(btn => {
+                const val = btn.getAttribute('data-month');
+                btn.classList.toggle('active', val === activeFilters.month);
+            });
+
+            // Weeks container
+            if (activeFilters.month === 'all') {
+                if (weeksContainer) weeksContainer.style.display = 'none';
+            } else {
+                if (weeksContainer) weeksContainer.style.display = 'block';
+                const [y, m] = activeFilters.month.split('-').map(Number);
+                const mName = monthNames[m] || '';
+                if (monthContext) monthContext.textContent = `${mName} ${y}`;
+                renderWeeksList(y, m);
+            }
+        }
+
+        function renderWeeksList(year, month) {
+            const weeksGrid = document.getElementById('tfWeeksGrid');
+            if (!weeksGrid) return;
+            weeksGrid.innerHTML = '';
+
+            const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const totalWeeks = Math.floor((firstDay + daysInMonth - 1) / 7) + 1;
+
+            // All Month chip
+            const allMonthTrades = allTrades.filter(t => {
+                const d = parseDateString(t.date);
+                return d && d.getFullYear() === year && d.getMonth() === month;
+            }).length;
+
+            const isAllMonthActive = activeFilters.week === 'all';
+            const allChip = document.createElement('div');
+            allChip.className = `tf-week-chip ${isAllMonthActive ? 'active' : ''}`;
+            allChip.onclick = () => selectFilterWeek('all');
+            allChip.innerHTML = `
+                <div class="wk-title">
+                    <span class="wk-name">All Month</span>
+                    <span class="wk-dates">1 - ${daysInMonth} ${monthNames[month]}</span>
+                </div>
+                <span class="wk-trades">${allMonthTrades} trades</span>
+            `;
+            weeksGrid.appendChild(allChip);
+
+            // Week chips (Trading Weeks Mon-Fri)
+            for (let w = 1; w <= totalWeeks; w++) {
+                const range = getTradingWeekRange(year, month, w);
+
+                const weekTrades = allTrades.filter(t => {
+                    const d = parseDateString(t.date);
+                    if (!d || d.getFullYear() !== year || d.getMonth() !== month) return false;
+                    return getTradeWeekNum(d) === w;
+                }).length;
+
+                const isWeekActive = String(activeFilters.week) === String(w);
+                const chip = document.createElement('div');
+                chip.className = `tf-week-chip ${isWeekActive ? 'active' : ''}`;
+                chip.onclick = () => selectFilterWeek(w);
+                chip.innerHTML = `
+                    <div class="wk-title">
+                        <span class="wk-name">Week ${w}</span>
+                        <span class="wk-dates">${range.label}</span>
+                    </div>
+                    <span class="wk-trades">${weekTrades} trades</span>
+                `;
+                weeksGrid.appendChild(chip);
+            }
+        }
+
         function handleChartClick(event, elements, chart) { if (!elements || elements.length === 0) return; activeFilters.specificDate = chart.data.labels[elements[0].index]; applyAllFilters(); }
 
         // --- NEW CENTRALIZED STATS CALCULATION ---
@@ -5723,13 +7034,51 @@
         }
 
         function populateMonthDropdown() {
-            const selector = document.getElementById('monthSelector');
-            selector.innerHTML = '<option value="all">All Time</option>';
+            const grid = document.getElementById('tfMonthsGrid');
+            const sub = document.getElementById('tfMonthCountSub');
+            const legacySelector = document.getElementById('monthSelector');
+            if (legacySelector) legacySelector.innerHTML = '<option value="all">All Time</option>';
+            if (!grid) return;
+
+            grid.innerHTML = '';
             const months = new Set();
-            allTrades.forEach(t => { if (!t.date) return; const d = parseDateString(t.date); if (d) months.add(`${d.getFullYear()}-${d.getMonth()}`); });
-            const sortedMonths = Array.from(months).sort((a, b) => { const [y1, m1] = a.split('-').map(Number); const [y2, m2] = b.split('-').map(Number); return (y2 - y1) || (m2 - m1); });
+            allTrades.forEach(t => {
+                if (!t.date) return;
+                const d = parseDateString(t.date);
+                if (d) months.add(`${d.getFullYear()}-${d.getMonth()}`);
+            });
+
+            const sortedMonths = Array.from(months).sort((a, b) => {
+                const [y1, m1] = a.split('-').map(Number);
+                const [y2, m2] = b.split('-').map(Number);
+                return (y2 - y1) || (m2 - m1);
+            });
+
             const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-            sortedMonths.forEach(key => { const [y, m] = key.split('-'); const opt = document.createElement('option'); opt.value = key; opt.textContent = `${monthNames[parseInt(m)]} ${y}`; selector.appendChild(opt); });
+            if (sub) sub.textContent = `${sortedMonths.length} Months`;
+
+            sortedMonths.forEach(key => {
+                const [y, m] = key.split('-');
+                const mIdx = parseInt(m);
+                const label = `${monthNames[mIdx]} ${y}`;
+
+                if (legacySelector) {
+                    const opt = document.createElement('option');
+                    opt.value = key;
+                    opt.textContent = label;
+                    legacySelector.appendChild(opt);
+                }
+
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = `tf-month-btn ${key === activeFilters.month ? 'active' : ''}`;
+                btn.setAttribute('data-month', key);
+                btn.textContent = label;
+                btn.onclick = () => selectFilterMonth(key);
+                grid.appendChild(btn);
+            });
+
+            updateTimeFilterUI();
         }
 
         function populateYearDropdown() {
@@ -5767,8 +7116,7 @@
 
             yearTrades.forEach(t => {
                 const d = parseDateString(t.date); if (!d) return;
-                const monthIdx = d.getMonth(), dateNum = d.getDate(), weekIdx = Math.ceil(dateNum / 7);
-                if (weekIdx > 5) return;
+                const monthIdx = d.getMonth(), dateNum = d.getDate(), weekIdx = Math.min(5, getTradeWeekNum(d));
                 const points = t.points || 0; const status = (t.status || '').toUpperCase(); const rrVal = parseFloat(t.rr) || 0;
 
                 monthsData[monthIdx].weeks[weekIdx] += points;
@@ -5842,9 +7190,9 @@
             currentCalendarDate.setMonth(currentCalendarDate.getMonth() + offset);
             const newMonthVal = `${currentCalendarDate.getFullYear()}-${currentCalendarDate.getMonth()}`;
             const selector = document.getElementById('monthSelector');
-            let optionExists = Array.from(selector.options).some(opt => opt.value === newMonthVal);
+            let optionExists = selector ? Array.from(selector.options).some(opt => opt.value === newMonthVal) : false;
             if (activeFilters.month !== 'all' && optionExists) {
-                activeFilters.month = newMonthVal; selector.value = newMonthVal; activeFilters.specificDate = null; applyAllFilters();
+                filterByTime(newMonthVal, 'all');
             } else { renderCalendar(); }
         }
 
@@ -5871,19 +7219,185 @@
                 const info = dailyProfitData[dateStr], dayOfWeek = (firstDay + d - 1) % 7;
                 let content = `<div class="day-profit neutral">-</div>`, points = 0;
                 const isSelected = activeFilters.specificDate === dateStr;
+                const isInSelectedWeek = activeFilters.week !== 'all' && getTradeWeekNum(new Date(year, month, d)) === parseInt(activeFilters.week);
                 let clickAttr = '';
                 if (info) {
                     points = info.points;
                     content = `<div class="day-profit ${info.points >= 0 ? 'positive' : 'negative'}">${info.points > 0 ? '+' : ''}${info.points.toLocaleString()}</div><div class="day-trades-count">${info.count} Trades</div>`;
-                    clickAttr = `onclick="filterBySpecificDate('${dateStr}')" style="cursor:pointer;" title="Click to filter by ${dateStr}"`;
+                    clickAttr = `onclick="handleCalendarDayClick('${dateStr}', event)" style="cursor:pointer;" title="Click to view orders for ${dateStr}"`;
                 }
                 dailyTotals[dayOfWeek] += points; currentWeekTotal += points;
-                grid.innerHTML += `<div class="calendar-day ${isSelected ? 'selected-day' : ''}" ${clickAttr}><div class="day-number">${d}</div>${content}</div>`;
+                grid.innerHTML += `<div class="calendar-day ${isSelected ? 'selected-day' : ''} ${isInSelectedWeek ? 'active-week-day' : ''}" ${clickAttr}><div class="day-number">${d}</div>${content}</div>`;
                 if (dayOfWeek === 6 || d === daysInMonth) { grid.innerHTML += `<div class="calendar-week-total"><div class="week-label">Total</div><div class="week-value ${currentWeekTotal >= 0 ? 'positive' : 'negative'}">${currentWeekTotal > 0 ? '+' : ''}${currentWeekTotal.toLocaleString()}</div></div>`; currentWeekTotal = 0; }
             }
             dailyTotals.forEach(total => { dailyTotalsRow.innerHTML += `<div class="calendar-day-total"><div class="day-total-value ${total >= 0 ? 'positive' : 'negative'}">${total > 0 ? '+' : ''}${total.toLocaleString()}</div></div>`; });
             const monthTotal = dailyTotals.reduce((s, v) => s + v, 0);
             dailyTotalsRow.innerHTML += `<div class="calendar-week-total"><div class="week-label">Month</div><div class="week-value ${monthTotal >= 0 ? 'positive' : 'negative'}">${monthTotal > 0 ? '+' : ''}${monthTotal.toLocaleString()}</div></div>`;
+        }
+
+        // --- DAY ORDERS MODAL (INSTITUTIONAL EXECUTION BLOTTER) ---
+        let currentDayOrdersDate = null;
+
+        function handleCalendarDayClick(dateStr, e) {
+            if (e) e.stopPropagation();
+            // Single click: Highlight selected cell immediately without tearing down DOM
+            document.querySelectorAll('.calendar-day.selected-day').forEach(el => el.classList.remove('selected-day'));
+            const cell = (e && e.currentTarget) ? e.currentTarget : null;
+            if (cell) cell.classList.add('selected-day');
+            openDayOrdersModal(dateStr);
+        }
+
+        function openDayOrdersModal(dateStr) {
+            currentDayOrdersDate = dateStr;
+            const modal = document.getElementById('dayOrdersModalOverlay');
+            const title = document.getElementById('dayOrdersTitle');
+            const subtitle = document.getElementById('dayOrdersSubtitle');
+            const badges = document.getElementById('dayOrdersBadges');
+            const body = document.getElementById('dayOrdersBody');
+            if (!modal || !body) return;
+
+            const dayTrades = allTrades.filter(t => t.date === dateStr);
+
+            // Clean formatted date: e.g. "15 Sep 2026"
+            const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            const parts = dateStr.split('/');
+            let niceDate = dateStr;
+            if (parts.length === 3) {
+                const dNum = parseInt(parts[0], 10);
+                const mIdx = parseInt(parts[1], 10) - 1;
+                const yNum = parts[2];
+                niceDate = `${dNum} ${monthNames[mIdx] || ''} ${yNum}`;
+            }
+
+            if (title) title.textContent = niceDate;
+            if (subtitle) {
+                subtitle.textContent = `Execution Blotter · ${dayTrades.length} ${dayTrades.length === 1 ? 'Trade Position' : 'Trade Positions'}`;
+            }
+
+            let totalPts = 0, wins = 0, loses = 0, draws = 0;
+            dayTrades.forEach(t => {
+                totalPts += (t.points || 0);
+                const s = (t.status || '').toUpperCase();
+                if (s === 'WIN') wins++;
+                else if (s === 'LOSE') loses++;
+                else if (s === 'DRAW') draws++;
+            });
+
+            let profitText = '';
+            if (currentLot > 0) {
+                const profit = totalPts * currentLot;
+                profitText = `<span class="blotter-chip pnl ${profit >= 0 ? 'positive' : 'negative'}">${profit >= 0 ? '+' : ''}$${Math.round(profit).toLocaleString()}</span>`;
+            }
+            const winRate = dayTrades.length > 0 ? Math.round((wins / dayTrades.length) * 100) : 0;
+
+            if (badges) {
+                badges.innerHTML = `
+                    <span class="blotter-chip count">${dayTrades.length} Trades</span>
+                    <span class="blotter-chip points ${totalPts >= 0 ? 'positive' : 'negative'}">
+                        <span class="blotter-chip-dot"></span>${totalPts > 0 ? '+' : ''}${totalPts.toLocaleString()} pts
+                    </span>
+                    ${profitText}
+                    <span class="blotter-chip winrate">
+                        <span class="chip-win">${wins}W</span><span class="chip-sep">/</span><span class="chip-lose">${loses}L</span>${draws > 0 ? `<span class="chip-sep">/</span><span class="chip-draw">${draws}D</span>` : ''}
+                        <span class="chip-pct">(${winRate}%)</span>
+                    </span>
+                `;
+            }
+
+            if (dayTrades.length === 0) {
+                body.innerHTML = `
+                    <div class="blotter-empty-state">
+                        <div class="blotter-empty-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                        </div>
+                        <h4>No Trades Recorded</h4>
+                        <p>There are no trading positions recorded for ${niceDate}.</p>
+                    </div>
+                `;
+            } else {
+                let rowsHTML = '';
+                dayTrades.forEach(t => {
+                    let pts = t.points || 0;
+                    let profitVal = currentLot > 0 ? pts * currentLot : null;
+                    let profitStr = profitVal !== null ? `<span class="${profitVal >= 0 ? 'positive' : 'negative'}">${profitVal > 0 ? '+' : ''}$${Math.round(profitVal).toLocaleString()}</span>` : '-';
+                    const orderLower = (t.order || '').toLowerCase();
+                    const statusClass = getStatusClass(t.status);
+                    const resultClass = getResultClass(t.result);
+
+                    rowsHTML += `
+                        <tr onclick="openModalFromDayView('${t.no}', '${t.setId}')" title="Click to view setup analysis & screenshot">
+                            <td class="col-num">${t.no}</td>
+                            <td><span class="blotter-setid">${t.setId}</span></td>
+                            <td><span class="blotter-asset-badge">${t.asset}</span></td>
+                            <td><span class="blotter-order-pill ${orderLower}">${t.order}</span></td>
+                            <td class="col-mono">${t.entryOrder || '-'}</td>
+                            <td class="col-mono">${t.tpOrder || '-'}</td>
+                            <td class="col-mono">${t.slOrder || '-'}</td>
+                            <td class="col-strategy" title="${t.strategy || ''}">${truncate(t.strategy, 18)}</td>
+                            <td><span class="blotter-result-pill ${resultClass}">${t.result}</span></td>
+                            <td class="col-mono col-pts ${pts >= 0 ? 'positive' : 'negative'}">${pts > 0 ? '+' : ''}${pts.toLocaleString()}</td>
+                            <td class="col-mono">${profitStr}</td>
+                            <td class="col-mono"><span class="blotter-rr-tag">${t.rr || '-'}</span></td>
+                            <td><span class="blotter-status-pill ${statusClass}">${t.status}</span></td>
+                        </tr>
+                    `;
+                });
+
+                body.innerHTML = `
+                    <div class="blotter-table-wrapper">
+                        <table class="day-orders-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>SetID</th>
+                                    <th>Asset</th>
+                                    <th>Order</th>
+                                    <th>Entry</th>
+                                    <th>TP</th>
+                                    <th>SL</th>
+                                    <th>Strategy</th>
+                                    <th>Result</th>
+                                    <th>Points</th>
+                                    <th>Profit</th>
+                                    <th>RR</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${rowsHTML}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+
+            modal.classList.add('active');
+        }
+
+        function closeDayOrdersModal() {
+            const modal = document.getElementById('dayOrdersModalOverlay');
+            if (modal) modal.classList.remove('active');
+        }
+
+        function viewDayInDataPage() {
+            if (currentDayOrdersDate) {
+                closeDayOrdersModal();
+                activeFilters.specificDate = currentDayOrdersDate;
+                switchPage('table');
+                applyAllFilters();
+            }
+        }
+
+        function openModalFromDayView(no, setId) {
+            const trade = allTrades.find(t => t.no === no && t.setId === setId);
+            if (trade) {
+                openModal(trade);
+            }
         }
 
         // --- HELPERS ---
@@ -5932,6 +7446,16 @@
             document.getElementById('modalOverlay').classList.add('active');
         }
         function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+
+        // Close time filter popover when clicking outside
+        document.addEventListener('click', function(e) {
+            const wrapper = document.getElementById('timeFilterWrapper');
+            if (wrapper && wrapper.classList.contains('open')) {
+                if (!wrapper.contains(e.target)) {
+                    closeTimeFilterPopover();
+                }
+            }
+        });
     </script>
 </body>
 
