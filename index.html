@@ -7605,6 +7605,324 @@
             box-shadow: 0 5px 18px rgba(16, 185, 129, 0.45);
         }
 
+        /* === TOPIC INPUT INSIDE COMPOSER === */
+        .composer-topic-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            background: rgba(0, 0, 0, 0.18);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        :root[data-theme="white"] .composer-topic-row {
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        .composer-topic-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .composer-topic-input-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .composer-topic-input {
+            flex: 1;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 6px 12px;
+            color: var(--text-primary);
+            font-size: 0.84rem;
+            outline: none;
+            font-weight: 600;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .composer-topic-input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .composer-today-btn {
+            background: rgba(59, 130, 246, 0.12);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 6px;
+            padding: 5px 12px;
+            font-size: 0.74rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .composer-today-btn:hover {
+            background: rgba(59, 130, 246, 0.22);
+            color: #93c5fd;
+        }
+
+        /* === VIEW SWITCHER TABS (กระทู้รายวัน vs โพสต์ทั้งหมด) === */
+        .feed-view-tabs {
+            display: inline-flex;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 3px;
+            gap: 4px;
+        }
+
+        .feed-tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .feed-tab-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .feed-tab-btn.active {
+            background: var(--bg-card);
+            color: var(--accent-blue);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        :root[data-theme="white"] .feed-tab-btn.active {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+
+        /* === ULTRA-CLEAN DAILY TOPIC LIST (MINIMAL & COMFORTABLE TO EYES) === */
+        .feed-posts-stream.topics-view-active {
+            gap: 10px;
+        }
+
+        .topic-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        :root[data-theme="white"] .topic-card {
+            background: #ffffff;
+            border-color: rgba(0, 0, 0, 0.08);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+        }
+
+        .topic-card:hover {
+            background: rgba(59, 130, 246, 0.06);
+            border-color: rgba(59, 130, 246, 0.4);
+            transform: translateX(3px);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+        }
+
+        :root[data-theme="white"] .topic-card:hover {
+            background: #f8fafc;
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 3px 12px rgba(59, 130, 246, 0.08);
+        }
+
+        .topic-card-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .topic-card-icon-wrap {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.22);
+            color: #60a5fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.18s ease;
+        }
+
+        .topic-card:hover .topic-card-icon-wrap {
+            background: rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
+            border-color: rgba(59, 130, 246, 0.45);
+        }
+
+        .topic-card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .topic-card-title {
+            font-size: 0.96rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.35;
+            letter-spacing: -0.01em;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: color 0.15s ease;
+        }
+
+        .topic-card:hover .topic-card-title {
+            color: var(--accent-blue);
+        }
+
+        .topic-card-sub {
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            line-height: 1.2;
+        }
+
+        .topic-sub-dot {
+            opacity: 0.35;
+            font-size: 0.65rem;
+        }
+
+        .topic-card-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .topic-count-pill {
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: #93c5fd;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            padding: 3px 11px;
+            border-radius: 14px;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-family: inherit;
+        }
+
+        :root[data-theme="white"] .topic-count-pill {
+            color: #2563eb;
+            background: rgba(37, 99, 235, 0.08);
+            border-color: rgba(37, 99, 235, 0.2);
+        }
+
+        .topic-chevron {
+            color: var(--text-muted);
+            transition: all 0.18s ease;
+            opacity: 0.5;
+        }
+
+        .topic-card:hover .topic-chevron {
+            color: var(--accent-blue);
+            transform: translateX(3px);
+            opacity: 1;
+        }
+
+        /* === TOPIC DETAIL BANNER (INSIDE A SINGLE TOPIC VIEW) === */
+        .topic-detail-banner {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(16, 185, 129, 0.06));
+            border: 1px solid rgba(59, 130, 246, 0.28);
+            border-radius: 14px;
+            padding: 18px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+
+        :root[data-theme="white"] .topic-detail-banner {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.08), rgba(16, 185, 129, 0.04));
+        }
+
+        .topic-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.76rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            width: fit-content;
+        }
+
+        .topic-back-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--accent-blue);
+            transform: translateX(-3px);
+            background: rgba(59, 130, 246, 0.08);
+        }
+
+        .topic-detail-title {
+            font-size: 1.22rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: -0.01em;
+            line-height: 1.4;
+        }
+
+        .topic-detail-meta {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
         /* === FEED POSTS STREAM (คลีนแบบ LINE / ไม่รก) === */
         .feed-posts-stream {
             display: flex;
@@ -7917,26 +8235,62 @@
             border: 1px solid rgba(148, 163, 184, 0.2);
         }
 
+        .comment-header-right {
+            margin-left: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
         .comment-timestamp {
             font-size: 0.7rem;
             color: var(--text-muted);
-            margin-left: auto;
+            white-space: nowrap;
         }
 
         .comment-delete-mini-btn {
-            background: transparent;
-            border: none;
-            color: #64748b;
-            font-size: 1.1rem;
+            background: rgba(244, 63, 94, 0.08);
+            border: 1px solid rgba(244, 63, 94, 0.22);
+            color: #f43f5e;
+            font-size: 0.7rem;
+            font-weight: 600;
             cursor: pointer;
-            padding: 0 4px;
-            line-height: 1;
-            border-radius: 3px;
-            transition: color 0.15s ease;
+            padding: 1px 7px;
+            line-height: 1.4;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            transition: all 0.15s ease;
         }
 
         .comment-delete-mini-btn:hover {
-            color: #ef4444;
+            background: rgba(244, 63, 94, 0.18);
+            border-color: rgba(244, 63, 94, 0.45);
+            color: #fb7185;
+            transform: translateY(-1px);
+        }
+
+        .comment-change-name-btn {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.28);
+            color: #60a5fa;
+            cursor: pointer;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.15s ease;
+        }
+
+        .comment-change-name-btn:hover {
+            background: rgba(59, 130, 246, 0.22);
+            border-color: rgba(59, 130, 246, 0.5);
+            color: #93c5fd;
+            transform: translateY(-1px);
         }
 
         .comment-item-text {
@@ -9029,18 +9383,31 @@
             <div class="feed-container">
                 <!-- CLEAN MINIMAL TOP BAR -->
                 <div class="feed-top-bar"
-                    style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
-                    <div id="feedUserPillWrap">
-                        <!-- Populated by updateFeedUserUI() -->
+                    style="margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                        <div id="feedUserPillWrap">
+                            <!-- Populated by updateFeedUserUI() -->
+                        </div>
+                        <!-- VIEW SWITCHER (กระทู้รายวัน vs โพสต์ทั้งหมด) -->
+                        <div class="feed-view-tabs" id="feedViewTabsWrap">
+                            <button type="button" class="feed-tab-btn active" id="feedTabTopics" onclick="setFeedViewMode('topics')">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                <span>กระทู้รายวัน</span>
+                            </button>
+                            <button type="button" class="feed-tab-btn" id="feedTabStream" onclick="setFeedViewMode('stream')">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                                <span>โพสต์ทั้งหมด</span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="feed-search-wrap" style="max-width: 320px; width: 100%;">
+                    <div class="feed-search-wrap" style="max-width: 280px; width: 100%;">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2">
                             <circle cx="11" cy="11" r="8"></circle>
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
                         <input type="text" id="feedSearchInput" class="feed-search-input"
-                            placeholder="ค้นหาบทวิเคราะห์..." oninput="handleFeedSearch(this.value)">
+                            placeholder="ค้นหาบทวิเคราะห์ / กระทู้..." oninput="handleFeedSearch(this.value)">
                     </div>
                 </div>
 
@@ -9056,6 +9423,22 @@
                         <div class="composer-tag-wrap">
                             <input type="text" id="composerTag" class="composer-tag-input"
                                 placeholder="#ระบุแท็ก เช่น #GOLD #XAUUSD #รอบเช้า (ไม่บังคับ)">
+                        </div>
+                    </div>
+
+                    <!-- TOPIC INPUT (ตั้งกระทู้ / หัวข้อใหญ่รายวัน) -->
+                    <div class="composer-topic-row">
+                        <div class="composer-topic-label">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                            <span>หัวข้อกระทู้:</span>
+                        </div>
+                        <div class="composer-topic-input-wrap">
+                            <input type="text" id="composerTopic" class="composer-topic-input"
+                                placeholder="เช่น กลยุทธ์ XAU/USD ประจำวันที่ 03/10/2026..." list="feedTopicDataList">
+                            <datalist id="feedTopicDataList"></datalist>
+                            <button type="button" class="composer-today-btn" onclick="setComposerTodayTopic()" title="ใส่วันที่วันนี้อัตโนมัติ">
+                                ⚡ ใส่วันนี้
+                            </button>
                         </div>
                     </div>
 
@@ -9109,6 +9492,9 @@
                         </button>
                     </div>
                 </div>
+
+                <!-- TOPIC DETAIL BANNER (ACTIVE WHEN VIEWING A SINGLE TOPIC) -->
+                <div id="feedTopicBannerWrap" style="display: none;"></div>
 
                 <!-- POSTS STREAM -->
                 <div class="feed-posts-stream" id="feedStreamContainer">
@@ -13400,6 +13786,8 @@
         let feedPosts = [];
         let feedSearchQuery = '';
         let composerAttachedImageBase64 = null;
+        let feedViewMode = 'topics'; // 'topics' = หน้ารวมกระทู้รายวัน, 'stream' = โพสต์เรียงตามเวลาทั้งหมด
+        let activeFeedTopic = null;  // null = หน้ารวมกระทู้, string = กำลังดูกระทู้หัวข้อนี้
 
         // ไม่มีข้อมูลตัวอย่างจำลอง ให้แสดงเฉพาะโพสต์จริงจากผู้ใช้ / Google Sheet เท่านั้น
         const DEFAULT_FEED_POSTS = [];
@@ -13559,6 +13947,8 @@
             }
             saveFeedPostsToStorage();
             updateFeedUserUI();
+            updateTopicDatalist();
+            syncMyCommentsOwnership();
             setTimeout(() => { fetchFeedOnly(false); }, 100);
         }
 
@@ -13617,12 +14007,137 @@
             return feedComments.filter(c => String(c.postId) === String(postId));
         }
 
-        function renderCommentsListHTML(postId) {
-            const comments = getPostComments(postId);
+        // บันทึกประวัติชื่อผู้เขียนที่เคยใช้บนเครื่องนี้ เพื่อให้สามารถตามไปลบคอมเมนต์เก่าได้ตลอด
+        function recordAuthorName(name) {
+            if (!name || !name.trim()) return;
+            const trimmed = name.trim();
+            const low = trimmed.toLowerCase();
+            // ห้ามบันทึกชื่อสงวนของ staff ลงในประวัติ guest
+            if (low === 'sira' || low === 'admin' || low === 'editor') return;
+            try {
+                const names = JSON.parse(localStorage.getItem('tj_my_author_history') || '[]');
+                if (!names.includes(trimmed)) {
+                    names.push(trimmed);
+                    localStorage.setItem('tj_my_author_history', JSON.stringify(names));
+                }
+            } catch (e) { }
+        }
+
+        function getMyAuthorNames() {
+            const names = new Set();
+            const currentGuest = (localStorage.getItem('tj_feed_guest_name') || '').trim().toLowerCase();
+            // ห้ามรวมชื่อ Sira, Admin หรือ Editor เข้าไปในสิทธิ์ Guest เด็ดขาด
+            if (currentGuest && currentGuest !== 'sira' && currentGuest !== 'admin' && currentGuest !== 'editor') {
+                names.add(currentGuest);
+            }
+            try {
+                const hist = JSON.parse(localStorage.getItem('tj_my_author_history') || '[]');
+                if (Array.isArray(hist)) {
+                    hist.forEach(n => {
+                        const low = String(n || '').trim().toLowerCase();
+                        if (low && low !== 'sira' && low !== 'admin' && low !== 'editor') {
+                            names.add(low);
+                        }
+                    });
+                }
+            } catch (e) { }
+            return names;
+        }
+
+        // เชื่อมโยงคอมเมนต์ที่โพสต์จากชื่อบนเครื่องนี้ เข้ากับ tj_my_comment_ids อัตโนมัติ (เฉพาะคอมเมนต์ทั่วไป)
+        function syncMyCommentsOwnership() {
+            try {
+                const user = getFeedCurrentUser();
+
+                // 1. ทำความสะอาด tj_my_author_history ลบชื่อ sira/admin/editor ออก
+                const hist = JSON.parse(localStorage.getItem('tj_my_author_history') || '[]');
+                if (Array.isArray(hist)) {
+                    const cleanedHist = hist.filter(n => {
+                        const low = String(n || '').trim().toLowerCase();
+                        return low && low !== 'sira' && low !== 'admin' && low !== 'editor';
+                    });
+                    localStorage.setItem('tj_my_author_history', JSON.stringify(cleanedHist));
+                }
+
+                // 2. ถ้าเป็น guest แต่ชื่อในเครื่องถูกตั้งเป็น sira/admin ให้รีเซ็ตเป็น Trader
+                if (!user.isLoggedIn) {
+                    const gName = (localStorage.getItem('tj_feed_guest_name') || '').trim().toLowerCase();
+                    if (gName === 'sira' || gName === 'admin' || gName === 'editor') {
+                        localStorage.setItem('tj_feed_guest_name', 'Trader');
+                    }
+                }
+
+                const myNames = getMyAuthorNames();
+                const myIds = JSON.parse(localStorage.getItem('tj_my_comment_ids') || '[]');
+                const idSet = new Set(myIds.map(String));
+
+                // 3. กวาดและป้องกันไม่ให้ ID คอมเมนต์ของ Sira หรือ Admin ถูกถือครองโดย Member/Guest
+                if (Array.isArray(feedComments)) {
+                    feedComments.forEach(c => {
+                        const cAuthor = (c.author || '').trim().toLowerCase();
+                        const cRole = (c.role || '').trim().toLowerCase();
+                        const isStaffComment = cAuthor === 'sira' || cAuthor === 'admin' || cRole === 'admin' || cRole === 'editor';
+
+                        if (isStaffComment) {
+                            // ลบออกจากรายการถือสิทธิ์เสมอหากไม่ใช่ Admin หรือ Sira
+                            if (!user.isAdmin && !user.isSira) {
+                                idSet.delete(String(c.id));
+                            }
+                        } else if (cAuthor && myNames.has(cAuthor)) {
+                            idSet.add(String(c.id));
+                        }
+                    });
+                }
+                localStorage.setItem('tj_my_comment_ids', JSON.stringify(Array.from(idSet)));
+            } catch (e) { }
+        }
+
+        function canUserDeleteComment(c) {
+            if (!c) return false;
             const user = getFeedCurrentUser();
 
+            // 1. ผู้ดูแลระบบ (Admin) หรือ Sira (Editor) เท่านั้นที่สามารถลบได้ทุกคอมเมนต์
+            if (user.isAdmin || user.isSira) return true;
+
+            // 2. ⚠️ ความปลอดภัยสูงสุด: ถ้าคอมเมนต์นี้เป็นของ Sira หรือ Admin หรือ Editor
+            // สมาชิกทั่วไป (Member) หรือบุคคลภายนอก (Guest) ห้ามลบเด็ดขาด 100%!
+            const cAuthorLower = (c.author || '').trim().toLowerCase();
+            const cRoleLower = (c.role || '').trim().toLowerCase();
+            const isStaffComment = cAuthorLower === 'sira' || cAuthorLower === 'admin' || cRoleLower === 'admin' || cRoleLower === 'editor';
+
+            if (isStaffComment) {
+                return false;
+            }
+
+            // 3. ถ้าผู้ใช้ล็อกอินเข้าสู่ระบบเป็น Member ทั่วไป
+            if (user.isLoggedIn) {
+                // ลบได้เฉพาะคอมเมนต์ที่ username ของตนเองตรงกับ author ของคอมเมนต์เท่านั้น
+                return user.username && user.username.trim().toLowerCase() === cAuthorLower;
+            }
+
+            // 4. ถ้าเป็น Guest (ไม่ได้ล็อกอิน)
+            // ตรวจสอบว่า Comment ID ถูกสร้างจากเครื่องนี้หรือไม่
+            try {
+                const myIds = JSON.parse(localStorage.getItem('tj_my_comment_ids') || '[]');
+                if (Array.isArray(myIds) && myIds.map(String).includes(String(c.id))) {
+                    return true;
+                }
+            } catch (e) { }
+
+            // ตรวจสอบชื่อ Guest ที่เคยใช้บนเครื่องนี้ (เฉพาะชื่อทั่วไป ไม่ใช่ staff)
+            const myNames = getMyAuthorNames();
+            if (cAuthorLower && myNames.has(cAuthorLower)) {
+                return true;
+            }
+
+            return false;
+        }
+
+        function renderCommentsListHTML(postId) {
+            const comments = getPostComments(postId);
+
             if (comments.length === 0) {
-                return `<div style="text-align:center; padding:10px; font-size:0.78rem; color:var(--text-muted);">ยังไม่มีความคิดเห็น เป็นคนแรกที่แสดงความคิดเห็นเลย!</div>`;
+                return `<div style="text-align:center; padding:12px 10px; font-size:0.78rem; color:var(--text-muted);">ยังไม่มีความคิดเห็น เป็นคนแรกที่แสดงความคิดเห็นเลย!</div>`;
             }
 
             return comments.map(c => {
@@ -13630,7 +14145,7 @@
                 const isEd = (c.role || '').toLowerCase() === 'editor' || (c.author || '').toLowerCase() === 'sira';
                 const roleBadgeClass = isAdm ? 'admin' : (isEd ? 'editor' : 'member');
                 const displayRole = isAdm ? 'Admin' : (isEd ? 'Editor' : (c.role || 'Member'));
-                const canDel = user.isAdmin || user.isSira || (user.isLoggedIn && user.username === c.author);
+                const canDel = canUserDeleteComment(c);
 
                 return `
                     <div class="comment-item" id="comment-${c.id}">
@@ -13639,8 +14154,14 @@
                             <div class="comment-item-header">
                                 <span class="comment-author-name">${escapeHTML(c.author || 'Member')}</span>
                                 <span class="comment-author-badge ${roleBadgeClass}">${escapeHTML(displayRole)}</span>
-                                <span class="comment-timestamp">${escapeHTML(c.dateStr || '')}</span>
-                                ${canDel ? `<button type="button" class="comment-delete-mini-btn" onclick="deleteFeedComment('${postId}', '${c.id}', this)" title="ลบความคิดเห็น">&times;</button>` : ''}
+                                <div class="comment-header-right">
+                                    <span class="comment-timestamp">${escapeHTML(c.dateStr || '')}</span>
+                                    ${canDel ? `
+                                    <button type="button" class="comment-delete-mini-btn" onclick="deleteFeedComment('${postId}', '${c.id}', this)" title="ลบความคิดเห็นของคุณ">
+                                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                        <span>ลบ</span>
+                                    </button>` : ''}
+                                </div>
                             </div>
                             <div class="comment-item-text">${escapeHTML(c.content || '')}</div>
                         </div>
@@ -13649,10 +14170,75 @@
             }).join('');
         }
 
+        function renderCommentInputBoxHTML(postId) {
+            const user = getFeedCurrentUser();
+            let currentAuthor = user.username;
+            if (!user.isLoggedIn) {
+                currentAuthor = (localStorage.getItem('tj_feed_guest_name') || 'Trader').trim();
+            }
+            const avatarLetter = (currentAuthor || 'M').charAt(0).toUpperCase();
+
+            return `
+                <div style="display:flex; flex-direction:column; gap:6px; width:100%;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.74rem; color:var(--text-muted); padding:0 2px;">
+                        <span>แสดงความคิดเห็นในชื่อ: <b style="color:var(--text-primary); cursor:pointer;" onclick="promptChangeGuestName('${postId}')" title="คลิกเพื่อเปลี่ยนชื่อ">${escapeHTML(currentAuthor)}</b></span>
+                        ${!user.isLoggedIn ? `
+                        <button type="button" class="comment-change-name-btn" onclick="promptChangeGuestName('${postId}')" title="คลิกเพื่อเปลี่ยนชื่อแสดงในความคิดเห็น">
+                            ✏️ เปลี่ยนชื่อ
+                        </button>` : ''}
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px; width:100%;">
+                        <div class="comment-user-avatar" title="${escapeHTML(currentAuthor)}">${avatarLetter}</div>
+                        <div class="comment-field-wrap">
+                            <input type="text" class="comment-field" id="comment-input-${postId}"
+                                placeholder="${user.isLoggedIn ? `แสดงความคิดเห็นในชื่อ ${escapeHTML(user.username)}...` : `เขียนความคิดเห็นในชื่อ ${escapeHTML(currentAuthor)}... (กด Enter เพื่อส่ง)`}"
+                                onkeydown="if(event.key==='Enter') submitFeedComment('${postId}')">
+                            <button type="button" class="comment-send-action-btn" onclick="submitFeedComment('${postId}')" title="ส่งความคิดเห็น">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function promptChangeGuestName(postId) {
+            const current = localStorage.getItem('tj_feed_guest_name') || 'Trader';
+            const newName = prompt('ระบุชื่อที่ต้องการให้แสดงในความคิดเห็น:', current);
+            if (newName !== null) {
+                const trimmed = newName.trim();
+                const low = trimmed.toLowerCase();
+                if (low === 'sira' || low === 'admin' || low === 'editor') {
+                    alert('ชื่อ "Sira" และ "Admin" สงวนสิทธิ์สำหรับผู้สอนและผู้ดูแลระบบเท่านั้น ไม่สามารถใช้ชื่อนี้ได้');
+                    return;
+                }
+                if (trimmed) {
+                    localStorage.setItem('tj_feed_guest_name', trimmed);
+                    recordAuthorName(trimmed);
+                    syncMyCommentsOwnership();
+                    showFeedToast(`✓ เปลี่ยนชื่อเป็น "${trimmed}" เรียบร้อย`);
+                    document.querySelectorAll('[id^="comment-box-"]').forEach(box => {
+                        const pid = box.id.replace('comment-box-', '');
+                        box.innerHTML = renderCommentInputBoxHTML(pid);
+                    });
+                    if (postId) {
+                        const stream = document.getElementById('comments-stream-' + postId);
+                        if (stream) stream.innerHTML = renderCommentsListHTML(postId);
+                        const input = document.getElementById('comment-input-' + postId);
+                        if (input) input.focus();
+                    }
+                }
+            }
+        }
+
         function renderPostComments(postId) {
             const stream = document.getElementById('comments-stream-' + postId);
             if (stream) {
                 stream.innerHTML = renderCommentsListHTML(postId);
+            }
+            const box = document.getElementById('comment-box-' + postId);
+            if (box) {
+                box.innerHTML = renderCommentInputBoxHTML(postId);
             }
         }
 
@@ -13687,9 +14273,15 @@
             let role = user.role;
 
             if (!user.isLoggedIn) {
-                let guestName = localStorage.getItem('tj_feed_guest_name');
-                if (!guestName) {
-                    guestName = prompt('กรุณาระบุชื่อของคุณเพื่อแสดงในความคิดเห็น:');
+                let guestName = (localStorage.getItem('tj_feed_guest_name') || '').trim();
+                const gLow = guestName.toLowerCase();
+                if (!guestName || gLow === 'sira' || gLow === 'admin' || gLow === 'editor') {
+                    guestName = prompt('กรุณาระบุชื่อของคุณเพื่อแสดงในความคิดเห็น (สามารถกดเปลี่ยนชื่อได้ตลอดเวลา):', '');
+                    const promptLow = (guestName || '').trim().toLowerCase();
+                    if (promptLow === 'sira' || promptLow === 'admin' || promptLow === 'editor') {
+                        alert('ชื่อ "Sira" และ "Admin" สงวนสิทธิ์สำหรับผู้สอนและผู้ดูแลระบบเท่านั้น ระบบจะใช้ชื่อ "Trader" ให้แทน');
+                        guestName = 'Trader';
+                    }
                     if (!guestName || !guestName.trim()) {
                         guestName = 'Trader';
                     }
@@ -13698,6 +14290,7 @@
                 }
                 author = guestName;
                 role = 'Member';
+                recordAuthorName(author);
             }
 
             const now = new Date();
@@ -13717,7 +14310,14 @@
                 timestamp: Date.now()
             };
 
-            // 1. เพิ่มลงใน feedComments ทันที (Instant UI)
+            // 1. จำ ID คอมเมนต์ที่สร้างจากเครื่องนี้ เพื่อให้เจ้าของเครื่องลบได้เสมอ
+            try {
+                const myIds = JSON.parse(localStorage.getItem('tj_my_comment_ids') || '[]');
+                myIds.push(String(newComment.id));
+                localStorage.setItem('tj_my_comment_ids', JSON.stringify(myIds));
+            } catch (e) { }
+
+            // 2. เพิ่มลงใน feedComments ทันที (Instant UI)
             feedComments.push(newComment);
             try {
                 localStorage.setItem('tj_feed_comments_v1', JSON.stringify(feedComments));
@@ -13725,11 +14325,12 @@
 
             input.value = '';
 
-            // 2. อัปเดตรายการความคิดเห็น
+            // 3. อัปเดตรายการความคิดเห็น และตรวจสอบสิทธิ์
+            syncMyCommentsOwnership();
             renderPostComments(postId);
             updatePostCommentCountBadge(postId);
 
-            // 3. ส่งข้อมูลขึ้น Google Sheets Backend
+            // 4. ส่งข้อมูลขึ้น Google Sheets Backend
             const payload = new URLSearchParams({
                 action: 'saveFeedComment',
                 postId: newComment.postId,
@@ -13751,29 +14352,41 @@
         }
 
         function deleteFeedComment(postId, commentId, btn) {
-            const user = getFeedCurrentUser();
             const comment = feedComments.find(c => String(c.id) === String(commentId));
             if (!comment) return;
 
-            const canDelete = user.isAdmin || user.isSira || (user.isLoggedIn && user.username === comment.author);
-            if (!canDelete) {
-                alert('คุณไม่มีสิทธิ์ลบความคิดเห็นนี้');
+            if (!canUserDeleteComment(comment)) {
+                alert('คุณไม่มีสิทธิ์ลบความคิดเห็นนี้ (ความคิดเห็นของ Sira และ Admin สามารถลบได้เฉพาะผู้ดูแลระบบเท่านั้น)');
                 return;
             }
 
             if (!confirm('ต้องการลบความคิดเห็นนี้ใช่หรือไม่?')) return;
+
+            const deletedContent = comment.content;
+            const deletedAuthor = comment.author;
 
             feedComments = feedComments.filter(c => String(c.id) !== String(commentId));
             try {
                 localStorage.setItem('tj_feed_comments_v1', JSON.stringify(feedComments));
             } catch (e) { }
 
+            // ลบ ID ออกจากรายการคอมเมนต์ของฉันในเครื่องด้วย
+            try {
+                const myIds = JSON.parse(localStorage.getItem('tj_my_comment_ids') || '[]');
+                const updatedIds = myIds.filter(id => String(id) !== String(commentId));
+                localStorage.setItem('tj_my_comment_ids', JSON.stringify(updatedIds));
+            } catch (e) { }
+
             renderPostComments(postId);
             updatePostCommentCountBadge(postId);
+            showFeedToast('✓ ลบความคิดเห็นเรียบร้อย');
 
             const payload = new URLSearchParams({
                 action: 'deleteFeedComment',
-                commentId: commentId
+                commentId: commentId,
+                postId: postId,
+                content: deletedContent || '',
+                author: deletedAuthor || ''
             });
 
             fetch(SHEET_API_URL, {
@@ -13785,56 +14398,178 @@
             });
         }
 
-        function renderFeedPosts() {
-            const container = document.getElementById('feedStreamContainer');
-            if (!container) return;
-
-            if (!isFeedInitialized) {
-                initFeedSystem();
+        function setFeedViewMode(mode) {
+            feedViewMode = mode;
+            if (mode === 'topics') {
+                activeFeedTopic = null;
             }
-            if (!feedPosts) feedPosts = [];
+            const btnTopics = document.getElementById('feedTabTopics');
+            const btnStream = document.getElementById('feedTabStream');
+            if (btnTopics) btnTopics.classList.toggle('active', mode === 'topics');
+            if (btnStream) btnStream.classList.toggle('active', mode === 'stream');
+            renderFeedPosts();
+        }
 
-            updateFeedUserUI();
-            const currentUser = getFeedCurrentUser();
+        function openFeedTopic(topicTitle) {
+            if (!topicTitle) return;
+            activeFeedTopic = topicTitle;
+            feedViewMode = 'topics';
+            const btnTopics = document.getElementById('feedTabTopics');
+            const btnStream = document.getElementById('feedTabStream');
+            if (btnTopics) btnTopics.classList.add('active');
+            if (btnStream) btnStream.classList.remove('active');
 
-            const filtered = feedPosts.filter(p => {
-                if (!feedSearchQuery) return true;
-                const q = feedSearchQuery.toLowerCase();
-                const matchContent = (p.content || '').toLowerCase().includes(q);
-                const matchAuthor = (p.author || '').toLowerCase().includes(q);
-                const matchTag = (p.tag || '').toLowerCase().includes(q);
-                return matchContent || matchAuthor || matchTag;
+            const topicInput = document.getElementById('composerTopic');
+            if (topicInput) topicInput.value = topicTitle;
+
+            renderFeedPosts();
+
+            const banner = document.getElementById('feedTopicBannerWrap');
+            if (banner) banner.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function closeFeedTopic() {
+            activeFeedTopic = null;
+            renderFeedPosts();
+            const container = document.getElementById('feedStreamContainer');
+            if (container) container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function setComposerTodayTopic() {
+            const now = new Date();
+            const d = String(now.getDate()).padStart(2, '0');
+            const m = String(now.getMonth() + 1).padStart(2, '0');
+            const y = now.getFullYear();
+            const todayTopic = `กลยุทธ์ XAU/USD ประจำวันที่ ${d}/${m}/${y}`;
+            const topicInput = document.getElementById('composerTopic');
+            if (topicInput) {
+                topicInput.value = todayTopic;
+                topicInput.focus();
+            }
+            const content = document.getElementById('composerContent');
+            if (content) content.focus();
+        }
+
+        function scrollAndFocusComposer(topicTitle) {
+            const composer = document.getElementById('feedComposerCard');
+            const topicInput = document.getElementById('composerTopic');
+            const content = document.getElementById('composerContent');
+            if (composer && composer.style.display !== 'none') {
+                if (topicInput && topicTitle) topicInput.value = topicTitle;
+                composer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                if (content) content.focus();
+            }
+        }
+
+        function getPostTopic(post) {
+            if (!post) return 'กลยุทธ์ & แผนการเทรดทั่วไป';
+            if (post.topic && String(post.topic).trim()) {
+                return String(post.topic).trim();
+            }
+            const tagStr = String(post.tag || '');
+            const match = tagStr.match(/\[topic:\s*([^\]]+)\]/i);
+            if (match && match[1] && match[1].trim()) {
+                return match[1].trim();
+            }
+            if (post.dateStr) {
+                const dateMatch = post.dateStr.match(/\((\d{1,2}\/\d{1,2}(?:\/\d{2,4})?)\)/);
+                if (dateMatch && dateMatch[1]) {
+                    return `กลยุทธ์ XAU/USD ประจำวันที่ ${dateMatch[1]}`;
+                }
+            }
+            if (post.timestamp) {
+                const d = new Date(Number(post.timestamp));
+                if (!isNaN(d.getTime())) {
+                    const dd = String(d.getDate()).padStart(2, '0');
+                    const mm = String(d.getMonth() + 1).padStart(2, '0');
+                    const yyyy = d.getFullYear();
+                    return `กลยุทธ์ XAU/USD ประจำวันที่ ${dd}/${mm}/${yyyy}`;
+                }
+            }
+            return 'กลยุทธ์ & แผนการเทรดทั่วไป';
+        }
+
+        function cleanDisplayTag(tag) {
+            if (!tag) return '';
+            return String(tag).replace(/\[topic:\s*[^\]]+\]/gi, '').trim();
+        }
+
+        function updateTopicDatalist() {
+            const dataList = document.getElementById('feedTopicDataList');
+            if (!dataList) return;
+            const topicsSet = new Set();
+            (feedPosts || []).forEach(p => {
+                const t = getPostTopic(p);
+                if (t) topicsSet.add(t);
+            });
+            dataList.innerHTML = Array.from(topicsSet).map(t => `<option value="${escapeHTML(t)}">`).join('');
+        }
+
+        function groupFeedPostsIntoTopics(postsList) {
+            const topicMap = new Map();
+
+            (postsList || []).forEach(post => {
+                const topicTitle = getPostTopic(post);
+                if (!topicMap.has(topicTitle)) {
+                    topicMap.set(topicTitle, {
+                        title: topicTitle,
+                        author: post.author || 'Sira',
+                        role: post.role || 'Editor',
+                        posts: [],
+                        tags: new Set(),
+                        images: [],
+                        latestTimestamp: Number(post.timestamp) || 0,
+                        latestDateStr: post.dateStr || ''
+                    });
+                }
+                const group = topicMap.get(topicTitle);
+                group.posts.push(post);
+                const cleanTag = cleanDisplayTag(post.tag);
+                if (cleanTag) group.tags.add(cleanTag);
+                if (post.imageUrl && !post.imageUrl.startsWith('DRIVE_ERR')) {
+                    group.images.push(post.imageUrl);
+                }
+                const pTs = Number(post.timestamp) || 0;
+                if (pTs > group.latestTimestamp) {
+                    group.latestTimestamp = pTs;
+                    group.latestDateStr = post.dateStr || group.latestDateStr;
+                    group.author = post.author || group.author;
+                    group.role = post.role || group.role;
+                }
             });
 
-            if (filtered.length === 0) {
-                container.innerHTML = `
-            <div style="text-align: center; padding: 48px 20px; background: var(--bg-card); border: 1px dashed var(--border-color); border-radius: 12px; color: var(--text-muted);">
-                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 10px; opacity: 0.6;"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                <h3 style="color: var(--text-primary); margin: 0 0 6px 0; font-size: 1rem;">ยังไม่มีบทวิเคราะห์ในฟีด</h3>
-                <p style="margin: 0; font-size: 0.82rem;">${currentUser.canPost ? 'พิมพ์ข้อความในกล่องด้านบนเพื่อโพสต์บทวิเคราะห์ใหม่ได้ทันที' : 'บทวิเคราะห์และแผนการเทรดรายวันจะแสดงที่นี่'}</p>
-            </div>
-        `;
-                return;
-            }
+            const result = Array.from(topicMap.values()).map(g => {
+                g.posts.sort((a, b) => (Number(b.timestamp) || 0) - (Number(a.timestamp) || 0));
+                g.postCount = g.posts.length;
+                g.latestPost = g.posts[0] || null;
+                g.tagsList = Array.from(g.tags);
+                return g;
+            });
 
-            container.innerHTML = filtered.map(post => {
-                const author = post.author || 'Sira';
-                const avatarInitial = author.charAt(0).toUpperCase();
-                const tagHTML = post.tag ? `<span class="post-tag-pill">${escapeHTML(post.tag)}</span>` : '';
-                const isAdm = author.toLowerCase() === 'admin' || (post.role || '').toLowerCase() === 'admin';
-                const isEd = author.toLowerCase() === 'sira' || (post.role || '').toLowerCase() === 'editor';
-                const role = isAdm ? 'Admin' : (isEd ? 'Editor' : (post.role || 'Coach'));
-                const postIdStr = escapeHTML(String(post.id || ''));
-                const postComments = getPostComments(postIdStr);
+            result.sort((a, b) => (b.latestTimestamp || 0) - (a.latestTimestamp || 0));
+            return result;
+        }
 
-                // สิทธิ์ลบโพสต์: เฉพาะ Admin หรือ Sira (Editor) เท่านั้น
-                const canDeletePost = currentUser.isAdmin || (currentUser.isSira && (author.toLowerCase() === 'sira' || role.toLowerCase() === 'editor'));
+        function renderSinglePostCard(post, currentUser, isInsideTopic = false) {
+            const author = post.author || 'Sira';
+            const avatarInitial = author.charAt(0).toUpperCase();
+            const cleanTag = cleanDisplayTag(post.tag);
+            const tagHTML = cleanTag ? `<span class="post-tag-pill">${escapeHTML(cleanTag)}</span>` : '';
+            const isAdm = author.toLowerCase() === 'admin' || (post.role || '').toLowerCase() === 'admin';
+            const isEd = author.toLowerCase() === 'sira' || (post.role || '').toLowerCase() === 'editor';
+            const role = isAdm ? 'Admin' : (isEd ? 'Editor' : (post.role || 'Coach'));
+            const postIdStr = escapeHTML(String(post.id || ''));
+            const postComments = getPostComments(postIdStr);
+            const topic = getPostTopic(post);
 
-                let imageHTML = '';
-                if (post.imageUrl && !post.imageUrl.startsWith('DRIVE_ERR')) {
-                    const displayUrl = convertDriveLink(post.imageUrl);
-                    imageHTML = `
-                <div class="post-chart-wrap" onclick="openFeedLightboxFromCard(this)" data-caption="${escapeHTML(post.tag || 'Chart Setup')}">
+            // สิทธิ์ลบโพสต์: เฉพาะ Admin หรือ Sira (Editor) เท่านั้น
+            const canDeletePost = currentUser.isAdmin || (currentUser.isSira && (author.toLowerCase() === 'sira' || role.toLowerCase() === 'editor'));
+
+            let imageHTML = '';
+            if (post.imageUrl && !post.imageUrl.startsWith('DRIVE_ERR')) {
+                const displayUrl = convertDriveLink(post.imageUrl);
+                imageHTML = `
+                <div class="post-chart-wrap" onclick="openFeedLightboxFromCard(this)" data-caption="${escapeHTML(cleanTag || topic || 'Chart Setup')}">
                     <img src="${displayUrl}" class="post-chart-img" alt="Chart Setup" loading="lazy" onerror="this.closest('.post-chart-wrap').style.display='none'">
                     <div class="post-chart-zoom-badge">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
@@ -13842,11 +14577,11 @@
                     </div>
                 </div>
             `;
-                }
+            }
 
-                const safeContent = escapeHTML(post.content || '');
+            const safeContent = escapeHTML(post.content || '');
 
-                return `
+            return `
             <div class="feed-post-card" id="post-${postIdStr}">
                 <div class="post-header">
                     <div class="post-author-wrap">
@@ -13856,7 +14591,13 @@
                                 <span>${escapeHTML(author)}</span>
                                 <span class="post-role-tag ${isAdm ? 'admin' : (isEd ? 'editor' : '')}">${escapeHTML(role)}</span>
                             </div>
-                            <div class="post-meta-time">🕒 ${escapeHTML(post.dateStr || '')}</div>
+                            <div class="post-meta-time">
+                                <span>🕒 ${escapeHTML(post.dateStr || '')}</span>
+                                ${(!isInsideTopic && topic) ? `
+                                <span onclick="openFeedTopic('${escapeHTML(topic).replace(/'/g, "\\'")}')" style="display:inline-flex; align-items:center; gap:4px; background:rgba(59,130,246,0.12); color:#60a5fa; border:1px solid rgba(59,130,246,0.25); border-radius:12px; padding:1px 8px; font-size:0.71rem; font-weight:600; cursor:pointer; margin-left:6px;" title="คลิกเพื่อดูกระทู้นี้แบบเต็ม">
+                                    📌 ${escapeHTML(topic)}
+                                </span>` : ''}
+                            </div>
                         </div>
                     </div>
                     ${tagHTML}
@@ -13895,22 +14636,179 @@
                         <div class="comments-stream" id="comments-stream-${postIdStr}">
                             ${renderCommentsListHTML(postIdStr)}
                         </div>
-                        <div class="comment-input-box">
-                            <div class="comment-user-avatar">${(currentUser.username || 'M').charAt(0).toUpperCase()}</div>
-                            <div class="comment-field-wrap">
-                                <input type="text" class="comment-field" id="comment-input-${postIdStr}"
-                                    placeholder="${currentUser.isLoggedIn ? `แสดงความคิดเห็นในชื่อ ${currentUser.username}...` : 'เขียนความคิดเห็น... (กด Enter เพื่อส่ง)'}"
-                                    onkeydown="if(event.key==='Enter') submitFeedComment('${postIdStr}')">
-                                <button type="button" class="comment-send-action-btn" onclick="submitFeedComment('${postIdStr}')" title="ส่งความคิดเห็น">
-                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                                </button>
-                            </div>
+                        <div class="comment-input-box" id="comment-box-${postIdStr}">
+                            ${renderCommentInputBoxHTML(postIdStr)}
                         </div>
                     </div>
                 </div>
             </div>
         `;
-            }).join('');
+        }
+
+        function renderFeedPosts() {
+            const container = document.getElementById('feedStreamContainer');
+            if (!container) return;
+
+            if (!isFeedInitialized) {
+                initFeedSystem();
+            }
+            if (!feedPosts) feedPosts = [];
+
+            updateFeedUserUI();
+            updateTopicDatalist();
+            const currentUser = getFeedCurrentUser();
+
+            const bannerWrap = document.getElementById('feedTopicBannerWrap');
+
+            // --- 1. TOPIC DETAIL VIEW (ผู้ใช้กำลังเปิดดูกระทู้รายวันเฉพาะหัวข้อ) ---
+            if (activeFeedTopic !== null) {
+                container.classList.remove('topics-view-active');
+                if (bannerWrap) {
+                    bannerWrap.style.display = 'block';
+                    const allTopicPosts = feedPosts.filter(p => getPostTopic(p) === activeFeedTopic);
+                    bannerWrap.innerHTML = `
+                        <div class="topic-detail-banner">
+                            <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;">
+                                <button type="button" class="topic-back-btn" onclick="closeFeedTopic()">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                    <span>กลับไปหน้ารวมกระทู้</span>
+                                </button>
+                                ${currentUser.canPost ? `
+                                <button type="button" class="topic-back-btn" style="border-color:rgba(59,130,246,0.4); color:var(--accent-blue); background:rgba(59,130,246,0.1);" onclick="scrollAndFocusComposer('${escapeHTML(activeFeedTopic).replace(/'/g, "\\'")}')">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                    <span>เพิ่มอัปเดตในกระทู้นี้</span>
+                                </button>` : ''}
+                            </div>
+                            <h2 class="topic-detail-title">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" style="color:var(--accent-blue); flex-shrink:0;"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                <span>${escapeHTML(activeFeedTopic)}</span>
+                            </h2>
+                            <div class="topic-detail-meta">
+                                <span class="topic-post-count-badge">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                    ${allTopicPosts.length} โพสต์ในกระทู้นี้
+                                </span>
+                                <span>แสดงการวิเคราะห์และแผนการเทรดทั้งหมดของหัวข้อนี้</span>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                // กรองเฉพาะโพสต์ในกระทู้นี้
+                let topicFiltered = feedPosts.filter(p => getPostTopic(p) === activeFeedTopic);
+                if (feedSearchQuery) {
+                    const q = feedSearchQuery.toLowerCase();
+                    topicFiltered = topicFiltered.filter(p => {
+                        return (p.content || '').toLowerCase().includes(q) ||
+                            (p.author || '').toLowerCase().includes(q) ||
+                            (p.tag || '').toLowerCase().includes(q);
+                    });
+                }
+
+                // เรียงลำดับในกระทู้: แสดงอัปเดตล่าสุดไว้บนสุด
+                topicFiltered.sort((a, b) => (Number(b.timestamp) || 0) - (Number(a.timestamp) || 0));
+
+                if (topicFiltered.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 48px 20px; background: var(--bg-card); border: 1px dashed var(--border-color); border-radius: 12px; color: var(--text-muted);">
+                            <h3 style="color: var(--text-primary); margin: 0 0 6px 0; font-size: 1rem;">ยังไม่มีโพสต์ในกระทู้นี้</h3>
+                            <p style="margin: 0 0 14px 0; font-size: 0.82rem;">${currentUser.canPost ? 'พิมพ์ข้อความด้านบนเพื่อเพิ่มบทวิเคราะห์ลงในกระทู้นี้' : 'ยังไม่มีข้อมูลในกระทู้นี้'}</p>
+                            <button type="button" class="topic-back-btn" onclick="closeFeedTopic()" style="margin: 0 auto;">← กลับไปหน้ารวมกระทู้</button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = topicFiltered.map(p => renderSinglePostCard(p, currentUser, true)).join('');
+                return;
+            }
+
+            // ซ่อน Banner เมื่ออยู่หน้ารวม
+            if (bannerWrap) {
+                bannerWrap.style.display = 'none';
+                bannerWrap.innerHTML = '';
+            }
+
+            // กรองข้อความค้นหา (รองรับทั้งเนื้อหา, ชื่อผู้เขียน, แท็ก, และหัวข้อกระทู้)
+            const filtered = feedPosts.filter(p => {
+                if (!feedSearchQuery) return true;
+                const q = feedSearchQuery.toLowerCase();
+                const matchContent = (p.content || '').toLowerCase().includes(q);
+                const matchAuthor = (p.author || '').toLowerCase().includes(q);
+                const matchTag = (p.tag || '').toLowerCase().includes(q);
+                const matchTopic = getPostTopic(p).toLowerCase().includes(q);
+                return matchContent || matchAuthor || matchTag || matchTopic;
+            });
+
+            if (filtered.length === 0) {
+                container.classList.remove('topics-view-active');
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 48px 20px; background: var(--bg-card); border: 1px dashed var(--border-color); border-radius: 12px; color: var(--text-muted);">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 10px; opacity: 0.6;"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                        <h3 style="color: var(--text-primary); margin: 0 0 6px 0; font-size: 1rem;">ยังไม่มีบทวิเคราะห์ในฟีด</h3>
+                        <p style="margin: 0; font-size: 0.82rem;">${currentUser.canPost ? 'พิมพ์ข้อความในกล่องด้านบนเพื่อโพสต์บทวิเคราะห์ใหม่ได้ทันที' : 'บทวิเคราะห์และแผนการเทรดรายวันจะแสดงที่นี่'}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // --- 2. DAILY TOPICS CARDS OVERVIEW (มุมมองรวมกระทู้รายวัน สบายตา ไม่รก) ---
+            if (feedViewMode === 'topics') {
+                container.classList.add('topics-view-active');
+                const topics = groupFeedPostsIntoTopics(filtered);
+
+                if (topics.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; padding: 48px 20px; background: var(--bg-card); border: 1px dashed var(--border-color); border-radius: 12px; color: var(--text-muted);">
+                            <h3 style="color: var(--text-primary); margin: 0 0 6px 0; font-size: 1rem;">ยังไม่มีกระทู้บทวิเคราะห์</h3>
+                            <p style="margin: 0; font-size: 0.82rem;">${currentUser.canPost ? 'ระบุหัวข้อกระทู้ด้านบนเพื่อเริ่มโพสต์กระทู้แรก' : 'กระทู้บทวิเคราะห์จะแสดงที่นี่'}</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = topics.map(topic => {
+                    const safeTitle = escapeHTML(topic.title);
+                    const safeAuthor = escapeHTML(topic.author);
+
+                    const metaItems = [];
+                    if (topic.latestDateStr) {
+                        metaItems.push(`<span>🕒 ${escapeHTML(topic.latestDateStr)}</span>`);
+                    }
+                    metaItems.push(`<span>โดย <b>${safeAuthor}</b></span>`);
+                    if (topic.images && topic.images.length > 0) {
+                        metaItems.push(`<span>🖼️ ${topic.images.length} กราฟ</span>`);
+                    }
+                    if (topic.tagsList && topic.tagsList.length > 0) {
+                        metaItems.push(`<span style="color:#60a5fa;">${escapeHTML(topic.tagsList.slice(0, 3).join(' '))}</span>`);
+                    }
+
+                    return `
+                        <div class="topic-card" onclick="openFeedTopic('${safeTitle.replace(/'/g, "\\'")}')" title="คลิกเพื่อเปิดดูกระทู้">
+                            <div class="topic-card-left">
+                                <div class="topic-card-icon-wrap">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                                </div>
+                                <div class="topic-card-body">
+                                    <h4 class="topic-card-title">${safeTitle}</h4>
+                                    <div class="topic-card-sub">
+                                        ${metaItems.join('<span class="topic-sub-dot">•</span>')}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="topic-card-right">
+                                <span class="topic-count-pill">${topic.postCount} โพสต์</span>
+                                <svg class="topic-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                return;
+            }
+
+            // --- 3. CLASSIC ALL POSTS STREAM (มุมมองโพสต์ทั้งหมดแบบไทม์ไลน์) ---
+            container.classList.remove('topics-view-active');
+            container.innerHTML = filtered.map(post => renderSinglePostCard(post, currentUser, false)).join('');
         }
 
         function escapeHTML(str) {
@@ -14005,7 +14903,8 @@
 
             const author = user.isAdmin ? (user.username || 'Admin') : 'Sira';
             const role = user.role; // 'Editor' หรือ 'Admin'
-            const tag = (document.getElementById('composerTag')?.value || '').trim();
+            const rawTag = (document.getElementById('composerTag')?.value || '').trim();
+            let topic = (document.getElementById('composerTopic')?.value || '').trim();
             const content = (document.getElementById('composerContent')?.value || '').trim();
             const imageUrl = composerAttachedImageBase64 || '';
 
@@ -14013,6 +14912,25 @@
                 alert('กรุณาพิมพ์ข้อความบทวิเคราะห์ หรือแนบรูปภาพกราฟก่อนกดโพสต์ครับ');
                 return;
             }
+
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+            const dateStr = `วันนี้ ${hours}:${minutes} น. (${day}/${month})`;
+
+            // ถ้าไม่ได้กรอกหัวข้อ ให้ใช้วันที่วันนี้เป็นหัวข้อเริ่มต้นอัตโนมัติ
+            if (!topic) {
+                topic = `กลยุทธ์ XAU/USD ประจำวันที่ ${day}/${month}/${year}`;
+                const topicInput = document.getElementById('composerTopic');
+                if (topicInput) topicInput.value = topic;
+            }
+
+            const cleanTag = cleanDisplayTag(rawTag);
+            // แท็กสำหรับส่งไปคลาวด์: เข้ารหัส [topic:...] ไว้ในแท็กเพื่อความเข้ากันได้กับ Google Sheet
+            const cloudTag = `[topic:${topic}] ${cleanTag}`.trim();
 
             const publishBtn = document.querySelector('.composer-publish-btn');
             const originalBtnHTML = publishBtn ? publishBtn.innerHTML : '';
@@ -14024,18 +14942,12 @@
                 publishBtn.disabled = true;
             }
 
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const day = String(now.getDate()).padStart(2, '0');
-            const month = String(now.getMonth() + 1).padStart(2, '0');
-            const dateStr = `วันนี้ ${hours}:${minutes} น. (${day}/${month})`;
-
             const newPost = {
                 id: 'post_' + Date.now(),
                 author: author,
                 role: role,
-                tag: tag,
+                topic: topic,
+                tag: cleanTag,
                 dateStr: dateStr,
                 content: content,
                 imageUrl: imageUrl,
@@ -14045,9 +14957,12 @@
             // 1. เพิ่มในรายการทันทีเพื่อให้ผู้เขียนเห็นผลลัพธ์ทันที (Instant Local Feedback)
             feedPosts.unshift(newPost);
             saveFeedPostsToStorage();
+
+            // เปิดดูกระทู้ที่เพิ่งโพสต์ทันที
+            activeFeedTopic = topic;
             renderFeedPosts();
 
-            // ล้างฟอร์ม
+            // ล้างฟอร์ม (เก็บ topic ไว้เพื่อให้ผู้โพสต์สามารถโพสต์อัปเดตไม้ต่อไปในวันเดียวกันได้อย่างต่อเนื่อง)
             const contentEl = document.getElementById('composerContent');
             const tagEl = document.getElementById('composerTag');
             if (contentEl) contentEl.value = '';
@@ -14065,11 +14980,15 @@
                 dateStr: newPost.dateStr,
                 author: newPost.author,
                 role: newPost.role,
-                tag: newPost.tag,
+                tag: cloudTag,
                 content: newPost.content,
                 imageUrl: newPost.imageUrl,
-                timestamp: newPost.timestamp
+                timestamp: newPost.timestamp,
+                topic: topic
             });
+
+            const statusPill = document.getElementById('feedCloudStatus');
+            const statusText = document.getElementById('feedCloudStatusText');
 
             fetch(SHEET_API_URL, {
                 method: 'POST',
@@ -14261,12 +15180,20 @@
                         const author = row[2] || 'Sira';
                         const isAdm = author.toLowerCase() === 'admin' || (row[3] || '').toLowerCase() === 'admin';
                         const isEd = author.toLowerCase() === 'sira' || (row[3] || '').toLowerCase() === 'editor';
+                        let rawTag = row[4] || '';
+                        let topic = row[8] || '';
+                        const topicMatch = String(rawTag).match(/\[topic:\s*([^\]]+)\]/i);
+                        if (topicMatch) {
+                            topic = topicMatch[1].trim();
+                            rawTag = String(rawTag).replace(/\[topic:\s*[^\]]+\]/i, '').trim();
+                        }
                         parsed.push({
                             id: String(row[0] || 'post_' + Math.random()),
                             dateStr: row[1] || '',
                             author: author,
                             role: isAdm ? 'Admin' : (isEd ? 'Editor' : (row[3] || 'Coach')),
-                            tag: row[4] || '',
+                            topic: topic,
+                            tag: rawTag,
                             content: row[5] || '',
                             imageUrl: row[6] || '',
                             timestamp: Number(row[7]) || Date.now()
@@ -14276,12 +15203,20 @@
                         const author = row.author || 'Sira';
                         const isAdm = author.toLowerCase() === 'admin' || (row.role || '').toLowerCase() === 'admin';
                         const isEd = author.toLowerCase() === 'sira' || (row.role || '').toLowerCase() === 'editor';
+                        let rawTag = row.tag || '';
+                        let topic = row.topic || '';
+                        const topicMatch = String(rawTag).match(/\[topic:\s*([^\]]+)\]/i);
+                        if (topicMatch) {
+                            topic = topicMatch[1].trim();
+                            rawTag = String(rawTag).replace(/\[topic:\s*[^\]]+\]/i, '').trim();
+                        }
                         parsed.push({
                             id: String(row.id),
                             dateStr: row.dateStr || row.date || '',
                             author: author,
                             role: isAdm ? 'Admin' : (isEd ? 'Editor' : (row.role || 'Coach')),
-                            tag: row.tag || '',
+                            topic: topic,
+                            tag: rawTag,
                             content: row.content || '',
                             imageUrl: row.imageUrl || row.image || '',
                             timestamp: Number(row.timestamp) || Date.now()
@@ -14294,6 +15229,7 @@
 
                 feedPosts = parsed;
                 saveFeedPostsToStorage();
+                updateTopicDatalist();
             }
 
             if (rawComments !== undefined && rawComments !== null && Array.isArray(rawComments)) {
@@ -14328,6 +15264,7 @@
                 try {
                     localStorage.setItem('tj_feed_comments_v1', JSON.stringify(feedComments));
                 } catch (e) { }
+                syncMyCommentsOwnership();
             }
 
             renderFeedPosts();
@@ -14850,11 +15787,17 @@ function doPost(e) {
     if (action === 'deleteFeedComment') {
       var commentSheet = ss.getSheetByName("FeedComments");
       var delId = e ? e.parameter.commentId : null;
-      if (commentSheet && delId) {
+      var delPostId = e ? e.parameter.postId : null;
+      var delContent = e ? e.parameter.content : null;
+      if (commentSheet) {
         var data = commentSheet.getDataRange().getValues();
-        var targetDel = String(delId).trim();
+        var targetDel = delId ? String(delId).trim() : '';
+        var targetPostId = delPostId ? String(delPostId).trim() : '';
+        var targetContent = delContent ? String(delContent).trim() : '';
         for (var i = 1; i < data.length; i++) {
-          if (String(data[i][1]).trim() === targetDel) {
+          var matchId = targetDel && String(data[i][1]).trim() === targetDel;
+          var matchFallback = targetPostId && targetContent && String(data[i][0]).trim() === targetPostId && String(data[i][4]).trim() === targetContent;
+          if (matchId || matchFallback) {
             commentSheet.deleteRow(i + 1);
             break;
           }
