@@ -2269,7 +2269,7 @@
         /* Course Catalog Grid & Cards (borntoDev+ Modern Aesthetic) */
         .course-catalog-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
             max-width: 1200px;
             gap: 22px;
             animation: fadeIn 0.35s ease;
@@ -2283,6 +2283,8 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            max-width: 420px;
+            width: 100%;
             transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
             cursor: pointer;
             position: relative;
@@ -2684,7 +2686,7 @@
 
         .course-grid {
             display: grid;
-            grid-template-columns: 1fr 375px;
+            grid-template-columns: 1fr 390px;
             gap: 24px;
             width: 100%;
         }
@@ -2984,13 +2986,12 @@
 
         .module-header {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 11px 14px;
+            flex-direction: column;
+            gap: 7px;
+            padding: 11px 14px 12px;
             cursor: pointer;
             user-select: none;
             transition: background 0.15s ease;
-            gap: 10px;
         }
 
         .module-header:hover {
@@ -3001,12 +3002,12 @@
             background: rgba(0, 0, 0, 0.025);
         }
 
-        .module-header-left {
+        .module-header-top {
             display: flex;
             align-items: center;
+            justify-content: space-between;
             gap: 10px;
-            min-width: 0;
-            flex: 1;
+            width: 100%;
         }
 
         /* Module Badge: Neutral by default, Electric Blue when active */
@@ -3061,13 +3062,25 @@
         }
 
         .module-title {
-            font-size: 0.82rem;
+            font-size: 0.84rem;
             font-weight: 600;
             color: var(--text-primary);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            line-height: 1.42;
             letter-spacing: -0.1px;
+            word-break: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .playlist-module.has-active .module-title {
+            color: #ffffff;
+        }
+
+        :root[data-theme="white"] .playlist-module.has-active .module-title {
+            color: #0f172a;
         }
 
         .module-header-right {
@@ -6985,8 +6998,13 @@
             }
 
             .module-header {
-                padding: 6px 8px !important;
-                font-size: 0.7rem !important;
+                padding: 8px 10px !important;
+                gap: 5px !important;
+            }
+
+            .module-title {
+                font-size: 0.78rem !important;
+                line-height: 1.35 !important;
             }
 
             .playlist-item {
@@ -9010,7 +9028,8 @@
         <div class="page-container page" id="page-feed" style="overflow-y: auto;">
             <div class="feed-container">
                 <!-- CLEAN MINIMAL TOP BAR -->
-                <div class="feed-top-bar" style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
+                <div class="feed-top-bar"
+                    style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap;">
                     <div id="feedUserPillWrap">
                         <!-- Populated by updateFeedUserUI() -->
                     </div>
@@ -9318,14 +9337,14 @@
                 cat: 'basic',
                 catLabel: 'LEVEL 1 • ปูพื้นฐาน',
                 catDisplay: 'ปูพื้นฐาน / Technical',
-                durationDisplay: '3 ตอน (2.5 ชม.)',
+                durationDisplay: '5 ตอน (4.0 ชม.)',
                 pillBadge: 'NEW',
-                duration: '3 ตอน',
+                duration: '5 ตอน',
                 videoType: 'none',
                 coverImage: '', // 👉 ใส่ URL หรือชื่อไฟล์รูปหน้าปกได้ที่นี่ เช่น 'cover_basic.jpg' หรือ 'https://example.com/cover.png'
-                desc: 'คลาสเรียนสำหรับผู้เริ่มต้นเพื่อปูพื้นฐานการเทรดแบบเป็นระบบ ครอบคลุมการดูแนวโน้ม การเคลื่อนไหวของตลาด และโครงสร้างราคา',
+                desc: 'คลาสเรียนสำหรับผู้เริ่มต้นเพื่อปูพื้นฐานการเทรดแบบเป็นระบบ ครอบคลุมการดูแนวโน้ม การเคลื่อนไหวของตลาด โครงสร้างราคา Stochastic และ AMD Concept',
                 badge: 'FOUNDATION', badgeClass: 'badge-foundation', coverTheme: 'cover-theme-basic', coverTitle: 'PRICE STRUCTURE', coverSubtitle: 'MARKET TREND & BASICS',
-                notes: ['คลาสนี้ประกอบด้วยเนื้อหา 3 ตอนย่อย โปรดเลือกรับชมในเพลย์ลิสต์ด้านขวา']
+                notes: ['คลาสนี้ประกอบด้วยเนื้อหา 5 ตอนย่อย โปรดเลือกรับชมในเพลย์ลิสต์ด้านขวา']
             },
             {
                 id: 'basic1',
@@ -9365,6 +9384,32 @@
                 videoUrl: 'https://drive.google.com/file/d/YOUR_FILE_ID_HERE/view',
                 desc: 'เจาะลึกโครงสร้างราคา (Price Structure) สวิงไฮและสวิงโลว์ เพื่อหาจุดเข้าเทรด',
                 notes: ['ทบทวนโครงสร้างราคาและการมองแนวโน้มเพื่อเตรียมพร้อมรับมือตลาด']
+            },
+            {
+                id: 'basic4',
+                classId: 'class_basic',
+                isEpisode: true,
+                title: 'Part 4: Stochastic ไม่ได้เก่งแค่ Sideway',
+                cat: 'basic',
+                catLabel: 'ติดอาวุธการเทรด',
+                duration: 'TBD',
+                videoType: 'cloud',
+                videoUrl: 'https://drive.google.com/file/d/YOUR_FILE_ID_HERE/view',
+                desc: 'เจาะลึกเทคนิคการใช้ Stochastic Oscillator ให้เต็มประสิทธิภาพ มากกว่าแค่การเทรดในสภาวะ Sideway',
+                notes: ['เรียนรู้รอบสัญญาณ Overbought/Oversold, Momentum และการประยุกต์ใช้ร่วมกับ Price Action']
+            },
+            {
+                id: 'basic5',
+                classId: 'class_basic',
+                isEpisode: true,
+                title: 'Part 5: The power of three (AMD)',
+                cat: 'basic',
+                catLabel: 'ติดอาวุธการเทรด',
+                duration: 'TBD',
+                videoType: 'cloud',
+                videoUrl: 'https://drive.google.com/file/d/YOUR_FILE_ID_HERE/view',
+                desc: 'ทำความเข้าใจกลไกราคาของ Smart Money ผ่านโมเดล The Power of Three: Accumulation, Manipulation, Distribution (AMD)',
+                notes: ['ศึกษาพฤติกรรมช่วงสะสม (Accumulation), หลอกล่อราคา (Manipulation) และการแจกจ่าย (Distribution)']
             },
 
             // CLASS 2: กระดุม 5 เม็ด (Basic 1-5)
@@ -9577,25 +9622,25 @@
                 cat: 'armor',
                 catLabel: 'LEVEL 3 • กลยุทธ์เสริม',
                 catDisplay: 'กลยุทธ์เสริม / Defense',
-                durationDisplay: '2 ตอน (1.5 ชม.)',
+                durationDisplay: '3 ตอน (2.0 ชม.)',
                 pillBadge: 'NEW',
-                duration: '1 บท (2 ตอน)',
+                duration: '2 เกราะ (3 ตอน)',
                 videoType: 'none',
                 coverImage: '', // 👉 ใส่ URL หรือชื่อไฟล์รูปหน้าปกได้ที่นี่ เช่น 'cover_armor.jpg'
-                desc: 'หลักสูตรชุดเกราะป้องกันและเครื่องมือจับจังหวะการเทรดในสภาวะตลาดไร้ทิศทาง (Sideway) ด้วย Stochastic Oscillator',
+                desc: 'หลักสูตรชุดเกราะป้องกันและเครื่องมือจับจังหวะการเทรดในสภาวะตลาดไร้ทิศทาง (Sideway) ด้วย Stochastic Oscillator พร้อมชุดเกราะเสริมกลยุทธ์',
                 badge: 'TACTICAL DEFENSE',
                 badgeClass: 'badge-armor',
                 coverTheme: 'cover-theme-armor',
                 coverTitle: 'TACTICAL ARMOR',
                 coverSubtitle: 'SIDEWAY & RISK SHIELD',
-                notes: ['คลาสนี้ประกอบด้วยชุดเกราะที่ 1 : Stochastic (ตัวช่วยในการเทรด sideway) รวม 2 ตอนย่อย']
+                notes: ['คลาสนี้ประกอบด้วยชุดเกราะที่ 1 (2 ตอน) และชุดเกราะที่ 2 (1 ตอน) รวม 3 ตอนย่อย']
             },
             // ชุดเกราะที่ 1 : Stochastic
             {
                 id: 'armor1_1',
                 classId: 'class_armor',
                 isEpisode: true,
-                section: 'ชุดเกราะที่ 1 : Stochastic (ตัวช่วยในการเทรดsideway)',
+                section: 'ชุดเกราะที่ 1 : Stochastic (ตัวช่วยในการเทรด Sideway)',
                 sectionBadge: 'เกราะที่ 1',
                 title: 'Part 1: พื้นฐาน Stochastic ในตลาด Sideway',
                 cat: 'armor',
@@ -9613,7 +9658,7 @@
                 id: 'armor1_2',
                 classId: 'class_armor',
                 isEpisode: true,
-                section: 'ชุดเกราะที่ 1 : Stochastic (ตัวช่วยในการเทรดsideway)',
+                section: 'ชุดเกราะที่ 1 : Stochastic (ตัวช่วยในการเทรด Sideway)',
                 sectionBadge: 'เกราะที่ 1',
                 title: 'Part 2: เทคนิค Divergence & วางแผนเข้าทำ',
                 cat: 'armor',
@@ -9625,6 +9670,25 @@
                 notes: [
                     'การสังเกต Bullish / Bearish Divergence ในตลาด Sideway',
                     'การวางแผน Risk Management และการตั้ง Stop Loss เมื่อเทรดในกรอบ'
+                ]
+            },
+            // ชุดเกราะที่ 2 : การจัดการออเดอร์
+            {
+                id: 'armor2_1',
+                classId: 'class_armor',
+                isEpisode: true,
+                section: 'ชุดเกราะที่ 2 : การจัดการออเดอร์เมื่อถึงโซนราคา',
+                sectionBadge: 'เกราะที่ 2',
+                title: 'Part 1: การจัดการออเดอร์เมื่อถึงโซนราคา',
+                cat: 'armor',
+                catLabel: 'ชุดเกราะที่ 2',
+                duration: 'TBD',
+                videoType: 'cloud',
+                videoUrl: 'https://drive.google.com/file/d/YOUR_FILE_ID_HERE/view',
+                desc: 'เรียนรู้เทคนิคการบริหารจัดการออเดอร์เมื่อราคาเดินทางมาถึงโซนสำคัญ การแบ่งไม้ การลดความเสี่ยง และการคุม Position',
+                notes: [
+                    'การวางแผนและการตัดสินใจเข้าออเดอร์เมื่อราคาเข้าสู่โซนราคาสำคัญ',
+                    'การบริหารความเสี่ยงและการปกป้องเงินทุนขณะอยู่ในโซนราคา'
                 ]
             }
         ];
@@ -9870,7 +9934,7 @@
 
                 // Category & Meta configurations matching reference image
                 const catName = l.catDisplay || (l.cat === 'basic' ? 'ปูพื้นฐาน / Technical' : (l.cat === 'buttons' ? 'ระบบเทรดหลัก / Framework' : 'กลยุทธ์เสริม / Defense'));
-                const durationText = l.durationDisplay || (l.cat === 'basic' ? '3 ตอน (2.5 ชม.)' : (l.cat === 'buttons' ? '10 ตอน (6.0 ชม.)' : '2 ตอน (1.5 ชม.)'));
+                const durationText = l.durationDisplay || (l.cat === 'basic' ? '5 ตอน (4.0 ชม.)' : (l.cat === 'buttons' ? '10 ตอน (6.0 ชม.)' : '3 ตอน (2.0 ชม.)'));
                 const pillBadgeText = l.pillBadge || '';
                 const coverThemeClass = l.coverTheme || (l.cat === 'basic' ? 'cover-theme-basic' : (l.cat === 'buttons' ? 'cover-theme-buttons' : 'cover-theme-armor'));
 
@@ -10101,7 +10165,10 @@
             let clean = rawSection.trim();
             clean = clean.replace(/^(กระดุม)?เม็ดที่\s*\d+\s*:\s*/i, '');
             clean = clean.replace(/^ชุดเกราะที่\s*\d+\s*:\s*/i, '');
-            clean = clean.replace(/\+ workshop/i, ' (Workshop)');
+            clean = clean.replace(/\+?\s*workshop/i, ' (Workshop)');
+            clean = clean.replace(/เทรดsideway/i, 'เทรด Sideway');
+            clean = clean.replace(/Supply&Demand/i, 'Supply & Demand');
+            clean = clean.replace(/\bsetup\b/i, 'Setup');
             return clean.trim();
         }
 
@@ -10195,16 +10262,16 @@
                     : `<span>${watchedInMod}/${totalInMod} ตอน</span>`;
 
                 modHeader.innerHTML = `
-                    <div class="module-header-left">
+                    <div class="module-header-top">
                         <span class="module-badge">${m.badge}</span>
-                        <span class="module-title" title="${m.title}">${m.title}</span>
+                        <div class="module-header-right">
+                            <span class="module-progress-stat">${progressStatusText}</span>
+                            <svg class="module-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
                     </div>
-                    <div class="module-header-right">
-                        <span class="module-progress-stat">${progressStatusText}</span>
-                        <svg class="module-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </div>
+                    <div class="module-title" title="${m.title}">${m.title}</div>
                 `;
                 moduleEl.appendChild(modHeader);
 
@@ -11972,112 +12039,72 @@
 
 
 
-            if (!tf) {
-
-                return { name: 'อื่นๆ', category: 'other', conditions: ['อื่นๆ'], timeframe: '-', isPattern: false };
-
-            }
-
-
-
-            // Normalize TF casing
-
-            if (tf.toLowerCase().startsWith('m')) {
-
-                tf = 'm' + tf.substring(1).toLowerCase();
-
+            // Normalize TF casing if found, or fallback to '-'
+            if (tf) {
+                if (tf.toLowerCase().startsWith('m')) {
+                    tf = 'm' + tf.substring(1).toLowerCase();
+                } else {
+                    tf = tf.toUpperCase();
+                }
             } else {
-
-                tf = tf.toUpperCase();
-
+                tf = '-';
             }
-
-
 
             // Split condition tokens
-
             const rawTokens = condPart.split(/[\+&/,]/).map(t => t.trim()).filter(t => t.length > 0);
-
             if (rawTokens.length === 0) {
-
                 return { name: 'อื่นๆ', category: 'other', conditions: ['อื่นๆ'], timeframe: '-', isPattern: false };
-
             }
 
-
-
             const conceptMap = {
-
                 'golden': 'Golden', 'fvg': 'FVG', 'supply': 'Supply', 'demand': 'Demand',
-
                 'qm': 'QM', 'bos': 'BOS', 'choch': 'CHoCH', 'ob': 'OB', 'order block': 'OB',
-
                 'snd': 'S&D', 's&d': 'S&D', 'retest': 'Retest', 'breakout': 'Breakout',
-
-                'divergence': 'Divergence', 'stoch': 'Stochastic', 'stochastic': 'Stochastic'
-
+                'divergence': 'Divergence', 'div': 'Divergence',
+                'stoch': 'Stochastic', 'stochastic': 'Stochastic', 'sto': 'Stochastic',
+                'tl': 'Trendline', 'trendline': 'Trendline',
+                'trend': 'Trend Follow'
             };
 
-
-
-            const conceptPriority = ['golden', 'demand', 'supply', 'fvg', 'qm', 'ob', 'bos', 'choch', 'exten', 'fib', 'retest', 'breakout', 'divergence', 'trend', 'stoch', 'snd'];
-
-
+            const conceptPriority = ['golden', 'demand', 'supply', 'fvg', 'qm', 'ob', 'bos', 'choch', 'exten', 'fib', 'retest', 'breakout', 'divergence', 'tl', 'trend', 'stoch', 'snd'];
 
             const normConds = [];
-
             for (const tok of rawTokens) {
-
                 const tLow = tok.toLowerCase();
-
                 let matched = false;
 
-
-
                 for (const [k, v] of Object.entries(conceptMap)) {
-
-                    if (tLow === k || (['supply', 'demand', 'fvg', 'qm', 'golden', 'bos', 'choch', 'ob'].includes(k) && tLow.startsWith(k))) {
-
+                    if (tLow === k || (['supply', 'demand', 'fvg', 'qm', 'golden', 'bos', 'choch', 'ob', 'stoch', 'sto', 'div', 'trend'].includes(k) && tLow.startsWith(k))) {
                         normConds.push(v);
-
                         matched = true;
-
                         break;
-
                     }
-
                 }
 
-
-
                 if (!matched) {
-
-                    if (tLow.includes('exten') || tLow.includes('fib')) {
-
+                    if (tLow.includes('exten')) {
                         const numMatch = tok.match(/\d+(\.\d+)?/);
-
                         normConds.push(numMatch ? `Exten ${numMatch[0]}` : 'Extension');
-
                         matched = true;
-
+                    } else if (tLow.includes('retrace') || tLow.includes('fib')) {
+                        const numMatch = tok.match(/\d+(\.\d+)?/);
+                        if (numMatch) {
+                            const val = parseFloat(numMatch[0]);
+                            if (val > 100) normConds.push(`Exten ${numMatch[0]}`);
+                            else normConds.push(`Fib ${numMatch[0]}`);
+                        } else {
+                            normConds.push('Fibonacci');
+                        }
+                        matched = true;
                     } else if (tLow.includes('trend')) {
-
                         normConds.push('Trend Follow');
-
                         matched = true;
-
                     }
-
                 }
-
-
 
                 if (!matched) {
-
                     return { name: 'อื่นๆ', category: 'other', conditions: ['อื่นๆ'], timeframe: '-', isPattern: false };
-
                 }
-
             }
 
 
@@ -14527,7 +14554,8 @@
                     <div class="gas-step-title">📍 ขั้นตอนที่ 2: วางโค้ดลงใน Code.gs</div>
                     <p style="margin: 0 0 8px 0; color: #cbd5e1;">คุณสามารถกดปุ่มสีฟ้าด้านล่างเพื่อ
                         <b>"คัดลอกโค้ดเต็มทั้งหมด"</b> ไปวางแทนที่ไฟล์เดิมได้ทันที (รวมระบบเดิมและระบบ Feed
-                        ให้ครบถ้วนแล้ว):</p>
+                        ให้ครบถ้วนแล้ว):
+                    </p>
 
                     <button type="button" class="gas-copy-btn"
                         style="background:#059669; font-size:0.82rem; padding:8px 16px; margin-bottom:12px;"
@@ -14851,12 +14879,19 @@ function authorizeDrive() {
                 </div>
 
                 <div class="gas-step-box">
-                    <div class="gas-step-title">📍 ขั้นตอนที่ 3: เปิดสิทธิ์ Drive และ Deploy เวอร์ชันใหม่ (สำคัญมาก)</div>
+                    <div class="gas-step-title">📍 ขั้นตอนที่ 3: เปิดสิทธิ์ Drive และ Deploy เวอร์ชันใหม่ (สำคัญมาก)
+                    </div>
                     <ol style="margin: 0; padding-left: 18px; color: #cbd5e1;">
                         <li>กด <b>บันทึก (Save / ไอคอนแผ่นดิสก์)</b></li>
-                        <li>(สำคัญ) ด้านบนเลือกฟังก์ชัน <b>authorizeDrive</b> แล้วกดปุ่ม <b>เรียกใช้ (Run)</b> 1 ครั้ง &gt; ป๊อปอัปจะเด้งขึ้นมาทันที ให้กด <b>ตรวจสอบสิทธิ์ (Review Permissions)</b> &gt; เลือกอีเมลของคุณ &gt; <b>ขั้นสูง (Advanced)</b> &gt; <b>ไปที่... (ไม่ปลอดภัย)</b> &gt; กด <b>อนุญาต (Allow)</b> เพื่อเปิดสิทธิ์บันทึกภาพลง Google Drive</li>
-                        <li>กดปุ่มสีน้ำเงิน <b>ทำให้ใช้งานได้ (Deploy)</b> &gt; <b>จัดการการทำให้ใช้งานได้ (Manage Deployments)</b></li>
-                        <li>กดไอคอน <b>ดินสอ (Edit)</b> &gt; เปลี่ยน <b>เวอร์ชัน (Version) เป็น "เวอร์ชันใหม่" (New Version)</b></li>
+                        <li>(สำคัญ) ด้านบนเลือกฟังก์ชัน <b>authorizeDrive</b> แล้วกดปุ่ม <b>เรียกใช้ (Run)</b> 1 ครั้ง
+                            &gt; ป๊อปอัปจะเด้งขึ้นมาทันที ให้กด <b>ตรวจสอบสิทธิ์ (Review Permissions)</b> &gt;
+                            เลือกอีเมลของคุณ &gt; <b>ขั้นสูง (Advanced)</b> &gt; <b>ไปที่... (ไม่ปลอดภัย)</b> &gt; กด
+                            <b>อนุญาต (Allow)</b> เพื่อเปิดสิทธิ์บันทึกภาพลง Google Drive
+                        </li>
+                        <li>กดปุ่มสีน้ำเงิน <b>ทำให้ใช้งานได้ (Deploy)</b> &gt; <b>จัดการการทำให้ใช้งานได้ (Manage
+                                Deployments)</b></li>
+                        <li>กดไอคอน <b>ดินสอ (Edit)</b> &gt; เปลี่ยน <b>เวอร์ชัน (Version) เป็น "เวอร์ชันใหม่" (New
+                                Version)</b></li>
                         <li>กด <b>ทำให้ใช้งานได้ (Deploy)</b> เป็นอันเสร็จสิ้น!</li>
                     </ol>
                 </div>
