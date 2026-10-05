@@ -4281,6 +4281,390 @@
             color: var(--text-primary);
         }
 
+        /* === 0. STRATEGY MAIN TABS BAR (PLAYBOOK VS SESSION INTELLIGENCE) === */
+        .strat-header-tabs-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 6px 8px;
+            box-shadow: var(--card-shadow);
+            backdrop-filter: blur(var(--backdrop-blur));
+            -webkit-backdrop-filter: blur(var(--backdrop-blur));
+            flex-wrap: wrap;
+        }
+
+        .strat-tabs-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .strat-header-tab {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            font-family: inherit;
+        }
+
+        .strat-header-tab:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        :root[data-theme="white"] .strat-header-tab:hover {
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        .strat-header-tab.active {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.16), rgba(37, 99, 235, 0.08));
+            border-color: rgba(59, 130, 246, 0.35);
+            color: #60a5fa;
+            box-shadow: 0 2px 10px rgba(59, 130, 246, 0.15);
+        }
+
+        :root[data-theme="white"] .strat-header-tab.active {
+            background: #ffffff;
+            border-color: rgba(59, 130, 246, 0.3);
+            color: #2563eb;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .strat-tab-pill-badge {
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #ffffff;
+            letter-spacing: 0.03em;
+        }
+
+        /* === TIME SESSION CARDS GRID === */
+        .session-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+
+        @media (max-width: 1200px) {
+            .session-cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 680px) {
+            .session-cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .session-kpi-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--card-shadow);
+            cursor: pointer;
+        }
+
+        .session-kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--session-color, #3b82f6);
+            opacity: 0.85;
+        }
+
+        .session-kpi-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+        }
+
+        .session-kpi-card.selected {
+            border-color: var(--session-color, #60a5fa);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25), 0 12px 28px rgba(0, 0, 0, 0.35);
+        }
+
+        .session-card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .session-name-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .session-card-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .session-card-time {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            font-family: 'Space Mono', monospace;
+            font-weight: 500;
+        }
+
+        .session-card-status-pill {
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 9999px;
+            white-space: nowrap;
+        }
+
+        .session-metric-main {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 2px;
+        }
+
+        .session-wr-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            font-family: 'Space Mono', monospace;
+            line-height: 1;
+        }
+
+        .session-pts-number {
+            font-size: 1.05rem;
+            font-weight: 700;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .session-metric-bar {
+            height: 5px;
+            background: rgba(148, 163, 184, 0.15);
+            border-radius: 9999px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .session-metric-bar-fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .session-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            padding-top: 8px;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        /* === SESSION HIGHLIGHT STRIP === */
+        .session-summary-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        @media (max-width: 900px) {
+            .session-summary-strip {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .session-summary-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .session-summary-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.15rem;
+            flex-shrink: 0;
+        }
+
+        .session-summary-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+        }
+
+        .session-summary-label {
+            font-size: 0.68rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .session-summary-val {
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .session-summary-sub {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* === SESSION CHARTS GRID === */
+        .session-charts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        @media (max-width: 1024px) {
+            .session-charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* === SESSION TABLE CARD === */
+        .session-table-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: var(--card-shadow);
+        }
+
+        /* === DEMO SWITCH & NOTICE BANNER === */
+        .session-demo-toggle-wrap {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(148, 163, 184, 0.08);
+            border: 1px solid var(--border-color);
+            padding: 5px 10px;
+            border-radius: 9999px;
+        }
+
+        .session-demo-label {
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .session-switch-toggle {
+            position: relative;
+            display: inline-block;
+            width: 36px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .session-switch-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .session-slider-round {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(148, 163, 184, 0.3);
+            transition: .25s;
+            border-radius: 20px;
+        }
+
+        .session-slider-round:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .25s;
+            border-radius: 50%;
+        }
+
+        .session-switch-toggle input:checked + .session-slider-round {
+            background-color: #3b82f6;
+        }
+
+        .session-switch-toggle input:checked + .session-slider-round:before {
+            transform: translateX(16px);
+        }
+
+        .session-notice-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(37, 99, 235, 0.05));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            flex-wrap: wrap;
+        }
+
+        .session-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 6px;
+            white-space: nowrap;
+        }
+
         /* === 1. TOP KPI METRICS (MATCHING BOARD PAGE) === */
         .strat-kpi-grid {
             display: grid;
@@ -8894,10 +9278,34 @@
 
         <div class="page-container page" id="page-strategy">
 
+            <!-- STRATEGY MAIN SUB-TABS NAVIGATION -->
+            <div class="strat-header-tabs-bar">
+                <div class="strat-tabs-group">
+                    <button type="button" class="strat-header-tab active" id="stratMainTabPlaybook" onclick="switchStratMainTab('playbook')">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                        </svg>
+                        <span>Strategy Setups (Playbook)</span>
+                    </button>
+                    <button type="button" class="strat-header-tab" id="stratMainTabSession" onclick="switchStratMainTab('session')">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <span>Time Session Analysis</span>
+                    </button>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 0.72rem; color: var(--text-muted); font-family: 'Space Mono', monospace;" id="stratHeaderActiveSessionIndicator">Session: Real Sheet Data</span>
+                </div>
+            </div>
 
+            <!-- CONTAINER 1: PLAYBOOK (Leaderboard & Full Table) -->
+            <div id="stratContainerPlaybook" style="display: flex; flex-direction: column; gap: 16px;">
 
-            <!-- VIEW 1: STAT DASHBOARD (DEFAULT) -->
-            <div id="stratViewDashboard" style="display: flex; flex-direction: column; gap: 16px;">
+                <!-- VIEW 1: STAT DASHBOARD (DEFAULT) -->
+                <div id="stratViewDashboard" style="display: flex; flex-direction: column; gap: 16px;">
 
                 <!-- Main Stat Modules Grid -->
                 <div class="strat-stat-grid">
@@ -9154,32 +9562,286 @@
                                     <th style="width: 120px; text-align: right;">Net Points</th>
 
                                     <th style="width: 110px; text-align: right;" class="strat-sim-col">กำไร ($)</th>
-
                                     <th style="width: 80px; text-align: center;">Avg RR</th>
-
                                     <th style="width: 100px; text-align: center;">Action</th>
-
                                 </tr>
-
                             </thead>
-
                             <tbody id="stratLeaderboardBody">
-
                                 <!-- Injected by JS -->
-
                             </tbody>
-
                         </table>
+                    </div>
+                </div>
+
+            </div> <!-- End stratViewTable -->
+
+            </div> <!-- End stratContainerPlaybook -->
+
+            <!-- CONTAINER 2: TIME SESSION ANALYSIS (Clean & Minimalist 2-Column Grid) -->
+            <div id="stratContainerSession" style="display: none; flex-direction: column; gap: 16px;">
+
+                <!-- 2-COLUMN STAT MODULES GRID (Matches stratViewDashboard) -->
+                <div class="strat-stat-grid">
+
+                    <!-- MODULE 1: MARKET SESSIONS LEADERBOARD (LEFT COLUMN) -->
+                    <div class="strat-card">
+                        <div class="strat-card-header">
+                            <div class="strat-card-title-group">
+                                <span class="strat-card-title">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        style="color: #60a5fa;">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    <span>Market Sessions Leaderboard</span>
+                                </span>
+                                <span class="strat-card-sub" id="sessionLeaderboardSub">จัดอันดับผลงานแต่ละช่วงเวลาตามข้อมูลจริงใน Sheet (GMT+7)</span>
+                            </div>
+                            <div class="strat-segment-wrap">
+                                <span class="strat-active-pill" id="sessionHeaderSummaryPill">บันทึกเวลา 0 ไม้</span>
+                            </div>
+                        </div>
+
+                        <!-- Clean Column Header (Institutional Aligned) -->
+                        <div class="top10-list-header">
+                            <div class="top10-hdr-rank">#</div>
+                            <div class="top10-hdr-name">MARKET SESSION (คลิกเลือกดูรายการออเดอร์)</div>
+                            <div class="top10-hdr-stats">
+                                <span class="top10-hdr-col" style="width: 72px; text-align: right;">WIN RATE</span>
+                                <span class="top10-hdr-col" style="width: 105px; text-align: right;">NET POINTS</span>
+                                <span class="top10-hdr-col" style="width: 65px; text-align: center;">TRADES</span>
+                            </div>
+                        </div>
+
+                        <!-- Sessions List Container -->
+                        <div class="strat-top10-list" id="sessionLeaderboardContainer">
+                            <!-- Injected dynamically by JS -->
+                        </div>
+
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px; padding-top: 8px; border-top: 1px solid rgba(148, 163, 184, 0.1);">
+                            <span style="font-size: 0.68rem; color: #64748b;" id="sessionBestSummaryText">*คลิกที่แถวเซสชั่นเพื่อกรองตารางออเดอร์ด้านล่าง</span>
+                            <button type="button" class="strat-tbl-btn" onclick="openSessionSheetGuideModal()"
+                                style="font-size: 0.72rem; padding: 4px 10px; display: inline-flex; align-items: center; gap: 4px;">
+                                <span>📖 รูปแบบเวลา</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT COLUMN: 2 CLEAN ANALYTICS CHARTS (Matching Strategy Graph Heights: 235px) -->
+                    <div class="strat-right-col" style="display: flex; flex-direction: column; gap: 14px;">
+
+                        <!-- GRAPH 1: SESSION PERFORMANCE COMPARISON -->
+                        <div class="strat-card">
+                            <div class="strat-card-header">
+                                <div class="strat-card-title-group">
+                                    <span class="strat-card-title">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #60a5fa;">
+                                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                                        </svg>
+                                        <span>Session Performance Comparison</span>
+                                    </span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span style="font-size: 0.68rem; color: #60a5fa; font-family: 'Space Mono', monospace; font-weight: 600; padding: 3px 9px; background: rgba(59,130,246,0.1); border-radius: 6px; border: 1px solid rgba(59,130,246,0.25);">
+                                        Win Rate (%) & Net Points (pts)
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div style="height: 235px; position: relative; width: 100%; margin-top: 4px;">
+                                <canvas id="sessionComparisonChart"></canvas>
+                            </div>
+
+                            <div style="display: flex; justify-content: flex-end; align-items: center; margin-top: -4px;">
+                                <span style="font-size: 0.64rem; color: var(--text-muted); font-family: 'Inter', sans-serif;">
+                                    *คลิกที่แท่งกราฟเพื่อเจาะลึกออเดอร์ในตารางด้านล่าง
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- GRAPH 2: 24-HOUR HOURLY DISTRIBUTION -->
+                        <div class="strat-card">
+                            <div class="strat-card-header">
+                                <div class="strat-card-title-group">
+                                    <span class="strat-card-title">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #a855f7;">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <polyline points="12 6 12 12 16 14"></polyline>
+                                        </svg>
+                                        <span>24-Hour Distribution & Hourly Win Rate</span>
+                                    </span>
+                                </div>
+                                <div id="sessionGoldenHourBadge">
+                                    <span class="strat-active-pill" id="goldenHourActivePill" style="background: rgba(245, 158, 11, 0.12); color: #f59e0b; border-color: rgba(245, 158, 11, 0.3);">
+                                        ⚡ Peak Hours
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="strat-chart-box" style="padding: 4px 0 2px;">
+                                <div class="strat-chart-legend">
+                                    <div class="legend-item"><span class="legend-bar-sample" style="background: rgba(168, 85, 247, 0.55);"></span> ออเดอร์ (ไม้)</div>
+                                    <div class="legend-item"><span class="legend-line-sample" style="background: #f59e0b;"></span> Win Rate (%)</div>
+                                </div>
+                                <div class="strat-chart-canvas-wrap" style="height: 235px;">
+                                    <canvas id="hourlyDistributionChart"></canvas>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; justify-content: flex-end; align-items: center; margin-top: 2px;">
+                                <span style="font-size: 0.64rem; color: var(--text-muted); font-family: 'Inter', sans-serif;">
+                                    *แสดงการกระจายตัวของออเดอร์ตามชั่วโมงจริงในรอบวัน
+                                </span>
+                            </div>
+                        </div>
 
                     </div>
 
                 </div>
 
+                <!-- CLEAN SESSION TRADES BLOTTER (Filtered Table Card) -->
+                <div class="strat-table-card">
 
+                    <!-- Minimalist Toolbar matching Strategy Table Toolbar -->
+                    <div class="strat-toolbar" style="flex-wrap: wrap; justify-content: space-between; gap: 10px;">
+                        
+                        <!-- Filter Pills -->
+                        <div class="strat-filter-pills" id="sessionFilterPills">
+                            <button type="button" class="strat-pill-btn active" data-session="all" onclick="setSessionFilter('all', this)">
+                                ทั้งหมด
+                            </button>
+                            <button type="button" class="strat-pill-btn" data-session="asia" onclick="setSessionFilter('asia', this)">
+                                <span class="status-dot-sm" style="background: #38bdf8;"></span> เอเชีย (06:00-14:00)
+                            </button>
+                            <button type="button" class="strat-pill-btn" data-session="london" onclick="setSessionFilter('london', this)">
+                                <span class="status-dot-sm" style="background: #a855f7;"></span> ลอนดอน (14:00-20:00)
+                            </button>
+                            <button type="button" class="strat-pill-btn" data-session="overlap" onclick="setSessionFilter('overlap', this)">
+                                <span class="status-dot-sm" style="background: #10b981;"></span> Overlap (19:00-22:00)
+                            </button>
+                            <button type="button" class="strat-pill-btn" data-session="newyork" onclick="setSessionFilter('newyork', this)">
+                                <span class="status-dot-sm" style="background: #f59e0b;"></span> นิวยอร์ก (20:00-03:00)
+                            </button>
+                            <button type="button" class="strat-pill-btn" data-session="latenight" onclick="setSessionFilter('latenight', this)">
+                                <span class="status-dot-sm" style="background: #64748b;"></span> รอบดึก (03:00-06:00)
+                            </button>
+                            <button type="button" class="strat-pill-btn" data-session="unspecified" onclick="setSessionFilter('unspecified', this)">
+                                <span class="status-dot-sm" style="background: #94a3b8;"></span> ยังไม่ระบุเวลา
+                            </button>
+                        </div>
 
+                        <!-- Right Search & Counter -->
+                        <div class="strat-toolbar-right">
+                            <div class="strat-search-wrap">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                                <input type="text" id="sessionBlotterSearchInput" class="strat-search-box" placeholder="ค้นหาออเดอร์..." oninput="renderSessionBlotterOnly()">
+                            </div>
+                            <span class="strat-active-pill" id="sessionBlotterCountPill">0 ไม้</span>
+                        </div>
+                    </div>
+
+                    <!-- Clean Institutional Data Table -->
+                    <div class="strat-table-wrapper" style="max-height: 480px; overflow-y: auto;">
+                        <table class="strat-clean-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 48px; text-align: center;">#</th>
+                                    <th style="width: 105px;">วันที่</th>
+                                    <th style="width: 90px; text-align: center;">เวลาเข้า</th>
+                                    <th style="width: 140px;">รอบตลาด (Session)</th>
+                                    <th style="min-width: 180px;">Strategy Setup</th>
+                                    <th style="width: 80px; text-align: center;">Order</th>
+                                    <th style="width: 90px; text-align: center;">Result</th>
+                                    <th style="width: 110px; text-align: right;">Net Points</th>
+                                    <th style="width: 80px; text-align: center;">RR</th>
+                                    <th style="width: 80px; text-align: center;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sessionBlotterBody">
+                                <!-- Injected dynamically by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div> <!-- End stratContainerSession -->
+
+            <!-- MODAL: HOW TO ADD TIME COLUMN IN GOOGLE SHEET -->
+            <div id="sessionSheetGuideModal" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 9999; align-items: center; justify-content: center; padding: 20px;">
+                <div class="strat-card" style="max-width: 580px; width: 100%; max-height: 90vh; overflow-y: auto; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);">
+                    <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 16px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 40px; height: 40px; border-radius: 12px; background: rgba(59, 130, 246, 0.15); display: flex; align-items: center; justify-content: center; color: #60a5fa; font-size: 1.3rem;">
+                                ⏱️
+                            </div>
+                            <div>
+                                <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin: 0;">วิธีเพิ่ม Column เวลาใน Google Sheet</h3>
+                                <p style="font-size: 0.76rem; color: var(--text-secondary); margin: 2px 0 0;">คำแนะนำสำหรับเจ้าของชีทเพื่อเปิดใช้งานระบบ Time Session Analytics เต็มรูปแบบ</p>
+                            </div>
+                        </div>
+                        <button type="button" onclick="closeSessionSheetGuideModal()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 14px; font-size: 0.82rem; line-height: 1.5; color: var(--text-secondary);">
+                        <div style="background: rgba(148, 163, 184, 0.06); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px;">
+                            <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                                <span style="background: #3b82f6; color: white; border-radius: 50%; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.72rem;">1</span>
+                                ชื่อหัวตาราง (Column Header Name)
+                            </div>
+                            <p style="margin: 0 0 6px;">ให้เพิ่มคอลัมน์ใหม่ใน Google Sheet (Sheet 1) ที่ชื่อว่า:</p>
+                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                <code style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; padding: 4px 10px; border-radius: 6px; font-weight: 700;">Time</code>
+                                <code style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; padding: 4px 10px; border-radius: 6px; font-weight: 700;">Entry_Time</code>
+                                <code style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; padding: 4px 10px; border-radius: 6px; font-weight: 700;">เวลา</code>
+                                <code style="background: rgba(59, 130, 246, 0.15); color: #60a5fa; padding: 4px 10px; border-radius: 6px; font-weight: 700;">เวลาเข้า</code>
+                            </div>
+                            <p style="font-size: 0.72rem; color: var(--text-muted); margin: 6px 0 0;">*ระบบฉลาดพอที่จะตรวจจับคอลัมน์นี้ไม่ว่าจะอยู่ต่อท้าย Column S หรือแทรกอยู่ข้าง Date</p>
+                        </div>
+
+                        <div style="background: rgba(148, 163, 184, 0.06); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px;">
+                            <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                                <span style="background: #10b981; color: white; border-radius: 50%; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.72rem;">2</span>
+                                รูปแบบการกรอกเวลาที่รองรับ (Time Formats)
+                            </div>
+                            <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px;">
+                                <li><code>14:30</code> หรือ <code>14.30</code> (เวลา 24 ชม.)</li>
+                                <li><code>02:30 PM</code> หรือ <code>09:15 AM</code> (เวลา 12 ชม.)</li>
+                                <li><code>14:30:00</code> (แบบมีวินาที)</li>
+                                <li><code>05/01/2026 14:30:00</code> (วันที่พร้อมเวลา)</li>
+                            </ul>
+                        </div>
+
+                        <div style="background: rgba(148, 163, 184, 0.06); border: 1px solid var(--border-color); border-radius: 12px; padding: 14px;">
+                            <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                                <span style="background: #a855f7; color: white; border-radius: 50%; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.72rem;">3</span>
+                                รอบเวลาตลาดที่ระบบจัดกลุ่มให้อัตโนมัติ (GMT+7 เวลาไทย)
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; font-size: 0.75rem;">
+                                <div><span style="color: #38bdf8; font-weight: 700;">● Asia Session:</span> 06:00 - 14:00</div>
+                                <div><span style="color: #a855f7; font-weight: 700;">● London Session:</span> 14:00 - 20:00</div>
+                                <div><span style="color: #10b981; font-weight: 700;">● London/NY Overlap:</span> 19:00 - 22:00</div>
+                                <div><span style="color: #f59e0b; font-weight: 700;">● New York Session:</span> 20:00 - 03:00</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 18px; display: flex; justify-content: flex-end;">
+                        <button type="button" class="auth-submit-btn" onclick="closeSessionSheetGuideModal()" style="width: auto; padding: 8px 24px;">
+                            รับทราบและเข้าใจแล้ว
+                        </button>
+                    </div>
+                </div>
             </div>
-
-
 
         </div>
 
@@ -10921,11 +11583,19 @@
                 if (assetChart) assetChart.resize();
             }
             if (pageId === 'strategy') {
-                renderStrategyDashboard();
-                setTimeout(() => {
-                    if (stratLeaderboardChartInstance) stratLeaderboardChartInstance.resize();
-                    if (stratTFChartInstance) stratTFChartInstance.resize();
-                }, 50);
+                if (typeof currentStratMainTab !== 'undefined' && currentStratMainTab === 'session') {
+                    renderTimeSessionDashboard();
+                    setTimeout(() => {
+                        if (sessionComparisonChartInstance) sessionComparisonChartInstance.resize();
+                        if (hourlyDistributionChartInstance) hourlyDistributionChartInstance.resize();
+                    }, 50);
+                } else {
+                    renderStrategyDashboard();
+                    setTimeout(() => {
+                        if (stratLeaderboardChartInstance) stratLeaderboardChartInstance.resize();
+                        if (stratTFChartInstance) stratTFChartInstance.resize();
+                    }, 50);
+                }
             }
             if (isCourse) {
                 checkCourseAuth();
@@ -11013,18 +11683,183 @@
             reader.readAsArrayBuffer(file);
         }
 
+        // --- TIME PARSER & TRADING SESSION CLASSIFIER ---
+        function parseTradeTimeAndSession(rawTime, rawNote) {
+            let timeStr = (rawTime !== undefined && rawTime !== null) ? rawTime.toString().trim() : '';
+            
+            // Check note for time if rawTime is blank (e.g. "Time cycle : 16.30 น.")
+            if (!timeStr && rawNote) {
+                const noteMatch = String(rawNote).match(/(?:time|เวลา|cycle)\s*[:=]?\s*(\d{1,2})[.:](\d{2})\s*(?:น\.|am|pm)?/i);
+                if (noteMatch) {
+                    timeStr = `${noteMatch[1]}:${noteMatch[2]}`;
+                }
+            }
+
+            if (!timeStr) {
+                return {
+                    hasTime: false,
+                    timeStr: '',
+                    hour: null,
+                    minute: null,
+                    sessionKey: 'unspecified',
+                    sessionName: 'Unspecified',
+                    sessionNameTh: 'ไม่ระบุเวลา',
+                    sessionColor: '#94a3b8',
+                    isOverlap: false
+                };
+            }
+
+            let hour = null;
+            let minute = 0;
+
+            // Excel serial day fraction (e.g. 0.604166667)
+            if (/^0\.\d+$/.test(timeStr)) {
+                const totalMinutes = Math.round(parseFloat(timeStr) * 24 * 60);
+                hour = Math.floor(totalMinutes / 60) % 24;
+                minute = totalMinutes % 60;
+            } else {
+                let clean = timeStr.replace(/[น\.\s]+$/, '').trim();
+                const isPM = /pm/i.test(clean);
+                const isAM = /am/i.test(clean);
+                clean = clean.replace(/(?:am|pm)/i, '').trim();
+
+                const parts = clean.split(/[:\.]/);
+                if (parts.length >= 2) {
+                    let hPart = parts[0].trim();
+                    if (hPart.includes(' ')) {
+                        const spaceParts = hPart.split(' ');
+                        hPart = spaceParts[spaceParts.length - 1];
+                    }
+                    hour = parseInt(hPart, 10);
+                    minute = parseInt(parts[1].trim(), 10) || 0;
+                    if (isPM && hour < 12) hour += 12;
+                    if (isAM && hour === 12) hour = 0;
+                } else if (parts.length === 1 && !isNaN(parseInt(parts[0], 10))) {
+                    hour = parseInt(parts[0], 10);
+                    minute = 0;
+                }
+            }
+
+            if (hour === null || isNaN(hour) || hour < 0 || hour > 23) {
+                return {
+                    hasTime: false,
+                    timeStr: timeStr,
+                    hour: null,
+                    minute: null,
+                    sessionKey: 'unspecified',
+                    sessionName: 'Unspecified',
+                    sessionNameTh: 'ไม่ระบุเวลา',
+                    sessionColor: '#94a3b8',
+                    isOverlap: false
+                };
+            }
+
+            const formattedTime = `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`;
+            const isOverlap = (hour >= 19 && hour < 22);
+
+            let sessionKey = 'asia';
+            let sessionName = 'Asia Session';
+            let sessionNameTh = 'เอเชีย (Asia)';
+            let sessionColor = '#38bdf8';
+
+            if (hour >= 6 && hour < 14) {
+                sessionKey = 'asia';
+                sessionName = 'Asia Session';
+                sessionNameTh = 'เอเชีย (Asia)';
+                sessionColor = '#38bdf8';
+            } else if (hour >= 14 && hour < 20) {
+                sessionKey = 'london';
+                sessionName = 'London Session';
+                sessionNameTh = 'ลอนดอน (London)';
+                sessionColor = '#a855f7';
+            } else if (hour >= 20 || hour < 3) {
+                sessionKey = 'newyork';
+                sessionName = 'New York Session';
+                sessionNameTh = 'นิวยอร์ก (New York)';
+                sessionColor = '#f59e0b';
+            } else {
+                sessionKey = 'latenight';
+                sessionName = 'Late Night / Off-Hours';
+                sessionNameTh = 'รอบดึก (Late Night)';
+                sessionColor = '#64748b';
+            }
+
+            return {
+                hasTime: true,
+                timeStr: formattedTime,
+                hour: hour,
+                minute: minute,
+                sessionKey: sessionKey,
+                sessionName: sessionName,
+                sessionNameTh: sessionNameTh,
+                sessionColor: sessionColor,
+                isOverlap: isOverlap
+            };
+        }
+
         function processData(data) {
             let headerIndex = 0;
-            for (let i = 0; i < data.length; i++) { if (Array.isArray(data[i]) && (data[i].includes('No.') || data[i].includes('SetID'))) { headerIndex = i; break; } }
-            allTrades = []; groupedTrades = {};
+            for (let i = 0; i < data.length; i++) {
+                if (Array.isArray(data[i]) && (data[i].includes('No.') || data[i].includes('SetID') || data[i].includes('Date'))) {
+                    headerIndex = i;
+                    break;
+                }
+            }
+
+            // Dynamic Column Mapping to automatically support any column order or added Time column
+            const headerRow = data[headerIndex] || [];
+            const colMap = {
+                no: 0, setId: 1, date: 2, plan: 3, type: 4, asset: 5, category: 6,
+                order: 7, entryOrder: 8, tpOrder: 9, slOrder: 10, strategy: 11,
+                setup: 12, result: 13, points: 14, rr: 15, notePlan: 16, status: 17,
+                time: -1
+            };
+
+            headerRow.forEach((hdr, idx) => {
+                if (!hdr) return;
+                const h = String(hdr).trim().toLowerCase();
+                if (h.includes('setid')) colMap.setId = idx;
+                else if (h.includes('date') || h.includes('วันที่')) colMap.date = idx;
+                else if (h === 'plan' || h === 'แผน') colMap.plan = idx;
+                else if (h === 'type' || h === 'ประเภท') colMap.type = idx;
+                else if (h === 'asset' || h === 'คู่เงิน' || h === 'สินทรัพย์') colMap.asset = idx;
+                else if (h === 'category' || h === 'หมวดหมู่') colMap.category = idx;
+                else if (h === 'order' || h === 'คำสั่ง') colMap.order = idx;
+                else if (h.includes('entry') && !h.includes('time')) colMap.entryOrder = idx;
+                else if (h.includes('tp')) colMap.tpOrder = idx;
+                else if (h.includes('sl') && !h.includes('slot')) colMap.slOrder = idx;
+                else if (h.includes('strat') || h.includes('ระบบ')) colMap.strategy = idx;
+                else if (h.includes('setup') || h.includes('ลิงก์')) colMap.setup = idx;
+                else if (h.includes('result') || h.includes('ผลลัพธ์')) colMap.result = idx;
+                else if (h.includes('point') || h.includes('จุด')) colMap.points = idx;
+                else if (h === 'rr' || h === 'r:r' || h.includes('risk')) colMap.rr = idx;
+                else if (h.includes('note') || h.includes('หมายเหตุ')) colMap.notePlan = idx;
+                else if (h.includes('status') || h.includes('สถานะ')) colMap.status = idx;
+                else if (h === 'time' || h === 'entry_time' || h === 'เวลา' || h === 'เวลาเข้า' || (h.includes('time') && !h.includes('frame'))) colMap.time = idx;
+                else if (h.includes('no') || h.includes('ลำดับ') || h.includes('คอลัมน์ 1')) colMap.no = idx;
+            });
+
+            // If time column was not explicitly matched by name, check if a column exists between category and order (Column H before Order)
+            if (colMap.time === -1) {
+                if (colMap.order > colMap.category + 1) {
+                    colMap.time = colMap.order - 1;
+                } else if (headerRow.length > 18) {
+                    colMap.time = 18;
+                }
+            }
+
+            allTrades = [];
+            groupedTrades = {};
+            let realTimesCount = 0;
+
             for (let i = headerIndex + 1; i < data.length; i++) {
                 const row = data[i];
-                if (!row || !row[0]) continue;
-                let rrValue = row[15] ? row[15].toString().replace(/\s/g, '') : '';
-                let rawResult = (row[13] || '').toString().trim();
-                let rawStatus = (row[17] || '').toString().trim();
+                if (!row || !row[colMap.no]) continue;
 
-                // พวกที่ Result เป็น NONE คือ cancel ทั้งหมด
+                let rrValue = row[colMap.rr] ? row[colMap.rr].toString().replace(/\s/g, '') : '';
+                let rawResult = (row[colMap.result] || '').toString().trim();
+                let rawStatus = (row[colMap.status] || '').toString().trim();
+
                 if (rawResult.toUpperCase() === 'NONE') {
                     rawResult = 'CANCEL';
                 }
@@ -11035,13 +11870,56 @@
                     rawStatus = 'CANCEL';
                 }
 
-                const trade = { no: row[0] || '', setId: row[1] || '', date: formatDate(row[2]), plan: row[3] || '', type: row[4] || '', asset: row[5] || '', category: row[6] || '', order: row[7] || '', entryOrder: row[8] || '', tpOrder: row[9] || '', slOrder: row[10] || '', strategy: row[11] || '', setup: row[12] || '', result: rawResult, points: parseFloat(row[14]) || 0, rr: rrValue, notePlan: row[16] || '', status: rawStatus };
+                const rawTime = colMap.time !== -1 ? row[colMap.time] : '';
+                const sessionInfo = parseTradeTimeAndSession(rawTime, row[colMap.notePlan]);
+                if (sessionInfo.hasTime) realTimesCount++;
+
+                const trade = {
+                    no: row[colMap.no] || '',
+                    setId: row[colMap.setId] || '',
+                    date: formatDate(row[colMap.date]),
+                    plan: row[colMap.plan] || '',
+                    type: row[colMap.type] || '',
+                    asset: row[colMap.asset] || '',
+                    category: row[colMap.category] || '',
+                    order: row[colMap.order] || '',
+                    entryOrder: row[colMap.entryOrder] || '',
+                    tpOrder: row[colMap.tpOrder] || '',
+                    slOrder: row[colMap.slOrder] || '',
+                    strategy: row[colMap.strategy] || '',
+                    setup: row[colMap.setup] || '',
+                    result: rawResult,
+                    points: parseFloat(row[colMap.points]) || 0,
+                    rr: rrValue,
+                    notePlan: row[colMap.notePlan] || '',
+                    status: rawStatus,
+                    rawTime: rawTime,
+                    hasTime: sessionInfo.hasTime,
+                    timeStr: sessionInfo.timeStr,
+                    hour: sessionInfo.hour,
+                    minute: sessionInfo.minute,
+                    sessionKey: sessionInfo.sessionKey,
+                    sessionName: sessionInfo.sessionName,
+                    sessionNameTh: sessionInfo.sessionNameTh,
+                    sessionColor: sessionInfo.sessionColor,
+                    isOverlap: sessionInfo.isOverlap
+                };
+
                 const setIdBase = getSetIdBase(trade.setId);
                 trade.setIdBase = setIdBase;
                 trade.round = getRoundFromSetId(trade.setId);
                 allTrades.push(trade);
-                if (setIdBase) { if (!groupedTrades[setIdBase]) groupedTrades[setIdBase] = []; groupedTrades[setIdBase].push(trade); }
+
+                if (setIdBase) {
+                    if (!groupedTrades[setIdBase]) groupedTrades[setIdBase] = [];
+                    groupedTrades[setIdBase].push(trade);
+                }
             }
+
+            // Real times exist flag (Demo mode permanently disabled - strictly real sheet data)
+            hasRealTimesInSheet = (realTimesCount > 0);
+            isDemoSessionTimeActive = false;
+
             // คำนวณสรุปผลรวมและสถานะระดับแผน (Plan / Set Summary)
             Object.keys(groupedTrades).forEach(base => {
                 const group = groupedTrades[base];
@@ -11078,10 +11956,25 @@
                     trade.primaryTrade = trade;
                 }
             });
-            if (allTrades.length > 0) { const lastDate = parseDateString(allTrades[allTrades.length - 1].date); if (lastDate) { currentCalendarDate = lastDate; selectedYear = lastDate.getFullYear(); } }
-            populateMonthDropdown(); populateYearDropdown(); applyAllFilters();
 
-            document.querySelector('.calendar-section').classList.add('loaded');
+            if (allTrades.length > 0) {
+                const lastDate = parseDateString(allTrades[allTrades.length - 1].date);
+                if (lastDate) {
+                    currentCalendarDate = lastDate;
+                    selectedYear = lastDate.getFullYear();
+                }
+            }
+            populateMonthDropdown();
+            populateYearDropdown();
+            applyAllFilters();
+
+            const calSec = document.querySelector('.calendar-section');
+            if (calSec) calSec.classList.add('loaded');
+
+            // Update strategy session dashboard if currently active
+            if (typeof currentStratMainTab !== 'undefined' && currentStratMainTab === 'session') {
+                renderTimeSessionDashboard();
+            }
         }
 
         function resetDashboard() {
@@ -12181,11 +13074,21 @@
                 imageHTML = `<div class="modal-image-container has-image"><img src="${imageUrl}" class="modal-image" alt="Trade Setup" onerror="handleImageError(this)" referrerpolicy="no-referrer"><div class="image-error-fallback"><span class="image-error-text">Image failed to load (Check Drive Permissions)</span><a href="${rep.setup || t.setup}" target="_blank" class="view-image-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg> Open Original Link</a></div></div>`;
             }
 
+            const effectiveTimeObj = (typeof getSimulatedSessionForTrade === 'function') ? getSimulatedSessionForTrade(t) : t;
+            const timeDisplay = (t.timeStr || rep.timeStr || effectiveTimeObj?.timeStr);
+            const sessionName = (t.sessionNameTh || rep.sessionNameTh || effectiveTimeObj?.sessionNameTh || '');
+            const sessionColor = (t.sessionColor || rep.sessionColor || effectiveTimeObj?.sessionColor || '#38bdf8');
+            let timeHTML = '';
+            if (timeDisplay) {
+                timeHTML = `<div class="detail-item"><span class="detail-label">Entry Time</span><div class="detail-value" style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;"><span style="font-family:'Space Mono', monospace; font-weight:700;">${timeDisplay}</span><span style="font-size:0.68rem; font-weight:700; padding:2px 8px; border-radius:9999px; background:${sessionColor}22; color:${sessionColor}; border:1px solid ${sessionColor}44;">${sessionName}</span></div></div>`;
+            }
+
             const ptsSign = totalPts > 0 ? '+' : '';
             body.innerHTML = `
                 <div class="detail-grid">
                     <div class="detail-item"><span class="detail-label">Asset</span><span class="detail-value">${rep.asset || t.asset}</span></div>
                     <div class="detail-item"><span class="detail-label">Strategy</span><span class="detail-value">${rep.strategy || t.strategy}</span></div>
+                    ${timeHTML}
                     <div class="detail-item"><span class="detail-label">Points</span><span class="detail-value ${totalPts >= 0 ? 'positive' : 'negative'}">${ptsSign}${totalPts.toLocaleString()}</span></div>
                     <div class="detail-item full"><span class="detail-label">Note</span><div class="detail-note">${rep.notePlan || t.notePlan || '-'}</div></div>
                     ${imageHTML ? `<div class="detail-item full"><span class="detail-label">Setup Image</span>${imageHTML}</div>` : ''}
@@ -13770,6 +14673,727 @@
             if (trade) {
                 openModal(trade);
             }
+        }
+
+        // ==========================================================================
+        // --- 7.5 TIME SESSION INTELLIGENCE & HOURLY EDGE ANALYTICS SYSTEM ---
+        // ==========================================================================
+        let currentStratMainTab = 'playbook'; // 'playbook' or 'session'
+        let currentSessionFilter = 'all'; // 'all', 'asia', 'london', 'overlap', 'newyork', 'latenight', 'unspecified'
+        let isDemoSessionTimeActive = false;
+        let hasRealTimesInSheet = false;
+        let sessionComparisonChartInstance = null;
+        let hourlyDistributionChartInstance = null;
+
+        function switchStratMainTab(tab) {
+            currentStratMainTab = tab;
+            const pTab = document.getElementById('stratMainTabPlaybook');
+            const sTab = document.getElementById('stratMainTabSession');
+            const pCont = document.getElementById('stratContainerPlaybook');
+            const sCont = document.getElementById('stratContainerSession');
+            const ind = document.getElementById('stratHeaderActiveSessionIndicator');
+
+            if (tab === 'playbook') {
+                if (pTab) pTab.classList.add('active');
+                if (sTab) sTab.classList.remove('active');
+                if (pCont) pCont.style.display = 'flex';
+                if (sCont) sCont.style.display = 'none';
+                if (ind) ind.textContent = 'Mode: Strategy Playbook';
+                setTimeout(() => {
+                    if (stratLeaderboardChartInstance) stratLeaderboardChartInstance.resize();
+                    if (stratTFChartInstance) stratTFChartInstance.resize();
+                }, 50);
+            } else {
+                if (pTab) pTab.classList.remove('active');
+                if (sTab) sTab.classList.add('active');
+                if (pCont) pCont.style.display = 'none';
+                if (sCont) sCont.style.display = 'flex';
+                if (ind) ind.textContent = 'Mode: Time Session Intelligence';
+                renderTimeSessionDashboard();
+                setTimeout(() => {
+                    if (sessionComparisonChartInstance) sessionComparisonChartInstance.resize();
+                    if (hourlyDistributionChartInstance) hourlyDistributionChartInstance.resize();
+                }, 50);
+            }
+        }
+
+        function setSessionFilter(sessionKey, btn) {
+            currentSessionFilter = sessionKey;
+            document.querySelectorAll('#sessionFilterPills .strat-pill-btn').forEach(b => {
+                if (b === btn || b.dataset.session === sessionKey) b.classList.add('active');
+                else b.classList.remove('active');
+            });
+
+            // Update selected class in Leaderboard rows
+            document.querySelectorAll('#sessionLeaderboardContainer .strat-top10-item').forEach(item => {
+                if (item.getAttribute('data-session-key') === sessionKey) {
+                    item.classList.add('is-selected');
+                } else {
+                    item.classList.remove('is-selected');
+                }
+            });
+
+            renderSessionBlotterOnly();
+        }
+
+        function openSessionSheetGuideModal() {
+            const m = document.getElementById('sessionSheetGuideModal');
+            if (m) m.style.display = 'flex';
+        }
+
+        function closeSessionSheetGuideModal() {
+            const m = document.getElementById('sessionSheetGuideModal');
+            if (m) m.style.display = 'none';
+        }
+
+        function getSimulatedSessionForTrade(trade) {
+            if (trade && trade.hasTime) {
+                return {
+                    timeStr: trade.timeStr,
+                    hour: trade.hour,
+                    minute: trade.minute,
+                    sessionKey: trade.sessionKey,
+                    sessionName: trade.sessionName,
+                    sessionNameTh: trade.sessionNameTh,
+                    sessionColor: trade.sessionColor,
+                    isOverlap: trade.isOverlap,
+                    isSimulated: false
+                };
+            }
+            return {
+                timeStr: '',
+                hour: null,
+                minute: null,
+                sessionKey: 'unspecified',
+                sessionName: 'Unspecified',
+                sessionNameTh: 'ยังไม่ระบุเวลา',
+                sessionColor: '#94a3b8',
+                isOverlap: false,
+                isSimulated: false
+            };
+        }
+
+        // --- MAIN TIME SESSION INTELLIGENCE RENDERER (Clean, Real Data Only) ---
+        function renderTimeSessionDashboard() {
+            const container = document.getElementById('stratContainerSession');
+            if (!container) return;
+
+            const activeTrades = getStrategyActiveTrades();
+            const tradesWithTime = activeTrades.filter(t => t.hasTime);
+
+            // Update Summary Badge
+            const summaryPill = document.getElementById('sessionHeaderSummaryPill');
+            if (summaryPill) {
+                summaryPill.textContent = `บันทึกเวลา ${tradesWithTime.length} / ${activeTrades.length} ไม้`;
+            }
+
+            // Session definitions (GMT+7 Thailand Time)
+            const sessionConfigs = {
+                asia: {
+                    key: 'asia',
+                    name: 'Asia Session',
+                    nameTh: 'เอเชีย (Asia)',
+                    timeRange: '06:00 - 14:00 น.',
+                    icon: '🌏',
+                    color: '#38bdf8',
+                    character: 'Asian Accumulation',
+                    trades: [],
+                    wins: 0, loses: 0, draws: 0, cancels: 0,
+                    points: 0
+                },
+                london: {
+                    key: 'london',
+                    name: 'London Session',
+                    nameTh: 'ลอนดอน (London)',
+                    timeRange: '14:00 - 20:00 น.',
+                    icon: '🏛️',
+                    color: '#a855f7',
+                    character: 'London Breakout',
+                    trades: [],
+                    wins: 0, loses: 0, draws: 0, cancels: 0,
+                    points: 0
+                },
+                overlap: {
+                    key: 'overlap',
+                    name: 'London / NY Overlap',
+                    nameTh: 'London/NY Overlap',
+                    timeRange: '19:00 - 22:00 น.',
+                    icon: '⚡',
+                    color: '#10b981',
+                    character: 'Peak Liquidity',
+                    trades: [],
+                    wins: 0, loses: 0, draws: 0, cancels: 0,
+                    points: 0
+                },
+                newyork: {
+                    key: 'newyork',
+                    name: 'New York Session',
+                    nameTh: 'นิวยอร์ก (NY)',
+                    timeRange: '20:00 - 03:00 น.',
+                    icon: '🗽',
+                    color: '#f59e0b',
+                    character: 'US News & Expansion',
+                    trades: [],
+                    wins: 0, loses: 0, draws: 0, cancels: 0,
+                    points: 0
+                },
+                latenight: {
+                    key: 'latenight',
+                    name: 'Late Night / Off-Hours',
+                    nameTh: 'รอบดึก (Late Night)',
+                    timeRange: '03:00 - 06:00 น.',
+                    icon: '🌙',
+                    color: '#64748b',
+                    character: 'Thin Liquidity',
+                    trades: [],
+                    wins: 0, loses: 0, draws: 0, cancels: 0,
+                    points: 0
+                }
+            };
+
+            // Hourly stats (00 to 23)
+            const hourlyStats = Array.from({ length: 24 }, (_, h) => ({
+                hour: h,
+                hourLabel: `${String(h).padStart(2, '0')}:00`,
+                count: 0,
+                wins: 0,
+                loses: 0,
+                draws: 0,
+                points: 0,
+                winRate: 0
+            }));
+
+            // Aggregate strictly from trades with actual recorded time
+            tradesWithTime.forEach(trade => {
+                if (trade.hour !== null && trade.hour !== undefined) {
+                    const h = trade.hour;
+                    const hStat = hourlyStats[h];
+                    hStat.count++;
+                    hStat.points += (trade.points || 0);
+
+                    const st = (trade.status || '').toUpperCase();
+                    if (st === 'WIN') hStat.wins++;
+                    else if (st === 'LOSE') hStat.loses++;
+                    else if (st === 'DRAW') hStat.draws++;
+
+                    const targetSession = sessionConfigs[trade.sessionKey];
+                    if (targetSession) {
+                        targetSession.trades.push(trade);
+                        targetSession.points += (trade.points || 0);
+                        if (st === 'WIN') targetSession.wins++;
+                        else if (st === 'LOSE') targetSession.loses++;
+                        else if (st === 'DRAW') targetSession.draws++;
+                        else targetSession.cancels++;
+                    }
+
+                    if (trade.isOverlap) {
+                        const ov = sessionConfigs.overlap;
+                        ov.trades.push(trade);
+                        ov.points += (trade.points || 0);
+                        if (st === 'WIN') ov.wins++;
+                        else if (st === 'LOSE') ov.loses++;
+                        else if (st === 'DRAW') ov.draws++;
+                        else ov.cancels++;
+                    }
+                }
+            });
+
+            // Calculate metrics for each session
+            Object.values(sessionConfigs).forEach(sc => {
+                const valid = sc.wins + sc.loses + sc.draws;
+                sc.validTrades = valid;
+                sc.winRate = valid > 0 ? (sc.wins / valid) * 100 : 0;
+            });
+
+            // Calculate hourly Win Rates
+            hourlyStats.forEach(hs => {
+                const val = hs.wins + hs.loses + hs.draws;
+                hs.winRate = val > 0 ? (hs.wins / val) * 100 : 0;
+            });
+
+            // 1. Render Left Column: Sessions Leaderboard List
+            renderSessionLeaderboard(sessionConfigs, hourlyStats);
+
+            // 2. Render Right Column: Session Comparison Chart
+            renderSessionComparisonChart(sessionConfigs);
+
+            // 3. Render Right Column: 24-Hour Distribution Curve
+            renderHourlyDistributionChart(hourlyStats);
+
+            // 4. Render Bottom: Clean Blotter Table
+            renderSessionBlotterOnly();
+        }
+
+        // Render Left Column: Sessions Leaderboard List (Matches Strategy Leaderboard Aesthetic)
+        function renderSessionLeaderboard(sessionConfigs, hourlyStats) {
+            const container = document.getElementById('sessionLeaderboardContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const sessions = [
+                sessionConfigs.asia,
+                sessionConfigs.london,
+                sessionConfigs.overlap,
+                sessionConfigs.newyork,
+                sessionConfigs.latenight
+            ];
+
+            // Sort: sessions with trades first, ordered by points desc, then winRate desc
+            const sortedSessions = [...sessions].sort((a, b) => {
+                if (a.trades.length > 0 && b.trades.length === 0) return -1;
+                if (a.trades.length === 0 && b.trades.length > 0) return 1;
+                return (b.points - a.points) || (b.winRate - a.winRate);
+            });
+
+            sortedSessions.forEach((sc, idx) => {
+                const item = document.createElement('div');
+                const isSelected = (currentSessionFilter === sc.key);
+                item.className = `strat-top10-item ${isSelected ? 'is-selected' : ''}`;
+                item.setAttribute('data-session-key', sc.key);
+                item.style.cursor = 'pointer';
+                item.title = `คลิกเพื่อกรองออเดอร์ในรอบ ${sc.nameTh}`;
+                item.onclick = () => {
+                    const newFilter = (currentSessionFilter === sc.key) ? 'all' : sc.key;
+                    setSessionFilter(newFilter);
+                };
+
+                const formattedRank = String(idx + 1).padStart(2, '0');
+                let rankClass = '';
+                if (idx === 0 && sc.trades.length > 0) rankClass = 'rank-gold';
+                else if (idx === 1 && sc.trades.length > 0) rankClass = 'rank-silver';
+                else if (idx === 2 && sc.trades.length > 0) rankClass = 'rank-bronze';
+
+                const ptsSign = sc.points > 0 ? '+' : '';
+                const ptsClass = sc.points >= 0 ? 'positive' : 'negative';
+                const wrClass = sc.winRate >= 50 ? 'positive' : (sc.validTrades > 0 ? 'negative' : '');
+                const wrText = sc.validTrades > 0 ? `${sc.winRate.toFixed(1)}%` : '-';
+                const ptsText = sc.trades.length > 0 ? `${ptsSign}${sc.points.toLocaleString()} pts` : '-';
+
+                item.innerHTML = `
+                    <div class="top10-left" style="display: flex; align-items: center; gap: 10px;">
+                        <span class="top10-rank-num ${rankClass}">${formattedRank}</span>
+                        <div class="top10-info" style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                            <span style="font-size: 0.95rem;">${sc.icon}</span>
+                            <span style="font-weight: 700; color: var(--text-primary); font-size: 0.82rem;">${sc.nameTh}</span>
+                            <span class="strat-tf-badge" style="font-size: 0.65rem; color: ${sc.color}; border-color: ${sc.color}40; background: ${sc.color}15;">${sc.timeRange}</span>
+                        </div>
+                    </div>
+                    <div class="top10-stats-row">
+                        <div class="top10-stat-wr ${wrClass}" style="width: 72px; text-align: right; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.82rem;">
+                            ${wrText}
+                        </div>
+                        <div class="top10-stat-pts ${ptsClass}" style="width: 105px; text-align: right; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.82rem;">
+                            ${ptsText}
+                        </div>
+                        <div class="top10-stat-trades" style="width: 65px; text-align: center;">
+                            <span class="top10-trades-pill" style="font-size: 0.72rem; padding: 2px 7px;">${sc.trades.length} ไม้</span>
+                        </div>
+                        <button type="button" class="top10-drill-btn" onclick="event.stopPropagation(); setSessionFilter('${sc.key}'); document.getElementById('sessionBlotterBody')?.scrollIntoView({ behavior: 'smooth', block: 'center' });" title="ดูออเดอร์ในรอบนี้">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+
+            // Summary Footer Text: Best Session
+            const activeSessions = sessions.filter(s => s.trades.length > 0);
+            const bestSubEl = document.getElementById('sessionBestSummaryText');
+            if (bestSubEl) {
+                if (activeSessions.length > 0) {
+                    const sortedBest = [...activeSessions].sort((a, b) => (b.points - a.points) || (b.winRate - a.winRate));
+                    const best = sortedBest[0];
+                    bestSubEl.innerHTML = `🏆 รอบดีที่สุด: <strong style="color: ${best.color}; font-weight: 700;">${best.nameTh}</strong> (${best.points >= 0 ? '+' : ''}${best.points.toLocaleString()} pts, WR ${best.winRate.toFixed(1)}%)`;
+                } else {
+                    bestSubEl.textContent = '*คลิกที่แถวเซสชั่นเพื่อกรองตารางออเดอร์ด้านล่าง';
+                }
+            }
+
+            // Golden Hour Peak Badge
+            if (hourlyStats) {
+                const hoursWithTrades = hourlyStats.filter(h => h.count > 0);
+                const gPill = document.getElementById('goldenHourActivePill');
+                if (gPill) {
+                    if (hoursWithTrades.length > 0) {
+                        const sortedHours = [...hoursWithTrades].sort((a, b) => (b.points - a.points) || (b.winRate - a.winRate));
+                        const gHour = sortedHours[0];
+                        const nextH = (gHour.hour + 1) % 24;
+                        gPill.textContent = `⚡ Golden Hour: ${String(gHour.hour).padStart(2, '0')}:00 - ${String(nextH).padStart(2, '0')}:00 น. (${gHour.points >= 0 ? '+' : ''}${gHour.points} pts)`;
+                    } else {
+                        gPill.textContent = '⚡ Peak Hours';
+                    }
+                }
+            }
+        }
+
+        // Render Session Performance Comparison Chart
+        function renderSessionComparisonChart(sessionConfigs) {
+            const canvas = document.getElementById('sessionComparisonChart');
+            if (!canvas) return;
+
+            if (sessionComparisonChartInstance) {
+                sessionComparisonChartInstance.destroy();
+                sessionComparisonChartInstance = null;
+            }
+
+            const sessions = [
+                sessionConfigs.asia,
+                sessionConfigs.london,
+                sessionConfigs.overlap,
+                sessionConfigs.newyork,
+                sessionConfigs.latenight
+            ];
+
+            const labels = [
+                'เอเชีย (Asia)',
+                'ลอนดอน (London)',
+                'Overlap',
+                'นิวยอร์ก (NY)',
+                'รอบดึก (Late Night)'
+            ];
+            const winRates = sessions.map(s => s.validTrades > 0 ? parseFloat(s.winRate.toFixed(1)) : 0);
+            const netPoints = sessions.map(s => s.points);
+            const barColors = sessions.map(s => s.color);
+
+            const isDark = document.documentElement.getAttribute('data-theme') !== 'white';
+            const gridColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)';
+            const textColor = isDark ? '#94a3b8' : '#64748b';
+
+            sessionComparisonChartInstance = new Chart(canvas, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            type: 'bar',
+                            label: 'Win Rate (%)',
+                            data: winRates,
+                            backgroundColor: barColors.map(c => `${c}cc`),
+                            borderColor: barColors,
+                            borderWidth: 1.5,
+                            borderRadius: 6,
+                            yAxisID: 'yWinRate',
+                            order: 2
+                        },
+                        {
+                            type: 'line',
+                            label: 'Net Points (pts)',
+                            data: netPoints,
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.15)',
+                            borderWidth: 2.5,
+                            pointBackgroundColor: '#10b981',
+                            pointBorderColor: '#ffffff',
+                            pointBorderWidth: 1.5,
+                            pointRadius: 4,
+                            pointHoverRadius: 6,
+                            tension: 0.3,
+                            yAxisID: 'yPoints',
+                            order: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    onClick: (evt, elements) => {
+                        if (elements && elements.length > 0) {
+                            const idx = elements[0].index;
+                            const target = sessions[idx];
+                            if (target) {
+                                setSessionFilter(target.key);
+                                const blotterEl = document.getElementById('sessionBlotterBody');
+                                if (blotterEl) blotterEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            }
+                        }
+                    },
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+                            titleColor: isDark ? '#f8fafc' : '#0f172a',
+                            bodyColor: isDark ? '#cbd5e1' : '#334155',
+                            borderColor: isDark ? 'rgba(148, 163, 184, 0.2)' : 'rgba(148, 163, 184, 0.3)',
+                            borderWidth: 1,
+                            padding: 10,
+                            callbacks: {
+                                label: function (ctx) {
+                                    if (ctx.dataset.yAxisID === 'yWinRate') {
+                                        return ` Win Rate: ${ctx.parsed.y.toFixed(1)}%`;
+                                    } else {
+                                        const sign = ctx.parsed.y > 0 ? '+' : '';
+                                        return ` Net Points: ${sign}${ctx.parsed.y.toLocaleString()} pts`;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: textColor, font: { family: 'Inter', size: 10, weight: '600' } }
+                        },
+                        yWinRate: {
+                            type: 'linear',
+                            position: 'left',
+                            min: 0,
+                            max: 100,
+                            grid: { color: gridColor },
+                            ticks: {
+                                color: textColor,
+                                font: { family: 'Space Mono', size: 9 },
+                                callback: val => `${val}%`
+                            }
+                        },
+                        yPoints: {
+                            type: 'linear',
+                            position: 'right',
+                            grid: { drawOnChartArea: false },
+                            ticks: {
+                                color: '#10b981',
+                                font: { family: 'Space Mono', size: 9 },
+                                callback: val => `${val > 0 ? '+' : ''}${val}`
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Render 24-Hour Distribution Curve
+        function renderHourlyDistributionChart(hourlyStats) {
+            const canvas = document.getElementById('hourlyDistributionChart');
+            if (!canvas) return;
+
+            if (hourlyDistributionChartInstance) {
+                hourlyDistributionChartInstance.destroy();
+                hourlyDistributionChartInstance = null;
+            }
+
+            const labels = hourlyStats.map(h => `${h.hour}:00`);
+            const tradeCounts = hourlyStats.map(h => h.count);
+            const winRates = hourlyStats.map(h => h.count > 0 ? parseFloat(h.winRate.toFixed(1)) : null);
+
+            // Color bar dynamically based on market session
+            const barColors = hourlyStats.map(h => {
+                const hr = h.hour;
+                if (hr >= 6 && hr < 14) return 'rgba(56, 189, 248, 0.45)'; // Asia Sky
+                if (hr >= 14 && hr < 19) return 'rgba(168, 85, 247, 0.55)'; // London Purple
+                if (hr >= 19 && hr < 22) return 'rgba(16, 185, 129, 0.65)'; // Overlap Green
+                if (hr >= 20 || hr < 3) return 'rgba(245, 158, 11, 0.55)';  // NY Amber
+                return 'rgba(100, 116, 139, 0.35)'; // Late Night
+            });
+
+            const isDark = document.documentElement.getAttribute('data-theme') !== 'white';
+            const gridColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.06)';
+            const textColor = isDark ? '#94a3b8' : '#64748b';
+
+            hourlyDistributionChartInstance = new Chart(canvas, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            type: 'bar',
+                            label: 'จำนวนออเดอร์',
+                            data: tradeCounts,
+                            backgroundColor: barColors,
+                            borderRadius: 4,
+                            yAxisID: 'yCount',
+                            order: 2
+                        },
+                        {
+                            type: 'line',
+                            label: 'Win Rate (%)',
+                            data: winRates,
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#f59e0b',
+                            pointBorderColor: '#ffffff',
+                            pointBorderWidth: 1,
+                            pointRadius: 3,
+                            pointHoverRadius: 5,
+                            spanGaps: true,
+                            tension: 0.35,
+                            yAxisID: 'yWR',
+                            order: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+                            titleColor: isDark ? '#f8fafc' : '#0f172a',
+                            bodyColor: isDark ? '#cbd5e1' : '#334155',
+                            borderColor: isDark ? 'rgba(148, 163, 184, 0.2)' : 'rgba(148, 163, 184, 0.3)',
+                            borderWidth: 1,
+                            padding: 10,
+                            callbacks: {
+                                label: function (ctx) {
+                                    if (ctx.dataset.yAxisID === 'yCount') {
+                                        return ` ออเดอร์: ${ctx.parsed.y} ไม้`;
+                                    } else {
+                                        return ctx.parsed.y !== null ? ` Win Rate: ${ctx.parsed.y.toFixed(1)}%` : ' ไม่มีออเดอร์';
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                color: textColor,
+                                font: { family: 'Space Mono', size: 9 },
+                                maxRotation: 0,
+                                autoSkip: true,
+                                maxTicksLimit: 12
+                            }
+                        },
+                        yCount: {
+                            type: 'linear',
+                            position: 'left',
+                            beginAtZero: true,
+                            grid: { color: gridColor },
+                            ticks: {
+                                color: textColor,
+                                font: { family: 'Space Mono', size: 9 },
+                                precision: 0
+                            }
+                        },
+                        yWR: {
+                            type: 'linear',
+                            position: 'right',
+                            min: 0,
+                            max: 100,
+                            grid: { drawOnChartArea: false },
+                            ticks: {
+                                color: '#f59e0b',
+                                font: { family: 'Space Mono', size: 9 },
+                                callback: val => `${val}%`
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Render Filtered Trades Blotter Table
+        function renderSessionBlotterOnly() {
+            const tbody = document.getElementById('sessionBlotterBody');
+            const countPill = document.getElementById('sessionBlotterCountPill');
+            const searchInput = document.getElementById('sessionBlotterSearchInput');
+            if (!tbody) return;
+
+            tbody.innerHTML = '';
+            const activeTrades = getStrategyActiveTrades();
+            const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+
+            // Filter trades by session
+            const filteredTrades = activeTrades.filter(t => {
+                // Search query match
+                if (query) {
+                    const matchSearch = String(t.no).toLowerCase().includes(query) ||
+                        String(t.date).toLowerCase().includes(query) ||
+                        String(t.timeStr).toLowerCase().includes(query) ||
+                        String(t.strategy).toLowerCase().includes(query) ||
+                        String(t.order).toLowerCase().includes(query) ||
+                        String(t.result).toLowerCase().includes(query) ||
+                        String(t.notePlan).toLowerCase().includes(query);
+                    if (!matchSearch) return false;
+                }
+
+                if (currentSessionFilter === 'all') return true;
+                if (currentSessionFilter === 'unspecified') return !t.hasTime;
+                if (currentSessionFilter === 'overlap') return t.isOverlap;
+                return t.sessionKey === currentSessionFilter;
+            });
+
+            if (countPill) countPill.textContent = `${filteredTrades.length} ไม้`;
+
+            if (filteredTrades.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="10" style="text-align: center; padding: 36px 20px; color: var(--text-muted); font-size: 0.8rem;">
+                            <div style="font-size: 1.5rem; margin-bottom: 6px;">⏱️</div>
+                            <div style="font-weight: 600; color: var(--text-primary);">ไม่พบประวัติการเทรดในรอบเวลานี้</div>
+                            <div style="font-size: 0.72rem; margin-top: 4px;">ข้อมูลจะแสดงเมื่อมีการบันทึกเวลาในคอลัมน์ Time หน้าคอลัมน์ Order ใน Google Sheet</div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            filteredTrades.forEach(t => {
+                const tr = document.createElement('tr');
+                tr.className = 'blotter-row';
+                tr.onclick = () => openModalFromStrategyView(t.no, t.setId);
+                tr.style.cursor = 'pointer';
+
+                const sColor = t.hasTime ? t.sessionColor : '#94a3b8';
+                const sName = t.hasTime ? t.sessionNameTh : 'ยังไม่ระบุเวลา';
+                const timeText = t.hasTime ? t.timeStr : '-';
+
+                const pts = t.points || 0;
+                const ptsSign = pts > 0 ? '+' : '';
+                const ptsColor = pts >= 0 ? 'var(--accent-green)' : 'var(--accent-red)';
+                const statusUpper = (t.status || '').toUpperCase();
+                const statusClass = getStatusClass(statusUpper);
+
+                const parsed = parseStrategySetup(t.strategy);
+                const setupName = parsed.name || t.strategy || '-';
+                const tfBadge = parsed.timeframe ? `<span class="strat-tf-badge" style="font-size: 0.65rem;">${parsed.timeframe}</span>` : '';
+
+                tr.innerHTML = `
+                    <td style="text-align: center; font-family: 'Space Mono', monospace; font-weight: 600; color: var(--text-muted); font-size: 0.76rem;">${t.no}</td>
+                    <td style="font-family: 'Space Mono', monospace; font-size: 0.76rem;">${t.date}</td>
+                    <td style="text-align: center; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.78rem; color: ${t.hasTime ? sColor : 'var(--text-muted)'};">
+                        ${timeText}
+                    </td>
+                    <td>
+                        <span class="session-badge-pill" style="background: ${sColor}18; color: ${sColor}; border: 1px solid ${sColor}35; font-size: 0.72rem; padding: 2px 8px; border-radius: 9999px; display: inline-flex; align-items: center; gap: 4px;">
+                            ${sName}
+                        </span>
+                    </td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                            <span style="font-weight: 600; color: var(--text-primary); font-size: 0.8rem;">${setupName}</span>
+                            ${tfBadge}
+                        </div>
+                    </td>
+                    <td style="text-align: center;">
+                        <span class="cell-order ${(t.order || '').toUpperCase() === 'BUY' ? 'buy' : 'sell'}">${t.order || '-'}</span>
+                    </td>
+                    <td style="text-align: center;">
+                        <span class="cell-status ${statusClass}">${statusUpper || '-'}</span>
+                    </td>
+                    <td style="text-align: right; font-family: 'Space Mono', monospace; font-weight: 700; color: ${ptsColor};">
+                        ${ptsSign}${pts.toLocaleString()} pts
+                    </td>
+                    <td style="text-align: center; font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--text-secondary);">
+                        ${t.rr || '-'}
+                    </td>
+                    <td style="text-align: center;">
+                        <button type="button" class="strat-tbl-btn" onclick="event.stopPropagation(); openModalFromStrategyView('${t.no}', '${t.setId}')" style="font-size: 0.7rem; padding: 4px 8px;">
+                            <span>ดูไม้</span>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
         }
 
         // Close time filter popover when clicking outside
